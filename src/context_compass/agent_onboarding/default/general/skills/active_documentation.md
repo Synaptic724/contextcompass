@@ -75,7 +75,7 @@ References
 - `agent_onboarding/default/general/skills/reactive_documentation.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `workflow.md`
+- the selected backend's general workflow skill
 
 
 

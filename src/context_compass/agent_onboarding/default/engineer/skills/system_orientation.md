@@ -18,15 +18,14 @@ Required behavior
   - `SKILLS.MD`
   - `agent_onboarding/default/general/SKILLS.MD`
   - `agent_onboarding/default/engineer/SKILLS.MD`
-  - `agent_onboarding/default/general/skills/workflow.md`
+  - the selected backend's general workflow skill
 - Do not restate or override policy; cite the relevant skill or doc.
 
 Core references
 - Fresh-install posture for `system_docs/`: `system_docs/system_docs_read_first.md`
   (read this before asserting that a context map is missing or wrong)
 - Agent stories: `agent_onboarding/default/general/behavioral_guidelines/README.md`
-- Ticketing: `agent_onboarding/default/general/skills/workflow.md` and
-  `templates/`
+- Ticketing: the selected backend's general workflow skill and `templates/`
 - System context, in the order it is meant to be used - each step names the key the
   next one is looked up by. Do not treat these as a flat menu:
   1. `system_docs/src_architecture.md` - which part of the system (read whole)
@@ -56,14 +55,14 @@ Core references
 Artifact taxonomy (curated vs scratch)
 - Curated, user-owned (source of truth):
   - `attention_board.md` (canonical routing state for active work)
-  - `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
-  - `tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/` (closed tickets)
+  - local mode: `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+    and their matching completed folders
+  - plugin mode: configured Issue bodies plus local `issue_board.md`
 - Scratch, agent-owned (not canonical):
   - `user_defined/` - yours outright, never written to by any tool, create the
     subfolders you want (for example `user_defined/ideas/`, `user_defined/todo/`)
-  - There is no top-level `completed/` and no `workspace/` lane. Both were named in
-    earlier revisions of this skill and neither has ever shipped; closed tickets
-    live in the three `tickets/*/completed/` lanes listed above.
+  - There is no top-level `completed/` or `workspace/` lane. In local mode,
+    closed tickets live in the three `tickets/*/completed/` lanes above.
 - Promotion rule: when content becomes durable or actionable, convert it into tickets.
 
 Suggested user-facing explanation flow

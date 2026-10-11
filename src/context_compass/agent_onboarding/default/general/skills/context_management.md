@@ -75,5 +75,5 @@ Board rules
 
 References
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `context_management/context_board.md`

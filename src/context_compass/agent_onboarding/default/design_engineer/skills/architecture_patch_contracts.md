@@ -40,4 +40,4 @@ Handoff requirements
 References
 - `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
 - `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill

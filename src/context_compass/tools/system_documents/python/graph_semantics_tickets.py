@@ -10,6 +10,10 @@ A library that writes tickets into somebody's board without being asked is doing
 something hostile. Nothing here runs as part of extraction or assembly; this is a
 separate command, dry-run by default, and it asks before writing.
 
+The install's `config/context_compass_config.yaml`, beside the `tickets/` lane,
+selects the backend. Local `--create` is refused for github_codex_plugin. Its
+dry run reports the graph census only and never reads inactive local tickets.
+
 AGGREGATED AT THE PACKAGE, WHICH IS THE WHOLE DESIGN CONSTRAINT
 
 On a real codebase the census is ~1,188 unsemantic nodes across ~575 files.
@@ -52,6 +56,9 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from graph_walker import census, load, confirm  # noqa: E402
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
+from ticket_backend import BackendConfigError, read_backend  # noqa: E402
 
 STORY_MARKER = "GRAPH-SEM"
 EPIC_SLUG = "author-graph-semantics"
@@ -319,10 +326,21 @@ def main() -> int:
                          "when the directory-level count is too many stories")
     args = ap.parse_args()
 
+    config_path = args.tickets.parent / "config" / "context_compass_config.yaml"
+    try:
+        backend = read_backend(config_path)
+    except BackendConfigError as exc:
+        print(f"ERROR: {config_path}: {exc}")
+        return 2
+    if args.create and backend == "github_codex_plugin":
+        print("REFUSED: github_codex_plugin uses Issues; local --create is disabled.")
+        print("Use the dry-run census and compose tickets through the connected plugin.")
+        return 1
+
     if not args.descriptors.is_dir():
         print(f"ERROR: descriptor root not found: {args.descriptors}")
         return 2
-    if not args.tickets.is_dir():
+    if backend == "local" and not args.tickets.is_dir():
         print(f"ERROR: tickets lane not found: {args.tickets}")
         return 2
 
@@ -350,6 +368,15 @@ def main() -> int:
 
     needing = {p: v for p, v in by_pkg.items()
                if len(v["UNSEMANTIC"]) + len(v["SEMANTICS_STALE"]) >= args.min_nodes}
+
+    if backend == "github_codex_plugin":
+        print("  backend: github_codex_plugin")
+        print("  DRY RUN: graph census only; local ticket history is inactive.")
+        for package, states in sorted(needing.items()):
+            print(f"    {package}: {len(states['UNSEMANTIC'])} unsemantic, "
+                  f"{len(states['SEMANTICS_STALE'])} stale")
+        print("  Read existing Issues through the plugin before composing or updating tickets.")
+        return 0
 
     stories_lane = args.tickets / "stories"
     epics_lane = args.tickets / "epics"

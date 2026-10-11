@@ -38,6 +38,8 @@ Why this is called Self-directed and not On-demand (read this before you interpr
   refusal to do the work, dressed as deference.
 
 Rules
+- Inherited `general` reads include shared baseline skills and only the
+  backend baseline selected by YAML; inactive backend paths are not required.
 - You MUST read **all** paths listed under **Required baseline skills** for this role
   to be considered onboarded/certifiable as `engineer`.
 - You MUST read every file under **Baseline system orientation** that exists in this

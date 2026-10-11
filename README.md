@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/contextcompass.svg)](https://pypi.org/project/contextcompass/)
 [![Python](https://img.shields.io/pypi/pyversions/contextcompass.svg)](https://pypi.org/project/contextcompass/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/Synaptic724/context_compass?style=social)](https://github.com/Synaptic724/context_compass/stargazers)
 
 **Working memory for coding agents, stored in your repo instead of a chat window.**
 
@@ -15,6 +16,8 @@ That writes a `context_compass/` directory into your project. Point an agent at
 `context_compass/AGENTS.MD` and its tickets, decisions, evidence and handoff state
 live in files you own — surviving compaction, new chats, model swaps, and the next
 agent.
+
+> **⭐ If this is useful, please star the repo — it's how people find it.**
 
 ## Why It Exists
 
@@ -57,10 +60,11 @@ uvx contextcompass init
 Nothing lands in your project's dependency tree, because a repo-scaffolding tool
 has no business there.
 
-Pin a version for reproducibility, or track the latest:
+Pin a published version for reproducibility, or track the latest. Replace
+`X.Y.Z` with the release you want:
 
 ```bash
-uvx contextcompass@2.15.4 init     # exact, repeatable
+uvx contextcompass@X.Y.Z init      # exact, published release
 uvx contextcompass@latest init     # whatever is newest
 ```
 
@@ -99,14 +103,14 @@ pip install --user contextcompass && contextcompass init
 The package is **Markdown**. If all you want is the system, copy the folder:
 
 ```bash
-git clone https://github.com/Synaptic724/contextcompass
-cp -r contextcompass/src/context_compass my-repo/
+git clone https://github.com/Synaptic724/context_compass
+cp -r context_compass/src/context_compass my-repo/
 ```
 
 ```powershell
 # Windows
-git clone https://github.com/Synaptic724/contextcompass
-Copy-Item -Recurse contextcompass\src\context_compass my-repo\
+git clone https://github.com/Synaptic724/context_compass
+Copy-Item -Recurse context_compass\src\context_compass my-repo\
 ```
 
 Clone when you want to read the source first, work offline, vendor a specific
@@ -119,8 +123,8 @@ source graph, and upgrade an install. **Python 3.10+, stdlib only, no dependenci
 ever.** An agent that has to `pip install` before it can read a document is an
 agent that cannot read the document on a fresh clone.
 
-Tested on 3.10 through 3.14 (including free-threaded 3.14t) on Linux and Windows,
-on every push. Verify an install any time:
+The release workflow runs the suite on Python 3.10 through 3.14 on Linux and
+Windows. Verify an install any time:
 
 ```bash
 python context_compass/tools/package_manifest.py --root context_compass --check
@@ -130,14 +134,62 @@ python context_compass/tools/package_manifest.py --root context_compass --check
 
 1. Point your agent at `context_compass/AGENTS.MD` and ask it to onboard as an
    `engineer`.
-2. Approve the certification step it asks for: `CERTIFY: APPROVED`.
+2. Under the default onboarding flow, approve the certification step it asks
+   for: `CERTIFY: APPROVED`.
 3. Work normally. The agent routes through `attention_board.md` and the active
    ticket, and writes findings into ticket `## Notes`.
 4. Commit `context_compass/`. It is your repository's memory now, and it is meant
    to be reviewed and diffed like any other source.
-5. **After every compaction or handoff, tell the next agent to re-onboard.** That
-   is the whole trick — it rebuilds context from the repo instead of guessing from
-   a half-remembered chat.
+5. **After every compaction or handoff, the agent must re-onboard.** Add the
+   recovery reminder to your tool's custom instructions as described below. If
+   you skip that setup, remind the agent yourself.
+
+### Set up recovery once
+
+During onboarding, the agent checks whether your personal custom instructions
+already include Context Compass. If they do, it keeps your existing setup. If
+they do not, it offers a short setup form for Codex, Claude Code, or Gemini CLI.
+
+You choose whether Context Compass should own all tickets, plans, and working
+notes; whether agents can coordinate; when subagents may be created; and whether
+those subagents should complete their own onboarding. The agent shows the exact
+addition and asks before editing your personal instructions. You can also add
+the text yourself or skip setup. Existing preferences stay in place.
+
+The reminder sends the agent back to the repo's onboarding and recovery rules
+after compaction. It lives in your tool's personal configuration, while your
+project's work stays in Context Compass. Package installs and upgrades do not
+edit those personal files automatically.
+
+### Project-specific onboarding
+
+If your project needs a different onboarding routine, put explicit instructions
+in `context_compass/special_instructions/`. Agents read that folder before
+applying onboarding or re-onboarding defaults, so you do not need to fork the
+package's `AGENTS.MD` to change a particular requirement.
+
+State which requirement changes, where the override applies, and what should
+happen instead. Everything you do not override remains in force. Later role or
+skill documents do not undo the override, and agents reload it after compaction.
+Conflicting project instructions need clarification rather than a filename-based
+winner. The shipped folder contains no active override; normal onboarding is
+unchanged until you add one.
+
+These are project-policy overrides, not changes to the agent platform's system
+instructions or tool permissions.
+
+### Follow the request count
+
+Responses now carry a marker such as `prompt_id: compact_0_turn_3`. The turn
+advances once for each user request, including follow-up messages. Several
+progress updates and a final answer to that request all carry the same marker;
+tool calls do not advance it.
+
+After compaction, the next segment starts at `compact_1_turn_0`. Each agent
+session keeps its own counter checkpoint in the mailbox, so it can recover the
+count during re-onboarding. A missing checkpoint is reported as unknown instead
+of being silently reset. The marker helps you follow continuity alongside the
+agent's actual ticket notes and recovery work.
 
 ## Core Features
 
@@ -151,7 +203,7 @@ may touch anything.
 
 ### 2) Certification gate
 
-Nothing executes on trust. Before tools or edits, the agent posts what it read and
+Under the default onboarding rules, before tools or edits the agent posts what it read and
 what each document changes about its behavior, then waits for a message containing
 `AGENT_NAME: <name>` and the exact token `CERTIFY: APPROVED`. Proof is a
 comprehension claim, not a tool log — "I ran `cat`" is not evidence of reading.
@@ -268,13 +320,15 @@ a folder on disk with no row is scaffolding, not a selectable role.
 
 ## How A Session Actually Runs
 
-**Onboard.** The agent reads `AGENTS.MD`, then the execution contract, the config,
-and `SKILLS.MD`. It lists the roles and asks which to take. It walks the chain
+**Onboard.** The agent starts with `AGENTS.MD` and reads `special_instructions/`
+before applying onboarding defaults. It then follows the effective requirements
+for the execution contract, config, and `SKILLS.MD`. Normally it lists the roles
+and asks which to take. It walks the chain
 parent-first and reads every baseline section — for `engineer` that is its own
 required skills, the parent's active skills, and the system-orientation set
 (`src_architecture.md` plus the architecture and component indexes).
 
-**Certify.** It posts what it read and what each document changes about its
+**Certify (default).** It posts what it read and what each document changes about its
 behavior. You reply with `AGENT_NAME: helper_1` and `CERTIFY: APPROVED`.
 
 **Route.** It opens `attention_board.md` and picks up the active row:
@@ -307,7 +361,7 @@ that ticket, reads the notes, and continues — from evidence, not from memory.
 
 ## The Boards
 
-Three files, each with one job. All three carry `USER-DEFINED` regions that no
+Three default boards, each with one job. All carry `USER-DEFINED` regions that no
 tool writes to in any mode, so your rows survive upgrades while the surrounding
 structure improves.
 
@@ -321,6 +375,9 @@ for analysis, not for artifact paths. Durable history belongs in ticket notes.
 **`mailbox_board.md`** — point-to-point messages plus a checked-in roster, so
 concurrent agents can see who is live and hand work to a named recipient.
 
+**`issue_board.md`** — optional GitHub-mode responsibility map. It records which
+Context Compass agent owns or reviews each Issue without copying Issue content.
+
 ## Repository Anatomy
 
 ```
@@ -330,6 +387,7 @@ context_compass/
   CONTEXT_COMPACTION.md         compaction and handoff contract
   config/                       behaviour settings (never a role list)
   attention_board.md            routing
+  issue_board.md                optional GitHub-mode agent claims
   artifact_board.md             artifact lifecycle
   mailbox_board.md              agent-to-agent messages
   agent_onboarding/
@@ -364,6 +422,7 @@ alone. Notable keys:
 | key | effect |
 | --- | --- |
 | `system_of_record.enforce` | when `true`, agents may not use harness task lists, plans or session memory to track work. This package is the only tracking surface. |
+| `work_tracking.backend` | `local` reads ticket folders; `github_codex_plugin` uses the connected GitHub plugin's Issues |
 | `workflow.ticket_microcycle.*` | strict or relaxed loop, note score floor, expansion gate |
 | `workflow.note_behavior.*` | append-only notes, required evidence ranges, per-ticket focus |
 | `artifacts.*` | store root, disposition defaults, ticket-link requirements |
@@ -371,6 +430,46 @@ alone. Notable keys:
 
 Config is merged key by key on upgrade. New keys arrive with their comments; a
 value you set is never reset.
+
+### Optional GitHub Mode
+
+Choose where your agent reads and updates tickets in YAML:
+
+```yaml
+work_tracking:
+  backend: local
+```
+
+`local` is the default and uses the existing epic, story, and task folders. To
+use Issues through the connected GitHub plugin, choose:
+
+```yaml
+work_tracking:
+  backend: github_codex_plugin
+  github_codex_plugin:
+    connection_nickname: "Work account"
+    issues_repository: YOUR_OWNER/YOUR_REPO
+    project_url: "" # optional
+```
+
+Connect the GitHub plugin with access to that repository. Each Issue keeps the
+matching Epic/Story/Task template, including Status and Notes in its body.
+Agents read the selected backend's skills during onboarding and recovery.
+Agent claims, active focus, mailbox, artifacts, special instructions, and system
+docs stay in your repo. This mode uses plugin authentication and does not require
+CLI setup or a token in YAML.
+
+Give your connected GitHub account a nickname in Codex, such as `Work account`,
+and copy that exact nickname into YAML. It tells the agent which connection to
+use, independently of the target repository owner. The agent verifies the
+selected profile and stops if the nickname is missing or ambiguous; it does
+not fall back to another account. Connection IDs and credentials stay out of
+the config. Existing plugin configs must add this setting explicitly.
+
+The YAML choices, plugin capabilities, and existing-config migration are in
+[the GitHub setup guide](src/context_compass/agent_onboarding/default/general/skills/github/README.md).
+Existing file tickets are not published or migrated just because you enable the
+mode; review their content and destination first.
 
 ## Upgrading An Existing Install
 
@@ -463,16 +562,14 @@ tooling is built around not destroying that work.
   refuses without a terminal to ask at.
 - **Line-range indexes carry staleness proofs**, and every consumer refuses on
   mismatch rather than returning confidently wrong content.
-- **419 tests, plus mutation testing.** A green suite is equally consistent with
+- **Regression tests, plus mutation testing.** A green suite is equally consistent with
   "the code is correct" and "the tests assert nothing", so
   `tests/mutation_check.py` applies 49 deliberate defects and requires at least
   one test to fail for each. Several survived their first run; each named a real
   gap.
 
-```bash
-uv sync && uv run pytest                 # the suite
-uv run python tests/mutation_check.py    # prove the suite has teeth
-```
+Local setup, test commands, and mutation checks are covered in the
+[contributor testing guide](contributor/testing.md).
 
 ### The source graph is honest about what it cannot know
 
@@ -526,6 +623,12 @@ agent, and come back in three months and still know what happened.
 If you want project memory that stays with the repo, survives branch work, handles
 handoffs, resists drift, and still makes sense when another agent shows up later —
 that is exactly what this system is for.
+
+## Contributing
+
+If you are changing Context Compass itself, start with the
+[contributor guide](contributor/README.md). It covers repository maintenance,
+preserving user content, testing, generated files, version bumps, and releases.
 
 ## License and Trademarks
 

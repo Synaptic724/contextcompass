@@ -7,9 +7,16 @@ Purpose
 - Prevent policy drift by forcing deterministic, auditable re-onboarding.
 
 Non-negotiable triggers
+Resolve `AGENTS.MD` / Project Instructions Bootstrap before applying the
+onboarding and recovery defaults in this document. Requirements not explicitly
+overridden remain mandatory; do not treat a later MUST as cancelling an override.
+
 - **REONBOARD** is mandatory after any context compaction or handoff.
 - **ONBOARD** is mandatory at the start of a fresh session.
 - Do not substitute ONBOARD for REONBOARD or vice-versa.
+- Follow `request_tracking.md` for `prompt_id: compact_<count>_turn_<count>`.
+  A real compaction increments `compact` once and resets `turn` to zero; a
+  handoff alone does not. User requests advance turns, assistant messages do not.
 
 Non-negotiable rules
 - After a trigger event: **STOP. REONBOARD/ONBOARD. THEN ACT.**
@@ -36,12 +43,13 @@ No policy negotiation
 
 
 External-memory-first rule
-- Repository files are the single durable memory source.
+- Repository files and, when configured, GitHub Issues/Project are the durable
+  work record. Harness session memory is not.
 - Compaction summaries MUST be empty when the runtime allows empty summaries.
 - If empty summaries are not allowed, emit the smallest possible pointer summary:
   - high-level outcomes only
   - critical policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - immediate next action (one line)
 - Do NOT write narrative replay in compaction summaries.
@@ -50,14 +58,21 @@ Required post-compaction sequence (REONBOARD)
 Run this sequence exactly once per trigger event.
 
 1) Read `context_compass/AGENTS.MD`.
-2) Read `agent_onboarding/default/general/skills/execution_contract.md` in full.
-3) Resolve the selected role via the registry table in `context_compass/SKILLS.MD`.
+2) Complete the Project Instructions Bootstrap: re-read and resolve
+   `context_compass/special_instructions/` before applying anything below.
+3) Read `agent_onboarding/default/general/skills/execution_contract.md` in full,
+   applying resolved project replacements/waivers within their stated scope.
+4) Read `config/context_compass_config.yaml` and resolve `work_tracking.backend`
+   using `work_tracking_backend.md`, then resolve the selected role via the
+   registry table in `context_compass/SKILLS.MD`.
    - If the active role cannot be determined: **STOP and ask the user**.
-4) Read the resolved role `SKILLS.MD` chain in parent-first order.
-5) Read every path in every section each resolved `SKILLS.MD` marks as
+5) Read the resolved role `SKILLS.MD` chain in parent-first order.
+6) Read every path in every section each resolved `SKILLS.MD` marks as
    **baseline**. Roles name these differently - **Active skills**, **Required
    baseline skills**, **Baseline system orientation** - and a role may add
    another. Match on the baseline label, not a fixed list of headings.
+   - In `general`, re-read the shared baseline and only the backend baseline
+     selected by `work_tracking.backend` in config. A missing key means local.
    - This includes the role's system-orientation set where it declares one. For
      `engineer` that is `system_docs/src_architecture.md` plus
      `src_architecture_index.md` and `src_components_index.md`, when they exist.
@@ -69,15 +84,28 @@ Run this sequence exactly once per trigger event.
    - Self-directed skills are NOT required at re-entry either, but they have no
      trigger to wait for. Read them during the work, on your own initiative. Do
      not report "no trigger fired" for a Self-directed section - none exists.
-6) Re-open `attention_board.md` and all active ticket(s) and verify they match.
-7) Publish the mandatory REONBOARD attestation (below).
-8) Request certification and wait for a message that includes:
+7) Re-open `attention_board.md` and all active ticket(s) in the selected backend
+   and verify they match. In plugin mode, also check `issue_board.md`, fetched
+   Issue-body Status/Notes, and relevant Issue comments. Do not read local
+   ticket archives in place of the active Issues.
+   Read this session's row under mailbox `## Request Tracking` and recover the
+   request counter. Apply a confirmed compaction once, retaining its event
+   reference. Do not write the transition until effective onboarding authorization permits it.
+   Existing custom instructions suppress the setup form; a recorded decline
+   must not become another setup prompt merely because compaction occurred.
+8) Publish the required REONBOARD attestation (below), reporting actual reads and any applicable waivers honestly.
+9) Obtain effective onboarding authorization. By default, request certification
+   and wait for a message that includes:
    - `AGENT_NAME: <name>`
    - the exact token: `CERTIFY: APPROVED`.
+   If an explicit project override removes that requirement, complete the
+   remaining requirements and any specified replacement without asking for a waived token.
 
 README policy
-- README reads are allowed only for `new` first-time onboarding.
-- Non-`new` profile re-entry MUST use `SKILLS.MD` + skill/policy docs (not README).
+- Role README reads are allowed only for `new` first-time onboarding.
+- Non-`new` profile re-entry MUST use `SKILLS.MD` + skill/policy docs (not role READMEs).
+  Project instruction files under `special_instructions/` are governed by the
+  Project Instructions Bootstrap, not by this role README rule.
 
 ## Attestation format (CANONICAL - this is the only definition)
 
@@ -88,87 +116,75 @@ in this package points here rather than restating the field list.
 ```text
 ONBOARD: COMPLETE                     # or REONBOARD: COMPLETE
 AGENT_NAME: <name|REQUIRED_FROM_USER>
-ROLE_CHAIN: <role> <- <parent> <- general      # parent-first order, one line
-FILES_REREAD: attention_board.md, <active ticket path>    # REONBOARD only
-READ_INTEGRITY_PROOF:
-- root: <rule> -> <what it changes>
-- general: <rule> -> <what it changes>
-- <role>: <rule> -> <what it changes>
-- live state: <active row, or "boards empty"> -> <what I resume>
+ROLES:
+- general: <one rule from this role that changes what I do>
+- <role>:  <one rule from this role that changes what I do>
+RESUMING: <active ticket + next action, or "no active work">   # REONBOARD only
 NO_ACTION_TAKEN_YET: true
 ```
 
-**That is the whole attestation - about ten lines.** It is a summary, and it is
-meant to be one. The proof is one line per LAYER, never one per document; the
-rule and its rationale are directly below.
+**Six or seven lines. One line per ROLE in the chain - never per document, and
+never a list of files.**
 
-An attestation that runs to hundreds of lines is not more compliant. It is the
-ceremony this contract exists to prevent, it buries the one line a reader needed,
-and its length is what makes it unreadable rather than what makes it true.
+A file list is the cheapest thing to fabricate and the least useful thing to read.
+It proves nothing (any agent can name a path it did not open) and costs tokens
+proportional to the readset, which on a user-defined role runs past ninety
+documents. What a reader actually needs is: which roles are in force, and what each
+one changes about your behaviour. That is the whole point of resolving a chain.
 
-That is the whole attestation. Five or six lines of proof, not one per document -
-see the layer rule below. An attestation that runs to hundreds of lines is not
-more compliant; it is the ceremony this contract exists to prevent, and it buries
-the one line a reader needed.
+So: no `FILES_REREAD`, no per-document proof, no readset manifest. If a specific
+document changed your plan in a way the role line would bury, add one line and say
+so - but more lines are not more proof.
 
-READ_INTEGRITY_PROOF (requirements)
-- `READ_INTEGRITY_PROOF` is a comprehension proof, NOT tool logs.
-- **Default requirement: one line per LAYER of the resolved chain, not per document.**
-  The layers are: the root contract (`AGENTS.MD` + `execution_contract.md`), each
-  role in the chain (`general`, then each child in parent-first order), the live
-  state surfaces, and `special_instructions/` when present. That is normally five
-  or six lines.
-  - Each line MUST include (a) a specific, checkable rule/constraint drawn from
-    that layer, naming the document it came from, and (b) what it changes in your
-    behavior.
-  - Generic restatements ("be direct", "follow policy") are invalid.
-  - Do NOT reuse the same callout across layers; each must be distinct.
-- **Why per layer and not per document.** A resolved chain runs to dozens of
-  documents - on a user-defined role, past ninety. One distinct callout each,
-  with reuse forbidden, is a several-hundred-line wall emitted before any work
-  starts, every fresh session. Nobody reads it, and its length is what makes it
-  ceremony rather than proof. The rule that does the work is the specificity bar,
-  not the line count: one checkable constraint per layer that you could not have
-  written without reading it.
-- You MAY add lines beyond the layer minimum when a specific document changed your
-  plan and the layer line would bury it. Keep it proportionate; more lines are not
-  more proof.
-- **Live-state entries prove differently, because they carry no rules.** Some baseline
-  entries are mutable state, not policy: `attention_board.md`, `artifact_board.md`,
-  and `context_management/context_board.md`. A routing table has no
-  rule/constraint to call out, so the requirement above cannot be met for them and
-  demanding it produces invented rules - the exact confabulation this proof exists
-  to catch.
-  - Prove **current state** instead: name the active row or entry you routed from
-    (or state that the board is empty), and the one action it sets up next. One
-    line for the layer, same specificity bar.
-  - Example: `live state: attention_board active row -> tickets/tasks/2026-08-01_x_task.md,
-    mode=implementation, next=finish the parser -> I resume there rather than
-    re-planning.`
-  - This substitution applies ONLY to those three paths. Every other layer owes a
-    rule callout.
-- **Do not ask permission to keep it short.** The layer form IS the default, not a
-  concession, so there is nothing to request and no round-trip to spend. If a layer
-  genuinely cannot be proved in one line, add the line you need and say why.
+ROLES (requirements)
+- One line per role in the resolved chain, parent-first, `general` always first.
+- Each line names **a specific, checkable rule from that role** and what it changes
+  about what you will do. Not a summary of the role's purpose.
+- Generic restatements ("be direct", "follow policy", "use tickets") are invalid -
+  they could be written without reading anything, which is exactly what this is
+  meant to detect.
+- Do NOT reuse a rule across roles. If two roles produce the same callout, you have
+  not read the child.
+- `special_instructions/` gets its own line when the directory is non-empty, because
+  it is project policy and outranks role defaults.
+  Identify applicable overrides there instead of claiming waived reads were performed.
+- **Boards are not roles and get no proof line.** `attention_board.md`,
+  `artifact_board.md` and `context_management/context_board.md` are live state, not
+  policy. A routing table has no rule to call out, and demanding one produces
+  invented rules - the exact confabulation this is meant to catch. They are covered
+  by `RESUMING`, below.
+- **Do not ask permission to keep it short.** This form IS the requirement, not a
+  concession, so there is nothing to request and no round-trip to spend.
 
-Attestation contract
-- Emit the attestation immediately after re-onboarding and BEFORE certification.
-- Do not run tools, edit files, or execute plans before posting the attestation.
-- After posting attestation, request certification and continue only after the user replies
+RESUMING (REONBOARD only)
+- One line: the active ticket you routed to and the next concrete action, taken from
+  `attention_board.md`. Or `no active work` if the board carries none.
+- Omit it entirely on a fresh `ONBOARD` - nothing has been resumed.
+- This replaces the old `FILES_REREAD` list. What matters after compaction is where
+  the work continues, not which paths were opened to find that out.
+
+Attestation contract (default unless explicitly overridden)
+- Emit the still-required attestation after the effective re-onboarding reads
+  and before authorization. Read-only onboarding tools remain permitted.
+- Do not perform non-onboarding actions before effective onboarding authorization.
+- By default, after posting attestation, request certification and continue only after the user replies
   with a message that includes:
   - `AGENT_NAME: <name>`
   - `CERTIFY: APPROVED`
+- An applicable explicit waiver/replacement follows Project Instructions Bootstrap;
+  it does not cause a second request for the waived approval or false read claims.
 - If attestation cannot be completed: **STOP and ask the user for instructions**.
 - "Parallel/bulk reads" are allowed only if the documents were actually read.
   Marker-only loops remain forbidden.
 
 Execution gate
-- If any required item above is incomplete, do not proceed.
+- If any still-applicable required item above is incomplete, do not proceed.
 - If scope, status, or expectations are unclear after re-onboarding: stop and ask.
 - During resumed execution: UNKNOWN is the default for unevidenced claims.
 
 Outcome contract
-- Re-onboarding is not optional after compaction/handoff.
+- Re-onboarding remains required after compaction/handoff unless explicitly
+  overridden within the scope delegated by Project Instructions Bootstrap.
 - The objective is to re-establish the operating rules each time so drift cannot accumulate.
 
 References
@@ -176,4 +192,5 @@ References
 - `agent_onboarding/default/general/skills/context_compaction.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
-
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`

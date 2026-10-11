@@ -5,10 +5,17 @@ Purpose
 - Define how to finish `new` onboarding cleanly and transition to steady-state.
 
 Completion sequence
+Apply `AGENTS.MD` / Project Instructions Bootstrap before the default setup
+and role prompts below. Do not repeat a waived step or declare skipped reads completed.
+
 1) Confirm user understands:
    - system purpose,
    - profile class model,
    - configuration authority.
+   - how personal custom instructions can direct recovery after compaction.
+   Follow `agent_onboarding/default/general/skills/harness_custom_instructions.md`
+   for the presence check and optional setup form. Do not repeat a completed or
+   declined form, and do not treat existing integration as missing.
 2) Present role options by reading the registry table in
    `context_compass/SKILLS.MD` and offering every role whose
    `selectable after onboarding` column is `yes`. The descriptions below are
@@ -46,9 +53,10 @@ Exit criteria
 - Selected role is explicit.
 - User is informed a role is selected at each onboarding, not stored in config.
 - Next read path is clear and deterministic.
+- Resolved Project Instructions Bootstrap replacements/waivers carry forward;
+  later role defaults do not reinstate them.
 
 References
 - `agent_onboarding/default/new/skills/configuration_map_guide.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
-

@@ -17,6 +17,6 @@ Execution discipline
 
 References
 - `agent_onboarding/default/general/skills/execution_contract.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`

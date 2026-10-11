@@ -29,6 +29,6 @@ Rules
 
 References
 - `agent_onboarding/default/design_engineer/policies/design_review_policy.md`
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 
 

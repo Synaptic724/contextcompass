@@ -85,7 +85,9 @@ def cmd_init(args: argparse.Namespace) -> int:
     print("Next:")
     print(f"  1. Point your agent at {INSTALL_DIRNAME}/AGENTS.MD and ask it to onboard")
     print("     as `engineer`.")
-    print("  2. Commit the directory. It is your repository's memory now, and it is")
+    print("  2. If your custom instructions lack Context Compass, the agent will offer")
+    print("     setup for recovery after compaction, tracking, and subagents.")
+    print("  3. Commit the directory. It is your repository's memory now, and it is")
     print("     meant to be reviewed and diffed like any other source.")
     return 0
 

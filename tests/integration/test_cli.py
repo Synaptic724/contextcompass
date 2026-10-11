@@ -197,6 +197,44 @@ class TestUpgrade:
         assert main(["upgrade", "--install", str(tmp_path)]) == 2
         assert "not a Context Compass install" in capsys.readouterr().out
 
+    def test_upgrade_adds_request_tracking_and_preserves_live_mailbox(self, installed):
+        from cleanup_context_compass import user_regions
+
+        board = installed / "mailbox_board.md"
+        current = board.read_text(encoding="utf-8")
+        start = current.index("## Request Tracking\n")
+        end = current.index("## Messages\n", start)
+        legacy = current[:start] + current[end:]
+        bodies = {
+            "checked_in": "| worker | runtime | 2026-01-01T00:00:00Z | never | active |\n",
+            "messages": "- TO: worker\n  FROM: lead\n  CLAIM: Keep this message.\n",
+            "notes": "Keep this user's standing instructions.\n",
+        }
+        for name, body in bodies.items():
+            marker = f"<!-- BEGIN USER-DEFINED: {name} -->\n"
+            legacy = legacy.replace(marker, marker + body)
+        board.write_bytes(legacy.encode("utf-8"))
+        generated = run_tool(MANIFEST, "--root", installed, "--version", "2.15.4")
+        assert generated.returncode == 0, generated.stdout + generated.stderr
+
+        assert main(["upgrade", "--install", str(installed), "--apply"]) == 0
+        updated = board.read_text(encoding="utf-8")
+        regions = {name: updated[s:e] for name, s, e in user_regions(updated)}
+        assert regions["request_tracking"] == "\n"
+        for name, body in bodies.items():
+            assert regions[name] == "\n" + body
+
+        counter = "| session-a | worker | compact_1_turn_2 | request-4 | open | compact-1 |\n"
+        marker = "<!-- BEGIN USER-DEFINED: request_tracking -->\n"
+        updated = updated.replace(marker, marker + counter)
+        board.write_bytes(updated.encode("utf-8"))
+        assert main(["upgrade", "--install", str(installed), "--apply"]) == 0
+        final = board.read_text(encoding="utf-8")
+        regions = {name: final[s:e] for name, s, e in user_regions(final)}
+        assert regions["request_tracking"] == "\n" + counter
+        for name, body in bodies.items():
+            assert regions[name] == "\n" + body
+
     def test_install_is_auto_detected_from_cwd(self, installed, monkeypatch):
         monkeypatch.chdir(installed.parent)
         assert main(["upgrade"]) == 0

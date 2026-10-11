@@ -33,7 +33,7 @@ Output format (recommended)
 
 References
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/design_engineer/skills/system_design_method.md`
 
 

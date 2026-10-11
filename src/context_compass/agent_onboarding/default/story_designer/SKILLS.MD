@@ -11,9 +11,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be

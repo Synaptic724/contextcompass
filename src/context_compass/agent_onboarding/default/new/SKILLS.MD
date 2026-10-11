@@ -16,6 +16,8 @@ Active skills
 - `agent_onboarding/default/new/AGENTS.MD`
 - `agent_onboarding/default/new/skills/new.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - `agent_onboarding/default/new/policies/new_onboarding_policy.md`
@@ -29,7 +31,6 @@ Active skills
 - `agent_onboarding/default/new/WORKFLOWS.MD`
 - `PROFILE_CLASS_CREATION_GUIDE.md`
 - `agent_onboarding/default/new/README.md`
-
 
 
 

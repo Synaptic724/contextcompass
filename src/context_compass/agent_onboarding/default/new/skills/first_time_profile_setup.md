@@ -6,7 +6,8 @@ Purpose
 - Centralize setup guidance for user orientation, profile selection, and default class assignment.
 
 First-time setup sequence
-1) Start from `AGENTS.MD` bootstrap rules.
+1) Start from `AGENTS.MD` bootstrap rules, including project
+   replacements/waivers already resolved in the Project Instructions Bootstrap.
 2) Read `SKILLS.MD` - the single role registry - and the behaviour settings in
    `config/context_compass_config.yaml`.
 3) Explain the system purpose and onboarding model using:
@@ -42,8 +43,9 @@ User-facing recommendation
 - Other reasoning modes are currently untested in this repo.
 
 Rules
-- Keep README reads scoped to first-time setup (`new` profile).
-- Do not require README reads for non-new profile onboarding paths.
+- Keep role README reads scoped to first-time setup (`new` profile).
+- Do not require role README reads for non-new profile onboarding paths. This
+  does not exclude project Markdown under `special_instructions/` from bootstrap reads.
 - Treat the `SKILLS.MD` registry table as authoritative for which roles exist
   and which are selectable.
 - Treat config YAML as authoritative for onboarding and workflow behaviour only;

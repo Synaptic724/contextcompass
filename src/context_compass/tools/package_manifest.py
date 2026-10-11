@@ -115,6 +115,7 @@ CLASS_RULES: tuple[tuple[str, str], ...] = (
     ("agent_onboarding/user_defined/", "INSTANCE"),
     ("user_defined/", "INSTANCE"),
     ("attention_board.md", "LIVE"),
+    ("issue_board.md", "LIVE"),
     ("artifact_board.md", "LIVE"),
     ("mailbox_board.md", "LIVE"),
     ("config/context_compass_config.yaml", "CONFIG"),

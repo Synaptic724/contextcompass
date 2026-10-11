@@ -56,16 +56,22 @@ Provide one explicit synaptic-role onboarding macro that:
 
 ## Required Reads
 - `context_compass/AGENTS.MD`
+- all Markdown documents in `context_compass/special_instructions/`, resolving
+  project replacements/waivers (Project Instructions Bootstrap) before the
+  contract, registry, and role reads below
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `config/context_compass_config.yaml`
 - `context_compass/SKILLS.MD`
-- all Markdown documents in `context_compass/special_instructions/`
 - `agent_onboarding/default/general/SKILLS.MD`
 - `agent_onboarding/default/engineer/SKILLS.MD`
 - `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD`
 - `context_compass/system_docs/src_architecture.md` (whole)
 - `context_compass/system_docs/src_architecture_index.md`
 - `context_compass/system_docs/src_components_index.md`
+
+Project replacements/waivers resolved in the Project Instructions Bootstrap
+(`context_compass/AGENTS.MD`) prevail within their stated scope; later role
+reads in this workflow do not reinstate them.
 
 `src_components.md` and `src_graph.md` are NOT onboarding reads. They are sliced
 through their indexes during the work, whenever the work needs them - which is
@@ -88,10 +94,12 @@ context before the first ticket.
 - Up to 30 parallel read threads/tool reads are allowed only when the reads are
   real reads and the file chunking rules are still respected.
 - Respect `reading.read_loc_max` and `reading.viewer_tool_read_limit`.
-- If certification is not already present, request:
+- By default, if certification is not already present, request:
   - `AGENT_NAME: <name>`
   - `CERTIFY: APPROVED`
-  before any non-onboarding action.
+  before any non-onboarding action. With an applicable explicit project
+  replacement, effective onboarding authorization follows the replacement
+  instead; never wait for a waived token.
 - Consume the graph through `src_graph_index.md` and slice `src_graph.md`. The
   index is the entry point, not a substitute of last resort. `src_graph.md` is
   never read whole - on a real repository it runs past 25,000 lines.
@@ -121,17 +129,19 @@ context before the first ticket.
   - determine which requested docs exceed chunk limits
   - plan chunked `Get-Content` reads for large source docs
 - required note or artifact updates:
-  - record the intended source-doc bundle in the owning task notes
+  - record the intended source-doc bundle in the owning task notes only after
+    effective onboarding authorization permits writes
 
 3. Strategy
 - objective:
   - make onboarding state explicit
 - required actions:
   - publish ONBOARD or REONBOARD attestation with read-integrity proof
-  - request certification if it is not already supplied
+  - request certification if it remains required and is not already supplied
 - decision points:
-  - if certification is already present, continue
-  - if certification is absent, stop after the attestation/request step
+  - if effective onboarding authorization is satisfied, continue
+  - if an applicable requirement is unmet, stop and satisfy that requirement;
+    do not request a token explicitly waived by Project Instructions Bootstrap
 
 4. Implementation
 - objective:

@@ -23,8 +23,9 @@ Checklist (short form)
    - Request approval before any tool usage or edits.
    - Approval must include the exact token `CERTIFY: APPROVED`.
 6) Post-cert work execution
-   - Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` for all
-     work.
+   - Use ticket folders when `work_tracking.backend` resolves to `local`; use
+     the configured plugin to fetch Issue bodies and local `issue_board.md`
+     when it is `github_codex_plugin`.
    - Route from `attention_board.md` and resume from linked ticket notes.
    - Orient from `system_docs/src_architecture.md` plus the architecture and
      component indexes, then descend: index -> slice -> the code. Slice

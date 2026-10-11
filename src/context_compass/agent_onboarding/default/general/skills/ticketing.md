@@ -63,8 +63,9 @@ Workflow rules
    - Ask the user to confirm acceptance criteria.
 10) After confirmation:
    - Add a completion summary + UTC datetime.
-   - Move the ticket to its matching completed folder (`tickets/epics/completed/`,
-     `tickets/stories/completed/`, or `tickets/tasks/completed/`).
+   - In local mode, move the ticket to its matching completed folder.
+   - In plugin mode, record `Status: done` and transition reason in the Issue
+     body, verify it, close the Issue, and verify state through the plugin.
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -77,7 +78,7 @@ Workflow rules
 
 Mandatory execution gates
 - Active ticket gate:
-  - Do not implement or validate without an active ticket for the work.
+  - Do not implement or validate without an active ticket in the selected backend.
 - Routing gate:
   - Do not implement or validate unless `attention_board.md` has an active row
     that points to the same active ticket.
@@ -121,6 +122,8 @@ Notes format requirement
   - `SCORE_0_TO_10` (compaction usefulness score; improve entries below
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
+- In plugin mode, `## Notes` remains in the Issue body. A full-body update must
+  preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`.
 

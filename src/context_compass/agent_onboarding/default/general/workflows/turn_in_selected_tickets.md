@@ -27,14 +27,22 @@ Provide a lighter closure path than full cleanup:
 - sync board and artifact state
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `artifact_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+
+## Backend Routing
+Resolve YAML and fetch/read the candidate tickets before asking for selection.
+`all` means the displayed candidate set, never every Issue in the repository.
+Local closure uses the inherited local closure skill. Plugin closure preserves
+the Issue body and Notes, records completion, verifies the body, closes through
+the plugin, and releases the local claim. Use the selected backend's workflow
+and keep its acceptance gate and board/artifact sync rules.
 
 ## Phase Sequence
 1. Intake
@@ -66,7 +74,9 @@ Provide a lighter closure path than full cleanup:
 - objective:
   - close the selected tickets only
 - scope controls:
-  - move selected tickets to completed folders
+  - in `local`, move selected tickets to completed folders
+  - in `github_codex_plugin`, verify completion metadata and close selected Issues
+  - release only the selected Issues' claims after confirmed closure
   - sync board and artifact state for each one
 
 5. Validation
@@ -74,6 +84,7 @@ Provide a lighter closure path than full cleanup:
   - prove the selected set is closed
 - required checks:
   - selected tickets are no longer active on the board
+  - canonical local completed paths or fetched Issue body/state prove closure
   - artifact rows reflect the closure outcome
 
 6. Handoff / Closure

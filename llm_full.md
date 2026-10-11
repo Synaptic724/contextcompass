@@ -70,8 +70,8 @@ NOTICE  text eol=lf
 # AGENTS.MD - Prime Policies
 ## Execution Order
 
-- Before running tools, editing files, or executing commands, complete
-  onboarding from `context_compass/AGENTS.MD`.
+- Start with the Project Instructions Bootstrap below. Before non-onboarding
+  tools, edits, or execution, obtain the effective onboarding authorization it defines.
 - If there is any conflict between repository-root `AGENTS.MD` and
   `context_compass/AGENTS.MD`, `context_compass/AGENTS.MD` is authoritative.
 
@@ -108,10 +108,22 @@ holds state about the work that lives outside this repository.
 - You are NOT PERMITTED to use your harness's task system - task lists, todo or
   status widgets, planning trackers, session memory - to plan, track, route, or
   record your work.
-- You MUST use `context_compass` as your primary and authoritative tool in ALL of
-  its forms: `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`,
-  `attention_board.md`, ticket `## Notes`, `artifact_board.md` + `artifacts/`,
-  `context_management/`, and `mailbox_board.md`.
+- You MUST use the configured Context Compass work backend for Epic/Story/Task
+  tickets and their `## Notes`. `work_tracking.backend` in
+  `config/context_compass_config.yaml` defaults to `local` when absent. In
+  `local` mode, read and update tickets under `tickets/epics/`,
+  `tickets/stories/`, and `tickets/tasks/`. In `github_codex_plugin` mode,
+  resolve the configured `connection_nickname` through the current GitHub
+  account catalog before calls, then fetch and update Issues through that
+  connection; each Issue body
+  holds its template, Status, and `## Notes`. A Project URL is optional. In both modes,
+  `attention_board.md`, `artifact_board.md` + `artifacts/`,
+  `context_management/`, and `mailbox_board.md` remain local. Plugin mode also
+  uses local `issue_board.md` for agent claims. Read the backend-specific general
+  skills before work. Resolve older config values using
+  `agent_onboarding/default/general/skills/work_tracking_backend.md`.
+  If config, tools, or access are invalid, stop; never silently switch backends
+  or use CLI authentication as a substitute for the selected plugin.
 - You are NOT PERMITTED to use harness tracking to override, replace, shadow, or
   mirror `context_compass`. There is NO fallback and NO mirror: `context_compass`
   is the ONLY tracking, routing, and memory system. Do not keep a parallel or
@@ -138,10 +150,10 @@ let the user decide.
   this repository cannot see your task list, your status, or a finding you left
   only in chat. `context_compass` surfaces are shared files - every agent reads
   the same state.
-- **Harness state cannot be handed over.** `context_compass` writes are files in
-  the repository, so the project owner can review them, and any agent in any
-  later session can resume from them. Harness session state is lost when the
-  session ends, and it cannot be moved into the repository afterwards.
+- **Harness state cannot be handed over.** Context Compass's local files, and
+  GitHub Issues when that backend is selected, are shared records the
+  project owner can review and another agent can resume from. Harness session
+  state is lost when the session ends.
 - So harness tracking is strictly less visible and non-durable. Using it in place
   of `context_compass` costs cross-agent visibility and the ability to resume the
   work later. That trade is the user's to make, not yours.
@@ -149,14 +161,67 @@ let the user decide.
 If a write to `context_compass` is blocked (for example, a repository or encoding
 problem), STOP and report it. Do NOT silently fall back to harness-only tracking.
 
+## Project Instructions Bootstrap
+
+- For every ONBOARD or REONBOARD event, before applying the execution contract, config-driven onboarding, registry
+  role prompts, harness setup, role baselines, certification, or recovery
+  defaults, read every Markdown document under
+  `context_compass/special_instructions/`, including nested documents, and resolve this install's project
+  rules. This folder is read first so project requirements shape the defaults
+  below instead of arriving after them.
+- `context_compass/AGENTS.MD` grants this authority; project rules do not
+  defeat it. Within an explicitly stated scope, a project replacement or
+  waiver of a named onboarding or re-onboarding requirement prevails over the conflicting
+  default in `AGENTS.MD` and in referenced roles and skills. Later
+  policy/skill MUST statements restate defaults; they do not reinstate a
+  requirement this bootstrap resolved away.
+- Complete this discovery and resolution before acting on a proposed override.
+  Do not invent an exemption or edit project instructions to authorize yourself.
+  An override identifies the requirement it changes and its applicable scope;
+  if that scope or its replacement is unclear, ask instead of guessing or ignoring it.
+- Only named requirements change. Unrelated execution, security, durable-state,
+  role-registry, and approval rules remain. No override means the current
+  defaults. A folder containing only guidance and no applicable override also
+  leaves defaults unchanged. System/developer instructions, direct owner authority, and tool
+  permissions are outside this delegation and are never overridden by it.
+- Existing project-instruction precedence over role defaults is retained.
+  This added onboarding delegation does not make unrelated preferences into
+  onboarding waivers or remove other project instructions.
+- A confirmed absent or empty folder means no overrides. Unreadable content or
+  contradictory project rules that cannot be reconciled mean stop and ask;
+  never guess priority from filenames or read order and never silently skip an unreadable
+  instruction. All Markdown includes the folder README; role README limits do
+  not exclude project instruction files.
+- Effective onboarding authorization normally means completing required reads
+  and attestation and receiving `AGENT_NAME` plus the literal
+  `CERTIFY: APPROVED` token. With an applicable explicit override, it means
+  satisfying that override's replacement plus all remaining requirements
+  before any non-onboarding tools, edits, or execution. A waived prompt or token must not leave
+  dependent steps waiting for the waived event: named records still require a
+  known owner-provided or project-instructed agent name (ask only when the
+  name is missing or ambiguous, never guess identities or counters), and
+  waived reads must not be claimed as performed.
+- A waiver without a replacement removes that named requirement; do not invent
+  another approval prompt in its place. Complete every remaining requirement.
+- Read-only tools needed to discover and read bootstrap/onboarding documents are
+  allowed while resolving this authorization. They do not authorize writes or
+  unrelated work. Use the existing attestation, when required, to describe the
+  effective requirements and applicable project overrides truthfully.
+- Project-wide overrides persist according to their stated scope and are
+  reread on recovery. An ad-hoc session waiver is not inherited by other
+  sessions and is never published as a project rule.
+
 ## Onboarding Directive
+
+These onboarding requirements apply after the Project Instructions Bootstrap.
+An applicable delegated override is compliance with that bootstrap, not a bypass.
 
 - Project-specific instructions live in `context_compass/special_instructions/`,
   not in this file. This file ships with the library; those do not.
-- Once you have found the execution contract you must adhere to it fully.
+- Follow the execution contract under the resolved Project Instructions Bootstrap.
 - The canonical contract file is
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`.
-- Policy gates are non-negotiable.
+- Requirements that remain applicable after the bootstrap are not optional.
   - Do NOT offer "options" that bypass onboarding, re-onboarding, certification,
     required reads, or tool-use restrictions.
   - If a required step cannot be completed, state `BLOCKED` and ask the user
@@ -172,8 +237,8 @@ problem), STOP and report it. Do NOT silently fall back to harness-only tracking
 - You MUST determine whether a file exceeds `reading.read_loc_max` LOC before reading it.
   - If the file might exceed `reading.read_loc_max`, compute the line count (LOC) first.
   - If the file is clearly <= `reading.read_loc_max`, do NOT waste tool calls on LOC counting.
-- You must read every required **baseline** onboarding file completely.
-  - Do not skip required-baseline files.
+- You must read every **baseline** onboarding file still required by the effective readset completely.
+  - Do not skip baseline files that remain required.
   - Do NOT claim a file was read unless it was actually read.
   - On-demand files are required only when the active task triggers them.
 - Loop-based document reads are forbidden except for line counts. Content reads
@@ -186,22 +251,27 @@ problem), STOP and report it. Do NOT silently fall back to harness-only tracking
 
 ## Compaction Directive
 
+- Reapply the Project Instructions Bootstrap before the recovery defaults below.
 - Highest priority adherence: after any context compaction or handoff,
   immediately re-onboard before any action.
 - Re-read `context_compass/AGENTS.MD` and
   `context_compass/agent_onboarding/default/general/skills/compaction_requirements.md`
   before continuing work.
+- Recover the per-session request counter under mailbox `## Request Tracking`,
+  following `agent_onboarding/default/general/skills/request_tracking.md`.
+  Advance the compaction count once per actual compaction, not per reread or
+  handoff; defer persistence until effective onboarding authorization permits writes.
 - For compaction/handoff summaries, you MUST keep summaries empty when the runtime allows it;
   otherwise you MUST use minimal file-pointer summaries only.
-- Post a `REONBOARD: COMPLETE` attestation **with read-integrity proof** before any
-  action. One canonical format, defined once in
+- Post a `REONBOARD: COMPLETE` attestation before any action. One canonical format,
+  defined once in
   `agent_onboarding/default/general/skills/compaction_requirements.md`
-  ("Attestation format"). It is a ~10-line summary: proof is one line per LAYER of
-  the chain, not one per document.
+  ("Attestation format"). Six or seven lines: **one line per ROLE in the chain, not
+  per document, and never a list of files.**
 
 ## Highest Priority Adherence (Compaction Re-Onboarding)
 
-After any context compaction or handoff:
+After any context compaction or handoff, apply the bootstrap before these recovery defaults:
 
 - Stop and re-onboard before any tooling, edits, execution, or planning.
 - Re-onboarding is single-pass per trigger event. Do not repeat the same
@@ -210,22 +280,30 @@ After any context compaction or handoff:
   occurs.
 - Re-onboarding is reserved for compaction/handoff recovery only.
 - Fresh-session startup uses ONBOARD flow, not REONBOARD flow.
+- Complete the Project Instructions Bootstrap immediately after `AGENTS.MD`:
+  re-read and resolve `context_compass/special_instructions/` before applying
+  anything below.
 - Re-read `agent_onboarding/default/general/skills/execution_contract.md` in
-  full immediately after `AGENTS.MD`.
-- Start from `config/context_compass_config.yaml`, then `SKILLS.MD`.
-- Re-read and follow every Markdown document in `context_compass/special_instructions/` using relative repo paths only.
+  full, applying resolved project replacements/waivers within their stated scope.
+- Read `config/context_compass_config.yaml` and resolve the ticket backend with
+  `agent_onboarding/default/general/skills/work_tracking_backend.md`, then read
+  `SKILLS.MD`. Count the selector read once in the resolved general baseline.
+- Project rules resolved in the bootstrap above stay resolved; later MUST
+  statements restate defaults and do not reinstate an overridden requirement.
+  Use relative repo paths only.
 - Re-read `agent_onboarding/default/general/skills/compaction_requirements.md`.
 - RE-READ `context_compass/mailbox_board.md` - the roster and any messages
   addressed to you. Update your row and consume those messages as your FIRST
-  action after re-certification, not before it: both are writes, and the
-  pre-certification carve-out covers reads only. Per
+  action after effective onboarding authorization, not before it: both are writes,
+  and bootstrap/onboarding read permission covers reads only. Per
   `agent_onboarding/default/general/skills/mailbox_protocol.md`.
-- README reads are allowed for `new` first-time onboarding only; non-`new`
-  roles use policy/skills docs.
-- Re-certify with a message that includes:
+- Role README reads are allowed for `new` first-time onboarding only; non-`new`
+  roles use policy/skills docs. This restriction never excludes Markdown in special_instructions/.
+- By default, re-certify with a message that includes:
   - `AGENT_NAME: <name>`
   - the exact phrase `CERTIFY: APPROVED`
-  before acting.
+  before acting. If explicitly overridden, satisfy the effective authorization
+  rule instead; do not request a waived token.
 - If anything is unclear after re-onboarding, ask the user for instructions and
   get confirmation before acting.
 - During compaction/handoff summarization, you MUST keep summaries empty when allowed;
@@ -234,17 +312,17 @@ After any context compaction or handoff:
   - the canonical attestation from
     `agent_onboarding/default/general/skills/compaction_requirements.md`
     ("Attestation format"), with `REONBOARD: COMPLETE` as the first token and
-    `FILES_REREAD` populated.
-  - Do not invent a longer variant. The format is a ~10-line summary and the field
-    list lives in exactly one file so the copies cannot drift apart.
+    `RESUMING` populated - the active ticket and next action.
+  - Do not invent a longer variant. Six or seven lines, and the field list lives in
+    exactly one file so the copies cannot drift apart.
 
 Performative compliance is forbidden during re-onboarding:
 
 - marker-only loops (for example, `$null = Get-Content ...` plus `REREAD:`
   output) do not count as re-reading
 - parallel/bulk reading is allowed only when document contents are actually read
-- onboarding claims are valid only when required source documents were actually
-  read
+- onboarding claims must distinguish actual source reads from explicit waivers;
+  every read still required by the effective flow must actually have been performed
 - onboarding dump files are non-canonical artifacts and do not satisfy
   onboarding requirements
 
@@ -252,22 +330,39 @@ Performative compliance is forbidden during re-onboarding:
 
 Before any tooling, edits, or execution:
 
-- Read `agent_onboarding/default/general/skills/execution_contract.md` in full
-  immediately after `AGENTS.MD`.
+- Complete the Project Instructions Bootstrap immediately after `AGENTS.MD`:
+  read and resolve `context_compass/special_instructions/` before applying
+  anything below.
+- Read `agent_onboarding/default/general/skills/execution_contract.md` in full,
+  applying resolved project replacements/waivers within their stated scope.
 - Do not perform duplicate end-of-onboarding rereads of `AGENTS.MD` or
   `execution_contract.md` in the same uninterrupted session.
 - Read `config/context_compass_config.yaml`.
+- Read `agent_onboarding/default/general/skills/work_tracking_backend.md` and
+  resolve `local` or `github_codex_plugin` before reading ticket state. Count
+  this read once if the role's general baseline also lists it.
 - Read `SKILLS.MD`.
-- Read and follow every Markdown document in `context_compass/special_instructions/` using relative repo paths only.
+- Read `agent_onboarding/default/general/skills/request_tracking.md` and
+  `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
+  Count these reads toward the role's baseline; do not read them again in the
+  same onboarding pass just because the role lists them too.
+  Check the effective personal custom instructions for the current harness.
+  The setup form runs only when Context Compass is absent; existing setup is
+  not an invitation to rewrite the user's custom instructions.
+- Project rules resolved in the bootstrap above stay resolved; later MUST
+  statements in this gate restate defaults and do not reinstate an overridden
+  requirement. Use relative repo paths only.
 - READ `context_compass/mailbox_board.md` - the checked-in roster and any messages
-  addressed to you. Reading is permitted before certification; **writing is not.**
-- Do NOT write your check-in row yet. The check-in is a WRITE, the pre-certification
-  carve-out below covers reads only, and the row requires an `AGENT_NAME` that does
-  not exist until the user supplies it with `CERTIFY: APPROVED`. Check in as your
-  FIRST action after certification, per
+  addressed to you. Reading is permitted during onboarding; writes wait for effective authorization.
+- Do NOT write your check-in row until effective onboarding authorization is
+  satisfied and `AGENT_NAME` is known. The default flow obtains both through the
+  certification message. If certification is waived, clarify only a missing or
+  ambiguous name rather than demand the waived token. Check in as your FIRST
+  authorized action, per
   `agent_onboarding/default/general/skills/mailbox_protocol.md`.
-- When `SKILLS.MD` is read, list the roles in its registry table and ask the
-  user which role to take on unless the user already selected one explicitly.
+- After the bootstrap, apply the registry's default role-selection procedure
+  unless explicitly overridden: list roles and ask which to take unless the user
+  already selected one. Project instructions do not create unregistered roles.
 - Resolve the selected role to its `SKILLS.MD` path from the `SKILLS.MD`
   registry table. `SKILLS.MD` is the single role registry;
   `config/context_compass_config.yaml` does not enumerate roles.
@@ -275,7 +370,11 @@ Before any tooling, edits, or execution:
   files in parent-first order, walking each file's `INHERITS_SKILLS_FROM`
   header.
 - Treat every path in every section a resolved `SKILLS.MD` marks as **baseline**
-  as an active skill doc, and read all of them.
+  as required unless an applicable project override changes that requirement.
+  Sections marked `Local backend baseline` or `GitHub Codex plugin baseline`
+  apply only when `work_tracking.backend` resolves to that backend; all shared baseline
+  sections always apply. The config is read before the role chain. Do not read
+  the inactive backend's baseline as an operating instruction.
   - **The test is the label, not the heading.** Roles name their baseline
     sections differently - **Active skills**, **Required baseline skills**,
     **Baseline system orientation** - and a role may introduce another. Read
@@ -287,50 +386,61 @@ Before any tooling, edits, or execution:
     them, without asking permission.
   - **Do not treat Self-directed as On-demand-with-no-trigger-yet.** That reading
     produces an agent that never opens the document, and it has already happened.
-- If first-time onboarding is active and selected role is `new`, complete
-  onboarding then set:
+- If first-time onboarding is active and selected role is `new`, complete the
+  effective onboarding requirements and the first authorized check-in before setting:
   - `profiles.onboarding.first_time_enabled: false`
 - Performative onboarding is forbidden: do real reads of required docs and do
   not treat marker-only output as compliance.
 - Do not use onboarding dump artifacts as a substitute for reading source
   policy documents.
 
+- Project Instructions Bootstrap resolution applies first: resolved project
+  replacements/waivers govern the reads below, and later MUST statements do
+  not reinstate an overridden requirement.
+
 Onboarding readset authority:
 
+- `context_compass/special_instructions/`
+  (read every Markdown document under this directory using relative repo paths only)
 - `context_compass/config/context_compass_config.yaml`
 - `context_compass/SKILLS.MD`
-- `context_compass/special_instructions/` (read every Markdown document under this directory using relative repo paths only)
 - resolved `SKILLS.MD` chain under `context_compass/agent_onboarding/`
 
 Onboarding completion attestation (first onboarding in a fresh session):
 
 - Publish the canonical attestation before requesting certification, with
-  `ONBOARD: COMPLETE` as the first token and `FILES_REREAD` omitted (nothing has
-  been re-read on a fresh session). Format defined once in
+  `ONBOARD: COMPLETE` as the first token and `RESUMING` omitted (nothing has been
+  resumed on a fresh session). Format defined once in
   `agent_onboarding/default/general/skills/compaction_requirements.md`,
   "Attestation format".
-- **It is a ~10-line summary and that is the requirement, not a concession.** Proof
-  is one line per LAYER - root, each role in the chain, live state - never one per
-  document. Do not ask permission to keep it short; short is the default.
+- **Six or seven lines, and that is the requirement, not a concession.** One proof
+  line per ROLE in the chain - never one per document, and never a list of files
+  read. Do not ask permission to keep it short; short is the default.
 
-Certification gating:
+Certification gating (default unless explicitly overridden):
 
 - Obey certification gating from
   `agent_onboarding/default/general/policies/policy_skills.md` and
   `agent_onboarding/default/general/skills/self_certification.md`.
-- Do not use tools or edit files until the user replies with a message that
+- By default, do not use non-onboarding tools or edit files until the user replies with a message that
   includes:
   - `AGENT_NAME: <name>`
   - the exact phrase `CERTIFY: APPROVED`
   except tools needed to read onboarding docs.
-- **The carve-out is READ-ONLY and that is deliberate.** Opening any onboarding
-  document, board or ticket is permitted before certification; writing to one is
-  not. That includes your mailbox check-in row, which is why check-in is the first
-  action AFTER certification rather than a step inside this gate - the `AGENT_NAME`
-  it needs arrives in the certification message itself.
-- If certification is missing, stop and request it before edits or tool use.
-- **First actions after `CERTIFY: APPROVED`, in order:**
+- **The carve-out is READ-ONLY.** Opening any onboarding document, board or ticket
+  is permitted while resolving authorization; writing waits for effective onboarding
+  authorization. This includes mailbox check-in. Under the default flow the
+  certification message supplies authorization and the assigned `AGENT_NAME`.
+- With an applicable explicit project replacement/waiver, effective onboarding
+  authorization (Project Instructions Bootstrap) governs instead of the literal
+  token above; the name for named records must still be known from
+  owner/project instructions, and counters must never be guessed.
+- If certification remains required and is missing, stop and request it before
+  non-onboarding edits or tool use. A waiver does not waive other unmet requirements.
+- **First actions after effective onboarding authorization, in order:**
   1. Write your check-in row on `mailbox_board.md` using the supplied `AGENT_NAME`.
+     Sync this session's request counter in `## Request Tracking` in that same
+     check-in pass, following `request_tracking.md`.
   2. Consume any messages addressed to you.
   3. Route from `attention_board.md` to the active ticket and begin.
 
@@ -376,7 +486,9 @@ would - plainly and with care - and do not run a policy routine at them.
 ## Special Instructions Directory
 
 - Project-specific instructions live in `context_compass/special_instructions/`.
-- Read and follow every Markdown document in that directory.
+- Discover, read, and resolve them through the Project Instructions Bootstrap
+  before applying onboarding or recovery defaults. Do this once per trigger,
+  not again merely because a later document references the directory.
 - Use relative repo paths only.
 
 ## Compliance Challenge Protocol (Anti-Drift)
@@ -385,11 +497,13 @@ When the user signals distrust or drift (e.g., "performative compliance", "playi
 "you're lying", "box-checking"):
 
 1) STOP. Do not continue the current action stream.
-2) State current status plainly: ONBOARD/REONBOARD complete? If uncertain, treat as NOT complete.
+2) State whether the effective ONBOARD/REONBOARD requirements are complete and identify
+   applicable overrides. If uncertain, treat the requirement as unresolved, not complete.
 3) Cite the controlling rule(s) (file + section name).
 4) Execute the single compliant next step. Do not present options unless multiple compliant paths truly exist.
-5) Prove, don't posture: repair/provide `READ_INTEGRITY_PROOF` (no tool-log theatre).
-   If proof cannot be produced, mark `BLOCKED` and ask for instructions.
+5) Prove, don't posture: repair/provide any still-required `ROLES` proof (no tool-log theatre).
+   Do not claim waived reads were performed. If required proof cannot be produced,
+   mark `BLOCKED` and ask for instructions; do not reinstate a waived requirement.
 
 --- END OF FILE: context_compass/AGENTS.MD ---
 
@@ -410,7 +524,7 @@ handed off.
 - If empty summaries are not allowed, write only minimal pointer summaries:
   - high-level outcomes (no narrative replay)
   - critical policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - next immediate action
 - Avoid narrative replay; keep durable state externalized to files.
@@ -421,17 +535,21 @@ Before initiating compaction/handoff:
   - `attention_board.md` reflects the current routing, status, blockers, and next actions.
   - Active tickets linked from `attention_board.md` have current checklists and `## Notes`.
 
-Core review set (ALWAYS required) - review these files in order:
+Core review set - apply the Project Instructions Bootstrap in `AGENTS.MD`
+first, then complete every requirement not explicitly overridden. Count an
+already completed read once for this trigger rather than restarting the sequence:
 - `AGENTS.MD`
+- `special_instructions/` project rules and resolved overrides
 - `CONTEXT_COMPACTION.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - resolved role `SKILLS.MD` chain (parent-first; the SKILLS files themselves)
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the workflow skill for the selected work backend
 - `attention_board.md`
-- Active epic/story/task tickets in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+- Active Epic/Story/Task tickets in the selected backend; in plugin mode also
+  read `issue_board.md`, fetch Issue-body Status/Notes, and read relevant comments.
 
 Conditional review set (ONLY when triggered):
 - `artifact_board.md` (when active tickets include artifacts or artifact disposition changes)
@@ -724,8 +842,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.15.4 |
-| files | 447 |
+| package_version | 2.17.0 |
+| files | 460 |
 
 ## Lane policy
 
@@ -747,10 +865,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 345 | restore | replace |
+| PACKAGE | 357 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
-| LIVE | 3 | reset managed block | swap managed block |
+| LIVE | 4 | reset managed block | swap managed block |
 | CONFIG | 1 | restore missing keys | merge keys |
 
 ## Files
@@ -758,14 +876,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `e09313eb16638422b835d6dec12b369e59d652f6c318678543f0ea595a29cbd7` |
+| `AGENTS.MD` | PACKAGE | `66e5e186fd892e5d2270a8f0bbfcef72167215fc2444007d091f23f72cde4d6a` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
 | `agent_onboarding/default/continuity_fact_checker/policies/continuity_fact_checker_handoff_policy.md` | PACKAGE | `4d13b91836c1a27623471204baf731c18fc9c135877c0ffde35dd9b7f2715c53` |
 | `agent_onboarding/default/continuity_fact_checker/policies/continuity_fact_checker_quality_policy.md` | PACKAGE | `a015e71de7d00dc8695dbfb3cf7ad13c43a7b9b15ef1a285e570060e5f3d67a5` |
 | `agent_onboarding/default/continuity_fact_checker/README.md` | PACKAGE | `ac048e655aaf4dc7e04a28216b4878f5b3fa8542fcc001dc433e4585a1d0663a` |
-| `agent_onboarding/default/continuity_fact_checker/SKILLS.MD` | PACKAGE | `04757bd1c8846fc9ca7d112cb99ab99d584234e3d8a638c89fb0aaceee402554` |
+| `agent_onboarding/default/continuity_fact_checker/SKILLS.MD` | PACKAGE | `f59516223a8575982b222392bd33d53c1ff6571891f2c81bc58d8ad1c804b1cb` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker.md` | PACKAGE | `5d05783c89bb78540957b461eca5ddd119d5827507852dba5c93fe8391e4fcab` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_advanced_context.md` | PACKAGE | `46a0cd3ca1cbfa1f57224fa3580bbe08ddb957a30f99c33730bcf08d2f2ecc9c` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_deliverables.md` | PACKAGE | `faa0a9ba50e604c5d7c790890081a516331153968d271a9c6c37a78048d87d89` |
@@ -774,7 +892,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/continuity_fact_checker/workflows/README.md` | PACKAGE | `00cd0ec7d92738102ad5e3a9396a130e240c607652510085640001b5302a57b4` |
 | `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `18bbd6d1ea1249650e0ceb53bb4ce563b46cce2178c7f32f52cc33d65239a05e` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md` | PACKAGE | `6024396b89a1d285a8c508ef0a1f718b731d34b14a2c97412c9e06f42d3bae90` |
-| `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md` | PACKAGE | `56617fe31be7986d83e3ac231e99ef832c6a715722597727880bff325d0e6b5a` |
+| `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md` | PACKAGE | `a23db689d0a7bba6cc2848d3f63ac052e9bd10a4596a7361a7cb84053de16e13` |
 | `agent_onboarding/default/design_engineer/examples/adr_example.md` | PACKAGE | `0af9273423b5300f917041439a03ab8407894d15e16bb7412b032b9952d70996` |
 | `agent_onboarding/default/design_engineer/examples/design_task_flow.md` | PACKAGE | `25062c137dec35c0b96a0b7dda0703754e561f3b0f3d417d7db5ae5aafd492fe` |
 | `agent_onboarding/default/design_engineer/policies/decision_record_policy.md` | PACKAGE | `26bab740a14a807959e0562c2f56ca5c66caf49f33dc1ee0d068ad0773700c2b` |
@@ -786,17 +904,17 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/design_engineer/skills/adr_and_decision_hygiene.md` | PACKAGE | `2ae7193b75fcc0f784324c9a4a8870bc7c5636dc561f36436c40813d9cb38fad` |
 | `agent_onboarding/default/design_engineer/skills/api_and_interface_design.md` | PACKAGE | `8ba14c3a10040852b87f9a1023b400ee19275e8c616b2fbf9b667111d54fbf0e` |
 | `agent_onboarding/default/design_engineer/skills/architecture_contexts.md` | PACKAGE | `a2efbe330609582c3fb81303e46ff706b563907919a158800dbd55ec325d3d23` |
-| `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md` | PACKAGE | `e23da97b913e2e6870697871c65e9b3b9388d0f1e6984cf645d35f57fae5ada1` |
+| `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md` | PACKAGE | `92a49f59fb9f6f44f199d41dc58bad4ea339fad942f81db32a551401d8d75803` |
 | `agent_onboarding/default/design_engineer/skills/architecture_tradeoffs.md` | PACKAGE | `58ce0c694765626186f57dd7fec1312d36e81cc8049dbcd0c33b757cc0e0b635` |
 | `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md` | PACKAGE | `24ed9477fac3652cd671370edec516a82ec6dfeca08263d405503e313ec49f20` |
-| `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md` | PACKAGE | `1bde83fd119b212d14aa9ce29ac9e0733eb8b6886aa3e7643a0f2677205ac8d6` |
+| `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md` | PACKAGE | `f69a0b702546702d9f34c5181c815fdba87d840f724eb02b06b5d902638514fa` |
 | `agent_onboarding/default/design_engineer/skills/data_modeling.md` | PACKAGE | `93e1b7bd3365b896b089185d83aaf90a39b9de335e7c018acea4e422afefc0e6` |
 | `agent_onboarding/default/design_engineer/skills/decomposition_and_boundaries.md` | PACKAGE | `43cafa5e1fe7161f0120463e9a0295a5511a5e173b167f926e31237c911c26f5` |
-| `agent_onboarding/default/design_engineer/skills/design_engineer_execution.md` | PACKAGE | `f78a42ff79068514ccb1a039d873754ab9240c1db738496eb43c8fcce9c11677` |
-| `agent_onboarding/default/design_engineer/skills/design_review_protocol.md` | PACKAGE | `5ce9ae178420622f28cacc16e00fefd9a6d07332b96bbf02b74390423ac76bdb` |
+| `agent_onboarding/default/design_engineer/skills/design_engineer_execution.md` | PACKAGE | `c8c2aa6bb70dd9b1cef9afdb14994c4a820eda19e5d6b3c48e68391e1607e26d` |
+| `agent_onboarding/default/design_engineer/skills/design_review_protocol.md` | PACKAGE | `7d93e86abfebed2f8a1e05d3b5918eeaeafc10890155cfe926e58f173a81bd66` |
 | `agent_onboarding/default/design_engineer/skills/nonfunctional_requirements.md` | PACKAGE | `9d9917f96cbdc1d98dac48a0ee482be89918732c94b7e5becb21eca92d445ecd` |
-| `agent_onboarding/default/design_engineer/skills/patch_framework_design.md` | PACKAGE | `ec6e6f6a65590c0fca64df1323f1c20f0b7b206da5562824728865c296f376b3` |
-| `agent_onboarding/default/design_engineer/skills/requirements_to_architecture.md` | PACKAGE | `1b5fe20054365b2c4fd4277cf4c1dc3650f169f697b2c90ecc9471e108cddef4` |
+| `agent_onboarding/default/design_engineer/skills/patch_framework_design.md` | PACKAGE | `7767308661cb1dce947cd2f31fafe94cb0826d2bab720456b4a261fef84abb8e` |
+| `agent_onboarding/default/design_engineer/skills/requirements_to_architecture.md` | PACKAGE | `0dfb0e78547430421a7716e4aa96ba2706d02e3dbe06160d4a0d989872d47b16` |
 | `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md` | PACKAGE | `e1b401d41dfeb9a253137f1ade29017de40c02528a529232fa42369bbfca8c80` |
 | `agent_onboarding/default/design_engineer/skills/src_components_instructions.md` | PACKAGE | `ec3b72a523be424cdcc5b0072f2af071fdf40e0742012e01ee0dd451947f957d` |
 | `agent_onboarding/default/design_engineer/skills/system_design_method.md` | PACKAGE | `f26ba249567eeeaf4bbd9791901fc6ca76c3755b7093cd8405b416f7cf5e61a1` |
@@ -810,7 +928,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/developmental_editor/policies/developmental_editor_handoff_policy.md` | PACKAGE | `32140442c79e7b2a80aea68b5d975adb3248ed01304a529a721ce7f3c99814f9` |
 | `agent_onboarding/default/developmental_editor/policies/developmental_editor_quality_policy.md` | PACKAGE | `b5b2b4ca716b838150d06edd33aba88587e7a44351b0a7c7e3f5c4935c5d6334` |
 | `agent_onboarding/default/developmental_editor/README.md` | PACKAGE | `d9cee87ba47cd96163e5169fb0b6c4b73183b691f14b1d98b807682a5f2190f0` |
-| `agent_onboarding/default/developmental_editor/SKILLS.MD` | PACKAGE | `c38482d4ac56c22286ea574c718337926ffe715811e9f8474752a307a2cb58cd` |
+| `agent_onboarding/default/developmental_editor/SKILLS.MD` | PACKAGE | `c653f3cd89cbe6fa8e119311e07a9ceb5601eee7beb41c39f09657889e377983` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor.md` | PACKAGE | `5329e9fe05dadb5db0c13abff45a2b7cc5db547e4a9d490c60f8da644111f569` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor_advanced_context.md` | PACKAGE | `d601fe5deca758b594b4e5ab93c60a5038bba0b19db603fc5653e1c0cfd6a7ba` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor_deliverables.md` | PACKAGE | `b711d460c49fc13f2444037c7554f4626b4d4b0642776fa6fdf8fb982c27ce4c` |
@@ -823,83 +941,94 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/policies/draft_writer_handoff_policy.md` | PACKAGE | `8c095c14cbfbea2b1be71d81ca22c5d31d2401b131161ab425be6a8ac10f7f78` |
 | `agent_onboarding/default/draft_writer/policies/draft_writer_quality_policy.md` | PACKAGE | `a2fb5fb650756a8a5ecf251ae8f108247160c87c0d318c87233b186359bb9e49` |
 | `agent_onboarding/default/draft_writer/README.md` | PACKAGE | `b7c2f377db14ae63707e6131bb42d3c91a979b8a0daa4c0ae8287fa6f6793428` |
-| `agent_onboarding/default/draft_writer/SKILLS.MD` | PACKAGE | `dfd3fc583cb27b2bfffbbd2160b52f18c108d5580314fce5f76c2facac6dd929` |
+| `agent_onboarding/default/draft_writer/SKILLS.MD` | PACKAGE | `00050b916093a965d16f7e86202cf46c421f730a8579d94a8ce04fa77973cfdf` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer.md` | PACKAGE | `8a8011fcc82d7f24f59a42f68f4ffc1decd08f0861654a53c6452540b5abc5cc` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_advanced_context.md` | PACKAGE | `6530f0bf57a1837104db096ed647e1d53a500daeb1e6ebbc0825d36d645fef1e` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_deliverables.md` | PACKAGE | `830313b7f9fe616ef09f8ccf89c364732a94082642ad28578fd955a2a9d71066` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `f71ff86a2c898746086e14d4481b9ca10ce91c576b4d093a9c2901a8bd5345d1` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `0fd909bafc157c059b2ba2c33b6582fdcdebb1651c07aa96279038510de5dc1a` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
-| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `9b76a0a0aaf259540fc98698cdf3a05855f47416378767cb3a3061dcdb4f4f7d` |
-| `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `023ce53be34a1b06e733ecf16d76e590d0933e4ab5b18036669ba2d61b6d365d` |
-| `agent_onboarding/default/engineer/examples/eng_task_flow.md` | PACKAGE | `27d5a7996dfd0f3cd4139f42be1fdf3a91470e5620800f74a94159451af55a37` |
+| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `2dbfdcbbb8da4d16733f26f3b99bdc45437282e7c8562e82ad492dab31ce8ac8` |
+| `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
+| `agent_onboarding/default/engineer/examples/eng_task_flow.md` | PACKAGE | `a5f38f4a9d858eabdf66a4a465887a9e83845f30b6f3c0d1eed7ee1b8d621984` |
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md` | PACKAGE | `af66fa71612ae763b2b54d4f0e574956c3e151dcd38526000f53bf83a2e4df19` |
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md` | PACKAGE | `71b306ab176626ff499afa56b06c8d689adc44ae100f095558b090bd4a07ae76` |
 | `agent_onboarding/default/engineer/policies/engineer_quality_policy.md` | PACKAGE | `fb747be91e0d8eb000791d54b9e4305cc3f08393ee75949a3a329f74fd89588c` |
 | `agent_onboarding/default/engineer/README.md` | PACKAGE | `733cd38fa33408b14f6da0fa78fce0bef964d128f28147080cae9eb192cb51c1` |
-| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `b0ecaf2c7cfba6ead5a277fbb1dd28df69c97e371f02c6b2031ddf1d988dde34` |
+| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `e263d8b3b34bd18892f6de4480c5499cfb02e9936cde4264dafc83a4c1731776` |
 | `agent_onboarding/default/engineer/skills/context_protocol.md` | PACKAGE | `bdb8bc75935e9d48c429cb0082436a418bef8ab32526fd3ba796a912cd87423f` |
 | `agent_onboarding/default/engineer/skills/documentation_standards.md` | PACKAGE | `bdc4e7076c69789fcb3e701742e1bd4d82128cd1792697df38aa0fd3c3f1b711` |
-| `agent_onboarding/default/engineer/skills/engineer_execution.md` | PACKAGE | `eb4d85f039e46b8af7d681cbd1ed43929085f5f847d38ec0b879f04c72af3cd5` |
+| `agent_onboarding/default/engineer/skills/engineer_execution.md` | PACKAGE | `37e08eb3e5067e2a548b71fbb626278bdceed2bf64f1894d9456044599a798c1` |
 | `agent_onboarding/default/engineer/skills/package_maintenance.md` | PACKAGE | `c4a4c6ae98ee9dc01aaf3b2d225530f2d9b5c37a6bb276f80a9c289a6188855a` |
-| `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md` | PACKAGE | `5b20db99ae4debdf90e9dac96ad81c2e035a552e1bf94ef8c336cd053e7286a2` |
-| `agent_onboarding/default/engineer/skills/patch_framework_gating.md` | PACKAGE | `303738c05c8af351707b929cf7b12c0c019946d2b37af4b819e486c295c2e9d9` |
-| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `b24e1861e2ecb4575d0ea10f2010ca03722c291a8c1dd30fe23bf34da4fc9ac3` |
+| `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md` | PACKAGE | `ef21a63c7d632ab30ed07777c664a8221ca8ef02566212e85f68bdf683fd349d` |
+| `agent_onboarding/default/engineer/skills/patch_framework_gating.md` | PACKAGE | `087ba842ecd75fe29bb66d75366882f688f2cb3f2e3596a5f24a397d9414fc5a` |
+| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `acc81d0637c452b3fb1073ba448a000906ef480523d1f030cdbc63ba747d6bfb` |
 | `agent_onboarding/default/engineer/skills/src_graph_usage.md` | PACKAGE | `52a7015595450ba1022f2cc3baae4c6e2dffdf161da60528de0b39f1064440c6` |
 | `agent_onboarding/default/engineer/skills/staleness_protocol.md` | PACKAGE | `f9a4ffd6221f01d03e2d659238f76aafcf7e4b8813d3b9ac5ba0577f932e3f86` |
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
-| `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `b8475054707e2c3c5f12419fab5c44a11cbb4f84b6ba441e03f28a9366099006` |
+| `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `6791c2395ed9764a735bb51b403d2f0d15d13bfd195fa4f5c648d56b3c3c935a` |
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `94b2dfc1e6ee54857bde628c041457de045eb9c88b6a7f3a7c5c49f5f3b51b6b` |
-| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `2e25166ff2918da127c0c00512e5e6c034dbb5902d2e93e8c19a707b1d677f59` |
-| `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `893217e851c9ef92ac9c0d4531a9ed17e7ae7e2708a1c4a1cb027dec585810b7` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `b4894df8d79a3c435f972ff4696a68ec7faeabaf58e5ea9736bbe5049cfc5614` |
+| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
+| `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `0ab1110e36047e772e4c0babd50a34b13bc2a3a8b5945df496b94d4722d0f7ff` |
-| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `bf3cecf6b631965c3d50e8d55b89ddd813b4364ef1fcbe5a6496d1b15f190721` |
+| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `da0a4c55ba84987f12e02fd5df5cf2bb11d6e94c6332a2f001f92b55d23ab863` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2b0d31bdc49571afffab880e62da684b0fb769343d8c5a8b424727086006306e` |
-| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e2967aa30d78361ec11b85c34ef29fff58178fe0b0b88393bb41e3d573a6eb2d` |
-| `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `a3bdd00d3743cb9ce2ded79b79ec8a1bba3eb9ea58b5e6ab1fbc93641d48d575` |
-| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `574abb70495ee40b4b1777a16c59b9dcf20ea965884a3f582eb7f0a527adb014` |
-| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `205b16310f7dc19d6124f6461744d016d76057c92cef57ff9e210114074b99fd` |
-| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `4ed0d04ac6e208932adcfd7b3c810cfe352a04f1923dd3ca4dc0e381bff95d97` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `73913d7883192345051425973d8d41a5d11f8481cd8978161adc741b29ea3b8a` |
+| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
+| `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
+| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `c16d0f4a69374fa247ed139fb2f5e016c2c44597d1ba69b9619773e6de7f3f4e` |
+| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
+| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `eb8af0c70e70b907a0e109e5694e88141b064a2c1ecda2370a78b9457b2cd7aa` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `0a6133281988b052962fa51f2c3472eb1e4a8654cc69de8918cfe10ef8b8c451` |
-| `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `d83de35a6ee3933e705e05ea92f888deccbfa8dda72f69fd42531b1f138bbfb1` |
-| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `b6f33b95148094bbbab7fc50d7af85b0e1257eb0d3e06b740bf5abcd83b2159d` |
+| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `830561cecd2b4fb2831fb993f76246dccf14536e5901f79a6a2083d3202f4ffc` |
+| `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
+| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `060c248e8b64f46d3b63e667bf9fa7e7a72d4a94702142f56b5806ba7f8b5bdc` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
-| `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `b2ae6b19e6236e35790da8cde5b0e002bfe1e6d68e9dcba3b0e1b777f8c2047e` |
-| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `51d980da83065555f73639fcb11654dea70f03a3b4c70c89ad2305548aa54e7e` |
-| `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `a26e83870606050ea6a3bbe57cc1363b99872c76ee1592f67372c8dc83f83c02` |
-| `agent_onboarding/default/general/skills/general.md` | PACKAGE | `637ee3a9490baa93e266d9433131964da6df1f5666932e5ce2fb7390c0ac78fa` |
+| `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `cfc9f0cf1873720130714e331259b443ec7031f77a83b4db2a129b1be1987cca` |
+| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `47cb807557d4e6b48e0546f5c87a9df4a4cc1a24fa1de24dddcc2fed6a0dd5cb` |
+| `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
+| `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
+| `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
+| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `2261a3f6f42a25dc21a81cc1f96273ea2f5017c59867d59a9829cdac9a0b66cd` |
+| `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
+| `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
+| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `001923fedaf454612beea9e5c66a62502f2e3f94f837325509e8d9d75f3e4222` |
+| `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
+| `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `52e6d1c9147b7b423b50c26472da890597cc293d99f9d1878c1015049c9ea53d` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `66d1842135b014bc46f7a261323c4a3634487aed467756e2df6702bf966c3ed9` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
-| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `327e21229a6af08ecfe2dae7e5ec30c8c3bea53b3c9665017dcc0bea56576cd2` |
-| `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `8135df150195eabbce69418e3af5a054a08a4fbead50f819eb81578e9e344ac9` |
+| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `d1a0b8eeabc440625e1ac0be5550e6299d7cf52df9ed25fd1997f37baf7ab27d` |
+| `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
 | `agent_onboarding/default/general/skills/mrp_policy.md` | PACKAGE | `edce5c8dc9ffaeaf6f47cb61fc56757280e47f62459d533537c8f242dc163174` |
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
-| `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `8dcb725e4495fc97ba5fe1d3c93e2f7fd7dffb5b0bed7554298479ad00767888` |
-| `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `4a9c94ee2b448a6838c978f3cd0b3bdf6bf71dae986d70a0d03b06b8710b4ebb` |
-| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `0fc5cd83f4967896e625e0b843efcf913e0d29c82a14908ef007b2e3f17e4d01` |
+| `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `f0a7eb63ffe980fcc535284950f8962e170a443ca868492ac9b5ddd217fadb14` |
+| `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `72921b765339dfd1a2fb570e5c72679330414a59562061cdc5ec098ad4962f21` |
+| `agent_onboarding/default/general/skills/request_tracking.md` | PACKAGE | `be3fa07f04c50735896e85ad01a3812b7e5deaeacedd3b3117953fd2d0a8be51` |
+| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
-| `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `e1e2fc14c40ed2930f6fca8a37bc3233a9d1463e503d6c99aed515ffb76c9822` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `5abf4207172ddad37a8c176b48a48d0846478ab6bfb8c8dff1288cc1a91df5f5` |
+| `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `b7f3a92d6cfa8604dd4c4c3fdc19e203a8fb6798cad668a0b9f846766067085d` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `c8c5a4767b88002c844d05abe390353a9296729419f5c32237de5005659e7720` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
-| `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `9408203a6a20decff2c2079eed24ad4166c279bf0278d0612ca2d999674e6ed0` |
+| `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
 | `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `7a394001f5aa79e32bd44455a6189836e4fbfad70e6f52b9a653635a21b3f264` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
-| `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `4d381ba648ccd24ba3b7578d92840bccaac4c05efc451f6b161002930632dcfd` |
+| `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `556d2dc2369611cc30f19c1809cb761f81dac1215e69b6e9d5deea1003795e86` |
 | `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `e4fc21b6ba5b8e1bedb8abe05f7bd410241d01383f9953373e5a100923956c7c` |
-| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `c74e1281a24a44b3ebc43efd2de7e246ff100b6b88ee1c568ff54a93482aa41a` |
-| `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `165bfeec3059722af2ea40d837c51d7144fd343167c5ef59ba551633a74effac` |
+| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `610aa1b08d09bafa40be842d04464d734dc510d408285556120d05d0dfdb7556` |
+| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
+| `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
 | `agent_onboarding/default/general/workflows/role_creation.md` | PACKAGE | `192c1e18e583cd19316232f24ac8c56b29783ed942bf8433e0c938860e50320d` |
-| `agent_onboarding/default/general/workflows/start_context_compass_work.md` | PACKAGE | `ad669eb702cb92400f23b619558045719922ca9280a7ac1e12689d5a0f69519a` |
-| `agent_onboarding/default/general/workflows/sync_attention_board.md` | PACKAGE | `d1918ce7811681b46e37e6a100ef55c62bb2387944e9b6a83a374577b1973130` |
-| `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md` | PACKAGE | `3dcfaef805a7e0477b0d9d783a77f36ff00d003a4f1b0a7ca23773369b525b54` |
+| `agent_onboarding/default/general/workflows/start_context_compass_work.md` | PACKAGE | `95e4e02ebbcaec99f23eaf50fad330c4994b29be2f65d56dd0e49222ecbf14ef` |
+| `agent_onboarding/default/general/workflows/sync_attention_board.md` | PACKAGE | `62b3d7eb7814235286045de137229e2d304ec5755d8389d49441a51545407dd7` |
+| `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md` | PACKAGE | `01ef409a19833fb638a1f233c4e59dc2f8fbdf1b47558bd7653ebaa7ca223ee1` |
 | `agent_onboarding/default/general/workflows/workflow_creation.md` | PACKAGE | `7b88bd11af158f2b5b1cce9fa478d9b1f6c2e6f0149ff29828382407c5d794e2` |
 | `agent_onboarding/default/line_copy_editor/AGENTS.MD` | PACKAGE | `68a1d949148b9e9f5ad0fb82cde7a544c3d7fd72e48b3a23255518649d23cef4` |
 | `agent_onboarding/default/line_copy_editor/behavioral_guidelines/line_copy_editor_workflow.md` | PACKAGE | `4797c0425e5735864eb98b9a2880b6030234d21e5e84cf414526b6c762cf70f9` |
@@ -907,24 +1036,24 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/line_copy_editor/policies/line_copy_editor_handoff_policy.md` | PACKAGE | `07d36aae03afb96dc9f31d7bb9c86078ae0a5d851ec920b6c71ff7de97011aef` |
 | `agent_onboarding/default/line_copy_editor/policies/line_copy_editor_quality_policy.md` | PACKAGE | `530e39a402d77cd28fe0cad3222a132ec334ad71a6c11de273bf357657ca35d9` |
 | `agent_onboarding/default/line_copy_editor/README.md` | PACKAGE | `d92fe03876ecfcc9992bf5930dd312f9e561057c8e5cbf46ab02fa6d9b901223` |
-| `agent_onboarding/default/line_copy_editor/SKILLS.MD` | PACKAGE | `f151bb8a365e68a9e2c871613175d09a0d0de8148ab1afa865537f6fd457a7a8` |
+| `agent_onboarding/default/line_copy_editor/SKILLS.MD` | PACKAGE | `8d7029d87562c15453a579a914184e803553608b680acf1d3bc6dd990ee12066` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor.md` | PACKAGE | `0d2c789f2ccb0ac18da4ee69586c2bada2f0faa0036377de5a6c52889f91dcc5` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_advanced_context.md` | PACKAGE | `8898681ac7b15ae7eddce5d58e4fcea28387bfebbdcec59f1c45ff91bf04d937` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_deliverables.md` | PACKAGE | `5575be4c43db6dd0bfdaa7b41120603882c5e3aa4e8824a52718101ca10ed114` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_execution.md` | PACKAGE | `9dbc078a4bc66f18fadf840364d6de95cc672127a981886d5a3bb298c4b3baab` |
 | `agent_onboarding/default/line_copy_editor/WORKFLOWS.MD` | PACKAGE | `96a21ed326f570fd6bb82460b742fcb0878e4a712a438b4d4b0ee2fe4881255b` |
 | `agent_onboarding/default/line_copy_editor/workflows/README.md` | PACKAGE | `d5476a7bb59b466d13ada44a134e926046394d16e63c2415a8d1124f634ecd06` |
-| `agent_onboarding/default/new/AGENTS.MD` | PACKAGE | `68f6ff6bdf6d9b2a4f989f4145c9d20c1361daa642b4cf7a5d9dfb09ab970a4c` |
-| `agent_onboarding/default/new/behavioral_guidelines/user_onboarding_flow.md` | PACKAGE | `065ba54845d4fb92e5cef79255f29c89690c4d825e9b1bcab26fb27717b8073d` |
+| `agent_onboarding/default/new/AGENTS.MD` | PACKAGE | `594900e1b1ab5146d254750247f1c5cc7171d89aac01ac65efd79754db424045` |
+| `agent_onboarding/default/new/behavioral_guidelines/user_onboarding_flow.md` | PACKAGE | `ac9d0cd3e70bed374128befb3428b2c6a5f281676a04fc7c1865df0f20020450` |
 | `agent_onboarding/default/new/policies/new_onboarding_policy.md` | PACKAGE | `6bc29fde4ef122a5f7240fa84cf77163b7738d9ecdeaf6aa05b32771698f7f84` |
 | `agent_onboarding/default/new/README.md` | PACKAGE | `9c3be26e36e70072b3b8bc93fb3d16be0eb51fd28d9bea4301f1777f7dde4303` |
-| `agent_onboarding/default/new/SKILLS.MD` | PACKAGE | `c975b55abba5ad08ccba23c08d36f1c8d4277071060fe4ca99040443110d3200` |
+| `agent_onboarding/default/new/SKILLS.MD` | PACKAGE | `0e110b34454afef8684abb13d929bda8e3fcfcacfd6f7125fd1b5445fd466dcb` |
 | `agent_onboarding/default/new/skills/configuration_map_guide.md` | PACKAGE | `870364caba56738edb642bea1877b666592c24757d0ae490a3309a07b5652632` |
-| `agent_onboarding/default/new/skills/first_time_profile_setup.md` | PACKAGE | `e1a859b9f7ca83d2b82721370ab59580ad02ea398e04f57d009702b386e7d45c` |
+| `agent_onboarding/default/new/skills/first_time_profile_setup.md` | PACKAGE | `b82a2cb493bc7a6e6185b2dcf89b3612e8e62f15015f7b1b41973338388e3422` |
 | `agent_onboarding/default/new/skills/new.md` | PACKAGE | `3385f44aa662d550cd7f85bc8f84bff78e215a331c2ac127c91de07529290102` |
-| `agent_onboarding/default/new/skills/onboarding_completion_and_next_step.md` | PACKAGE | `d93b836e74a139ccce1c0a85dccb80d9ab0e839973891d13c4bf81123e641da3` |
+| `agent_onboarding/default/new/skills/onboarding_completion_and_next_step.md` | PACKAGE | `0df5c6512d6fe9ea29e64e6306073c8d6f91b0de78081530b357067727b86b2f` |
 | `agent_onboarding/default/new/skills/profile_model_explained.md` | PACKAGE | `c0d439820758542e9480f45bf63659bb06141e6bfc6cba4efb1dfb6969d4fbd0` |
-| `agent_onboarding/default/new/skills/system_overview_for_user.md` | PACKAGE | `a174184f9a9f8c5276ab4a78269656dbea6ebc1ca977558e8f00c5cf5a890a9a` |
+| `agent_onboarding/default/new/skills/system_overview_for_user.md` | PACKAGE | `5e25c3ca2d104b04547f8bd116ee7d2f68646c4568b7c48f669fd14bcf7190d9` |
 | `agent_onboarding/default/new/WORKFLOWS.MD` | PACKAGE | `eaaea4c4ef26383b5deb1d0e08d46d69d6ebf7ef40a21cd9f55ca3a334635867` |
 | `agent_onboarding/default/new/workflows/README.md` | PACKAGE | `f5d91e5558aecc918c7f04d5f476169d60eb33c3c81e73e267c8b30b4fbf72a9` |
 | `agent_onboarding/default/platform_engineer/AGENTS.MD` | PACKAGE | `5b60d3d8016594f3c10b7994529d4f45c2cc82142a65fcbd37761ce9c1231e03` |
@@ -942,7 +1071,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/platform_engineer/skills/infrastructure_as_code.md` | PACKAGE | `a2da8c95bc4d8405277e9394311c69d80438aa9b41e5239b208824aa6168a47e` |
 | `agent_onboarding/default/platform_engineer/skills/observability_and_monitoring.md` | PACKAGE | `95624a170fa31be0f3ceb307d4b06b915924a50b71b73f49e2b3c034c3b118c7` |
 | `agent_onboarding/default/platform_engineer/skills/performance_capacity_cost.md` | PACKAGE | `24cfb13d5e249c506aed40d2eb1d7298b3cea03433c9f79982b9d1d6b5fb662e` |
-| `agent_onboarding/default/platform_engineer/skills/platform_engineer_execution.md` | PACKAGE | `e4c0e9fd4013006d9a796e828eb813db30c74759faa1f6bbe2c5d629f254f0d6` |
+| `agent_onboarding/default/platform_engineer/skills/platform_engineer_execution.md` | PACKAGE | `32d9efd7e2665548f3533170d2ca5faf2a57ca98103ed29d87691e7f9f8d00b2` |
 | `agent_onboarding/default/platform_engineer/skills/platform_security_basics.md` | PACKAGE | `9f0b259af5c58b7cb19df8f11be2bf8ad5d7dcbc52021775835451e5808c296c` |
 | `agent_onboarding/default/platform_engineer/WORKFLOWS.MD` | PACKAGE | `7b23e211bbaba81a5c4faeb7d5fe7ac3693b1705addc2ac1e2838891e0d62df4` |
 | `agent_onboarding/default/platform_engineer/workflows/README.md` | PACKAGE | `b907300dd04cebedb75a0ca4c8751af53111ffc22ed208ab7497e98e8c1da813` |
@@ -952,7 +1081,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/proofreader/policies/proofreader_handoff_policy.md` | PACKAGE | `c33a34f5fe9a9e5fc6c260d1d33fc52160c325fb16afcfe3082b38fd3187b9bd` |
 | `agent_onboarding/default/proofreader/policies/proofreader_quality_policy.md` | PACKAGE | `889d78d3c7f0bb0c0bfb7770b88223fcd60736402d823ae39df70e52fdf21611` |
 | `agent_onboarding/default/proofreader/README.md` | PACKAGE | `8536c13cc434cc2020cb139443ce1feb6e577eaa096afb2797b91ee88ac5b5d6` |
-| `agent_onboarding/default/proofreader/SKILLS.MD` | PACKAGE | `1de96772b2d7afb6ec96d2736aa16d3862ac4deba9698526110d6b49adf4563e` |
+| `agent_onboarding/default/proofreader/SKILLS.MD` | PACKAGE | `bd2e10aba536f9b0b9837e095a4e0196f08b2c4296d9000db01330531c6c7d64` |
 | `agent_onboarding/default/proofreader/skills/proofreader.md` | PACKAGE | `5c9550dd315f139ec210bfbe897f4638232916e4a65252f2e9c7fe1b4a90baa9` |
 | `agent_onboarding/default/proofreader/skills/proofreader_advanced_context.md` | PACKAGE | `84d38d325406746bb6e8adf5b174e1278e7001c0f743aaab73e893e39521dc79` |
 | `agent_onboarding/default/proofreader/skills/proofreader_deliverables.md` | PACKAGE | `fd218a085097d7b37090cf1a1ae919bfbc0cd7a374cff541167786eee97f8a2c` |
@@ -984,7 +1113,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/researcher/policies/researcher_handoff_policy.md` | PACKAGE | `7b90bb737845a9a060f2dbc0150e387729aaed653c4647c80330770471665fd1` |
 | `agent_onboarding/default/researcher/policies/researcher_quality_policy.md` | PACKAGE | `a5ef981441142723c63ce280c8c884c02edd0d07640c8b6e222e937676dedc03` |
 | `agent_onboarding/default/researcher/README.md` | PACKAGE | `5cbb8839916e363aba95b2b5e7c7fef0c9287948cafccbbdec1472150ec3ab92` |
-| `agent_onboarding/default/researcher/SKILLS.MD` | PACKAGE | `2bc930b3003b5bd3bfd7c43e30c53717559cdfff14bf7c444b8f67325cb45ef0` |
+| `agent_onboarding/default/researcher/SKILLS.MD` | PACKAGE | `540a5f4bd716e0bff33cc1cfbf97e5eceba0702d8c7b1253cfa7543f869a9702` |
 | `agent_onboarding/default/researcher/skills/researcher.md` | PACKAGE | `c799a6d9313515eba81264cbe6b7909beb30604a8fb748188e8f30cebb8d56ec` |
 | `agent_onboarding/default/researcher/skills/researcher_advanced_context.md` | PACKAGE | `e7d0e0fea22b975b42982b5e9fd4d5f6c266ab797c3d6e5ef037a08fd256ceb0` |
 | `agent_onboarding/default/researcher/skills/researcher_deliverables.md` | PACKAGE | `b651e2ed12e10a085da387965ae280278c1cf4858224435c5ba9a085ab0fa66b` |
@@ -1017,7 +1146,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/story_designer/policies/story_designer_handoff_policy.md` | PACKAGE | `887139dde12dee54c1d0da3e25facb2ca8081e39b58b4c1b95086c53efccb3e7` |
 | `agent_onboarding/default/story_designer/policies/story_designer_quality_policy.md` | PACKAGE | `56df96d22229c3d2c67db449d09c29e55bbf47dd78e46784c0913ee3e11e81fd` |
 | `agent_onboarding/default/story_designer/README.md` | PACKAGE | `e6921703ee2ea8901ba9f123dd026fdef6bc2eac6299a2f9da1cef1592ee07f7` |
-| `agent_onboarding/default/story_designer/SKILLS.MD` | PACKAGE | `447b3c3962a982876ff53f08c729018e77312dcf4bdec23a1c352eb07499fc43` |
+| `agent_onboarding/default/story_designer/SKILLS.MD` | PACKAGE | `7ba0ecc86e7fa21dd3ad71d7d405f7b1f8dc024a1487208873997ddbf907bd81` |
 | `agent_onboarding/default/story_designer/skills/story_designer.md` | PACKAGE | `c33f01f532c0637ec7dfe00900d1426aabe1afe9b01ab54efe0e680825e8f209` |
 | `agent_onboarding/default/story_designer/skills/story_designer_advanced_context.md` | PACKAGE | `1bb9d65bbbb7eade583d41be5740884005c36e3ca64ccaac1a138616b84ee3b0` |
 | `agent_onboarding/default/story_designer/skills/story_designer_deliverables.md` | PACKAGE | `343b6572d1678e7bf68f9bc40be226f486bd0c94957c5ceca63ec631e4f5e479` |
@@ -1030,7 +1159,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/story_novel_artist/policies/story_novel_artist_handoff_policy.md` | PACKAGE | `450099e3358b0dfb810f9f8e9b4b12c072b0f6b5744120e7e70fe05768169ab7` |
 | `agent_onboarding/default/story_novel_artist/policies/story_novel_artist_quality_policy.md` | PACKAGE | `66d96093d70f692de4e7aef5f24f435097d16e0cc743be0402d9ffcd9bd45ec0` |
 | `agent_onboarding/default/story_novel_artist/README.md` | PACKAGE | `4c71f90c6f69164e9d0daed6f87588e24946b0ca2dd8e9e439d8a1fa82775ee4` |
-| `agent_onboarding/default/story_novel_artist/SKILLS.MD` | PACKAGE | `662877eff9f3aafa7e2b54230e1c600f670c7e1455db5c57d6deab9a1b971354` |
+| `agent_onboarding/default/story_novel_artist/SKILLS.MD` | PACKAGE | `6dbe6df9c3359a7582e377640f3dddcccd25af8b964e84aee8f19bebdd9a8bc7` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist.md` | PACKAGE | `e7adc70dad2cf22479f10751287f733e8ca4902f23791a507e4585ab6aaefb6a` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_advanced_context.md` | PACKAGE | `8d74072888a3b9c6ea7fe7c9941c56d0017a2e698204655bef82156e5acc98f9` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_deliverables.md` | PACKAGE | `ccfbd0413d71acfccba2585c5337a93033620a2461360f1dae1fc845f4566c04` |
@@ -1041,7 +1170,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/data_engineer/behavioral_guidelines/data_engineer_behavior_overrides.md` | INSTANCE | `524c2ec3c704055fd0e0cfcfa98ec95181757527a0722bf0ddd24446ec968e8b` |
 | `agent_onboarding/user_defined/data_engineer/policies/data_engineer_policy_overrides.md` | INSTANCE | `fe346b6370551ed5e32f0a2520389c8ab2dbc61d38661cd9170c7b5c6074be2c` |
 | `agent_onboarding/user_defined/data_engineer/profile_overrides.md` | INSTANCE | `018813ebe40bb314127bec705eec75fb90aeab5bad2042af8d0396ea9e968a52` |
-| `agent_onboarding/user_defined/data_engineer/SKILLS.MD` | INSTANCE | `7229e21404fae271ff23c11b0b8d08f04ffa00cbd87a60d9f0033d7dd20a33a5` |
+| `agent_onboarding/user_defined/data_engineer/SKILLS.MD` | INSTANCE | `65c4ff04e362b1d4a9abf379e6c8db6e1511e947aa24b38d1c1c5dce8a1467e9` |
 | `agent_onboarding/user_defined/data_engineer/skills/data_engineer_skill_overrides.md` | INSTANCE | `1b458126851997a49f2f4bc62cd813f624c1911104c2650f3841a6b2da1fc602` |
 | `agent_onboarding/user_defined/data_engineer/WORKFLOWS.MD` | INSTANCE | `0fd481184dec1d736ce619b5c6f2acc624ae893adfb9d076b59d2a67df64f942` |
 | `agent_onboarding/user_defined/data_engineer/workflows/README.md` | INSTANCE | `86484f277779c30f535a20447fa0c9d9a8b6d05d19a2e7116c56787b6c6339a4` |
@@ -1054,7 +1183,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py` | INSTANCE | `01d4e6c7f384cfe77cb2b9a5aa91935cbd1545abea4ab74547c2fa480dc03a15` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/policies/synaptic_finishing_developer_policy_overrides.md` | INSTANCE | `0cc76f35aa1b14baf5bdd095e71a9a40a470317a2807e52fa9482891dafbc202` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/profile_overrides.md` | INSTANCE | `a60a7f92681c14d0b7f6effd5e79b3fed43bd939ad22a8c464c3e97125851859` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `dd319735e8421a9739ee9d90e8898ccf518322e409c3b02bc9fd595a176afe87` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `64b9f257efa576964200f893b904862043abc7ecb8f68b4ade8980d2e99fa3cf` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/comment_craft.md` | INSTANCE | `854789db17b20c6e43d2020ce9378439e6c70cecf5fada72f3cf4178c1b027ae` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_craft.md` | INSTANCE | `8927e4eb603e40a1fab06fe534f17b3fc0e382164b3756af470b73ae0d26ddb0` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md` | INSTANCE | `908215ca5be1c11d47b4cb3da64de6a8ac1b0125b9f1e45859f05030b714c9ae` |
@@ -1068,8 +1197,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/regression_tests.md` | INSTANCE | `aee0e7a05d1453a6037b17c30af736362ae6f69dd0bc2b857b4ed6426973bfb7` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/testing_overview.md` | INSTANCE | `712e4e06cad8bda7b9930686d1a1c8af18d6b43967ae9ac958a58e8c23514475` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/WORKFLOWS.MD` | INSTANCE | `f2ce9a8438a7b20afd0ecfce1f770d85df683b7aa2ce805bb9f08c53ab00a28d` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/optimize_pytests_for_repo.md` | INSTANCE | `024752e7f68a9633ed86fadd8e581a2f8cac6d8a43ae7a9ee7b9fc8d1a5a18bc` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/polish_repo_documentation.md` | INSTANCE | `e17904e62cdb4f5cae1b5e7cad2fa620c86da9d499e7367e2340659309cfe299` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/optimize_pytests_for_repo.md` | INSTANCE | `2dc745940a0a20037c3da22e2b5a7fafa1905f03a48f3ff51e19e3ff0d5f75da` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/polish_repo_documentation.md` | INSTANCE | `101053bc5a36c1e5f4649cabe82d0fff7df3ff4ab4035f006b3dea535cd15eb3` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/README.md` | INSTANCE | `f495bfbc15c5f9275be4bba33d9131147ad733e221814bdc6694717c9c42a7be` |
 | `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `22b4be9851361017e71953daf9b1fad61d463372055e7402672f5bae4856181b` |
 | `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md` | INSTANCE | `d6134d69d3894c4da5dfcc59ffbdc40aa16dcfe6217a64095eb7490dafb0fd85` |
@@ -1084,7 +1213,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md` | INSTANCE | `3bbe4757097d6ea33635f0e7fa79b9eeeb4d297f33a219f15b60b0409ea75001` |
 | `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md` | INSTANCE | `d44ff6b228afdb3415787629b4933495c45ec4f8f181a8ad2534efd56d6dd9cf` |
 | `agent_onboarding/user_defined/synaptic_python_developer/README.md` | INSTANCE | `406458063eeb04a28520bcc3da9597090c6f990ddb01a1b868dfc4e59c07be3f` |
-| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `1ec155d2c1f039666151c21bd9fcec6396a49921cd867fefe382a3219731778e` |
+| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `b28af00e1ea9ab01be4de5638b0966cdcbe287952888ef758428911ac68286ab` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/attribute_aliasing_skill_benchmark.py` | INSTANCE | `b2a6bbaabedd58919ab1c25beca31b09d2c6f76b92bebb51223b5235dbe13b27` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md` | INSTANCE | `22373e3bdcadfa6a4a276db26700cad0d349b401431f05db5cc338c337573bab` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/cleanup_and_disposal.md` | INSTANCE | `b6356e385f446a8c9ac80af752cfc81987df65805ad70e260fee1a5063309362` |
@@ -1107,13 +1236,13 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md` | INSTANCE | `1d911fec7a32e40347b4a1cd49e13db1fd29033fb51cfde0e03a018c14bc089b` |
 | `agent_onboarding/user_defined/synaptic_python_developer/WORKFLOWS.MD` | INSTANCE | `b1375ff028768adfc4076b63f17b8dd908b5d4a5cbe80539f16ce1c5319320d3` |
 | `agent_onboarding/user_defined/synaptic_python_developer/workflows/README.md` | INSTANCE | `2d938e6fa1d0d57b5d6331d257593625e2e04a4609b90e9b0cb4e90fc3a1ff7d` |
-| `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md` | INSTANCE | `d5caa21812e4e67e72cd2078130f0cd8507cd2a678d141526193dc6025fee6f4` |
+| `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md` | INSTANCE | `2a51e65f76b9215740d4f44a0fd882b9d69f74e9ea3ce0df59269fc67cb2a027` |
 | `artifacts/IMPORTANT_CONSIDERATION.md` | RESET | `593c5f85859354065042e4e09368459f869eecc49dd94b651ed82c0ca761ac2d` |
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
-| `artifact_board.md` | LIVE | `63ad0d1f2b5ef2319a17604035c5ae3556ac2b5f1817caa06fc14cfc1bc355ae` |
-| `attention_board.md` | LIVE | `f65ecb1fdb62eca4001d800ae39b9fe592072b31f13abe2dcecbe9056ba55a3f` |
-| `config/context_compass_config.yaml` | CONFIG | `b3b7efe2feb9efc7707da2e3756d91d05f55d06b43f104cd093edee92b6e60de` |
-| `CONTEXT_COMPACTION.md` | PACKAGE | `dd532c42bce5efd3648b6f52cf931f0a4c5ce5de5ff7e33376e836fc9b625047` |
+| `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
+| `attention_board.md` | LIVE | `a9a227336d9dd724401f19fd33b7e7863dd0fa742563cfb68f7ff494c4e50541` |
+| `config/context_compass_config.yaml` | CONFIG | `7bee9db2e4e0c1d1135b9e172c263fb15e269f3ed69febcfd973b14ba4c9ca9f` |
+| `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
 | `context_management/context_board.md` | RESET | `8d554f10be975061d13b52d1d456891acdbf55dcac1df4fb253c95c3a0d39f7c` |
@@ -1161,13 +1290,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/security_review_flow.md` | PACKAGE | `4f4a79abcc9130062637bcd9b6133e59c1d397bab483a8262ec91e72816b1cfb` |
 | `examples/story_designer_task_flow.md` | PACKAGE | `75def243d169840f744772b92088ee5547f7f683f54e7f09c3bf684faa63f864` |
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
+| `issue_board.md` | LIVE | `92bfb5049a1cec460280b9b1d082df37d3dcf25ad1b2bd9ddbeacf91ac054465` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
-| `mailbox_board.md` | LIVE | `baffe3bd2c7876887af49dba8cf9931cfe456203900f0cb29669d87090285d1f` |
+| `mailbox_board.md` | LIVE | `6597cf9d88e69a85d9e6622216062f330c9f93ee2904b37b5e76f114a6125427` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
-| `README.md` | PACKAGE | `9cd51a4f9243c05df7cdb26cedb0482e8a68ad9dfa0cd6cb4df92f24894e7b28` |
-| `SKILLS.MD` | PACKAGE | `c95bcc044f9ea593e7a6992bcb7ad2f2bf796b05c782dba9e098dde9524a5bb3` |
-| `special_instructions/README.md` | RESET | `8625a6b64e1610c3fb4094dfcef7a23c0ac67a8a4d6867c51fa133e4b629bad8` |
+| `README.md` | PACKAGE | `5e749e8c82b2be2235957477b707cf809571b95f9dff9c87894bbde3d2b7f938` |
+| `SKILLS.MD` | PACKAGE | `afff6c19936ac56eb7d6a5d788394c4f8466d7bc3b64dbead5d86248fcb5d276` |
+| `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `system_docs/patches/active/README.md` | RESET | `f0d1e1f0716475bb4e14ad38ae0f8fbb2dcd5a4b4c00d3e366bb38d961dc383b` |
 | `system_docs/patches/active/_template_patch_id/architecture_patch.md` | RESET | `3a9faaf4466586f0122cff1d8f3de572ba1ddc601ae7bf4f45b8186fd34ce2b7` |
@@ -1195,13 +1325,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/build_llm_full.py` | PACKAGE | `4232f0c3ca47a135607e3f7037f8f9a571d4ef273264a2b5ed51599d9b0e4e74` |
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
-| `tools/package_manifest.py` | PACKAGE | `6ca3234c863193f208f729dbe85e8d48ad0fe8462d77858d47423d21e622436e` |
+| `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
-| `tools/system_documents/python/extract_graph.py` | PACKAGE | `d91a396e5385106125a85c3a7e9400bf7c670f8bb82f8f5f666d266f1d59781c` |
-| `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `2df63e9e1e85815f3bdafd1c2a20e9d78e054f938cd98ec4012c52b0f4c88102` |
+| `tools/system_documents/python/extract_graph.py` | PACKAGE | `b093a1004e20853e9ecc628c969f890d4b1c31875df9080f934bc3458bc93fd3` |
+| `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `d509c818d216178465843d71398ad28a46b46119a744c0987487c83bc49382e3` |
 | `tools/system_documents/python/graph_walker.py` | PACKAGE | `be0aa367a5f9bd66bb5adddba7dde4294abb44a9926dd981d20ab6500e6d7a02` |
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
+| `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |
 
@@ -1777,6 +1908,7 @@ context_compass/
   special_instructions/         yours - project-specific rules
 
   attention_board.md            live routing; package owns only the MANAGED block
+  issue_board.md                local agent claims for github_codex_plugin
   artifact_board.md
   mailbox_board.md
 ```
@@ -1790,13 +1922,39 @@ replaced when you upgrade. `MANIFEST.md` records which is which, per file.
 read as repository truth no matter what banner sits on it, so the shape
 reference lives in `examples/` instead and this directory stays yours.
 
+## Optional GitHub Work Tracking
+
+Local Epic/Story/Task files remain the default. An opt-in setting in
+`config/context_compass_config.yaml` chooses `local` or `github_codex_plugin`.
+Plugin mode requires a Codex `connection_nickname` and target `issues_repository`.
+The agent resolves that exact nickname before calling the plugin, rather than
+choosing a GitHub account implicitly. Plugin mode uses Issues for tickets, with Status
+and Notes in their bodies. The Project URL is optional. Local boards and other
+Context Compass documents stay in the repository; plugin connection permissions
+are managed outside this YAML.
+
+The two YAML examples, plugin setup, and migration instructions are in
+`agent_onboarding/default/general/skills/github/README.md`. Do not switch an
+existing project with local tickets until you have reviewed their full content
+and the exact Issue destination.
+
 ## How It Works
 
 ### 1) Policy Bootstrap
 
 The agent starts from the runtime entrypoint:
 
-- The agent reads `AGENTS.MD` and resolves directly into the shared policy chain.
+- The agent reads `AGENTS.MD`, loads `special_instructions/`, and resolves any
+  explicit project onboarding overrides before applying the shared policy chain.
+
+Project instructions can replace or waive a named onboarding requirement within
+their stated scope. Everything else remains in force, and later role documents
+do not undo an applicable override. The same bootstrap runs after compaction or
+handoff. The shipped folder activates no overrides; normal onboarding remains
+the default until the project owner adds instructions.
+
+The canonical rule is `AGENTS.MD` / `Project Instructions Bootstrap`. It does not
+change platform instructions or tool permissions.
 
 ### 2) Role Routing
 
@@ -1812,18 +1970,23 @@ paths under it:
   one and names them for what they hold — `engineer` carries both
   `Required baseline skills` and a `Baseline system orientation` set.
 - **`On-demand`** (read when the trigger applies).
+- **`Self-directed`** (read when useful to the work, without waiting for a trigger).
 
-The rule is *read every section not marked on-demand*, not *match a list of
-heading names*, so a role can add a baseline section without every policy file in
-the package needing an edit to notice it.
+The default is to read every section marked baseline, not to match a fixed list
+of heading names. Project onboarding overrides are resolved before applying
+those requirements; unaffected baseline requirements still apply.
 
 ### 3) Certification Gate
 
-Before implementation:
+Under the default onboarding rules, before implementation:
 
 - onboarding must be complete,
 - read-integrity must be attested,
 - and user approval must include `CERTIFY: APPROVED`.
+
+An explicit project override changes only the requirement it names. Named work
+records still need a known agent name, and writes wait for effective onboarding
+authorization as defined by the bootstrap.
 
 ### 4) Ticket-First Execution
 
@@ -1838,11 +2001,14 @@ decisions, blockers, and evidence.
 
 ### 5) Compaction / Re-Entry
 
-After compaction, handoff, or a new session:
+After compaction or handoff:
 
-- re-onboard using the same routing authority,
+- reload project instructions and re-onboard using the same routing authority,
 - rebuild context from board + ticket state,
-- and re-certify before resuming action.
+- and satisfy the effective authorization requirements before resuming action.
+
+Fresh sessions use ONBOARD rather than REONBOARD. Without an explicit override,
+the normal certification requirement remains in force in both flows.
 
 This prevents "performative compliance" and keeps behavior auditable.
 
@@ -1905,11 +2071,10 @@ several agents can hold different roles in the same repository at once.
 ## Quick Start
 
 1. Place `context_compass/` in your repository.
-2. Ensure your agent reads `AGENTS.MD` at the repository root, or points its own
-   entrypoint file at it.
-3. Select a role from the role map in `SKILLS.MD`.
-4. Start onboarding through `SKILLS.MD` role resolution.
-5. Request `CERTIFY: APPROVED`.
+2. Point your agent at `context_compass/AGENTS.MD`.
+3. Ask it to onboard as a role from `SKILLS.MD`, such as `engineer`.
+4. The bootstrap reads project instructions before applying the role's onboarding requirements.
+5. Under the default flow, provide `AGENT_NAME: <name>` and `CERTIFY: APPROVED`.
 6. Execute through ticket routing (`attention_board.md` + active ticket notes).
 
 ## Why Teams Use This
@@ -1966,6 +2131,9 @@ Purpose
 - Role selection is **per agent, per session**. There is no stored or global
   active role. Multiple agents may hold different roles in the same repository
   at the same time, which is why no single value can represent "the" role.
+- Work tracking is a separate project setting. The general role has shared
+  baseline skills plus one backend baseline selected by `work_tracking.backend`
+  in config; this does not create or select another role.
 
 ## Role registry
 
@@ -2009,8 +2177,14 @@ Unregistered overlays
 
 ## Role selection directive (non-negotiable)
 
-1. When this file is read, list the roles from the registry table.
-2. Ask the user which role to take on, unless they already selected one.
+Apply `context_compass/AGENTS.MD` / Project Instructions Bootstrap before these
+role-selection defaults. Explicit project overrides apply to all affected steps,
+not only the question to the user; they do not create unregistered roles.
+
+1. During role selection, list the roles from the registry table.
+2. Ask the user which role to take on, unless they already selected one,
+   subject to any project role-prompt replacement resolved in the Project
+   Instructions Bootstrap (`context_compass/AGENTS.MD`).
 3. Resolve the selected role to its `SKILLS.MD` path from the table.
 4. Read that `SKILLS.MD`, then walk `INHERITS_SKILLS_FROM` upward and read the
    whole chain **parent-first**.
@@ -2020,6 +2194,11 @@ Unregistered overlays
      **Required baseline skills**, **Baseline system orientation** - and a role
      may add another. Match on the baseline label, never on a fixed list of
      headings; a section you fail to recognise is still mandatory.
+   - `Local backend baseline` applies to `local`; `GitHub Codex plugin baseline`
+     applies to `github_codex_plugin` in `work_tracking.backend`.
+     A missing key means `local`; resolve legacy values through the shared
+     `work_tracking_backend.md` skill. Read the selected backend's paths before
+     certification; never apply the inactive backend's storage instructions.
    - **On-demand** skills are conditional. Do NOT read them for certification
      unless a trigger condition is met. When the trigger is met, those paths
      become mandatory and MUST be read before proceeding in that scope.
@@ -2050,9 +2229,13 @@ match on the STATE, never on a list of headings:
 | **On-demand** | no | only when the section's stated trigger fires |
 | **Self-directed** | no | at the agent's own initiative, no trigger, no permission |
 
-Baseline sections are named for what they hold — `general` uses **Active skills**,
+Baseline sections are named for what they hold — `general` uses **Shared baseline skills**,
 `engineer` uses both **Required baseline skills** and **Baseline system
 orientation**. A role may introduce another; it is still baseline.
+
+`general` also names backend-specific baseline sections. Their paths are
+required only for the selected backend, after the config has been read. This is
+a conditional baseline, not an On-demand skill and not a new role.
 
 **On-demand and Self-directed are both outside certification, and they are not the
 same thing.** On-demand is gated: the section states a trigger, and reading before
@@ -2217,9 +2400,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -2819,7 +3002,7 @@ Handoff rules
   - ensure each ticket has acceptance criteria and validation steps.
 
 References
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md ---
@@ -3396,7 +3579,7 @@ Handoff requirements
 References
 - `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
 - `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md ---
 
@@ -3529,7 +3712,7 @@ Handoff requirements
 References
 - `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
 - `agent_onboarding/default/design_engineer/skills/src_components_instructions.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/skills/component_patch_contracts.md ---
 
@@ -3676,7 +3859,7 @@ Artifact discipline (design)
 References
 - `agent_onboarding/default/design_engineer/policies/design_quality_policy.md`
 - `agent_onboarding/default/design_engineer/policies/decision_record_policy.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
 - `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
 - `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
@@ -3718,7 +3901,7 @@ Rules
 
 References
 - `agent_onboarding/default/design_engineer/policies/design_review_policy.md`
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/skills/design_review_protocol.md ---
 
@@ -3836,7 +4019,7 @@ Manual validation expectation
 References
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
 - `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md`
 - `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md`
@@ -3880,7 +4063,7 @@ Output format (recommended)
 
 References
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/design_engineer/skills/system_design_method.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/skills/requirements_to_architecture.md ---
@@ -5693,9 +5876,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -6111,9 +6294,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -6493,9 +6676,8 @@ Before acting on anything **outside the explicitly agreed architectural plan**, 
 * **Ask clarifying questions**; if anything is unclear or you are unsure, investigate briefly and then stop and ask.
 * **Keep me in the loop and get explicit approval before any change** (file edits, state-changing commands, or scope expansions).
 * Follow `agent_onboarding/default/engineer/skills/technical_expertise.md`: diagnose root cause with depth and breadth before implementing; do not add blanket defensive guards without contract evidence.
-* Use `SKILLS.MD` and
-  `agent_onboarding/default/general/skills/workflow.md` for epic/story/task
-  ticketing and formatting.
+* Use `SKILLS.MD`, shared `ticketing.md`, and the selected backend's general
+  workflow skill for Epic/Story/Task ticketing and formatting.
 * Use `agent_onboarding/default/general/skills/` for detailed policy modules (MRP, tone, context rituals).
 * Follow `agent_onboarding/default/general/SKILLS.MD` and
   `agent_onboarding/default/engineer/SKILLS.MD` as primary onboarding and execution
@@ -7004,6 +7186,8 @@ Why this is called Self-directed and not On-demand (read this before you interpr
   refusal to do the work, dressed as deference.
 
 Rules
+- Inherited `general` reads include shared baseline skills and only the
+  backend baseline selected by YAML; inactive backend paths are not required.
 - You MUST read **all** paths listed under **Required baseline skills** for this role
   to be considered onboarded/certifiable as `engineer`.
 - You MUST read every file under **Baseline system orientation** that exists in this
@@ -7327,18 +7511,22 @@ Story steps
    - Summarize changes and reference relevant files.
    - List remaining risks or follow-ups.
 6) Close
-   - Ask whether acceptance criteria are met before moving the ticket.
+   - Ask whether acceptance criteria are met before closing the ticket in the
+     selected backend.
 
 References
 - `AGENTS.MD`
 - `SKILLS.MD`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/engineer/examples/artifact_workflow.md ---
 
 # Engineer Example: Artifact Workflow
+
+This is a local-backend example. In plugin mode, use the same content and
+artifact rules, but place the ticket in an Issue and route via its URL.
 
 Context
 - An engineer needs to make control-file casing uniform so every role registry
@@ -7438,7 +7626,8 @@ Tactics / runbook
 ```
 
 Work queue conversion
-- When approved, convert the todo into a story/task ticket in `tickets/stories/` or `tickets/tasks/`.
+- In local mode, convert the approved todo into a story/task ticket in
+  `tickets/stories/` or `tickets/tasks/`; plugin mode uses an Issue body.
 - Example work items (summarized):
   - Task: rename control files to the single casing convention
   - Task: sweep references and prove readset resolution after the rename
@@ -7453,8 +7642,8 @@ Work queue conversion
 
 Context
 - The user asks for a small refactor with tests.
-- Follow `agent_onboarding/default/general/skills/workflow.md` and
-  `SKILLS.MD` for ticketing and execution rules.
+- Follow `SKILLS.MD` and the selected backend's general workflow skill for
+  ticketing and execution rules.
 
 Example flow (concise)
 1) Confirm scope and list files to be changed.
@@ -7990,8 +8179,8 @@ Core rules
   you need. Earlier revisions of this skill named `workspace/agent/`, which the
   package has never shipped and which no lane policy protects, so scratch written
   there was swept on the next cleanup.
-- Promote durable plans and execution artifacts into `tickets/epics/`,
-  `tickets/stories/`, `tickets/tasks/`, and their completed folders.
+- Promote durable plans and execution artifacts into the selected ticket
+  backend; the `tickets/` folders are local-mode storage only.
 
 Preferred workflow
 1) Clarify the goal, constraints, and affected files.
@@ -8008,16 +8197,15 @@ Preferred workflow
 
 Artifact discipline (engineer)
 - Ideas/opinions/todo: `user_defined/` only.
-- Plans and scope control: use `templates/` and create tickets in
-  `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`.
+- Plans and scope control: use `templates/` and create Epic/Story/Task tickets
+  in the selected backend.
 - For system-impacting changes under patch framework:
   - maintain active patch docs under `system_docs/patches/active/<patch_id>/`,
   - link patch docs from active tickets,
   - complete merge+cleanup closure gates before marking work done.
 - Status updates: keep `attention_board.md` current and append detailed
   findings to ticket `## Notes`.
-- Closures: move completed tickets to their matching completed folder with
-  summary + date.
+- Closures: use the selected backend's closure procedure with summary + date.
 - Convert approved todos into tickets instead of leaving them in scratch.
 
 Examples
@@ -8025,7 +8213,7 @@ Examples
 
 References
 - `AGENTS.MD`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 - `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
 
@@ -8300,7 +8488,7 @@ Manual validation expectation
 References
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/patch_artifact_consumption.md ---
 
@@ -8375,8 +8563,7 @@ Failure behavior
 
 References
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/workflow.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+- the selected backend's general workflow and closure skills
 - `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/patch_framework_gating.md ---
@@ -8543,6 +8730,17 @@ a rename, copy the authored fields onto the new node first; afterwards the only
 copy is in version control.
 
 ## Turning the backlog into work - ON DEMAND
+
+Resolve the ticket backend first. The `--create` command below writes local
+ticket files and applies only to `local`. With `github_codex_plugin`, use the
+dry-run findings to compose the existing Epic/Story/Task bodies through the
+plugin instead; keep local ticket folders inactive for that work.
+
+The helper reads `config/context_compass_config.yaml` beside the selected ticket
+lane. It refuses `--create` in plugin mode and previews only the graph census,
+without reading local ticket archives. Its dependency-free selector supports
+the published YAML block format; ambiguous, merged, or flow-form selectors stop
+the helper before it can write. Missing legacy config still means local.
 
 ```bash
 python context_compass/tools/system_documents/python/graph_semantics_tickets.py \
@@ -9395,15 +9593,14 @@ Required behavior
   - `SKILLS.MD`
   - `agent_onboarding/default/general/SKILLS.MD`
   - `agent_onboarding/default/engineer/SKILLS.MD`
-  - `agent_onboarding/default/general/skills/workflow.md`
+  - the selected backend's general workflow skill
 - Do not restate or override policy; cite the relevant skill or doc.
 
 Core references
 - Fresh-install posture for `system_docs/`: `system_docs/system_docs_read_first.md`
   (read this before asserting that a context map is missing or wrong)
 - Agent stories: `agent_onboarding/default/general/behavioral_guidelines/README.md`
-- Ticketing: `agent_onboarding/default/general/skills/workflow.md` and
-  `templates/`
+- Ticketing: the selected backend's general workflow skill and `templates/`
 - System context, in the order it is meant to be used - each step names the key the
   next one is looked up by. Do not treat these as a flat menu:
   1. `system_docs/src_architecture.md` - which part of the system (read whole)
@@ -9433,14 +9630,14 @@ Core references
 Artifact taxonomy (curated vs scratch)
 - Curated, user-owned (source of truth):
   - `attention_board.md` (canonical routing state for active work)
-  - `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
-  - `tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/` (closed tickets)
+  - local mode: `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+    and their matching completed folders
+  - plugin mode: configured Issue bodies plus local `issue_board.md`
 - Scratch, agent-owned (not canonical):
   - `user_defined/` - yours outright, never written to by any tool, create the
     subfolders you want (for example `user_defined/ideas/`, `user_defined/todo/`)
-  - There is no top-level `completed/` and no `workspace/` lane. Both were named in
-    earlier revisions of this skill and neither has ever shipped; closed tickets
-    live in the three `tickets/*/completed/` lanes listed above.
+  - There is no top-level `completed/` or `workspace/` lane. In local mode,
+    closed tickets live in the three `tickets/*/completed/` lanes above.
 - Promotion rule: when content becomes durable or actionable, convert it into tickets.
 
 Suggested user-facing explanation flow
@@ -9542,6 +9739,9 @@ Certification is denied unless the resolved SKILLS chain is satisfied exactly.
   skills**, **Required baseline skills**, **Baseline system orientation** - and a
   role may add another. Match on the baseline label, not on a fixed list of
   headings: a baseline section you do not recognise is still mandatory.
+- Backend baseline sections apply only to the backend selected by config;
+  shared baseline sections apply in both modes. Do not apply file-ticket
+  storage instructions in plugin mode.
 - Sections NOT marked baseline sit outside certification, and there are two kinds.
   **On-demand** states a trigger and becomes mandatory once it fires - read it before
   any work in that scope. **Self-directed** carries no trigger at all: read it on your
@@ -9564,6 +9764,9 @@ This general-layer policy inherits root policy from:
 
 Within the general layer, this `AGENTS.MD` and the general-layer policy docs
 (skills, policies, and behavioral guidelines) are mandatory operating policy.
+Project replacements/waivers resolved in the Project Instructions Bootstrap
+(`context_compass/AGENTS.MD`) outrank this baseline within their stated
+scope; later baseline MUST statements do not reinstate overridden requirements.
 They are not optional references or soft suggestions.
 
 ## Non-Negotiables
@@ -9650,7 +9853,9 @@ As a ritual, after implementing a change:
 
 ### 6) context_compass Ticket Planning (Required)
 
-* Before starting any planned work beyond answering questions, create a structured ticket (epic/story/task) in `tickets/epics/`, `tickets/stories/`, or `tickets/tasks/` using `templates/`.
+* Before starting any planned work beyond answering questions, create a structured
+  Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
+  lanes; plugin mode uses an Issue body in the configured repository.
 * Treat `attention_board.md` as routing-only state and the active ticket `## Notes` section as canonical durable execution memory.
 * Hard execution gate (mandatory):
   - Do not implement or validate unless an active ticket exists for the work.
@@ -9675,9 +9880,8 @@ As a ritual, after implementing a change:
 * If investigation must expand beyond the current subsystem or exceed
   `workflow.ticket_microcycle.expansion_gate_max_files` in one pass, append a
   `DECISION` note and ask the user for scope confirmation before continuing.
-* Follow `SKILLS.MD` and
-  `agent_onboarding/default/general/skills/workflow.md` for the deep
-  descriptive format and tracking model.
+* Follow `SKILLS.MD`, shared `ticketing.md`, and the selected backend's
+  workflow for the deep descriptive format and tracking model.
 * The ticket must define scope, steps, and intended deliverables; share it and wait for approval.
 * Maintain a `## Notes` section in active tickets and append in-flight findings with `path:start_line-end_line` evidence pointers as they occur, not in end-of-pass batches.
 * Evidence ranges in notes must include both start and end lines. If the evidence is one line, repeat it (`path:42-42`).
@@ -9693,9 +9897,10 @@ As a ritual, after implementing a change:
   `workflow.ticket_microcycle.minimum_note_score`, improve the note before
   proceeding.
 * Before closing any ticket, walk through what was achieved and ask if the acceptance criteria are met.
-* Only after explicit confirmation, move the ticket(s) to the matching completed folder
-  (`tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/`) with a short summary and date (per `README.md`).
-* Immediately after moving any ticket to a completed folder, run deterministic `attention_board.md` sync:
+* Only after explicit confirmation, complete the ticket in its selected backend:
+  move local tickets to matching completed folders, or verify the Issue body
+  has `Status: done`, completion summary, and reason, then close through the plugin.
+* Immediately after completing any ticket, run deterministic `attention_board.md` sync:
   - remove/replace active rows that reference the closed ticket,
   - prune stale attention details tied only to the closed ticket,
   - add one compact closed-anchor row,
@@ -9794,10 +9999,15 @@ explicitly instead of bypassing general rules.
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
 - Preserve a clean audit trail through notes and state transitions.
-- Every assistant response must include one unique `prompt_id`.
-  - `prompt_id` is a per-response identifier, not a per-conversation constant.
-  - Use a fresh random lowercase hex/string value every response.
-  - Do not intentionally repeat a `prompt_id` within the same conversation.
+- Every user-facing assistant response must include the current `prompt_id`.
+  - Use `compact_<count>_turn_<count>`; one user request advances the turn once.
+  - Progress messages and final responses for that request repeat its marker.
+  - Compaction advances the compaction count once and resets the turn to zero.
+  - Follow `skills/request_tracking.md` for persistence and recovery; do not
+    generate random response IDs or guess missing counts.
+- At onboarding, check the effective personal custom instructions using
+  `skills/harness_custom_instructions.md`. Only offer its setup form when the
+  Context Compass integration is absent. Preserve existing user preferences.
 
 ### 14) Continuity Standard
 
@@ -9857,14 +10067,19 @@ Inheritance
 - `INHERITS_SKILLS_FROM: none`
 
 Activation rule
-- All paths listed below are active skills for this role.
-- YOU MUST READ ALL PATHS BELOW for all these skills to be considered active.
+- Read every shared baseline path and exactly one backend baseline below.
+- Resolve `work_tracking.backend` from `config/context_compass_config.yaml`
+  before these reads. Missing means `local`; `github_codex_plugin` requires an
+  Issue repository and connected GitHub plugin. Resolve legacy values using
+  `work_tracking_backend.md`; an invalid selection blocks work.
 
-Active skills
+Shared baseline skills
 - `agent_onboarding/default/general/AGENTS.MD`
 - `agent_onboarding/default/general/skills/general.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/policies/policy_skills.md`
 - `agent_onboarding/default/general/skills/agent_stance.md`
 - `agent_onboarding/default/general/skills/agent_lifecycle.md`
@@ -9876,20 +10091,18 @@ Active skills
 - `agent_onboarding/default/general/skills/context_gold.md`
 - `agent_onboarding/default/general/skills/security_and_secrets.md`
 - `agent_onboarding/default/general/skills/repo_topology.md`
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
 - `agent_onboarding/default/general/skills/memory_management.md`
 - `agent_onboarding/default/general/skills/reactive_documentation.md`
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/context_window_budget.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
 - `agent_onboarding/default/general/skills/ticket_microcycle.md`
-- `agent_onboarding/default/general/skills/workflow.md`
 - `agent_onboarding/default/general/skills/role_local_workflows.md`
 - `agent_onboarding/default/general/WORKFLOWS.MD`
 - `agent_onboarding/default/general/workflows/cleanup_context_compass.md`
@@ -9902,16 +10115,30 @@ Active skills
 - `agent_onboarding/default/general/skills/context_management.md`
 - `context_management/context_board.md`
 
-Note on the three board paths above. `attention_board.md`, `artifact_board.md` and
-`context_management/context_board.md` are baseline reads, but they are **live
-mutable state, not policy**. You open them to learn what is happening right now, not
-to learn a rule. They therefore satisfy `READ_INTEGRITY_PROOF` by naming current
-state rather than a rule callout - see the live-state clause in
+- `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md`
+- `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md`
+
+Local backend baseline
+Read these paths when `work_tracking.backend` resolves to `local`.
+- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+- `agent_onboarding/default/general/skills/workflow.md`
+- `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md`
+
+GitHub Codex plugin baseline
+Read these paths only when `work_tracking.backend` is `github_codex_plugin`.
+- `agent_onboarding/default/general/skills/github/codex_plugin.md`
+- `agent_onboarding/default/general/skills/github/workflow.md`
+- `issue_board.md`
+
+Note on the board paths in that list. `attention_board.md`,
+`artifact_board.md`, `context_management/context_board.md`, and, in plugin mode,
+`issue_board.md` are baseline reads,
+but they are **live mutable state, not policy**. You open them to learn what is
+happening right now, not to learn a rule. They therefore get no attestation proof
+line - they are covered by the one-line `RESUMING` field instead. See
 `agent_onboarding/default/general/skills/compaction_requirements.md`. Do not invent
 a rule to quote from a routing table.
-- `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md`
-- `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md`
-- `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md`
 
 On-demand skills
 Read only when the trigger is met. Not part of the baseline, and claiming one
@@ -9934,6 +10161,11 @@ system documents. Three states, defined in `context_compass/SKILLS.MD`.
     skill exists to stop you reading it whole when a 450-line index would have
     told you the exact range.
 
+- `agent_onboarding/default/general/skills/github/migration.md`
+  - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
+  - Keep local mode active until a reviewed dry run, complete remote verification,
+    and explicit owner approval of the destination and content.
+
 --- END OF FILE: context_compass/agent_onboarding/default/general/SKILLS.MD ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/WORKFLOWS.MD ---
@@ -9951,8 +10183,13 @@ Activation rule
 - Workflows are user-generated and user-approved only.
 - When a workflow is selected for work, treat the parent-first role chain as
   the workflow lookup order.
+- The active workflows below apply in both backends. Resolve
+  `work_tracking.backend` before their actions and use the corresponding
+  ticket reads, writes, closure, and responsibility rules. Each macro preserves
+  its existing scope and selection gates.
+- The on-demand role/workflow creation paths remain available in both modes.
 
-Active workflows
+Active workflows (both backends)
 - `agent_onboarding/default/general/workflows/cleanup_context_compass.md`
 - `agent_onboarding/default/general/workflows/start_context_compass_work.md`
 - `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md`
@@ -9998,15 +10235,18 @@ Story steps
    - Acknowledge scope, constraints, and ticket status.
    - Ensure `attention_board.md` reflects active routing and open the linked active ticket.
 3) Work loop
-   - Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` for planning and execution.
+   - Use tickets in the selected backend for planning and execution.
    - Keep ticket checklists current and append findings as they occur in `## Notes`.
 4) Check-out
    - Summarize what changed, what remains, and what to do next.
-   - Move completed tickets to their matching completed folder
-     (`tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/`) only after user confirmation.
+   - Complete tickets only after user confirmation: move local tickets to
+     matching completed folders, or record and verify Issue-body `Status: done`
+     and completion summary, then close through the GitHub plugin.
 
 Artifacts touched
 - `attention_board.md`
+- `issue_board.md` (plugin mode only)
+- The following ticket folders are local-mode surfaces only:
 - `tickets/epics/`
 - `tickets/epics/completed/`
 - `tickets/stories/`
@@ -10047,8 +10287,9 @@ Checklist (short form)
    - Request approval before any tool usage or edits.
    - Approval must include the exact token `CERTIFY: APPROVED`.
 6) Post-cert work execution
-   - Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` for all
-     work.
+   - Use ticket folders when `work_tracking.backend` resolves to `local`; use
+     the configured plugin to fetch Issue bodies and local `issue_board.md`
+     when it is `github_codex_plugin`.
    - Route from `attention_board.md` and resume from linked ticket notes.
    - Orient from `system_docs/src_architecture.md` plus the architecture and
      component indexes, then descend: index -> slice -> the code. Slice
@@ -10128,21 +10369,27 @@ Placement
 - Keep `AGENTS.MD` at the repository root.
 - Per-directory variants are allowed when explicitly needed.
 
-Certification gate (mandatory)
-- Complete onboarding skills and request approval.
-- Require the approval message to include the exact token
+Certification gate (default unless explicitly overridden)
+- Apply `AGENTS.MD` / Project Instructions Bootstrap before this procedure.
+- Complete the effective onboarding readset and any required attestation.
+- By default, request approval and require the approval message to include the exact token
   `CERTIFY: APPROVED`.
-- Do not use tools or edit files until the user provides this approval token,
+- Do not use non-onboarding tools or edit files until effective onboarding authorization,
   **except tools needed to READ onboarding documents, boards and tickets.** Without
   that carve-out this rule would forbid the onboarding reads it depends on. Reads
-  are permitted; writes - including your mailbox check-in - wait for the token.
-  Root `AGENTS.MD` "Certification gating" is authoritative.
+  are permitted; writes - including your mailbox check-in - wait for effective
+  authorization. Normally this requires the token and assigned name; an explicit
+  waiver removes only its named requirement, without inventing a replacement prompt.
+  Root `AGENTS.MD` / Project Instructions Bootstrap and its certification gate govern.
 
 Required flow
 - Read `AGENTS.MD` and directory-local `AGENTS.MD` (if present).
+- Complete the Project Instructions Bootstrap and resolve project instructions
+  before applying the remaining onboarding or recovery defaults below.
 - Read
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`
-  in full immediately after `AGENTS.MD`.
+  in full after the Project Instructions Bootstrap, applying project
+  replacements/waivers resolved there within their stated scope.
 - Follow role `SKILLS.MD` routing from:
   - `context_compass/SKILLS.MD` - the single role registry; the registry table
     is the only place roles are declared
@@ -10178,8 +10425,8 @@ Required flow
   state in ticket `## Notes`.
 - Use the Ticket Microcycle with meaningful-finding note gates during
   execution.
-- Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` tickets for
-  all planned work.
+- Use Epic/Story/Task tickets in the selected work backend for all planned
+  work. Local `tickets/` lanes apply only when `work_tracking.backend` resolves to `local`.
 - For code-engineering tasks, hand off to engineer profile docs after general
   onboarding:
   - `agent_onboarding/default/engineer/skills/context_protocol.md`
@@ -10249,11 +10496,19 @@ Order of authority (highest to lowest)
 This ranking answers **"how should I behave?"** - it is a policy ordering, not a
 statement about where truth lives.
 
-1) AGENTS.MD and any other known AGENTS.MD read by you.
-2) SKILLS.MD and any other SKILLS.MD read by you.
-3) Example documentation.
-4) Repo documentation (`README`, `docs/`).
-5) Code (last resort *for policy*).
+This is a project-document ordering, subject to system/developer instructions
+and explicit user direction:
+
+1. The package `AGENTS.MD` bootstrap and delegation contract.
+2. Applicable project onboarding overrides within that delegated scope.
+3. Remaining `AGENTS.MD` requirements and inherited role-policy defaults.
+4. `SKILLS.MD` routing and remaining skill requirements.
+5. Example documentation.
+6. Repo documentation (`README`, `docs/`).
+7. Code (last resort *for policy*).
+
+Existing project-instruction precedence over role defaults remains in force.
+The delegation changes only explicitly overridden requirements, not unrelated policy.
 
 **A different question has the opposite answer.** For **"what does this system
 actually do?"** the ordering inverts: the code is authoritative and every document
@@ -10366,7 +10621,7 @@ References
 - `agent_onboarding/default/general/skills/reactive_documentation.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/active_documentation.md ---
 
@@ -10387,7 +10642,7 @@ Canonical board path
 Scope
 - Pointer data only.
 - No deep analysis, no full history replay, no speculative claims.
-- Detailed context remains in ticket files.
+- Detailed context remains in the selected backend's ticket.
 - Artifact pointers belong in ticket `Artifact Links` and `artifact_board.md`,
   not in `attention_board.md`.
 
@@ -10401,7 +10656,8 @@ Required columns
 - `next`: one concrete next action.
 - `outcome`: intended near-term result for this active item.
 - `exit_signal`: explicit condition that indicates the row should route/switch.
-- `ticket`: canonical context-compass-relative ticket path (no `context_compass/` prefix).
+- `ticket`: local mode uses a context-compass-relative ticket path (no
+  `context_compass/` prefix); `github_codex_plugin` uses the canonical Issue URL.
 - `updated_at`: ISO-8601 UTC (`YYYY-MM-DDTHH:MM:SSZ`).
 - `reread`: `REQUIRED` | `HELPFUL`.
 
@@ -10416,24 +10672,54 @@ Update triggers (mandatory)
 Operating rules
 - Pointer board never overrides ticket truth.
 - `owner` is executor/runtime identity; `agent_name` is assignment identity.
-- Every row must map to exactly one canonical ticket path.
+- Every row must map to exactly one canonical ticket reference for its backend.
+- In plugin mode, the primary claim in `issue_board.md` must name the same agent
+  as the active row, and fetched Issue-body Status must agree with the row's status.
+- Check references against the selected backend before work. A local path in
+  plugin mode or Issue URL in local mode is an unresolved backend transition;
+  stop and reconcile it instead of maintaining two copies of the same ticket.
 - Keep row text short and operational.
+- Put rows in `active_items`, routing detail entries in `active_attention_details`,
+  and closed anchors in `closed_anchors`; use the board's USER-DEFINED regions.
+- Every active row has one matching `WORK_ITEM` detail entry. Its
+  `SWITCH_TRIGGER` agrees with `exit_signal`; its `RESUME_HIERARCHY` is the
+  parent-first active ticket chain ending at the row's `ticket`. In plugin mode,
+  use Issue URLs. For a standalone task, the hierarchy contains only that one
+  ticket reference. Use the board's entry format.
 - If a claim is uncertain, mark it in the ticket `Unknowns`, not on this board.
 - Execution is blocked when active work has no matching board row; repair board routing before continuing implementation or validation.
 
 Re-entry protocol
+Resolve `work_tracking.backend` from YAML before opening the ticket references.
 1) Open `context_compass/attention_board.md`.
 2) Read rows with `reread=REQUIRED`.
 3) Read `SWITCH_TRIGGER` and `RESUME_HIERARCHY` in active attention details.
-4) Open linked ticket(s) and resume from `next`.
+4) Read linked local tickets or fetch exact Issues through the selected plugin,
+   verify canonical Status/Notes, then resume from `next`.
 
 Ticket closure sync protocol (mandatory)
+The file-move steps below apply only to `local`. Plugin closure follows
+`agent_onboarding/default/general/skills/github/workflow.md` using the same
+row/detail removal and closed-anchor rules.
 1) When a ticket is moved to a completed folder, update board rows in the same change pass.
 2) Remove/replace any `## Active Items` row referencing the closed ticket.
 3) Prune `## Active Attention Details` entries tied only to the closed ticket.
 4) Add one compact row to `## Recently Closed Anchors` for traceability.
 5) Keep anchors capped to 12 rows (drop oldest first).
-6) Keep active rows free of completed-ticket paths.
+6) Keep active rows free of completed ticket paths or closed Issue URLs.
+
+Older-board adoption
+- A board with no USER-DEFINED regions needs the existing board-migration flow
+  before whole-file conformance; inspect the migration preview first.
+- Before upgrading an already-regioned board, check for legacy attention
+  details outside protected regions. Preserve those entries in their ticket
+  Notes or an existing protected region and verify the copy before upgrading;
+  unprotected text is package structure and is replaced during conformance.
+- After the new region exists, explicitly move current routing entries into
+  `active_attention_details`, preserving all unrelated standing Notes. The
+  updater carries region bodies by name; it does not relocate Notes content
+  automatically. Do not discard a preserved legacy entry until its routing
+  information has been verified in the new location.
 
 Anti-patterns
 - Using board as a second ticket system.
@@ -10442,12 +10728,13 @@ Anti-patterns
 - Tracking artifact file paths in attention-board rows/details.
 
 References
-- `context_compass/agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `context_compass/SKILLS.MD`
 - `context_compass/agent_onboarding/default/general/skills/memory_management.md`
 - `context_compass/agent_onboarding/default/general/skills/reactive_documentation.md`
 - `context_compass/agent_onboarding/default/general/skills/active_documentation.md`
-- `context_compass/agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+- Local closure: `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+- Plugin closure: `agent_onboarding/default/general/skills/github/workflow.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/active_pointerboard.md ---
 
@@ -10460,17 +10747,19 @@ Purpose
   onboarding, certification, tickets, and board routing.
 
 Rules
-- On every ONBOARD and REONBOARD cycle, ask the user to provide an
-  `AGENT_NAME: <name>` alongside certification.
+- Apply `context_compass/AGENTS.MD` / Project Instructions Bootstrap first.
+- By default, on every ONBOARD and REONBOARD cycle ask for
+  `AGENT_NAME: <name>` with the certification message. If an applicable project
+  override changes naming or certification, resolve the name from the explicit
+  owner/project instructions and ask only when it is missing or ambiguous.
 - Attestation must include an `AGENT_NAME` line.
-  - If the user has not yet provided a name for the current trigger event, use:
+  - If no name is known under the applicable naming rule for this trigger event, use:
     `AGENT_NAME: REQUIRED_FROM_USER`
-  - If the user has already provided a name for the current trigger event, use
-    that exact name.
-- Certification requests must ask for both:
+  - If a name is already provided under that rule, use that exact name.
+- By default, certification requests must ask for both:
   - `AGENT_NAME: <name>`
   - `CERTIFY: APPROVED`
-- Treat agent naming as cycle-local:
+- By default, treat agent naming as cycle-local:
   - do not assume the previous session name is still valid
   - ask again on every onboarding or re-onboarding cycle
 - `owner` and `agent_name` are different fields:
@@ -10478,13 +10767,17 @@ Rules
   - `agent_name` is the user-facing assigned name or names
 - `Agent Name` / `agent_name` may contain one name or multiple assigned names
   in a comma-separated list.
-- After certification and before planned implementation or validation work,
+- After effective onboarding authorization and before planned implementation or validation work,
   sync the chosen name into the active ticket metadata and active
   `attention_board.md` row when those surfaces are touched in the current lane.
+  When the certification token is waived by an applicable explicit project
+  replacement, the name must still be known from owner or project
+  instructions; ask only when it is missing or ambiguous, and never guess it.
 
 Non-goals
 - This skill does not define long-term persistence of names across sessions.
-- This skill does not replace the `CERTIFY: APPROVED` gate.
+- This skill grants no waiver itself. The default `CERTIFY: APPROVED` gate and
+  any applicable project override are governed by Project Instructions Bootstrap.
 
 References
 - `agent_onboarding/default/general/skills/self_certification.md`
@@ -10507,14 +10800,19 @@ Rules
 - Track active routing in `attention_board.md` and detailed execution state in ticket notes/checklists.
 - Use UNKNOWN as the default claim stance until evidence is recorded.
 - Do not invent external lifecycle tooling or databases.
-- On every onboarding or re-onboarding cycle, ask for `AGENT_NAME: <name>` as
-  part of certification, then sync that assigned name into active workflow
-  state when the active ticket or board row is touched.
+- By default, on every onboarding or re-onboarding cycle ask for `AGENT_NAME: <name>` as
+  part of certification. Apply Project Instructions Bootstrap and use effective
+  onboarding authorization for the actual gate, then
+  sync that assigned name into active workflow state when the active ticket
+  or board row is touched. When certification is replaced by an applicable
+  explicit project replacement, obtain the name as that replacement directs
+  (owner or project instructions); ask only when it is missing or ambiguous.
 
 Worklists
-- Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` for active work.
-- Move completed tickets to `tickets/epics/completed/`, `tickets/stories/completed/`, or
-  `tickets/tasks/completed/` only after user confirmation.
+- In local mode, use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/`
+  for active work, moving to matching completed folders only after confirmation.
+- In plugin mode, use configured Issue bodies and their Status/Notes for active work;
+  claim agents locally in `issue_board.md` and close only after confirmation.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/agent_lifecycle.md ---
 
@@ -10545,9 +10843,10 @@ Tone rules
 - Be direct and technical. No polite padding, no motivational fluff.
 - Do not mirror insults; stay professional and blunt.
 - Professional baseline only when comparing quality or practice.
-- Append `prompt_id: <value>` to every assistant response.
-- Generate a fresh random lowercase hex/string value each response.
-- Do not intentionally reuse a `prompt_id` within the same conversation.
+- Append `prompt_id: <value>` to every user-facing assistant response.
+- Use `compact_<count>_turn_<count>` from `request_tracking.md`.
+- Count user requests, not assistant messages. Responses to the same request
+  repeat its marker; tools and progress updates do not increment it.
 
 Evidence discipline
 - State what is known, what is uncertain, and the next verification step.
@@ -10656,9 +10955,16 @@ Purpose
 - Prevent policy drift by forcing deterministic, auditable re-onboarding.
 
 Non-negotiable triggers
+Resolve `AGENTS.MD` / Project Instructions Bootstrap before applying the
+onboarding and recovery defaults in this document. Requirements not explicitly
+overridden remain mandatory; do not treat a later MUST as cancelling an override.
+
 - **REONBOARD** is mandatory after any context compaction or handoff.
 - **ONBOARD** is mandatory at the start of a fresh session.
 - Do not substitute ONBOARD for REONBOARD or vice-versa.
+- Follow `request_tracking.md` for `prompt_id: compact_<count>_turn_<count>`.
+  A real compaction increments `compact` once and resets `turn` to zero; a
+  handoff alone does not. User requests advance turns, assistant messages do not.
 
 Non-negotiable rules
 - After a trigger event: **STOP. REONBOARD/ONBOARD. THEN ACT.**
@@ -10685,12 +10991,13 @@ No policy negotiation
 
 
 External-memory-first rule
-- Repository files are the single durable memory source.
+- Repository files and, when configured, GitHub Issues/Project are the durable
+  work record. Harness session memory is not.
 - Compaction summaries MUST be empty when the runtime allows empty summaries.
 - If empty summaries are not allowed, emit the smallest possible pointer summary:
   - high-level outcomes only
   - critical policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - immediate next action (one line)
 - Do NOT write narrative replay in compaction summaries.
@@ -10699,14 +11006,21 @@ Required post-compaction sequence (REONBOARD)
 Run this sequence exactly once per trigger event.
 
 1) Read `context_compass/AGENTS.MD`.
-2) Read `agent_onboarding/default/general/skills/execution_contract.md` in full.
-3) Resolve the selected role via the registry table in `context_compass/SKILLS.MD`.
+2) Complete the Project Instructions Bootstrap: re-read and resolve
+   `context_compass/special_instructions/` before applying anything below.
+3) Read `agent_onboarding/default/general/skills/execution_contract.md` in full,
+   applying resolved project replacements/waivers within their stated scope.
+4) Read `config/context_compass_config.yaml` and resolve `work_tracking.backend`
+   using `work_tracking_backend.md`, then resolve the selected role via the
+   registry table in `context_compass/SKILLS.MD`.
    - If the active role cannot be determined: **STOP and ask the user**.
-4) Read the resolved role `SKILLS.MD` chain in parent-first order.
-5) Read every path in every section each resolved `SKILLS.MD` marks as
+5) Read the resolved role `SKILLS.MD` chain in parent-first order.
+6) Read every path in every section each resolved `SKILLS.MD` marks as
    **baseline**. Roles name these differently - **Active skills**, **Required
    baseline skills**, **Baseline system orientation** - and a role may add
    another. Match on the baseline label, not a fixed list of headings.
+   - In `general`, re-read the shared baseline and only the backend baseline
+     selected by `work_tracking.backend` in config. A missing key means local.
    - This includes the role's system-orientation set where it declares one. For
      `engineer` that is `system_docs/src_architecture.md` plus
      `src_architecture_index.md` and `src_components_index.md`, when they exist.
@@ -10718,15 +11032,28 @@ Run this sequence exactly once per trigger event.
    - Self-directed skills are NOT required at re-entry either, but they have no
      trigger to wait for. Read them during the work, on your own initiative. Do
      not report "no trigger fired" for a Self-directed section - none exists.
-6) Re-open `attention_board.md` and all active ticket(s) and verify they match.
-7) Publish the mandatory REONBOARD attestation (below).
-8) Request certification and wait for a message that includes:
+7) Re-open `attention_board.md` and all active ticket(s) in the selected backend
+   and verify they match. In plugin mode, also check `issue_board.md`, fetched
+   Issue-body Status/Notes, and relevant Issue comments. Do not read local
+   ticket archives in place of the active Issues.
+   Read this session's row under mailbox `## Request Tracking` and recover the
+   request counter. Apply a confirmed compaction once, retaining its event
+   reference. Do not write the transition until effective onboarding authorization permits it.
+   Existing custom instructions suppress the setup form; a recorded decline
+   must not become another setup prompt merely because compaction occurred.
+8) Publish the required REONBOARD attestation (below), reporting actual reads and any applicable waivers honestly.
+9) Obtain effective onboarding authorization. By default, request certification
+   and wait for a message that includes:
    - `AGENT_NAME: <name>`
    - the exact token: `CERTIFY: APPROVED`.
+   If an explicit project override removes that requirement, complete the
+   remaining requirements and any specified replacement without asking for a waived token.
 
 README policy
-- README reads are allowed only for `new` first-time onboarding.
-- Non-`new` profile re-entry MUST use `SKILLS.MD` + skill/policy docs (not README).
+- Role README reads are allowed only for `new` first-time onboarding.
+- Non-`new` profile re-entry MUST use `SKILLS.MD` + skill/policy docs (not role READMEs).
+  Project instruction files under `special_instructions/` are governed by the
+  Project Instructions Bootstrap, not by this role README rule.
 
 ## Attestation format (CANONICAL - this is the only definition)
 
@@ -10737,87 +11064,75 @@ in this package points here rather than restating the field list.
 ```text
 ONBOARD: COMPLETE                     # or REONBOARD: COMPLETE
 AGENT_NAME: <name|REQUIRED_FROM_USER>
-ROLE_CHAIN: <role> <- <parent> <- general      # parent-first order, one line
-FILES_REREAD: attention_board.md, <active ticket path>    # REONBOARD only
-READ_INTEGRITY_PROOF:
-- root: <rule> -> <what it changes>
-- general: <rule> -> <what it changes>
-- <role>: <rule> -> <what it changes>
-- live state: <active row, or "boards empty"> -> <what I resume>
+ROLES:
+- general: <one rule from this role that changes what I do>
+- <role>:  <one rule from this role that changes what I do>
+RESUMING: <active ticket + next action, or "no active work">   # REONBOARD only
 NO_ACTION_TAKEN_YET: true
 ```
 
-**That is the whole attestation - about ten lines.** It is a summary, and it is
-meant to be one. The proof is one line per LAYER, never one per document; the
-rule and its rationale are directly below.
+**Six or seven lines. One line per ROLE in the chain - never per document, and
+never a list of files.**
 
-An attestation that runs to hundreds of lines is not more compliant. It is the
-ceremony this contract exists to prevent, it buries the one line a reader needed,
-and its length is what makes it unreadable rather than what makes it true.
+A file list is the cheapest thing to fabricate and the least useful thing to read.
+It proves nothing (any agent can name a path it did not open) and costs tokens
+proportional to the readset, which on a user-defined role runs past ninety
+documents. What a reader actually needs is: which roles are in force, and what each
+one changes about your behaviour. That is the whole point of resolving a chain.
 
-That is the whole attestation. Five or six lines of proof, not one per document -
-see the layer rule below. An attestation that runs to hundreds of lines is not
-more compliant; it is the ceremony this contract exists to prevent, and it buries
-the one line a reader needed.
+So: no `FILES_REREAD`, no per-document proof, no readset manifest. If a specific
+document changed your plan in a way the role line would bury, add one line and say
+so - but more lines are not more proof.
 
-READ_INTEGRITY_PROOF (requirements)
-- `READ_INTEGRITY_PROOF` is a comprehension proof, NOT tool logs.
-- **Default requirement: one line per LAYER of the resolved chain, not per document.**
-  The layers are: the root contract (`AGENTS.MD` + `execution_contract.md`), each
-  role in the chain (`general`, then each child in parent-first order), the live
-  state surfaces, and `special_instructions/` when present. That is normally five
-  or six lines.
-  - Each line MUST include (a) a specific, checkable rule/constraint drawn from
-    that layer, naming the document it came from, and (b) what it changes in your
-    behavior.
-  - Generic restatements ("be direct", "follow policy") are invalid.
-  - Do NOT reuse the same callout across layers; each must be distinct.
-- **Why per layer and not per document.** A resolved chain runs to dozens of
-  documents - on a user-defined role, past ninety. One distinct callout each,
-  with reuse forbidden, is a several-hundred-line wall emitted before any work
-  starts, every fresh session. Nobody reads it, and its length is what makes it
-  ceremony rather than proof. The rule that does the work is the specificity bar,
-  not the line count: one checkable constraint per layer that you could not have
-  written without reading it.
-- You MAY add lines beyond the layer minimum when a specific document changed your
-  plan and the layer line would bury it. Keep it proportionate; more lines are not
-  more proof.
-- **Live-state entries prove differently, because they carry no rules.** Some baseline
-  entries are mutable state, not policy: `attention_board.md`, `artifact_board.md`,
-  and `context_management/context_board.md`. A routing table has no
-  rule/constraint to call out, so the requirement above cannot be met for them and
-  demanding it produces invented rules - the exact confabulation this proof exists
-  to catch.
-  - Prove **current state** instead: name the active row or entry you routed from
-    (or state that the board is empty), and the one action it sets up next. One
-    line for the layer, same specificity bar.
-  - Example: `live state: attention_board active row -> tickets/tasks/2026-08-01_x_task.md,
-    mode=implementation, next=finish the parser -> I resume there rather than
-    re-planning.`
-  - This substitution applies ONLY to those three paths. Every other layer owes a
-    rule callout.
-- **Do not ask permission to keep it short.** The layer form IS the default, not a
-  concession, so there is nothing to request and no round-trip to spend. If a layer
-  genuinely cannot be proved in one line, add the line you need and say why.
+ROLES (requirements)
+- One line per role in the resolved chain, parent-first, `general` always first.
+- Each line names **a specific, checkable rule from that role** and what it changes
+  about what you will do. Not a summary of the role's purpose.
+- Generic restatements ("be direct", "follow policy", "use tickets") are invalid -
+  they could be written without reading anything, which is exactly what this is
+  meant to detect.
+- Do NOT reuse a rule across roles. If two roles produce the same callout, you have
+  not read the child.
+- `special_instructions/` gets its own line when the directory is non-empty, because
+  it is project policy and outranks role defaults.
+  Identify applicable overrides there instead of claiming waived reads were performed.
+- **Boards are not roles and get no proof line.** `attention_board.md`,
+  `artifact_board.md` and `context_management/context_board.md` are live state, not
+  policy. A routing table has no rule to call out, and demanding one produces
+  invented rules - the exact confabulation this is meant to catch. They are covered
+  by `RESUMING`, below.
+- **Do not ask permission to keep it short.** This form IS the requirement, not a
+  concession, so there is nothing to request and no round-trip to spend.
 
-Attestation contract
-- Emit the attestation immediately after re-onboarding and BEFORE certification.
-- Do not run tools, edit files, or execute plans before posting the attestation.
-- After posting attestation, request certification and continue only after the user replies
+RESUMING (REONBOARD only)
+- One line: the active ticket you routed to and the next concrete action, taken from
+  `attention_board.md`. Or `no active work` if the board carries none.
+- Omit it entirely on a fresh `ONBOARD` - nothing has been resumed.
+- This replaces the old `FILES_REREAD` list. What matters after compaction is where
+  the work continues, not which paths were opened to find that out.
+
+Attestation contract (default unless explicitly overridden)
+- Emit the still-required attestation after the effective re-onboarding reads
+  and before authorization. Read-only onboarding tools remain permitted.
+- Do not perform non-onboarding actions before effective onboarding authorization.
+- By default, after posting attestation, request certification and continue only after the user replies
   with a message that includes:
   - `AGENT_NAME: <name>`
   - `CERTIFY: APPROVED`
+- An applicable explicit waiver/replacement follows Project Instructions Bootstrap;
+  it does not cause a second request for the waived approval or false read claims.
 - If attestation cannot be completed: **STOP and ask the user for instructions**.
 - "Parallel/bulk reads" are allowed only if the documents were actually read.
   Marker-only loops remain forbidden.
 
 Execution gate
-- If any required item above is incomplete, do not proceed.
+- If any still-applicable required item above is incomplete, do not proceed.
 - If scope, status, or expectations are unclear after re-onboarding: stop and ask.
 - During resumed execution: UNKNOWN is the default for unevidenced claims.
 
 Outcome contract
-- Re-onboarding is not optional after compaction/handoff.
+- Re-onboarding remains required after compaction/handoff unless explicitly
+  overridden within the scope delegated by Project Instructions Bootstrap.
 - The objective is to re-establish the operating rules each time so drift cannot accumulate.
 
 References
@@ -10825,6 +11140,8 @@ References
 - `agent_onboarding/default/general/skills/context_compaction.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/compaction_requirements.md ---
 
@@ -10889,7 +11206,7 @@ Enforcement surfaces
   - `context_compass/templates/story_template.md`
   - `context_compass/templates/task_template.md`
 - Process policy:
-  - `context_compass/agent_onboarding/default/general/skills/workflow.md`
+  - the YAML-selected backend workflow in `agent_onboarding/default/general/SKILLS.MD`
   - `context_compass/SKILLS.MD`
   - `context_compass/agent_onboarding/default/general/skills/ticketing.md`
 
@@ -10917,7 +11234,7 @@ Ensure continuity and minimize lost context when a session is compacted or hande
 - If empty summaries are not allowed, write only minimal pointer summaries:
   - high-level outcomes (no narrative replay)
   - policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - next immediate action
 
@@ -10930,9 +11247,10 @@ Core review set (ALWAYS required) - review these files in order:
 - `context_compass/SKILLS.MD`
 - resolved role `SKILLS.MD` chain (parent-first; the SKILLS files themselves)
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the workflow skill for the selected work backend
 - `attention_board.md`
-- Active epic/story/task tickets in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+- Active Epic/Story/Task tickets in the selected backend; in plugin mode also
+  read `issue_board.md`, fetch Issue-body Status/Notes, and read relevant comments.
 - **The role's baseline system-orientation set, when the role declares one and the
   files exist.** For `engineer` and everything inheriting it that is:
   - `system_docs/src_architecture.md`
@@ -11127,7 +11445,7 @@ Board rules
 
 References
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `context_management/context_board.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/context_management.md ---
@@ -11238,7 +11556,7 @@ References
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/reactive_documentation.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `workflow.md`
+- the YAML-selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/context_window_budget.md ---
 
@@ -11262,14 +11580,17 @@ It never authorizes tooling, edits, implementation, validation, scope expansion,
 
 Execution authority order is:
 1. System and developer instructions.
-2. Repository policy (`AGENTS.MD` and referenced docs).
-3. Explicit user instructions compatible with repository policy.
-4. This execution contract.
-5. Stylistic preferences.
+2. Explicit user instructions.
+3. `AGENTS.MD` gates, including project scopes it explicitly delegates
+   (Project Instructions Bootstrap).
+4. Other repository policy, skills, and docs.
+5. This execution contract.
+6. Stylistic preferences.
 
 Hard rule
 - If this execution contract conflicts with any `AGENTS.MD` rule,
-  `AGENTS.MD` wins. No exceptions.
+  `AGENTS.MD` wins. Project replacements/waivers resolved under the Project
+  Instructions Bootstrap apply within their stated scope.
 - This contract NEVER authorizes bypassing onboarding/re-onboarding,
   certification gates, required reads, or tool-use restrictions.
 ---
@@ -11500,11 +11821,1198 @@ Execution discipline
 
 References
 - `agent_onboarding/default/general/skills/execution_contract.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/general.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/README.md ---
+
+# Choose where your tickets live
+
+Context Compass supports two settings in `config/context_compass_config.yaml`.
+`local` uses the existing Epic/Story/Task folders. `github_codex_plugin` uses
+GitHub Issues through the connected GitHub plugin. Both keep your ticket format,
+Notes, evidence, acceptance rules, and recovery process.
+
+## Local tickets
+
+```yaml
+work_tracking:
+  backend: local
+```
+
+This is the default. Your agent reads tickets in `tickets/epics/`,
+`tickets/stories/`, and `tickets/tasks/`, and follows their backlog/completed
+lanes as needed. You can leave the GitHub settings blank and work offline.
+
+## GitHub Issues through the Codex plugin
+
+```yaml
+work_tracking:
+  backend: github_codex_plugin
+  github_codex_plugin:
+    connection_nickname: "Work account"
+    issues_repository: YOUR_OWNER/YOUR_REPO
+    project_url: "" # optional
+```
+
+Connect the GitHub plugin in the agent's environment and grant it access to that
+repository. The agent checks the available repository/Issue tools and reads the
+exact destination before working. CLI installation, a PowerShell script, and a
+token in YAML are not required for this backend. A missing connection or denied
+Issue operation is reported as a blocker, with no automatic switch to local files.
+
+Give the connected account a nickname in Codex, such as `Work account`, and put
+that exact nickname in YAML. It selects the connection, not a GitHub username
+or repository owner. The agent resolves its current connection ID and verifies
+the authenticated profile before operating. A missing or ambiguous nickname
+stops work rather than selecting your personal account or another connection.
+Do not save tokens or connection IDs in this file.
+
+Each Epic, Story, or Task is an Issue containing the matching Context Compass
+template. Status and `## Notes` live in its body, including the existing note
+fields and evidence. Issue updates preserve the full body and prior history;
+the agent verifies the update by fetching it again. Parent/child and blocker
+links remain explicit even if native hierarchy tools are unavailable.
+
+Your local `issue_board.md` records agent claims and `attention_board.md` records
+current focus using Issue URLs. Mailbox, artifacts, context packs, system docs,
+and special instructions stay in your repository. A Project URL can identify a
+related Project, but it is optional and does not replace Issue-body Status.
+
+An agent onboarding or recovering from compaction reads the selected backend's
+skills and ticket source. YAML selects a workflow; it does not connect a plugin
+or grant write permission by itself. The agent can verify read access first;
+the first requested write must also succeed and be verified.
+
+## Existing installs and migrations
+
+Changing the setting does not move your tickets. Review [`migration.md`](migration.md)
+for a local-to-Issue move before switching an active project. Keep the old files
+until the complete content and route mapping have been verified.
+
+Older `backend: files` settings resolve to `local`. The earlier `backend: github`
+selected a CLI/Project draft, so it requires an explicit change to
+`github_codex_plugin` and the matching settings block; it is not silently converted.
+Upgrade tools preserve your existing config values.
+Older plugin configurations must add `connection_nickname` explicitly; an
+upgrade cannot infer which connected account you intend to use.
+
+Installed `agent_onboarding/user_defined/` roles are also preserved on upgrade.
+Review an existing overlay's local-only workflow references when enabling the
+plugin; the corrected shipped examples do not overwrite your installed copies.
+
+The earlier [CLI command guide](commands.md), `setup.ps1`, `setup.sh`, and
+`check_setup.py` remain optional standalone CLI helpers. They are outside the
+plugin backend's required readset and do not enable or authenticate that plugin.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/README.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/check_setup.py ---
+
+#!/usr/bin/env python3
+"""Read-only standalone GitHub CLI Project preflight (legacy helper).
+
+Verifies, without changing anything: the gh CLI is installed and recent
+enough, the user is authenticated (via gh's own credential store), the
+repository resolves with Issues enabled, and the required project resolves
+and carries the expected Status field. Exits nonzero with a clear message on
+the first failure.
+
+This script never asks for, prints, or stores tokens. Authentication is
+established separately by a human running setup.ps1/setup.sh, which uses
+``gh auth login --web`` interactively. It performs no Issue or Project
+mutation and writes no configuration files. See
+``agent_onboarding/default/general/skills/security_and_secrets.md``: no path
+in the repository may hold a secret, and secrets are never printed.
+
+The github_codex_plugin backend does not require or invoke this CLI helper.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import sys
+
+PROJECT_URL_RE = re.compile(
+    r"^https://github\.com/(?P<kind>orgs|users)/(?P<owner>[^/]+)/"
+    r"projects/(?P<number>\d+)(?:/.*)?$"
+)
+OWNER_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$")
+REPO_RE = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
+VERSION_RE = re.compile(r"^gh version (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)")
+
+DEFAULT_MIN_VERSION = "2.83.2"
+DEFAULT_STATUS_FIELD = "Status"
+
+
+class PreflightError(Exception):
+    """A failed check with a human-actionable message (never a secret)."""
+
+
+def run(argv: list[str]) -> subprocess.CompletedProcess[str]:
+    """Run a read-only gh subcommand. No stdin, no secrets, bounded time."""
+    try:
+        return subprocess.run(
+            argv,
+            capture_output=True,
+            text=True,
+            stdin=subprocess.DEVNULL,
+            timeout=60,
+            check=False,
+        )
+    except FileNotFoundError as exc:
+        raise PreflightError(
+            "gh CLI not found on PATH. Install it from https://cli.github.com, "
+            "then re-run this script."
+        ) from exc
+    except subprocess.TimeoutExpired as exc:
+        raise PreflightError(
+            f"Timed out running `{' '.join(argv)}`. Check network access to "
+            "github.com and retry."
+        ) from exc
+
+
+def parse_version(text: str) -> tuple[int, int, int]:
+    match = VERSION_RE.match(text.strip().splitlines()[0] if text.strip() else "")
+    if not match:
+        raise PreflightError(
+            "Could not parse `gh --version` output. Reinstall gh from "
+            "https://cli.github.com and retry."
+        )
+    return (int(match["major"]), int(match["minor"]), int(match["patch"]))
+
+
+def parse_min_version(text: str) -> tuple[int, int, int]:
+    parts = text.strip().split(".")
+    if len(parts) != 3 or not all(p.isdigit() for p in parts):
+        raise PreflightError(
+            f"Invalid --min-version {text!r}; expected MAJOR.MINOR.PATCH."
+        )
+    return (int(parts[0]), int(parts[1]), int(parts[2]))
+
+
+def check_gh(min_version: tuple[int, int, int]) -> tuple[int, int, int]:
+    if shutil.which("gh") is None:
+        raise PreflightError(
+            "gh CLI not found on PATH. Install it from https://cli.github.com, "
+            "then re-run this script."
+        )
+    result = run(["gh", "--version"])
+    if result.returncode != 0:
+        raise PreflightError("`gh --version` failed; reinstall gh and retry.")
+    found = parse_version(result.stdout)
+    if found < min_version:
+        want = ".".join(str(p) for p in min_version)
+        have = ".".join(str(p) for p in found)
+        raise PreflightError(
+            f"gh {have} is older than the supported floor gh {want}. Upgrade "
+            "gh, or pass --min-version explicitly to acknowledge the older "
+            "version (some checks may then behave unexpectedly)."
+        )
+    return found
+
+
+def check_auth() -> None:
+    result = run(["gh", "auth", "status"])
+    if result.returncode != 0:
+        raise PreflightError(
+            "gh is not authenticated. Run setup.ps1 (Windows) or setup.sh "
+            "(macOS/Linux) and complete `gh auth login --web` interactively. "
+            "Never paste a token into chat; gh stores it in its own "
+            "credential store."
+        )
+
+
+def validate_slug(owner: str, repo: str) -> str:
+    """Reject malformed owner/name inputs before any gh call is made."""
+    if not OWNER_RE.match(owner):
+        raise PreflightError(
+            f"Repository owner {owner!r} is not a valid GitHub owner name "
+            "(letters, digits, hyphens; at most 39 characters)."
+        )
+    if not REPO_RE.match(repo) or repo.startswith(".") or repo.endswith("."):
+        raise PreflightError(
+            f"Repository name {repo!r} is not a valid GitHub repository name."
+        )
+    return f"{owner}/{repo}"
+
+
+def check_repo(owner: str, repo: str) -> str:
+    slug = validate_slug(owner, repo)
+    result = run(["gh", "repo", "view", slug, "--json", "nameWithOwner,hasIssuesEnabled"])
+    if result.returncode != 0:
+        raise PreflightError(
+            f"Repository {slug!r} did not resolve (gh exit "
+            f"{result.returncode}). Check the owner/name spelling and that "
+            "the authenticated account may read it."
+        )
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise PreflightError(
+            f"Could not parse `gh repo view` output for {slug!r}."
+        ) from exc
+    resolved = str(data.get("nameWithOwner", ""))
+    if resolved.lower() != slug.lower():
+        raise PreflightError(
+            f"Repository resolved as {resolved!r}, not {slug!r}."
+        )
+    if data.get("hasIssuesEnabled") is not True:
+        raise PreflightError(
+            f"Repository {resolved!r} does not have Issues enabled. GitHub "
+            "mode tracks work in Issues; enable them under the repository "
+            "Settings, then re-run this preflight."
+        )
+    return resolved
+
+
+def parse_project_url(url: str) -> tuple[str, int]:
+    match = PROJECT_URL_RE.match(url.strip())
+    if not match:
+        raise PreflightError(
+            f"Project URL {url!r} is not a github.com org/user project URL "
+            "(expected https://github.com/<orgs|users>/<owner>/projects/<n>). "
+            "Enterprise hosts are not supported by this preflight."
+        )
+    return match["owner"], int(match["number"])
+
+
+def check_project(owner: str, number: int) -> str:
+    if not OWNER_RE.match(owner):
+        raise PreflightError(
+            f"Project owner {owner!r} is not a valid GitHub owner name "
+            "(letters, digits, hyphens; at most 39 characters)."
+        )
+    result = run(
+        ["gh", "project", "view", str(number), "--owner", owner, "--format", "json"]
+    )
+    if result.returncode != 0:
+        raise PreflightError(
+            f"Project #{number} under {owner!r} did not resolve (gh exit "
+            f"{result.returncode}). Check the URL and that the account holds "
+            "the project scope for the requested standalone CLI Project work."
+        )
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise PreflightError(
+            f"Could not parse `gh project view` output for #{number}."
+        ) from exc
+    try:
+        returned = int(data.get("number", number))
+    except (TypeError, ValueError) as exc:
+        raise PreflightError(
+            f"Could not parse project number from `gh project view` output "
+            f"for #{number}."
+        ) from exc
+    if returned != number:
+        raise PreflightError(
+            f"Project URL points to #{number} but gh returned #{returned}; "
+            "check the URL and re-run."
+        )
+    title = str(data.get("title", ""))
+    return f"#{returned} {title}".strip()
+
+
+def check_status_field(owner: str, number: int, field: str) -> list[str]:
+    result = run(
+        ["gh", "project", "field-list", str(number), "--owner", owner,
+         "--format", "json", "--limit", "100"]
+    )
+    if result.returncode != 0:
+        raise PreflightError(
+            f"Could not list fields of project #{number} (gh exit "
+            f"{result.returncode}). The account may lack the project scope; "
+            "re-run setup to refresh scopes."
+        )
+    try:
+        fields = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise PreflightError(
+            f"Could not parse `gh project field-list` output for #{number}."
+        ) from exc
+    if isinstance(fields, dict):
+        # gh shapes vary by version: a bare list, or an object carrying the
+        # list under "fields" (or "data"). Anything else fails clearly below.
+        for key in ("fields", "data"):
+            if isinstance(fields.get(key), list):
+                fields = fields[key]
+                break
+    items = fields if isinstance(fields, list) else []
+    names = [str(item.get("name", "")) for item in items]
+    match = next((item for item in items
+                  if str(item.get("name", "")).lower() == field.lower()), None)
+    if match is None:
+        seen = ", ".join(names) if names else "(no fields listed)"
+        raise PreflightError(
+            f"Project #{number} has no field named {field!r} (fields seen: "
+            f"{seen}). Add a Status single-select field to the project, or "
+            "pass --status-field to check a different field name."
+        )
+    if str(match.get("dataType", "")).lower() != "single_select":
+        raise PreflightError(
+            f"Project #{number} field {field!r} is not single-select "
+            f"(dataType {match.get('dataType', '?')!r}). This helper checks "
+            "single-select Status options; change the field type "
+            "or pass --status-field for a single-select field."
+        )
+    options = [str(opt.get("name", "")) for opt in match.get("options", []) or []]
+    if not options:
+        raise PreflightError(
+            f"Project #{number} field {field!r} lists no options yet; add the "
+            "desired Project Status options, then re-run this standalone helper."
+        )
+    return options
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Read-only standalone GitHub CLI Project preflight. "
+                    "Changes nothing; exits nonzero with guidance on failure."
+    )
+    parser.add_argument("--owner", required=True, help="Repository owner (org or user).")
+    parser.add_argument("--repo", required=True, help="Repository name.")
+    parser.add_argument("--project-url", required=True,
+                        help="GitHub Project URL (orgs/... or users/...). "
+                             "Required for this standalone Project helper.")
+    parser.add_argument("--hostname", default="github.com",
+                        help="GitHub host. Only github.com is supported.")
+    parser.add_argument("--min-version", default=DEFAULT_MIN_VERSION,
+                        help="Minimum supported gh version "
+                             f"(default {DEFAULT_MIN_VERSION}).")
+    parser.add_argument("--status-field", default=DEFAULT_STATUS_FIELD,
+                        help=f"Project field to require (default {DEFAULT_STATUS_FIELD}).")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if args.hostname != "github.com":
+        print(f"Only github.com is supported, not {args.hostname!r}.",
+              file=sys.stderr)
+        return 1
+    try:
+        floor = parse_min_version(args.min_version)
+        found = check_gh(floor)
+        print(f"[ok] gh {'.'.join(str(p) for p in found)} on PATH")
+        check_auth()
+        print("[ok] gh authenticated (credential store untouched, nothing printed)")
+        resolved = check_repo(args.owner, args.repo)
+        print(f"[ok] repository resolves: {resolved}")
+        project_owner, number = parse_project_url(args.project_url)
+        summary = check_project(project_owner, number)
+        print(f"[ok] project resolves: {summary}")
+        options = check_status_field(project_owner, number, args.status_field)
+        print(f"[ok] project field present: {args.status_field} (single-select)")
+        print(f"[ok] status options: {', '.join(options)}")
+    except PreflightError as exc:
+        print(f"[FAIL] {exc}", file=sys.stderr)
+        return 2
+    print("Preflight passed. Nothing was created, modified, or stored.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/check_setup.py ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/codex_plugin.md ---
+
+# GitHub Codex plugin operations
+
+This skill applies to `work_tracking.backend: github_codex_plugin`. Use the
+connected GitHub plugin's Issue tools. Discover the tools exposed in the current
+agent session and read their schemas; an operation's availability and permission
+must be verified, not inferred from a repository URL or a previous agent's access.
+These connection-selection rules also apply to an owner-approved migration
+using plugin tools while the current ticket backend remains `local`.
+
+## Resolve the connection nickname
+
+Before any plugin read or write, resolve the configured account using the
+current tool schemas. Existing onboarding/certification gates still apply;
+nickname selection does not grant permission to run tools before those gates.
+
+1. Read `work_tracking.github_codex_plugin.connection_nickname`. Require a
+   non-empty string; a missing, blank, or non-string value stops plugin work.
+2. Find an exact match to the Codex connection nickname exposed as `link_name`
+   in the GitHub tools' available-account catalog. Match the configured spelling
+   and spacing, not a substring, case-folded guess, or remembered account.
+   `profile_nickname`, `profile_name`, email, and GitHub login are different
+   metadata; never substitute them for the configured connection nickname.
+3. Require exactly one distinct current connection. Missing nickname metadata,
+   no match, multiple matches, or malformed connection data blocks the operation;
+   ask the owner to correct the connection/config rather than choosing another.
+   This applies even with a single connected account. Repeated identical catalog
+   entries for the same `link_id` are one connection; conflicting entries stop.
+4. Resolve the matched account's current `link_id` and pass it explicitly to
+   every GitHub call that requires an account selector. Never put credentials
+   or a connection ID in YAML, and do not reuse an ID from a prior session.
+   If the current tools cannot expose or select the named connection, stop.
+5. Use an available read-only authenticated profile/whoami tool through that
+   same connection before ticket operations. Compare the returned stable ID
+   with its advertised `profile_id` when present. A mismatch, unverifiable
+   identity, or authentication failure stops work; do not fall back to another
+   connection. The owner need not store a real GitHub username in YAML.
+6. Verify access to the configured `issues_repository` through the selected
+   connection. Nickname selects the account, not the repository owner, and does
+   not grant repository permissions. Keep the binding for this work tranche;
+   repeat resolution after recovery, config changes, reconnection, or changed
+   tool/account metadata rather than silently changing accounts.
+
+## Read and route
+
+1. Resolve the nickname above, then read `issues_repository` from YAML. Verify
+   that the plugin resolves that repository and exposes required Issue tools.
+   Check Issues support from available metadata or Issue reads; a normalized
+   repository response may omit that field, which does not mean it is disabled.
+2. Read local `issue_board.md` and `attention_board.md` for agent claims and
+   focus. Fetch the exact active Issue by repository and Issue number from its
+   URL, then fetch its comments when relevant to current decisions or recovery.
+3. For intake, search only the configured repository with an Issue-only query
+   such as `repo:<owner>/<repo> is:issue`. Narrow by the immutable ticket ID or
+   current assignment. Follow result limits/pagination; a truncated search is
+   not evidence that another ticket does not exist. If the tool has no cursor,
+   narrow the query or report the result set as incomplete; never invent a page.
+4. Read the Issue body, Status, parent/dependency links, and next action. The
+   selected backend's Issue body is the durable ticket; local archived ticket
+   files and plugin search snippets do not substitute for this fetch.
+
+## Create and update
+
+- Compose the complete matching Epic/Story/Task template before creation.
+  Use `github_create_issue` or the equivalent exposed Issue-create tool with
+  the explicit repository, title, and body. Keep a stable template ID; route by
+  the returned Issue URL and fetch it to verify the content.
+- For Notes, Status, decisions, or handoff changes, read the latest complete
+  body, preserve every unrelated section and historical note, and send the
+  resulting full body through `github_update_issue`. Fetch again afterward and
+  verify both the intended change and retained content. Never send a note alone
+  as the replacement body.
+- Hold the primary local claim while editing. Coordinate body writes through
+  the mailbox; the current update tool does not expose an atomic compare-and-swap
+  lease. If the body changed since the read, re-read and recompose; if another
+  writer or lost content is detected, stop and reconcile before continuing.
+- Omit labels, assignees, milestone, title, and state when the change does not
+  target them. The update tool's label and assignee arguments replace their
+  full sets; use additive tools for approved additions where exposed.
+- Close through `github_update_issue(state: closed, state_reason: completed)`
+  only after the existing acceptance gate and a verified completion body update.
+  A reopened Issue requires the owner-approved reason and body Status update.
+
+## Capability boundaries
+
+The plugin currently exposes Issue search, fetch, create, update, and comment
+reads. A tool called `add_comment_to_issue` is documented for PR Conversation
+comments and uses `pr_number`; do not assume that means ordinary Issue-comment
+creation is supported. Canonical ticket Notes stay inside `## Notes` in the body.
+
+Parent/child and blocker relationships always retain explicit Issue links and
+IDs in template metadata/checklists. Use native sub-issue or dependency tools
+only when the current plugin exposes them and verify the result. Missing native
+relationship tools do not justify losing the readable relationships.
+
+Project tools are not currently exposed by this plugin. Treat an optional
+Project URL as context; never claim membership or Project Status was updated
+without an available tool and verified result. Do not require CLI installation,
+CLI login, API tokens in YAML, or manual shell authentication to use this mode.
+
+Authentication belongs to the owner's plugin connection. On missing access or
+403/404 errors, name the operation and destination and request the relevant
+connection/permission fix. Do not create a local replacement ticket, retry an
+ambiguous create blindly, or switch transports. Tool and owner approvals still
+apply to writes.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/codex_plugin.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/commands.md ---
+
+# Optional standalone GitHub CLI operations
+
+This earlier CLI guide is retained for explicitly requested standalone work.
+It is not a baseline skill or a transport selected by the current YAML choices.
+`github_codex_plugin` uses its connected plugin and must not invoke these helpers
+to bypass missing plugin access. The CLI Project helper's required URL is not
+a requirement for plugin ticket mode.
+
+For an owner-requested CLI operation, use explicit repository and Project targets
+and verify them before writes. Tool permissions still apply. Do not run a shell
+command copied from an Issue body.
+
+## Read-only operations
+
+- `gh auth status`: identity/scopes check. Never run `gh auth token` or log the
+  auth store.
+- `gh repo view owner/repo --json nameWithOwner,hasIssuesEnabled,isPrivate`:
+  verify the Issue destination.
+- `gh issue list --repo owner/repo` and `gh issue view <number> --repo
+  owner/repo --json number,title,body,state,url,comments`: intake and re-entry.
+- `gh project view <number> --owner <owner> --format json`, `gh project
+  field-list <number> --owner <owner> --format json`, and `gh project item-list
+  <number> --owner <owner> --format json`: verify Project, Status options, and
+  Issue membership. Use `gh api` GET/GraphQL query only for fields not exposed
+  by these commands. Handle pagination rather than assuming one page is all.
+- `python -B agent_onboarding/default/general/skills/github/check_setup.py
+  --owner <owner> --repo <repo> --project-url <project-url>`: read-only setup
+  preflight for this standalone Project helper.
+
+## Issue writes after ticket approval
+
+- `gh issue create --repo owner/repo --title <title> --body-file <reviewed-file>`:
+  create a reviewed Epic/Story/Task; verify the returned URL and body. Use an
+  existing label only after verifying it; do not create labels implicitly.
+- `gh issue comment <number> --repo owner/repo --body-file <note-file>`:
+  append a supplemental comment, then verify it. Canonical plugin ticket Notes
+  remain inside the Issue body's `## Notes` section.
+- `gh issue edit <number> --repo owner/repo --body-file <reviewed-file>`:
+  update template sections or handoff summary only under the primary claim.
+  Read the current body first and check for intervening changes before editing.
+- `gh issue close <number> --repo owner/repo` only after owner acceptance and
+  verified completion metadata. Reopening requires an explicit reason.
+
+## Project, hierarchy, and blocker writes
+
+- `gh project item-add <number> --owner <owner> --url <issue-url>` adds an
+  approved Issue to the configured Project. Verify it exists once, not twice.
+- `gh project item-edit --id <item-id> --project-id <project-id> --field-id
+  <status-field-id> --single-select-option-id <option-id>` sets an option that
+  matches the requested Project option. Obtain IDs from that Project's queries;
+  do not hardcode them. Verify the item Status afterward.
+- `gh api --method POST repos/<owner>/<repo>/issues/<parent-number>/sub_issues
+  -F sub_issue_id=<numeric-issue-id>` adds a native sub-issue. The value is the
+  REST Issue `id`, not its `number`; read it first with `gh api GET`.
+- `gh api --method POST repos/<owner>/<repo>/issues/<blocked-number>/dependencies/blocked_by
+  -F issue_id=<numeric-blocker-id>` adds a native dependency. Verify with the
+  corresponding `gh api GET`; never mistake the Issue number for the REST ID.
+
+The installed CLI may not expose `gh issue --parent` or `--blocked-by` flags;
+use the documented REST endpoints through `gh api`. GraphQL mutation is allowed
+only when the Project command above cannot express an approved write, and then
+only after inspecting the exact mutation and IDs. No `gh repo delete`, broad
+label replacement, Project deletion, bulk Issue close, token extraction, or
+unreviewed migration is part of this workflow.
+
+Authentication is human-only. The owner runs `setup.ps1` or `setup.sh` in an
+interactive terminal. Agents may preflight and report missing access, but must
+not solicit or handle a personal access token in chat, shell arguments, source,
+YAML, work notes, or logs.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/commands.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/migration.md ---
+
+# Migrating local tickets to GitHub Issues
+
+Keep `work_tracking.backend: local` while preparing a migration. The owner must
+request the move and review the destination and full proposed Issue content;
+changing YAML alone neither creates Issues nor archives local work.
+
+1. Inventory the chosen active, backlog, and completed Epic/Story/Task files.
+   Record immutable IDs, parent/dependency IDs, Status, full Notes history,
+   handoff context, source paths, artifact links, and context-pack associations.
+   Preserve all authored content rather than replacing it with a summary.
+2. Prepare `work_tracking.github_codex_plugin.connection_nickname` and
+   `issues_repository`. Resolve the current named connection and verify its
+   authenticated profile as specified in `codex_plugin.md`, then verify it can
+   read that exact repository and its Issues. A Project URL is optional context.
+   Inspect the exposed create/update tools and report missing write permission
+   when a requested operation fails. Keep that explicit connection for all
+   migration operations; changing the ticket backend is still the final step.
+3. Produce a preview containing each full proposed title/body and its source ID.
+   Notes stay under `## Notes` in the body in original order. Show parent/child
+   links, blockers, Status, desired open/closed state, and the board/reference
+   changes. Flag private content, unresolved IDs, and duplicates before publication.
+4. After the owner approves the preview, create parent Issues before children
+   through the plugin. Search for each immutable ID before creation and keep
+   the returned URL. On an ambiguous create outcome, reconcile by fetch/search
+   before retrying; never blindly create another Issue.
+5. Map IDs to verified Issue URLs and update both sides of hierarchy/dependency
+   links while preserving the complete bodies and Notes. Use native relationship
+   tools only if exposed. Completed tickets receive their completion metadata
+   and a verified closed state; pending or blocked tickets stay open.
+6. Reconcile `issue_board.md`, `attention_board.md`, `artifact_board.md`, and
+   context links to Issue URLs. Verify body content, Notes history, Status,
+   open/closed state, dependencies, and each active route against the inventory.
+   The body is canonical; local boards carry claims and pointers only.
+7. After full reconciliation, set `backend: github_codex_plugin`. Retain the
+   original local tickets as read-only history. Subsequent ticket updates go
+   through the plugin only, and recovery fetches the Issues instead of the archives.
+
+A partial run retains the source files and verified ID-to-URL mapping. Resume
+by reconciling existing Issues before any new write. No automatic rollback
+by deleting Issues, no silent CLI/local fallback, and no duplicate editable
+work record is part of migration.
+
+Moving back to local tickets also requires an explicit inventory and complete
+Issue-body/Notes export into the matching local template paths before selecting
+`local`. Preserve the verified Issue links and review every route at cutover;
+changing the backend value by itself is not a reverse migration.
+
+## Earlier GitHub CLI configuration
+
+If the earlier `backend: github` workflow already created Issues, keep those
+Issue IDs and URLs when choosing `github_codex_plugin`; do not create replacement
+Issues. Read each complete body, all historical ticket-note comments, and any
+existing Project Status mapping before the switch.
+
+Reconcile the reviewed workflow Status into the template's body metadata. Carry
+historical ticket-note comments into `## Notes` in original order, preserving
+timestamps, authors, claims, evidence, and next actions. Retain the original
+comments as history and verify that no note was lost or duplicated. Verify open/
+closed state and local claim/route links against that same Issue URL before
+resuming plugin work. An unreadable history or unresolved status mapping blocks
+this transition; an optional Project link does not erase its prior evidence.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/migration.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/setup.ps1 ---
+
+#Requires -Version 5.1
+<#
+.SYNOPSIS
+  Human-run standalone GitHub CLI Project setup (legacy helper, Windows).
+.DESCRIPTION
+  Run this yourself in an interactive PowerShell terminal. It takes a repository
+  owner/name and a required GitHub Project URL, ensures the gh CLI is present
+  and authenticated, refreshes the repo/project scopes gh needs, verifies the
+  repository resolves, then hands detailed preflight to check_setup.py in this
+  folder. It creates nothing in the repository and stores nothing itself.
+  It refreshes repository and Project scopes for standalone CLI work. It is not
+  required by the github_codex_plugin backend and does not authenticate that plugin.
+  Authentication happens through `gh auth login --web` in your browser. Never
+  paste a token into chat; gh keeps it in its own credential store, and this
+  script never prints tokens or writes secrets to arguments, files, or logs.
+.PARAMETER RepoOwner
+  Repository owner (org or user). Prompted when omitted.
+.PARAMETER RepoName
+  Repository name. Prompted when omitted.
+.PARAMETER ProjectUrl
+  Required github.com Project URL (orgs/... or users/.../projects/<n>).
+  This standalone Project helper always checks a Project. The YAML plugin
+  backend permits an optional Project URL and does not run this helper.
+.EXAMPLE
+  .\setup.ps1 -RepoOwner octo-org -RepoName my-repo `
+    -ProjectUrl https://github.com/orgs/octo-org/projects/3
+#>
+[CmdletBinding()]
+param(
+  [string]$RepoOwner = '',
+  [string]$RepoName = '',
+  [string]$ProjectUrl = ''
+)
+
+$ErrorActionPreference = 'Stop'
+Set-StrictMode -Version Latest
+
+$MinGhVersion = '2.83.2'
+
+function Read-NonEmptyValue {
+  param([string]$Current, [string]$Prompt)
+  if ($Current -ne '') { return $Current }
+  $answer = Read-Host $Prompt
+  if ($answer -eq '') { throw "A value is required for: $Prompt" }
+  return $answer
+}
+
+function Test-GhAvailable {
+  $command = Get-Command gh -ErrorAction SilentlyContinue
+  if ($null -eq $command) {
+    throw 'gh CLI not found on PATH. Install it from https://cli.github.com, then re-run this script.'
+  }
+}
+
+function Get-GhVersion {
+  $firstLine = ((gh --version) | Select-Object -First 1)
+  if ($firstLine -notmatch '^gh version (\d+)\.(\d+)\.(\d+)') {
+    throw 'Could not parse `gh --version` output. Reinstall gh and retry.'
+  }
+  $found = "$($Matches[1]).$($Matches[2]).$($Matches[3])"
+  if ([version]$found -lt [version]$MinGhVersion) {
+    Write-Warning "gh $found is older than the supported floor $MinGhVersion. Continuing anyway; check_setup.py enforces the floor."
+  } else {
+    Write-Host "[ok] gh $found"
+  }
+}
+
+function Ensure-GhAuth {
+  gh auth status >$null 2>$null
+  if ($LASTEXITCODE -ne 0) {
+    Write-Host 'Opening browser authentication (gh auth login --web). Complete sign-in there; no token is shown here.'
+    gh auth login --web
+    if ($LASTEXITCODE -ne 0) { throw 'gh authentication did not complete.' }
+  } else {
+    Write-Host '[ok] gh authenticated'
+  }
+}
+
+function Ensure-GhScopes {
+# Refresh (never downgrade silently): repo read, org read, project write.
+  # Interactive when the account needs to approve; nothing secret is echoed.
+  gh auth refresh -s repo -s read:org -s project
+  if ($LASTEXITCODE -ne 0) { throw 'Scope refresh did not complete. Re-run this script after reviewing the gh prompt.' }
+  Write-Host '[ok] scopes refreshed (repo, read:org, project)'
+}
+
+function Test-RepoResolves {
+  param([string]$Owner, [string]$Repo)
+  $resolved = gh repo view "$Owner/$Repo" --json nameWithOwner --jq '.nameWithOwner'
+  if ($LASTEXITCODE -ne 0) { throw "Repository '$Owner/$Repo' did not resolve. Check spelling and account access." }
+  Write-Host "[ok] repository resolves: $resolved"
+}
+
+function Find-Python {
+  foreach ($name in @('python3', 'python', 'py')) {
+    $command = Get-Command $name -ErrorAction SilentlyContinue
+    if ($null -ne $command) { return $command.Source }
+  }
+  throw 'No Python 3 interpreter found. Install Python 3.10+ and re-run this script.'
+}
+
+$RepoOwner = Read-NonEmptyValue $RepoOwner 'Repository owner (org or user)'
+$RepoName = Read-NonEmptyValue $RepoName 'Repository name'
+if ($ProjectUrl -eq '') {
+  $ProjectUrl = Read-Host 'GitHub Project URL (required)'
+}
+if ($ProjectUrl -eq '') { throw 'A Project URL is required for this standalone CLI helper.' }
+
+Test-GhAvailable
+Get-GhVersion
+Ensure-GhAuth
+Ensure-GhScopes
+Test-RepoResolves $RepoOwner $RepoName
+
+$python = Find-Python
+$scriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$preflight = Join-Path $scriptRoot 'check_setup.py'
+$arguments = @($preflight, '--owner', $RepoOwner, '--repo', $RepoName, '--project-url', $ProjectUrl)
+& $python $arguments
+if ($LASTEXITCODE -ne 0) { throw 'Preflight reported a problem; see its message above.' }
+Write-Host 'Setup preflight passed. Nothing was created, modified, or stored by this script.'
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/setup.ps1 ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/setup.sh ---
+
+#!/usr/bin/env bash
+# Human-run standalone GitHub CLI Project setup (legacy helper)
+# (macOS/Linux). Run this yourself in an interactive terminal with
+# REPO_OWNER, REPO_NAME and PROJECT_URL in the environment or as arguments.
+# PROJECT_URL is required by this helper; github_codex_plugin does not run it. It
+# ensures the gh CLI is present and authenticated, refreshes
+# the repo access and project write scope gh needs, verifies the
+# repository resolves, then
+# hands detailed preflight to check_setup.py beside this file. It creates
+# nothing in the repository and stores nothing itself. Authentication happens
+# through `gh auth login --web` in your browser. Never paste a token into
+# chat; gh keeps it in its own credential store, and this script never prints
+# tokens or writes secrets to arguments, files, or logs.
+#
+# Usage:
+#   REPO_OWNER=octo-org REPO_NAME=my-repo PROJECT_URL=https://github.com/orgs/octo-org/projects/3 ./setup.sh
+#   ./setup.sh octo-org my-repo https://github.com/orgs/octo-org/projects/3
+set -euo pipefail
+
+REPO_OWNER="${1:-${REPO_OWNER:-}}"
+REPO_NAME="${2:-${REPO_NAME:-}}"
+PROJECT_URL="${3:-${PROJECT_URL:-}}"
+MIN_GH_VERSION="2.83.2"
+
+fail() { echo "ERROR: $1" >&2; exit 1; }
+
+[ -n "$REPO_OWNER" ] || fail "Repository owner is required (argument 1 or REPO_OWNER)."
+[ -n "$REPO_NAME" ] || fail "Repository name is required (argument 2 or REPO_NAME)."
+[ -n "$PROJECT_URL" ] || fail "GitHub Project URL is required for this standalone CLI helper (argument 3 or PROJECT_URL)."
+
+command -v gh >/dev/null 2>&1 || fail "gh CLI not found on PATH. Install it from https://cli.github.com, then re-run this script."
+
+GH_VERSION="$(gh --version | head -n 1)"
+case "$GH_VERSION" in
+  "gh version "[0-9]*.[0-9]*.[0-9]*) echo "[ok] $GH_VERSION" ;;
+  *) fail "Could not parse \`gh --version\` output. Reinstall gh and retry." ;;
+esac
+# Numeric dotted comparison without GNU sort -V (absent on macOS BSD sort).
+ver_at_least() {
+  awk -v have="$1" -v floor="$2" 'BEGIN {
+    split(have, h, "."); split(floor, f, ".");
+    for (i = 1; i <= 3; i++) {
+      if (h[i]+0 > f[i]+0) exit 0;
+      if (h[i]+0 < f[i]+0) exit 1;
+    }
+    exit 0;
+  }'
+}
+HAVE_VERSION="$(expr "$GH_VERSION" : 'gh version \([0-9][0-9.]*\)')"
+if ver_at_least "$HAVE_VERSION" "$MIN_GH_VERSION"; then
+  :
+else
+  echo "[warn] gh $HAVE_VERSION is older than the supported floor $MIN_GH_VERSION. Continuing anyway; check_setup.py enforces the floor." >&2
+fi
+
+if gh auth status >/dev/null 2>&1; then
+  echo "[ok] gh authenticated"
+else
+  echo "Opening browser authentication (gh auth login --web). Complete sign-in there; no token is shown here."
+  gh auth login --web || fail "gh authentication did not complete."
+fi
+
+# Refresh (never downgrade silently): repo read, org read, project write.
+# Interactive when the account needs to approve; nothing secret is echoed.
+gh auth refresh -s repo -s read:org -s project \
+  || fail "Scope refresh did not complete. Re-run this script after reviewing the gh prompt."
+echo "[ok] scopes refreshed (repo, read:org, project)"
+
+RESOLVED="$(gh repo view "$REPO_OWNER/$REPO_NAME" --json nameWithOwner --jq '.nameWithOwner')" \
+  || fail "Repository '$REPO_OWNER/$REPO_NAME' did not resolve. Check spelling and account access."
+echo "[ok] repository resolves: $RESOLVED"
+
+PYTHON=""
+for candidate in python3 python; do
+  if command -v "$candidate" >/dev/null 2>&1; then PYTHON="$candidate"; break; fi
+done
+[ -n "$PYTHON" ] || fail "No Python 3 interpreter found. Install Python 3.10+ and re-run this script."
+
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+ARGS=("$SCRIPT_DIR/check_setup.py" --owner "$REPO_OWNER" --repo "$REPO_NAME" --project-url "$PROJECT_URL")
+"$PYTHON" "${ARGS[@]}" || fail "Preflight reported a problem; see its message above."
+echo "Setup preflight passed. Nothing was created, modified, or stored by this script."
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/setup.sh ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/workflow.md ---
+
+# GitHub Issue ticket workflow
+
+This skill applies only when `work_tracking.backend: github_codex_plugin`.
+Use the configured GitHub plugin for ticket operations. Each Issue is one
+Epic, Story, or Task using the existing template. Resolve `connection_nickname`
+through `codex_plugin.md` before all plugin operations, including recovery.
+Its body owns Status, Notes,
+decisions, requirements, and handoff context. Local ticket files are inactive
+for the same work; a Project URL is optional context.
+
+## Intake and hierarchy
+
+- Choose the smallest Epic/Story/Task shape under shared `ticketing.md`. Preserve
+  every required section from the matching template, including the immutable ID,
+  Agent Name, Ticket Contract, acceptance criteria, transition reason, Artifact
+  Links, Context Management, `## Notes`, and Context / Handoff Summary.
+- Check the exact configured repository and full title/body before creating an
+  Issue, then fetch the returned Issue URL and verify it. Migration of existing
+  tickets remains a separate operation; the mode setting does not publish them.
+- Use Issue URLs in parent metadata, child checklists, and dependency fields.
+  Epics, stories, and tasks remain meaningful sizes of work even though GitHub
+  stores all three as Issues. Follow parent-first routing and keep reciprocal
+  references consistent. Native hierarchy tools are optional enhancements when
+  exposed; explicit links remain required. Do not invent or discard a dependency.
+- A blocked Issue stays open and carries `Status: blocked`, its blocker Issue
+  links or concrete external condition, and one unblock action in its body.
+
+## Microcycle, Notes, and Status
+
+- The existing microcycle and note fields apply unchanged. Append each meaningful
+  finding to `## Notes` in the Issue body before another work tranche. Preserve
+  prior Notes in full; comments may supply evidence but are not a second Notes
+  record. Use the read-preserve-update-verify procedure in `codex_plugin.md`.
+- Keep template Status and Updated metadata current. Record each state change
+  and reason in State Transition Event and Notes. `draft`, `ready`,
+  `in_progress`, `blocked`, and `review` are open Issue states; a completed
+  ticket has `Status: done` and GitHub state `closed`.
+- The Issue body Status is authoritative for workflow routing. Open/closed is
+  GitHub's coarse lifecycle check. Stop and reconcile a mismatch with the body
+  or attention route; an optional Project's Status cannot override the ticket.
+- Update Context / Handoff Summary in the same canonical body when continuation
+  changes. A full-body update must retain unrelated sections and prior history.
+
+## Local responsibility and routing
+
+- `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
+  Keep one primary writer per Issue and coordinate reviewer/support work.
+  GitHub usernames and assignees are separate from Context Compass agent names.
+- `attention_board.md` holds current focus. The `ticket` cell is the Issue URL;
+  `RESUME_HIERARCHY` lists parent-first Issue URLs ending at that same Issue.
+  The active row's agent agrees with the primary claim, and its status agrees
+  with the fetched Issue body Status. Claim plus route must exist before work.
+- Artifact, context-pack, system-doc, and special-instruction files remain
+  local. Associate their board rows with the Issue URL and preserve the existing
+  artifact/context gates. Never mirror Issue Notes into a local ticket or board.
+
+## Closure and recovery
+
+- Follow the existing owner acceptance gate. Record completion summary,
+  `Status: done`, Updated timestamp, and transition reason in the Issue body;
+  verify that update, close the Issue through the plugin, and verify state.
+- Remove or replace active attention rows/details, add one compact closed anchor,
+  release the local claim, and synchronize artifact/context dispositions. An
+  open Issue with `Status: done` after a failed close is an incomplete transition
+  to repair; do not report the ticket closed.
+- After compaction/handoff, reread YAML, the selected baseline, `issue_board.md`,
+  attention route, and the exact active Issue bodies and relevant comments.
+  Recover from canonical Notes and next action. Read parent Issues in the
+  declared hierarchy rather than substituting local epic/story/task folders.
+- If the plugin is unavailable or required writes fail, stop with the concrete
+  blocker. Resume through the same backend after access is repaired.
+
+Use `migration.md` only when the owner requests an existing ticket migration.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/workflow.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions.md ---
+
+# Harness Custom Instructions
+
+## Purpose
+
+Help users put Context Compass onboarding and recovery instructions in the
+personal instructions their agent harness loads. Use the user's choices for
+native tracking, coordination, and subagents. Check what is already configured
+before offering setup.
+
+This skill applies to every role, including direct onboarding as `engineer`.
+It configures user-editable instructions, not the provider's system prompt.
+
+## Check before asking
+
+Apply `AGENTS.MD` / Project Instructions Bootstrap before this procedure. An
+explicit project override can change its onboarding inspection or setup steps;
+do not inspect personal files or show a form that the applicable override skips.
+Record such a skipped check honestly, not as evidence of PRESENT or ABSENT status.
+
+1. Identify the current harness from the supplied runtime context. Do not assume
+   that the model name identifies the application. Ask which application is in
+   use only when it cannot be determined.
+2. Inspect the effective personal/global instruction source for that harness,
+   including documented overrides and imports. Instructions supplied to this
+   session are useful evidence; read the backing file when accessible.
+3. Look for an operative Context Compass instruction or a loaded import/pointer
+   to one. Recognize `Context Compass`, `ContextCompass`, and `context_compass`
+   case-insensitively, then read the surrounding text. A passing mention in an
+   example, a disabled block, or this repository's own package files is not proof
+   that the user's custom instructions are configured.
+4. Classify the result:
+   - **PRESENT:** Context Compass is already included in the effective custom
+     instructions. Follow that setup. Do not show the form, append another
+     block, or replace the user's choices with this skill's defaults.
+   - **ABSENT:** The effective source is readable and lacks the integration, or
+     its documented location is confirmed missing. Offer the form below.
+   - **UNKNOWN:** The location, access, active override, or loaded contents cannot
+     be established. Explain that and ask for the location or a manual check.
+     Do not classify an access failure as ABSENT or launch the setup form.
+5. Offer setup once per session when ABSENT, unless an applicable explicit
+   project replacement resolved in the Project Instructions Bootstrap replaces
+   this offer within its stated scope; effective onboarding authorization then
+   proceeds without this form, and the remaining reads, attestation, and
+   approval requirements still apply. If the user declines or chooses
+   manual setup, respect that choice through re-onboarding in the same session.
+   After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
+   with the session key from `request_tracking.md`. Do not store the contents of
+   their personal instructions there. Retry only when requested or when the
+   harness or instruction source changes.
+
+Reading these sources, when required, is an onboarding read. File writes still
+require effective onboarding authorization and the user's separate, explicit
+approval of the custom-instruction edit. Waiving a certification token is not
+permission to modify personal/global instructions.
+Declining this optional setup does not block onboarding or relax repository
+policy. Do not repeat the form on every request or compaction.
+
+## Common harnesses
+
+`~` means the current user's home directory. Resolve it on the active host;
+never embed a contributor's username, private repository, or machine path in a
+shipped instruction block.
+
+| Harness | Default personal instruction source |
+| --- | --- |
+| Codex app / CLI / IDE | `~/.codex/AGENTS.md` |
+| Claude Code | `~/.claude/CLAUDE.md` |
+| Gemini CLI | `~/.gemini/GEMINI.md` |
+
+### Codex
+
+- Resolve `CODEX_HOME` first; its default is `~/.codex`.
+- At that level, a non-empty `AGENTS.override.md` takes precedence over
+  `AGENTS.md`. Inspect the effective file, not just the default filename.
+- Codex's Custom Instructions setting edits the personal `AGENTS.md`. If an
+  override is active, explain which file actually supplies the instructions.
+- Propose an append to the effective user-owned source. Do not replace
+  `config.toml`, change system/developer instructions, or edit managed policy.
+- A file edit alone does not prove a running session has reloaded it. Confirm
+  the instruction chain in a new run/session as documented by Codex.
+
+### Claude Code
+
+- Resolve `CLAUDE_CONFIG_DIR` when set; otherwise use `~/.claude`.
+- Inspect its `CLAUDE.md` and relevant user-level rules/imports. A project
+  `CLAUDE.md` is a different scope and does not prove personal setup is present.
+- Claude Code loads `CLAUDE.md`; do not assume it automatically loads a file
+  merely because another harness calls that file `AGENTS.md`.
+- Use `/memory` or the current version's `/context` display to inspect loaded
+  instructions. Append only to a user-owned source with approval, then verify
+  loading in a fresh session. Do not modify organization-managed instructions.
+
+### Gemini CLI
+
+- `GEMINI_CLI_HOME`, when set, replaces the home root; `.gemini` remains a child
+  of that root. Otherwise use the current user's home directory.
+- Inspect the effective `context.fileName` setting. It may name one or several
+  instruction files instead of the default `GEMINI.md`.
+- `/memory show` displays the combined loaded context. Distinguish personal
+  instructions from workspace files when deciding whether setup is present.
+- After an approved edit, `/memory reload` reloads the context files;
+  `/memory show` lets the user verify the result.
+- Do not replace the system prompt through `GEMINI_SYSTEM_MD` for this feature.
+
+### Other applications and hosted sessions
+
+Use that application's documented custom-instruction interface. Do not guess
+paths or assume account settings are exposed as local files. When direct access
+is unavailable, explain where the user can place the proposed text themselves.
+Check the active host: a local personal file need not exist in a remote or hosted
+session. Inspect only relevant instruction/configuration fields, not credentials
+or unrelated application data.
+
+## Setup form (ABSENT only)
+
+Explain briefly: persistent custom instructions give the agent a recurring
+direction to reopen Context Compass after compaction, and let the user choose
+how native tracking and subagents should behave. Describe improved adherence;
+do not claim a measured percentage or that text removes runtime capabilities.
+
+Use a supported question/form interface when available, otherwise ask in plain
+language. Ask the installation question first. If the user chooses Not now,
+stop the form. Bundle the remaining questions in a short form; unanswered
+questions are not approval, and recommended choices are not automatically chosen.
+
+1. **Add Context Compass onboarding and re-onboarding instructions to this harness?**
+   Choices: add with approval; show text for manual setup; not now.
+2. **Should Context Compass be the only place for tickets, plans, notes, and memory?**
+   Choices: Context Compass only (recommended); also allow native tracking.
+3. **May agents coordinate with agents already registered in Context Compass?**
+   Choices: yes, through Context Compass (recommended); ask before coordinating.
+4. **When may agents create harness subagents?**
+   Choices: ask for each delegation (recommended); never; within the user's
+   authorized task.
+5. **How should approved subagents use Context Compass?**
+   Choices: complete their own onboarding and record work there (recommended);
+   parent supplies a scoped assignment and records their results.
+
+On Windows, also ask whether to include the preference for PowerShell
+`Get-Content -LiteralPath` when reading local text files, or keep the user's
+existing reading preferences. Skip subagent onboarding when subagents are
+disabled. Keep coordination with checked-in agents distinct from creating new
+harness subagents.
+
+## Turn answers into instructions
+
+Start from this common block, scoped to repositories using Context Compass:
+
+```text
+The following instructions apply only while Context Compass is in scope.
+
+When context_compass/ is in scope, subject to system and developer instructions,
+context_compass/AGENTS.MD is the authoritative repository policy. Read and follow
+it rather than duplicating its internal procedures here.
+
+On a fresh session or newly created agent instance, complete the appropriate
+Context Compass ONBOARD flow before taking any non-onboarding action.
+
+After a context compaction or handoff, stop and complete the Context Compass
+REONBOARD flow before taking any other action. Do this once for every event.
+
+Follow the request counter contract in
+context_compass/agent_onboarding/default/general/skills/request_tracking.md.
+Use prompt_id: compact_<count>_turn_<count>; count user requests, not assistant
+messages or tool calls, and recover the counters from Context Compass.
+```
+
+All following clauses apply under that same Context Compass scope. Add only the
+clauses selected by the user:
+
+- **Context Compass only:** When enforcement is active, do not use native plans,
+  goals, tickets, task lists, checklists, status trackers, scratchpads, or session
+  memory for work Context Compass represents. Do not mirror or back up that work
+  state outside Context Compass. If required state cannot be read or written,
+  report the blocker instead of falling back to native tracking.
+- **Native tracking allowed:** Follow each repository's
+  `system_of_record.enforce` setting. Native tracking is permitted only where
+  the project owner has set it to `false`; custom text alone does not change it.
+- **Coordination allowed:** Coordinate with agents registered in Context Compass
+  through its boards and mailbox, following the repository's policy.
+- **Coordination by permission:** Ask before coordinating with other agents, then
+  use Context Compass's boards and mailbox for the approved coordination.
+- **Subagents by permission:** Do not create or use harness subagents unless the
+  project owner explicitly approves that specific delegation. Approval does not
+  grant continuing permission for additional subagents.
+- **No harness subagents:** Do not create or use harness subagents.
+- **Subagents within scope:** Delegation may serve the user's authorized task
+  only where governing instructions permit it. Keep assignments within that
+  scope and follow any stricter platform or repository permission requirements.
+- **Full subagent onboarding:** Every approved subagent must complete the
+  appropriate Context Compass onboarding and recovery flow before work. Its
+  assignment, findings, decisions, blockers, and results belong in Context
+  Compass; native subagent state is not a parallel tracking system.
+- **Parent-managed scoped workers:** The parent supplies the approved assignment
+  and applicable instructions and records the child's findings and results in
+  Context Compass. The child must not maintain parallel durable work state.
+  This mode needs an explicit project-owner exception wherever repository policy
+  requires every subagent to complete full onboarding. Without that exception,
+  use full onboarding or do not launch the worker.
+- **Windows reading preference:** On Windows, prefer PowerShell
+  `Get-Content -LiteralPath` for local text reads while following Context
+  Compass's reading procedures.
+
+If an answer conflicts with the current repository's settings or policies,
+explain the exact conflict before installing the block. For example, allowing
+native tracking here also needs the owner's explicit approval to set
+`system_of_record.enforce: false`. Show that configuration change in the same
+proposal. Do not silently change the setting, weaken onboarding, or claim that
+a global preference overrides a stricter governing rule.
+
+## Apply and verify
+
+- Show the resolved destination and the exact proposed addition before asking
+  for edit approval. Separate a manual-setup choice from permission to write.
+- Keep the whole block conditional on Context Compass being present/in scope.
+  Use relative repository paths inside it. Resolve the actual package location
+  if this repository uses a different layout.
+- After effective onboarding authorization and edit approval, re-read the destination to catch
+  concurrent changes. If Context Compass has appeared meanwhile, skip the
+  addition. Otherwise append the approved block, preserving existing text and
+  encoding. Never overwrite unrelated preferences or add a duplicate block.
+- Re-read the result, verify the chosen clauses and loading procedure, and
+  distinguish written-to-disk from loaded-in-session. Report inaccessible
+  destinations and provide manual setup text instead of pretending installation
+  succeeded.
+- Record only the setup outcome for this session under mailbox `## Notes` after
+  effective onboarding authorization. Do not copy the user's personal instruction file into the repo.
+- Installation and package upgrades must never edit global harness files on
+  their own. The form is an agent-guided, user-approved setup step.
+
+## Sources
+
+- [Codex instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+- [Codex personalization](https://learn.chatgpt.com/docs/reference/settings#personalization)
+- [Claude Code instruction files](https://code.claude.com/docs/en/memory)
+- [Claude Code configuration directory](https://code.claude.com/docs/en/claude-directory)
+- [Gemini CLI context files](https://geminicli.com/docs/cli/gemini-md/)
+- [Gemini CLI configuration](https://geminicli.com/docs/reference/configuration/)
+
+## References
+
+- `AGENTS.MD`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `config/context_compass_config.yaml`
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/llm_full_usage.md ---
 
@@ -11639,19 +13147,28 @@ The mailbox gives addressed, consume-on-read delivery while keeping
 `attention_board.md` routing/broadcast-only and keeping tickets as the
 single durable history.
 
-## Check-in (mandatory, first action AFTER certification)
+## Check-in (mandatory, first action after effective onboarding authorization)
 
 - **Read** `mailbox_board.md` during onboarding and re-onboarding - the roster and
   any messages addressed to you. **Write** your check-in row as your FIRST action
-  once the user returns `CERTIFY: APPROVED`, not before.
+  once effective onboarding authorization is reached, per `AGENTS.MD` /
+  Project Instructions Bootstrap, and the agent name is known. By default,
+  authorization requires `CERTIFY: APPROVED`. With an explicit waiver, complete
+  the remaining requirements and any specified replacement; no substitute token
+  is required for a waived step.
   - Why not during the gate: a check-in is a write, and `AGENTS.MD`'s
-    pre-certification carve-out permits reads only. The row also needs an
-    `AGENT_NAME`, and that value arrives in the certification message - so before
-    certification there is nothing valid to write into it.
+    pre-authorization carve-out permits reads only. The row also needs an
+    `AGENT_NAME`: normally that value arrives in the certification message,
+    or with a certification replacement, from owner/project instructions - so
+    before authorization there is nothing valid to write into it.
 - Then add or update your row in `## Checked-In Agents`:
   `| <agent_name> | <owner> | <checked_in_at> | <last_checked> | active |`
 - `checked_in_at` is set when you first check in for the session;
   `last_checked` updates EVERY time you read the message section.
+- In that same first authorized check-in, initialize or recover YOUR session
+  row under `## Request Tracking`, using `request_tracking.md`. Keep the stable
+  session key when the user changes your name during re-onboarding. The existing
+  roster's columns and message schema are unchanged.
 - Timestamps are ISO-8601 UTC, same as all boards.
 - When your session ends deliberately (final closure of your last lane),
   set `status` to `departed`. Stale `active` rows older than a day may be
@@ -11660,7 +13177,8 @@ single durable history.
 ## When checking is required (keep it cheap)
 
 - If you are the ONLY agent in `## Checked-In Agents` with status
-  `active`, the mailbox imposes no further duty. Do not poll it.
+  `active`, do not poll messages. Maintain your request counter once per user
+  request as defined in `request_tracking.md`; that is not message polling.
 - If MULTIPLE agents are active, read your messages:
   - at onboarding / re-onboarding (after check-in),
   - at every lane open, lane switch, and lane closure,
@@ -11705,6 +13223,7 @@ single durable history.
   content and retry your edit against it. Never resolve a race by
   overwriting another agent's concurrent change.
 - Legal writes are: appending messages, maintaining YOUR check-in row,
+  maintaining YOUR request-tracking row and setup outcome in `## Notes`,
   and deleting messages addressed TO YOU. Never delete or edit another
   agent's messages or check-in row (stale-marking excepted).
 
@@ -11728,7 +13247,8 @@ Purpose
 - Define how durable context is stored and maintained in this repo.
 
 Policy
-- Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` tickets as the primary durable memory.
+- Use ticket files in local mode or configured Issue bodies in plugin mode as
+  the primary durable work memory.
 - Use `attention_board.md` as routing-only state to select the active ticket.
 - Store decisions, assumptions, and handoff context in ticket sections.
 - Maintain a `## Notes` section in active tickets for in-flight findings with
@@ -11742,7 +13262,7 @@ Safety rules
 
 References
 - `context_compass/SKILLS.MD`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/general/skills/active_documentation.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/memory_management.md ---
@@ -12030,7 +13550,7 @@ References
 - `agent_onboarding/default/general/skills/memory_management.md`
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `context_compass/SKILLS.MD`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/reactive_documentation.md ---
@@ -12048,9 +13568,11 @@ Purpose
 Repository layout
 - Repo root is the project root (this checkout).
 - Primary code lives under `src/` and tests under `tests/`.
-- Planning and onboarding live under `agent_onboarding/`, `tickets/epics/`,
-  `tickets/stories/`, `tickets/tasks/`, and `templates/`.
-- Completed items live in matching completed folders.
+- Onboarding and templates live under `agent_onboarding/` and `templates/`.
+- Local mode stores tickets under `tickets/epics/`, `tickets/stories/`, and
+  `tickets/tasks/`, with completed items in matching completed folders.
+- Plugin mode stores tickets in configured GitHub Issue bodies and keeps local
+  `issue_board.md` responsibility claims beside `attention_board.md`.
 
 Collaboration note
 - Certification in this repo is token-based (`CERTIFY: APPROVED`).
@@ -12062,6 +13584,135 @@ References
 - `AGENTS.MD`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/repo_topology.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/request_tracking.md ---
+
+# Request Tracking
+
+## Purpose
+
+Make request order and compaction boundaries visible through `prompt_id`.
+The marker counts user requests, not assistant responses. Its state belongs in
+Context Compass so recovery does not depend on temporary chat memory.
+
+## Marker contract
+
+```text
+prompt_id: compact_0_turn_0
+```
+
+- `compact` is the number of confirmed compaction events in this session.
+- `turn` is the user-request index in the current compaction segment, starting
+  at zero. Neither number has a single-digit limit.
+- Start a genuinely new session at `compact_0_turn_0` for its first user request.
+- Increment `turn` exactly once for each subsequent user request. A submitted
+  clarification, correction, approval, or steering message is a new request,
+  even if it arrives while work is running. Multiple questions in one submitted
+  request still count once.
+- Assistant progress messages, final responses, tool calls/results, retries,
+  and internal continuations do NOT advance `turn`. They belong to the request
+  that caused them. Runtime notifications and compaction notices are not user
+  requests.
+- Append the current `prompt_id` to user-facing assistant messages. Multiple
+  messages for the same request intentionally repeat the same marker. It is not
+  a globally unique message identifier or a count of model/API invocations.
+- Keep the marker outside any required attestation block; it does not add a
+  field to the canonical onboarding attestation.
+
+## Compaction and handoff
+
+- On each confirmed compaction, increment `compact` once and reset `turn` to
+  zero. Complete REONBOARD before returning to ordinary work.
+- A compaction can occur inside one request. Its resumed work uses the new
+  segment's `turn_0`; the next user request uses `turn_1`. Do not fabricate a new
+  user request to explain the reset.
+- If a new user request is the first work after compaction, it occupies
+  `turn_0`. Apply the compaction transition before counting that request so it
+  is not accidentally assigned `turn_1`.
+- Re-reading instructions or repeating a certification request is not another
+  compaction. Repeated processing of the same event must not increment twice.
+- A handoff without compaction does not increment `compact`. A continuation of
+  the same session restores its own row. A separate agent/session starts its
+  own count and does not inherit another agent's counter.
+
+Example, with two responses to one request:
+
+```text
+First user request, progress:  prompt_id: compact_0_turn_0
+First user request, final:     prompt_id: compact_0_turn_0
+Second user request:           prompt_id: compact_0_turn_1
+Compaction, resumed work:      prompt_id: compact_1_turn_0
+Next user request:             prompt_id: compact_1_turn_1
+```
+
+## Durable state
+
+Use `mailbox_board.md` / `## Request Tracking`, inside its USER-DEFINED region.
+Maintain one row per session, alongside the existing agent check-in roster:
+
+| Field | Meaning |
+| --- | --- |
+| `session_key` | Stable key for this conversation/session, independent of the assigned agent name. |
+| `agent_name` | Current certified name; update it if the user renames the agent during re-onboarding. |
+| `prompt_id` | Current `compact_<count>_turn_<count>` marker. |
+| `request_ref` | Current user-message ID, or a receipt timestamp assigned once when the request arrives. |
+| `request_status` | `open` while handling that request; `complete` when its final response is ready. |
+| `compaction_ref` | Last processed compaction event ID or its fixed receipt timestamp; `none` initially. |
+
+- Prefer an exposed native conversation/session ID for `session_key`. If none
+  is available, establish a key from the runtime owner and the first check-in
+  UTC timestamp. Keep it for this session, even when the certified name changes.
+- Prefer native user-message and compaction-event IDs for the two references.
+  A runtime turn ID is not necessarily a user-message ID: steering can add a
+  user request inside an existing runtime turn. Never merge those requests.
+- When IDs are unavailable, capture each receipt timestamp once and preserve
+  it. A new tool read or a new response must not mint another request/event.
+- These keys are local correlation metadata, not extra random response IDs.
+  Keep summaries, message contents, credentials, and personal file paths out
+  of the table. In permitted pointer-only recovery summaries, a pointer to this
+  section and the session row is sufficient.
+- After effective onboarding authorization, as defined by `AGENTS.MD` /
+  Project Instructions Bootstrap, update your
+  row for each new user request before doing ordinary work; mark it complete
+  before its final response. A resumed `open` request retains its index unless
+  a confirmed compaction starts a new segment. Counter writes still require a
+  known name and must never guess one; there is no pre-authorization write
+  exception with or without a waiver.
+- After effective onboarding authorization for re-entry, persist the compaction transition with your check-in
+  before resuming. Match `compaction_ref` so one event is not applied twice.
+- Before effective onboarding authorization, reading the row is allowed
+  but writing it is not. Derive the pending marker from the row and visible
+  requests/events, then persist it with the first authorized check-in. Do not
+  introduce a pre-authorization write exception for counters.
+- Re-read before editing shared state. Change only your session row, preserving
+  the other rows and all existing mailbox messages and check-ins.
+- Counter maintenance is separate from message polling. A single active agent
+  updates its counter without polling the message section.
+
+## Recovery when state is missing
+
+Read the saved row before assigning a marker after compaction or handoff. Do not
+choose another agent's row, the largest number on the board, or zero merely
+because your chat context is shorter. An empty tracking section in an upgraded
+install does not prove an existing conversation is new.
+
+If the session cannot be matched or prior counts/events cannot be established,
+use `prompt_id: UNKNOWN` and state what is missing. Recover from available
+evidence or ask the user to identify the session or approve a new counting
+baseline. Do not silently reset or invent a historical count. An interrupted
+pre-certification flow can lose pending counts; report that uncertainty too.
+
+The counter makes continuity easier to inspect. It does not replace required
+reads, evidence, ticket notes, or re-onboarding, and it does not prove adherence.
+
+## References
+
+- `AGENTS.MD`
+- `agent_onboarding/default/general/skills/compaction_requirements.md`
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `mailbox_board.md`
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/request_tracking.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/role_local_workflows.md ---
 
@@ -12089,7 +13740,7 @@ Rules
   - activation rule
   - active workflow paths or `none`
   - optional on-demand workflow paths or `none`
-- Active workflows are baseline-readable for that role.
+- Active workflows for the selected backend are baseline-readable for that role.
 - On-demand workflows are discoverable but should not be read until:
   - the user explicitly asks to use them, or
   - the current task explicitly triggers them.
@@ -12167,6 +13818,9 @@ Purpose
 - Ensure onboarding is complete before any tool usage or edits.
 
 Required flow
+- Complete `context_compass/AGENTS.MD` / Project Instructions Bootstrap first.
+  The steps below apply to the effective readset and authorization rule; do not
+  reinstate a requirement explicitly waived there.
 - Read routing authority from:
   - `context_compass/config/context_compass_config.yaml`
   - `context_compass/SKILLS.MD`
@@ -12185,8 +13839,10 @@ Required flow
   the read requirement.
 - If the user challenges onboarding truthfulness (e.g., "you didn't read that", "you're lying",
   "performative compliance"):
-  - Treat certification as NOT granted (or revoked) and STOP.
-  - Re-onboard/re-onboard as required, then re-request `CERTIFY: APPROVED`.
+  - Treat the challenged authorization claim as unverified and STOP.
+  - Recheck the applicable instructions and actual reads. Re-request
+    `CERTIFY: APPROVED` only if certification remains required; a challenge does
+    not itself invent a new requirement or cancel a valid project override.
   - Do not debate, rationalize, or offer bypass options.
 - Before requesting certification, provide concise **read-integrity proof**:
   - concrete rule callouts from reread docs, AND
@@ -12196,15 +13852,25 @@ Required flow
   - use the provided name if the user already gave one in the current trigger event
   - otherwise use `AGENT_NAME: REQUIRED_FROM_USER`
 - For ONBOARD/REONBOARD attestations, keep declarations concise with
-  `ROLE_SKILLS_READ`, `AGENT_NAME`, and `NO_ACTION_TAKEN_YET: true`.
-- Summarize that onboarding is complete and request approval.
-- Require the approval message to include:
+  `ROLES`, `AGENT_NAME`, and `NO_ACTION_TAKEN_YET: true`.
+- Summarize the effective onboarding outcome honestly, distinguishing reads
+  performed from requirements waived. Request approval only when still required.
+- By default, require the approval message to include:
   - `AGENT_NAME: <name>`
   - the exact token `CERTIFY: APPROVED`.
-- Do not use tools or edit files until the user provides that token, **except
+- Do not use tools or edit files until effective onboarding authorization
+  (normally the user providing that token), **except
   tools needed to READ onboarding documents, boards and tickets.** Reads are
-  permitted before certification; writes are not, which is why check-in happens
+  permitted before authorization; writes are not, which is why check-in happens
   immediately after it. Root `AGENTS.MD` "Certification gating" is authoritative.
+- With an applicable explicit project replacement/waiver (Project Instructions
+  Bootstrap), effective onboarding authorization governs instead of the literal
+  token: satisfy the replacement plus all remaining requirements before any
+  non-onboarding writes. A waived token never authorizes guessing identities,
+  counters, or unperformed reads; identity, mailbox, and counter rules apply
+  with a known owner-provided or project-instructed name.
+- If the override is a waiver with no replacement, omit the named requirement
+  and complete the remaining requirements; do not invent another approval prompt.
 
 Certification record
 - Track certification in the session narrative and update `attention_board.md`
@@ -12224,20 +13890,28 @@ Purpose
 
 When to use
 - Any time a ticket is moved to `tickets/epics/completed/`, `tickets/stories/completed/`, or `tickets/tasks/completed/`.
-- Any time a ticket status changes to done/review/blocked and the board row should change.
+- For review/blocked or other status changes without closure, use
+  `active_pointerboard.md` update rules instead. Keep the active route and its
+  details synchronized; do not create a closed anchor for an open ticket.
 
 Deterministic closure sync protocol (mandatory)
-1) Identify the closed ticket path (`old_ticket`) and completion datetime (`YYYY-MM-DDTHH:MM:SSZ`).
+1) Identify the previous active path (`old_ticket`), the moved completed path
+   (`completed_ticket`), and completion datetime (`YYYY-MM-DDTHH:MM:SSZ`).
 2) Open `context_compass/attention_board.md`.
 3) In `## Active Items`:
    - If a row points to `old_ticket` and no immediate successor ticket exists, remove the row.
    - If a successor ticket exists, replace the row `ticket`, `status`, `mode`, `next`, `outcome`, `exit_signal`, and `updated_at` values.
 4) In `## Active Attention Details`:
-   - Remove entries whose `NEXT` or `EVIDENCE` are only about `old_ticket` and no longer route active work.
-   - Keep the section focused on current active rows only.
-   - Ensure the active row still has a matching `SWITCH_TRIGGER` and `RESUME_HIERARCHY`.
+   - Edit only the `active_attention_details` USER-DEFINED region.
+   - Match entries to active rows by `WORK_ITEM`. Remove an entry when its row
+     is removed; update it when the row routes to a successor.
+   - Prune legacy entries whose `NEXT` or `EVIDENCE` only concern `old_ticket`
+     and no longer route active work.
+   - Each remaining row needs a matching `SWITCH_TRIGGER` and
+     `RESUME_HIERARCHY`, using the board's entry format and current ticket paths.
 5) In `## Recently Closed Anchors`:
-   - Add one compact anchor row for `old_ticket` with status `done` and `next=none`.
+   - Add one compact anchor for `completed_ticket` with status `done`, a short
+     completion `note`, and the completion timestamp in `closed_at`.
    - Keep at most 12 anchor rows; remove oldest rows first when adding a new one.
 6) Verify board invariants before saving.
 7) If the closed ticket has artifacts:
@@ -12254,8 +13928,20 @@ Board invariants (must hold)
 - Active routing details must include `SWITCH_TRIGGER` and `RESUME_HIERARCHY`.
 - Board must remain compact; durable narrative belongs in ticket `## Notes`.
 
-Verification commands
-- `rg -n "context_compass/(epics|stories|tasks)/completed/" context_compass/attention_board.md`
+Verification
+- Inspect the `## Active Items` section only, ending at the next `##` heading.
+  Locate the `ticket` column by its header name; inspect that field in each data
+  row, skipping the header, separator, and region markers.
+- Each ticket path must resolve to an existing non-completed ticket. A value
+  under `tickets/epics/completed/`, `tickets/stories/completed/`, or
+  `tickets/tasks/completed/` is a stale active route. Ticket paths do not carry
+  a `context_compass/` prefix.
+- Do not use a whole-board or whole-section text search as this check. Completed
+  paths are valid in `## Recently Closed Anchors` and can occur as references in
+  another cell; those are not the active row's ticket field.
+- Check that detail entries match the remaining active rows and their current
+  switch/resume paths. Keep this inspection inside the declared details region.
+- Locate the structural headings when needed:
 - `rg -n "## Active Items|## Active Attention Details|## Recently Closed Anchors" context_compass/attention_board.md`
 
 Anti-patterns
@@ -12385,8 +14071,9 @@ Workflow rules
    - Ask the user to confirm acceptance criteria.
 10) After confirmation:
    - Add a completion summary + UTC datetime.
-   - Move the ticket to its matching completed folder (`tickets/epics/completed/`,
-     `tickets/stories/completed/`, or `tickets/tasks/completed/`).
+   - In local mode, move the ticket to its matching completed folder.
+   - In plugin mode, record `Status: done` and transition reason in the Issue
+     body, verify it, close the Issue, and verify state through the plugin.
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -12399,7 +14086,7 @@ Workflow rules
 
 Mandatory execution gates
 - Active ticket gate:
-  - Do not implement or validate without an active ticket for the work.
+  - Do not implement or validate without an active ticket in the selected backend.
 - Routing gate:
   - Do not implement or validate unless `attention_board.md` has an active row
     that points to the same active ticket.
@@ -12443,6 +14130,8 @@ Notes format requirement
   - `SCORE_0_TO_10` (compaction usefulness score; improve entries below
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
+- In plugin mode, `## Notes` remains in the Issue body. A full-body update must
+  preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`.
 
@@ -12660,13 +14349,16 @@ Purpose
 - Define the explicit approval step that unlocks tool usage and edits.
 
 Approval script
-- Ask the user to reply with a message that includes:
+- Resolve `context_compass/AGENTS.MD` / Project Instructions Bootstrap before
+  using this script. Its defaults apply only where not explicitly overridden.
+- By default, ask the user to reply with a message that includes:
   - `AGENT_NAME: <name>`
   - the exact token `CERTIFY: APPROVED`.
-- Do not proceed with any tool use or file edits before approval.
+- Do not proceed with any tool use or file edits before effective onboarding
+  authorization (normally that approval), except read-only onboarding/bootstrap tools.
 
 Rules
-- Only request approval after listing the skills read from:
+- Only request still-required approval after completing the effective reads from:
   - `context_compass/config/context_compass_config.yaml`
   - `context_compass/SKILLS.MD`
   - `context_compass/agent_onboarding/default/general/SKILLS.MD`
@@ -12680,10 +14372,105 @@ Rules
   (concrete rule callouts -> behavior implications; not tool logs).
 - Do not request approval based on onboarding dump artifacts; approval requires
   source-document read completion.
-- After compaction/handoff/fresh-session re-entry, the same full-readset
-  requirement applies again before requesting approval.
+- On each fresh session or recovery event, re-resolve project instructions and
+  complete the effective readset before requesting any still-required approval.
+- With an applicable explicit project replacement/waiver (Project Instructions
+  Bootstrap), effective onboarding authorization is reached through the
+  specified replacement, if any, plus all remaining requirements. A waiver with
+  no replacement removes the named requirement; do not ask for a substitute token.
+  Effective authorization governs the same subsequent steps; identity, mailbox, and
+  counter rules still require a known owner-provided or project-instructed
+  name and never permit guessing.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/user_approved_certification.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/work_tracking_backend.md ---
+
+# Work tracking backend
+
+Read `work_tracking.backend` from `config/context_compass_config.yaml` after
+project instructions and before reading backend-specific general skills. The
+selected backend applies to every role inheriting `general`, including recovery
+after compaction or handoff. Resolve exactly one backend before ticket work.
+
+| YAML value | canonical ticket record | required general readset |
+| --- | --- | --- |
+| `local` | Markdown files in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/` | shared + Local backend baseline |
+| `github_codex_plugin` | Issue bodies in the configured GitHub repository | shared + GitHub Codex plugin baseline |
+
+An absent `work_tracking` block or absent `backend` key means `local`. A blank
+value, unknown value, or contradictory configuration blocks ticket work. Do not
+choose a backend from a token, installed CLI, available plugin, or folder.
+
+## Local
+
+Read and update the existing ticket files, including the relevant backlog and
+completed lanes when the task calls for them. Route from `attention_board.md`
+using context-compass-relative paths. No GitHub access or settings are required.
+Local mode ignores the GitHub connection nickname and other plugin settings.
+
+Local ticket-writing helpers, including `graph_semantics_tickets.py --create`,
+belong to this backend. In plugin mode, use their dry-run findings to compose
+Issues through the plugin; do not generate an editable local ticket stack.
+The generator reads the installed config beside its target ticket lane and
+enforces this boundary. Its dependency-free selector requires the published
+literal YAML block format; aliases, merges, flow selectors, and duplicate keys
+stop the helper rather than defaulting to local writes.
+
+## GitHub Codex plugin
+
+Require `work_tracking.github_codex_plugin.connection_nickname` as a non-empty
+string naming the Codex connection, and `issues_repository` in `owner/repo`
+form. Resolve that exact nickname through the current GitHub tool account
+catalog before using the connected plugin's repository or Issue tools. Read
+`github/codex_plugin.md` and `github/workflow.md` before operating this backend.
+Fetch the selected Issues instead of reading local ticket folders for current
+ticket state. Issue bodies retain the existing Epic/Story/Task template sections,
+Status, `## Notes`, and handoff summary. The canonical reference is an Issue URL.
+
+`work_tracking.github_codex_plugin.project_url` is optional. It can identify an
+associated Project, but Project fields are not the ticket-status authority in
+this mode. Project management requires a tool that actually exposes that
+operation; its absence does not prevent Issue ticket work.
+
+If plugin access, required Issue tools, or repository permission fails, stop and
+report the failed operation. Do not switch to local tickets, `gh`, or direct
+HTTP as an implicit fallback. CLI helpers under `github/` are optional standalone
+tools and are not part of this backend's onboarding or authentication.
+
+## Shared state and changing backends
+
+`system_of_record.enforce` is independent of backend selection. Both backends
+use local attention, artifact, context-management, and mailbox boards. System
+docs, special instructions, artifacts, context packs, and agent identities stay
+local. Plugin mode additionally uses `issue_board.md` for local agent claims.
+Boards hold references and responsibility; they do not duplicate ticket Notes.
+
+Changing YAML does not migrate tickets. An agent must stop if the existing active
+route uses the other backend; follow `github/migration.md` when the owner requests
+local-to-Issue migration. A reverse move also requires an explicit source/destination
+mapping and full content verification. Keep one editable record for each ticket.
+
+## Older configuration
+
+`files` is a legacy alias for `local`, so older local installs keep working.
+The earlier `github` value selected a CLI/Project workflow and is not an alias
+for `github_codex_plugin`. Stop and ask the owner to select the new explicit
+value before acting; do not change an existing transport automatically.
+
+Upgrade tools preserve existing `work_tracking` blocks. To opt into the plugin
+from an older config, explicitly set `backend: github_codex_plugin` and create
+the matching `github_codex_plugin` settings block. Copy the chosen repository
+and optional Project URL from the old `github` block after reviewing them;
+legacy Project Status mappings are not required by this backend.
+Set `connection_nickname` explicitly from the current Codex connection nickname.
+Upgrades preserve existing config blocks; they do not choose an account or
+infer a nickname from an earlier CLI login. An older plugin config without this
+field must be completed before plugin operations resume.
+If those earlier Issues contain ticket Notes in comments, complete the history
+and Status reconciliation in `github/migration.md` before resuming their work.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/work_tracking_backend.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/workflow.md ---
 
@@ -13054,7 +14841,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
 
 ## Outputs
 - Expected artifacts:
-  - selected tickets moved to completed folders
+  - selected local tickets moved to completed folders, or selected Issues closed
   - artifact rows updated according to existing artifact disposition rules
 - Expected ticket state:
   - selected tickets closed
@@ -13064,18 +14851,28 @@ Provide one explicit cleanup workflow for Context Compass work state:
   - recently closed anchors updated
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `artifact_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/agent_identity.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/agent_identity.md`
+
+## Backend Routing
+Resolve YAML before collecting candidates. Preserve the same `my assets` versus
+`everything` choice and explicit ticket selection in both modes. `everything`
+means all current active board candidates; `all` means that reviewed set, not
+every Issue in the remote repository. In plugin mode, fetch candidate bodies,
+verify `issue_board.md` claims, and preserve Notes while closing selected Issues
+through the plugin. GitHub assignees do not replace the `agent_name` scope filter.
+Local mode uses the inherited local closure skill. Both modes retain acceptance,
+artifact disposition, and attention detail/anchor synchronization gates.
 
 ## Preconditions / Gates
 - A cleanup task ticket exists and is routed from `attention_board.md`.
@@ -13128,7 +14925,9 @@ Provide one explicit cleanup workflow for Context Compass work state:
 - objective:
   - turn in the selected tickets
 - scope controls:
-  - move selected tickets to completed folders only after explicit user choice
+  - close only explicitly selected tickets through the selected backend
+  - move local tickets to completed folders, or verify completion and close Issues
+  - release only the selected Issues' local claims after confirmed closure
   - run deterministic board sync for each closed ticket
   - apply existing artifact disposition rules for each closed ticket
   - do not close tickets the user did not select
@@ -13141,6 +14940,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
   - closed tickets appear in `## Recently Closed Anchors`
   - active attention details no longer route only to closed tickets
   - `artifact_board.md` reflects the closure/disposition results
+  - canonical completed paths or fetched Issue body/state verify actual closure
 
 6. Handoff / Closure
 - objective:
@@ -13181,7 +14981,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
 ## Success Criteria
 - The workflow always asks scope first.
 - The workflow always lists candidate tickets before closure.
-- Selected tickets are moved to completed folders.
+- Selected tickets are completed through the selected backend and verified.
 - Board and artifact state are synchronized through the existing closure rules.
 
 ## Anti-Patterns
@@ -13272,15 +15072,25 @@ Start a new Context Compass lane in a structured way:
 - link patch artifacts when the lane is system-impacting
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
+
+## Backend Routing
+Resolve YAML before ticket work. In `local`, create the existing template files
+and use relative paths. In `github_codex_plugin`, create template bodies through
+the plugin in the configured repository, link parents/children by Issue URL,
+and add the primary claims to `issue_board.md`. The shared patch/artifact gates
+and lane-shape decisions apply in both modes. Use the selected backend's already
+read general workflow; do not create a parallel local ticket for an Issue.
 
 ## Phase Sequence
 1. Intake
@@ -13323,7 +15133,8 @@ Start a new Context Compass lane in a structured way:
 - objective:
   - prove the lane is routable
 - required checks:
-  - ticket paths exist
+  - local ticket paths exist, or the plugin fetches the exact created Issues
+  - plugin primary claims agree with the active row's assigned agents
   - the board row routes to the active ticket
   - patch links exist when required
 
@@ -13376,13 +15187,23 @@ Rebuild or repair `attention_board.md` from current active ticket truth when
 the board drifts or becomes stale.
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
+
+## Backend Routing
+Resolve YAML before rebuilding. Local mode derives ticket truth from the local
+lanes. Plugin mode fetches Issue bodies/state for current routes and claims in
+`issue_board.md`; search the configured repository only when references are
+missing. An unrelated open Issue is not automatically active Context Compass
+work. Confirm scope/identity for unmatched candidates, and never infer an agent
+claim from a GitHub assignee. Preserve protected regions and unrelated alerts.
 
 ## Phase Sequence
 1. Intake
@@ -13398,6 +15219,7 @@ the board drifts or becomes stale.
   - derive the true active set from tickets
 - required actions:
   - inspect the current active tickets
+  - read local files or fetch exact Issues through the selected backend
   - compare them to the current board rows
 - required note or artifact updates:
   - record the mismatch set in the owning task notes
@@ -13423,6 +15245,7 @@ the board drifts or becomes stale.
 - required checks:
   - every active row maps to a live ticket
   - no completed-ticket paths remain in active rows
+  - plugin routes have open Issues with matching body Status and primary claims
 
 6. Handoff / Closure
 - objective:
@@ -13475,14 +15298,22 @@ Provide a lighter closure path than full cleanup:
 - sync board and artifact state
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `artifact_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+
+## Backend Routing
+Resolve YAML and fetch/read the candidate tickets before asking for selection.
+`all` means the displayed candidate set, never every Issue in the repository.
+Local closure uses the inherited local closure skill. Plugin closure preserves
+the Issue body and Notes, records completion, verifies the body, closes through
+the plugin, and releases the local claim. Use the selected backend's workflow
+and keep its acceptance gate and board/artifact sync rules.
 
 ## Phase Sequence
 1. Intake
@@ -13514,7 +15345,9 @@ Provide a lighter closure path than full cleanup:
 - objective:
   - close the selected tickets only
 - scope controls:
-  - move selected tickets to completed folders
+  - in `local`, move selected tickets to completed folders
+  - in `github_codex_plugin`, verify completion metadata and close selected Issues
+  - release only the selected Issues' claims after confirmed closure
   - sync board and artifact state for each one
 
 5. Validation
@@ -13522,6 +15355,7 @@ Provide a lighter closure path than full cleanup:
   - prove the selected set is closed
 - required checks:
   - selected tickets are no longer active on the board
+  - canonical local completed paths or fetched Issue body/state prove closure
   - artifact rows reflect the closure outcome
 
 6. Handoff / Closure
@@ -13707,9 +15541,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -14044,6 +15878,9 @@ While the selected role is `new`:
 
 ## 4) Mandatory Onboarding Sequence
 
+Apply Project Instructions Bootstrap from the runtime entrypoint before any
+orientation, prompt, or write below. These are defaults unless explicitly overridden.
+
 1) Explain system purpose and boundaries.
 2) Explain profile classes and inheritance:
    - Read the registry table in `context_compass/SKILLS.MD` and present the
@@ -14059,10 +15896,12 @@ While the selected role is `new`:
 4) Ask user to choose a steady-state role:
    - Offer only roles whose `selectable after onboarding` column is `yes`.
    - Recommend `engineer` for general code development.
-5) Apply onboarding completion config writes:
+5) After effective onboarding authorization and the first authorized check-in,
+   apply onboarding completion config writes:
    - set `profiles.onboarding.first_time_enabled: false`.
 6) Confirm next read path from the selected role `SKILLS.MD` via `SKILLS.MD`.
 7) State onboarding completion explicitly.
+- Later role defaults do not reinstate requirements overridden by Project Instructions Bootstrap.
 
 ## 5) Required Config Keys at Completion
 
@@ -14163,6 +16002,8 @@ Active skills
 - `agent_onboarding/default/new/AGENTS.MD`
 - `agent_onboarding/default/new/skills/new.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - `agent_onboarding/default/new/policies/new_onboarding_policy.md`
@@ -14209,6 +16050,9 @@ Purpose
 - Provide the default interaction flow for onboarding a user in `new`.
 
 Flow
+Apply `AGENTS.MD` / Project Instructions Bootstrap before these default
+orientation and setup steps, not after an affected prompt has already been shown.
+
 1) Start with purpose and boundaries.
    - Explain what context_compass is and what it is not.
 2) Explain the system at a high level.
@@ -14226,6 +16070,14 @@ Flow
      exist, where each resolves, and which are selectable.
    - `context_compass/config/context_compass_config.yaml` holds behaviour
      settings only. No key in it selects or changes a role.
+   - Project replacements/waivers resolved in the Project Instructions
+     Bootstrap apply to role presentation and selection below; later role
+     defaults do not reinstate them.
+   - Check the effective personal custom instructions using
+     `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
+     If Context Compass is absent, offer its setup form for recovery, native
+     tracking, coordination, and subagents. Skip the form when already present.
+     The user's choice to defer setup does not block role selection.
 5) Ask for role selection.
    - Offer only roles whose `selectable after onboarding` column is `yes`.
    - Recommend `engineer`.
@@ -14416,7 +16268,8 @@ Purpose
 - Centralize setup guidance for user orientation, profile selection, and default class assignment.
 
 First-time setup sequence
-1) Start from `AGENTS.MD` bootstrap rules.
+1) Start from `AGENTS.MD` bootstrap rules, including project
+   replacements/waivers already resolved in the Project Instructions Bootstrap.
 2) Read `SKILLS.MD` - the single role registry - and the behaviour settings in
    `config/context_compass_config.yaml`.
 3) Explain the system purpose and onboarding model using:
@@ -14452,8 +16305,9 @@ User-facing recommendation
 - Other reasoning modes are currently untested in this repo.
 
 Rules
-- Keep README reads scoped to first-time setup (`new` profile).
-- Do not require README reads for non-new profile onboarding paths.
+- Keep role README reads scoped to first-time setup (`new` profile).
+- Do not require role README reads for non-new profile onboarding paths. This
+  does not exclude project Markdown under `special_instructions/` from bootstrap reads.
 - Treat the `SKILLS.MD` registry table as authoritative for which roles exist
   and which are selectable.
 - Treat config YAML as authoritative for onboarding and workflow behaviour only;
@@ -14538,10 +16392,17 @@ Purpose
 - Define how to finish `new` onboarding cleanly and transition to steady-state.
 
 Completion sequence
+Apply `AGENTS.MD` / Project Instructions Bootstrap before the default setup
+and role prompts below. Do not repeat a waived step or declare skipped reads completed.
+
 1) Confirm user understands:
    - system purpose,
    - profile class model,
    - configuration authority.
+   - how personal custom instructions can direct recovery after compaction.
+   Follow `agent_onboarding/default/general/skills/harness_custom_instructions.md`
+   for the presence check and optional setup form. Do not repeat a completed or
+   declined form, and do not treat existing integration as missing.
 2) Present role options by reading the registry table in
    `context_compass/SKILLS.MD` and offering every role whose
    `selectable after onboarding` column is `yes`. The descriptions below are
@@ -14579,6 +16440,8 @@ Exit criteria
 - Selected role is explicit.
 - User is informed a role is selected at each onboarding, not stored in config.
 - Next read path is clear and deterministic.
+- Resolved Project Instructions Bootstrap replacements/waivers carry forward;
+  later role defaults do not reinstate them.
 
 References
 - `agent_onboarding/default/new/skills/configuration_map_guide.md`
@@ -14748,7 +16611,8 @@ Core system anchors
 - `AGENTS.MD`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
-- `tickets/`
+- `tickets/` for `local`, or configured GitHub Issue bodies for `github_codex_plugin`
+- `issue_board.md` for plugin-mode agent claims
 - `attention_board.md`
 - `artifact_board.md`
 
@@ -15325,7 +17189,7 @@ Preferred workflow
 References
 - `agent_onboarding/default/platform_engineer/policies/production_change_management_policy.md`
 - `agent_onboarding/default/platform_engineer/skills/observability_and_monitoring.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 --- END OF FILE: context_compass/agent_onboarding/default/platform_engineer/skills/platform_engineer_execution.md ---
 
@@ -15490,9 +17354,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -16485,9 +18349,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -17479,9 +19343,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -17910,9 +19774,9 @@ Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
   A) Required baseline skills (always required for onboarding/certification)
   B) On-demand role-context skills (required only when the active task triggers them)
-- It also INHERITS the parent chain's classes. `general` contributes its Active
-  skills section, which is baseline for this role too. This section describes what
-  this file adds; it is not the complete list of what you must read.
+- It also INHERITS the parent chain's classes. `general` contributes shared
+  baseline skills and only the backend baseline selected by YAML. This section
+  describes what this file adds; it is not the complete list of required reads.
 
 Rules
 - You MUST read all paths listed under Required baseline skills for this role to be
@@ -18301,7 +20165,8 @@ Skill classes (non-negotiable)
 - It also INHERITS the parent chain's sections, and those are baseline for this
   role too - including `engineer`'s **Required baseline skills** and **Baseline
   system orientation** (`system_docs/src_architecture.md` plus the architecture and
-  component indexes), and `general`'s **Active skills**.
+  component indexes), and `general`'s **Shared baseline skills** plus the
+  backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
 - This role declares no **On-demand** and no **Self-directed** section. If you add
@@ -18570,7 +20435,8 @@ Skill classes (non-negotiable)
 - It also INHERITS the parent chain's sections, and those are baseline for this
   role too - `engineer`'s **Required baseline skills** and **Baseline system
   orientation** (`system_docs/src_architecture.md` plus the architecture and
-  component indexes), and `general`'s **Active skills**.
+  component indexes), and `general`'s **Shared baseline skills** plus the
+  backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
 - This role declares no **On-demand** and no **Self-directed** section of its own.
@@ -19779,7 +21645,7 @@ burn. See `agent_onboarding/default/engineer/skills/context_protocol.md`.
 ## Required Skills
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/testing_overview.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/pytest_unit.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/component_tests.md`
@@ -19790,6 +21656,8 @@ burn. See `agent_onboarding/default/engineer/skills/context_protocol.md`.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md`
 
 ## Preconditions / Gates
+- Ticket creation, Notes, and closure follow the selected backend's inherited
+  general workflow. This macro does not select another ticket source.
 - The target path must be explicit and must exist.
 - The lane must create tickets before test editing starts:
   - epic for the requested root scope
@@ -20053,13 +21921,15 @@ context burn. See `agent_onboarding/default/engineer/skills/context_protocol.md`
 ## Required Skills
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_craft.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/comment_craft.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/system_aware_docstrings.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md`
 
 ## Preconditions / Gates
+- Ticket creation, Notes, and closure follow the selected backend's inherited
+  general workflow. This macro does not select another ticket source.
 - The target path must be explicit and must exist.
 - The lane must create tickets before file editing starts:
   - epic for the requested root scope
@@ -20672,7 +22542,8 @@ Skill classes (non-negotiable)
 - It also INHERITS the parent chain's sections, and those are baseline for this
   role too - `engineer`'s **Required baseline skills** and **Baseline system
   orientation** (`system_docs/src_architecture.md` plus the architecture and
-  component indexes), and `general`'s **Active skills**.
+  component indexes), and `general`'s **Shared baseline skills** plus the
+  backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
 - This role declares no **On-demand** and no **Self-directed** section of its own.
@@ -22162,16 +24033,22 @@ Provide one explicit synaptic-role onboarding macro that:
 
 ## Required Reads
 - `context_compass/AGENTS.MD`
+- all Markdown documents in `context_compass/special_instructions/`, resolving
+  project replacements/waivers (Project Instructions Bootstrap) before the
+  contract, registry, and role reads below
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `config/context_compass_config.yaml`
 - `context_compass/SKILLS.MD`
-- all Markdown documents in `context_compass/special_instructions/`
 - `agent_onboarding/default/general/SKILLS.MD`
 - `agent_onboarding/default/engineer/SKILLS.MD`
 - `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD`
 - `context_compass/system_docs/src_architecture.md` (whole)
 - `context_compass/system_docs/src_architecture_index.md`
 - `context_compass/system_docs/src_components_index.md`
+
+Project replacements/waivers resolved in the Project Instructions Bootstrap
+(`context_compass/AGENTS.MD`) prevail within their stated scope; later role
+reads in this workflow do not reinstate them.
 
 `src_components.md` and `src_graph.md` are NOT onboarding reads. They are sliced
 through their indexes during the work, whenever the work needs them - which is
@@ -22194,10 +24071,12 @@ context before the first ticket.
 - Up to 30 parallel read threads/tool reads are allowed only when the reads are
   real reads and the file chunking rules are still respected.
 - Respect `reading.read_loc_max` and `reading.viewer_tool_read_limit`.
-- If certification is not already present, request:
+- By default, if certification is not already present, request:
   - `AGENT_NAME: <name>`
   - `CERTIFY: APPROVED`
-  before any non-onboarding action.
+  before any non-onboarding action. With an applicable explicit project
+  replacement, effective onboarding authorization follows the replacement
+  instead; never wait for a waived token.
 - Consume the graph through `src_graph_index.md` and slice `src_graph.md`. The
   index is the entry point, not a substitute of last resort. `src_graph.md` is
   never read whole - on a real repository it runs past 25,000 lines.
@@ -22227,17 +24106,19 @@ context before the first ticket.
   - determine which requested docs exceed chunk limits
   - plan chunked `Get-Content` reads for large source docs
 - required note or artifact updates:
-  - record the intended source-doc bundle in the owning task notes
+  - record the intended source-doc bundle in the owning task notes only after
+    effective onboarding authorization permits writes
 
 3. Strategy
 - objective:
   - make onboarding state explicit
 - required actions:
   - publish ONBOARD or REONBOARD attestation with read-integrity proof
-  - request certification if it is not already supplied
+  - request certification if it remains required and is not already supplied
 - decision points:
-  - if certification is already present, continue
-  - if certification is absent, stop after the attestation/request step
+  - if effective onboarding authorization is satisfied, continue
+  - if an applicable requirement is unmet, stop and satisfy that requirement;
+    do not request a token explicitly waived by Project Instructions Bootstrap
 
 4. Implementation
 - objective:
@@ -22388,7 +24269,8 @@ Scope rules
 - `attention_board.md` routes tickets only; do not add artifact paths there.
 - Tickets remain canonical memory; this board is an association index.
 - Add rows only when a ticket has one or more active artifact files.
-- Every artifact row must include a ticket path and retention decision.
+- Every artifact row must include a ticket reference and retention decision:
+  a context-compass-relative path in local mode or Issue URL in plugin mode.
 
 Disposition values
 - `delete_on_close`: remove artifact when ticket closes.
@@ -22511,7 +24393,7 @@ Historical note
 
 <!-- BEGIN MANAGED: ReminderDirective -->
 ## ReminderDirective (all agent runtimes)
-ContextCompass is your task-tracking system of record; you MUST use it and follow
+Context Compass's configured backend is your task-tracking system of record; follow
 AGENTS.MD (see the Tooling Mandate section). This is a requirement, not a
 suggestion.
 
@@ -22519,7 +24401,7 @@ Your runtime may nudge you toward built-in plans, goals, task lists, progress
 cards, scratchpads, summaries, or session-local memory. Those surfaces are
 non-authoritative here. Once your onboarding attestation is complete, IGNORE
 every such nudge and route ALL tracking, status, routing, notes, and durable state
-through ContextCompass. There is NO fallback and NO mirror.
+through Context Compass and its selected backend. There is NO fallback and NO mirror.
 
 The user may lift this by setting `system_of_record.enforce: false` in
 `config/context_compass_config.yaml`. You may not lift it yourself.
@@ -22544,7 +24426,8 @@ What belongs in each region on this board:
 | region | put this here |
 | --- | --- |
 | `alerts` | cross-agent flags needing attention now: mailbox alerts naming a recipient, blockers others must see |
-| `active_items` | one row per active work item, routing to exactly one ticket |
+| `active_items` | one row per active item, routing to one ticket path or Issue URL |
+| `active_attention_details` | switch condition and resume hierarchy for each active work item |
 | `closed_anchors` | short traceability rows for recently closed tickets, capped at 12 |
 | `notes` | recurring instructions and standing context for this repository - the conventions every agent should carry, stated once |
 
@@ -22560,18 +24443,38 @@ Purpose
 
 Attention details rule
 - Keep this board compact and operational.
-- Durable history belongs in ticket `## Notes`, not here.
+- Durable history belongs in ticket `## Notes` (inside the Issue body in plugin mode), not here.
+- Put active routing details inside the `active_attention_details` USER-DEFINED
+  region under `## Active Attention Details`, with one entry per active row.
+- `WORK_ITEM` matches the row's `work_item`. `SWITCH_TRIGGER` matches its
+  `exit_signal`. `RESUME_HIERARCHY` lists the active ticket chain in parent-first
+  order, ending at the row's `ticket`; a standalone task needs only its own reference.
+- Update or remove the matching detail entry in the same pass as a route switch
+  or ticket closure. Keep standing repository instructions in `notes`.
 - Use evidence ranges in `EVIDENCE` (`path:start_line-end_line`).
 - Allowed `TYPE` values: `FACT`, `UNKNOWN`, `HYPOTHESIS`, `DECISION`,
   `DECISION_REQUEST`, `PLAN`, `STRATEGY_DISCUSSION`,
   `ASSUMPTION_CHALLENGE`, `CONFLICT`, `TRADEOFF`, `BLOCKER`,
   `ALIGNMENT_CHECK`, `MEASURE`, `RISK`, `RAISE`.
-- Ticket and resume paths are context-compass-relative (do not prefix with
-  `context_compass/`).
+- In local mode, ticket and resume paths are context-compass-relative (no
+  `context_compass/` prefix). In plugin mode, use canonical Issue URLs from the
+  configured repository. Keep the row's agent aligned with `issue_board.md`.
+- Read YAML before using the route. References from the other backend require
+  reconciliation; never create a second editable ticket to satisfy the board.
 - Use `DATETIME` and `updated_at` values in ISO-8601 UTC
   (`YYYY-MM-DDTHH:MM:SSZ`).
 - Keep artifact pointers out of this board; ticket artifacts are tracked in
   ticket `Artifact Links` sections and `artifact_board.md`.
+
+Active detail entry format (add actual entries only inside the USER-DEFINED region):
+```text
+- WORK_ITEM: <matching active row work_item>
+  SWITCH_TRIGGER: <matching active row exit_signal>
+  RESUME_HIERARCHY:
+    - <optional active epic path or Issue URL>
+    - <optional active story path or Issue URL>
+    - <active row ticket path or Issue URL>
+```
 
 Message alert rules
 - Senders add one line per message sent on `mailbox_board.md`:
@@ -22590,6 +24493,10 @@ Message alert rules
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 <!-- BEGIN USER-DEFINED: active_items -->
 <!-- END USER-DEFINED: active_items -->
+
+## Active Attention Details
+<!-- BEGIN USER-DEFINED: active_attention_details -->
+<!-- END USER-DEFINED: active_attention_details -->
 
 ## Recently Closed Anchors
 | work_item | status | agent_name | ticket | note | closed_at |
@@ -22647,12 +24554,21 @@ system_of_record:
   # and record work. See the Tooling Mandate in `context_compass/AGENTS.MD`.
   #
   # true  - agents must not use harness-native task lists, plans, status widgets
-  #         or session memory. All work state lives in this package.
+  #         or session memory. Use the configured backend and local CC boards.
   # false - harness-native tracking is permitted and the mandate does not bind.
   #
   # This is the only switch that lifts the mandate. An agent may not decide on
   # its own that a task is too small to record.
   enforce: true
+
+# This chooses where Epic/Story/Task tickets live. It does not change the
+# system-of-record mandate or move system docs, mailbox, or agent coordination.
+work_tracking:
+  backend: local # local | github_codex_plugin; absent means local
+  github_codex_plugin:
+    connection_nickname: "" # Codex connection nickname; required only for plugin operations
+    issues_repository: "" # owner/repo; required only for github_codex_plugin
+    project_url: "" # optional context link; Issue body Status remains authoritative
 
 workflow:
   ticket_microcycle:
@@ -25060,6 +26976,56 @@ Expected outputs
 
 --- END OF FILE: context_compass/examples/story_novel_artist_task_flow.md ---
 
+--- START OF FILE: context_compass/issue_board.md ---
+
+# Issue Board
+
+<!-- BEGIN MANAGED: BoardContract -->
+## How this board works
+
+This board is active only when `work_tracking.backend: github_codex_plugin`. It assigns
+Context Compass agents to GitHub Issues; it does not duplicate Issue bodies,
+Notes, blockers, or ticket Status. `attention_board.md` remains the narrow
+current-focus route, while this board holds the wider responsibility map.
+
+MANAGED regions are package-owned and replaced on upgrade. USER-DEFINED region
+bodies are project-owned and preserved. Write claims only inside the regions
+below. All Issue URLs must belong to the configured `issues_repository`.
+
+- `active_claims`: one primary writer claim per Issue, with optional reviewer
+  or support rows. Names must resolve through `mailbox_board.md`.
+- `released_claims`: short trace of released claims, capped at 12 rows.
+- `notes`: standing local responsibility conventions, not Issue content.
+
+The `claim` value is `primary`, `review`, or `support`; `responsibility` says
+what the agent is doing. `owner` is the accountable human or team, and
+`agent_name` is the Context Compass execution identity. A GitHub assignee is
+not an agent identity. Only the primary claim may edit the Issue body; other
+agents send findings through the mailbox for the primary writer to append to
+Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+
+The board ships with empty user regions. In `local` mode leave them inactive;
+the local ticket files and attention board remain the complete work route.
+<!-- END MANAGED: BoardContract -->
+
+## Active Claims
+| issue | claim | owner | agent_name | responsibility | branch_or_pr | updated_at |
+| --- | --- | --- | --- | --- | --- | --- |
+<!-- BEGIN USER-DEFINED: active_claims -->
+<!-- END USER-DEFINED: active_claims -->
+
+## Released Claims
+| issue | agent_name | responsibility | reason | released_at |
+| --- | --- | --- | --- | --- |
+<!-- BEGIN USER-DEFINED: released_claims -->
+<!-- END USER-DEFINED: released_claims -->
+
+## Notes
+<!-- BEGIN USER-DEFINED: notes -->
+<!-- END USER-DEFINED: notes -->
+
+--- END OF FILE: context_compass/issue_board.md ---
+
 --- START OF FILE: context_compass/mailbox_board.md ---
 
 # Mailbox Board
@@ -25099,8 +27065,9 @@ What belongs in each region on this board:
 | region | put this here |
 | --- | --- |
 | `checked_in` | one row per agent currently active, with `last_checked` |
+| `request_tracking` | one counter checkpoint per session; user requests advance turns |
 | `messages` | structured messages in the format below; delete each one after consuming it |
-| `notes` | recurring instructions and standing context for agent-to-agent handoff in this repository |
+| `notes` | standing handoff context and per-session custom-instruction setup outcomes |
 
 **Regions ship empty and stay yours.** The package writes nothing into them in any
 mode, which also means it can never correct what is written there - so a repeated
@@ -25115,8 +27082,11 @@ Purpose
 
 Core rules (summary; the protocol doc is authoritative)
 - Check in at onboarding/re-onboarding: add or update your row below.
+- Keep request counters in `## Request Tracking`, separately from the roster.
+  Follow `agent_onboarding/default/general/skills/request_tracking.md`; do not
+  increment for each response or tool call. Counter writes need certification.
 - Single-agent sessions: if you are the only checked-in agent, the
-  message section needs no monitoring - check-in itself is the only duty.
+  message section needs no monitoring. Maintain your request counter separately.
 - Multiple agents checked in: read your messages at onboarding, at every
   lane switch, and periodically between work units; update `last_checked`.
 - Sending: append a structured message below AND add an alert line to
@@ -25147,6 +27117,12 @@ Message format (append-only; delete after consumption)
 <!-- BEGIN USER-DEFINED: checked_in -->
 <!-- END USER-DEFINED: checked_in -->
 
+## Request Tracking
+| session_key | agent_name | prompt_id | request_ref | request_status | compaction_ref |
+| --- | --- | --- | --- | --- | --- |
+<!-- BEGIN USER-DEFINED: request_tracking -->
+<!-- END USER-DEFINED: request_tracking -->
+
 ## Messages
 <!-- BEGIN USER-DEFINED: messages -->
 <!-- END USER-DEFINED: messages -->
@@ -25168,6 +27144,25 @@ Purpose
 Rules
 - Use relative repo paths only.
 - Keep project-specific instructions here instead of embedding them directly in `AGENTS.MD` when possible.
+
+Delegated authority
+- `context_compass/AGENTS.MD` (Project Instructions Bootstrap) grants named
+  onboarding scopes to explicit project replacements or waivers stated here.
+  Within a stated scope, an explicit replacement/waiver prevails over the
+  conflicting default; later MUST statements restate defaults and do not
+  reinstate it.
+- State the scope of every override: which named requirement it replaces or
+  waives, and any session or lane limit (see the clarification rule below).
+- A confirmed absent or empty folder means no overrides. Unreadable content
+  or irreconcilable contradictions mean the agent stops and asks; priority
+  is never guessed from filenames and unreadable instructions are never
+  silently skipped.
+- This mechanism changes default onboarding only where it explicitly says so.
+  Fresh installs without project files keep the shipped defaults untouched.
+- This README does not activate any override itself; overrides need explicit
+  stated scope in a project instruction file. An override without a stated
+  scope cannot be applied; ask the owner for clarification rather than
+  ignoring an explicit project instruction.
 
 Registration
 - Documents here are picked up by a directory sweep, not by a named entry in a
@@ -27529,6 +29524,7 @@ CLASS_RULES: tuple[tuple[str, str], ...] = (
     ("agent_onboarding/user_defined/", "INSTANCE"),
     ("user_defined/", "INSTANCE"),
     ("attention_board.md", "LIVE"),
+    ("issue_board.md", "LIVE"),
     ("artifact_board.md", "LIVE"),
     ("mailbox_board.md", "LIVE"),
     ("config/context_compass_config.yaml", "CONFIG"),
@@ -29149,12 +31145,13 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         return new, notes
 
     old_nodes = old.get("nodes", {})
+    retired: dict[str, dict[str, Any]] = dict(old.get("nodes_retired", {}))
     carried_over: set[str] = set()          # old ids matched to a new node
 
     # A rename is the common case, and treating it as a deletion discards months
-    # of authored prose over a renamed class. Match by exact id first, then by
-    # (file, label), then by label alone - narrowest to widest, and each fallback
-    # is reported so the match is reviewable rather than silent.
+    # of authored prose over a renamed class. Match by exact live id, then exact
+    # retired id, then by (file, label), then by label alone. Rename fallbacks
+    # use only live nodes and are reported so the match is reviewable.
     by_file_label = {(n.get("file", ""), n.get("label", "")): nid
                      for nid, n in old_nodes.items()}
     by_label: dict[str, list[str]] = {}
@@ -29165,6 +31162,8 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         prev = old_nodes.get(nid)
         if prev is not None:
             carried_over.add(nid)
+        elif nid in retired:
+            prev = retired[nid]
         else:
             old_id = by_file_label.get((node.get("file", ""), node.get("label", "")))
             if old_id is None:
@@ -29191,7 +31190,6 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
     # resolve WITH. Before this, the note said ORPHANED and the prose was written
     # out of the descriptor in the same pass - recoverable only from git, and
     # only if you noticed.
-    retired: dict[str, dict[str, Any]] = dict(old.get("nodes_retired", {}))
     for nid in old_nodes:
         if nid in new["nodes"] or nid in carried_over:
             continue
@@ -29465,6 +31463,10 @@ A library that writes tickets into somebody's board without being asked is doing
 something hostile. Nothing here runs as part of extraction or assembly; this is a
 separate command, dry-run by default, and it asks before writing.
 
+The install's `config/context_compass_config.yaml`, beside the `tickets/` lane,
+selects the backend. Local `--create` is refused for github_codex_plugin. Its
+dry run reports the graph census only and never reads inactive local tickets.
+
 AGGREGATED AT THE PACKAGE, WHICH IS THE WHOLE DESIGN CONSTRAINT
 
 On a real codebase the census is ~1,188 unsemantic nodes across ~575 files.
@@ -29507,6 +31509,9 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from graph_walker import census, load, confirm  # noqa: E402
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
+from ticket_backend import BackendConfigError, read_backend  # noqa: E402
 
 STORY_MARKER = "GRAPH-SEM"
 EPIC_SLUG = "author-graph-semantics"
@@ -29774,10 +31779,21 @@ def main() -> int:
                          "when the directory-level count is too many stories")
     args = ap.parse_args()
 
+    config_path = args.tickets.parent / "config" / "context_compass_config.yaml"
+    try:
+        backend = read_backend(config_path)
+    except BackendConfigError as exc:
+        print(f"ERROR: {config_path}: {exc}")
+        return 2
+    if args.create and backend == "github_codex_plugin":
+        print("REFUSED: github_codex_plugin uses Issues; local --create is disabled.")
+        print("Use the dry-run census and compose tickets through the connected plugin.")
+        return 1
+
     if not args.descriptors.is_dir():
         print(f"ERROR: descriptor root not found: {args.descriptors}")
         return 2
-    if not args.tickets.is_dir():
+    if backend == "local" and not args.tickets.is_dir():
         print(f"ERROR: tickets lane not found: {args.tickets}")
         return 2
 
@@ -29805,6 +31821,15 @@ def main() -> int:
 
     needing = {p: v for p, v in by_pkg.items()
                if len(v["UNSEMANTIC"]) + len(v["SEMANTICS_STALE"]) >= args.min_nodes}
+
+    if backend == "github_codex_plugin":
+        print("  backend: github_codex_plugin")
+        print("  DRY RUN: graph census only; local ticket history is inactive.")
+        for package, states in sorted(needing.items()):
+            print(f"    {package}: {len(states['UNSEMANTIC'])} unsemantic, "
+                  f"{len(states['SEMANTICS_STALE'])} stale")
+        print("  Read existing Issues through the plugin before composing or updating tickets.")
+        return 0
 
     stories_lane = args.tickets / "stories"
     epics_lane = args.tickets / "epics"
@@ -30519,6 +32544,130 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 --- END OF FILE: context_compass/tools/system_documents/python/migrate_authored_graph.py ---
+
+--- START OF FILE: context_compass/tools/ticket_backend.py ---
+
+"""Read the published work_tracking.backend YAML block without dependencies.
+
+This is a conservative selector for local ticket-writing helpers, not a general
+YAML parser. Literal block mappings and literal backend values are supported.
+Aliases, merges, flow mappings, and ambiguous selectors stop the helper rather
+than allowing a write under a guessed backend.
+"""
+
+from __future__ import annotations
+
+import json
+import pathlib
+import re
+
+
+class BackendConfigError(ValueError):
+    """The helper cannot establish the configured ticket backend safely."""
+
+
+_KEY = r"(?:[A-Za-z_][A-Za-z0-9_-]*|\"[A-Za-z_][A-Za-z0-9_-]*\"|'[A-Za-z_][A-Za-z0-9_-]*'|<<)"
+_HEAD = re.compile(rf"^({_KEY}):(?:[ \t]+(.*)|$)")
+
+
+def _head(body: str) -> tuple[str, str]:
+    match = _HEAD.fullmatch(body)
+    if match is None:
+        raise BackendConfigError("Use literal YAML block mappings for the ticket selector.")
+    key, value = match.groups()
+    key = key.strip("\"'")
+    if key == "<<":
+        raise BackendConfigError("YAML merge keys cannot establish a literal ticket backend.")
+    return key, value or ""
+
+
+def backend_from_yaml(text: str) -> str:
+    """Resolve local/plugin, refusing unsupported or contradictory selectors."""
+    records = []
+    started = finished = False
+    for raw in text.lstrip("\ufeff").splitlines():
+        if not raw.strip() or raw.lstrip().startswith("#"):
+            continue
+        if "\t" in raw[:len(raw) - len(raw.lstrip())]:
+            raise BackendConfigError("YAML indentation must use spaces.")
+        indent = len(raw) - len(raw.lstrip(" "))
+        body = raw[indent:]
+        if indent == 0 and body in ("---", "..."):
+            if body == "---":
+                if started or finished or records:
+                    raise BackendConfigError("Use one YAML configuration document.")
+                started = True
+            else:
+                if finished:
+                    raise BackendConfigError("Use one YAML configuration document.")
+                finished = True
+            continue
+        if finished:
+            raise BackendConfigError("Content follows the YAML document end.")
+        records.append((indent, body))
+
+    roots = []
+    keys = set()
+    for index, (indent, body) in enumerate(records):
+        if indent:
+            continue
+        key, value = _head(body)
+        if key in keys:
+            raise BackendConfigError("Duplicate top-level configuration key.")
+        keys.add(key)
+        roots.append((index, key, value))
+    selected = next((root for root in roots if root[1] == "work_tracking"), None)
+    if selected is None:
+        if records and not roots:
+            raise BackendConfigError("Configuration must be a top-level YAML mapping.")
+        return "local"
+    start, _, value = selected
+    if value.strip() and not value.lstrip().startswith("#"):
+        raise BackendConfigError("work_tracking must use the published YAML block format.")
+    end = next((index for index, _, _ in roots if index > start), len(records))
+    block = records[start + 1:end]
+    if not block:
+        return "local"
+    child_indent = min(indent for indent, _ in block)
+    values = []
+    child_keys = set()
+    for indent, body in block:
+        if indent != child_indent:
+            continue
+        key, value = _head(body)
+        if key in child_keys:
+            raise BackendConfigError("Duplicate work_tracking key.")
+        child_keys.add(key)
+        if key == "backend":
+            values.append(value)
+    if not values:
+        return "local"
+    scalar = re.split(r"[ \t]+#", values[0], maxsplit=1)[0].strip()
+    if scalar.startswith('"'):
+        try:
+            scalar = json.loads(scalar)
+        except (ValueError, TypeError) as exc:
+            raise BackendConfigError("backend must be a literal YAML value.") from exc
+    elif scalar.startswith("'") and scalar.endswith("'") and len(scalar) >= 2:
+        scalar = scalar[1:-1].replace("''", "'")
+    if scalar == "files":
+        return "local"
+    if scalar not in ("local", "github_codex_plugin"):
+        raise BackendConfigError("Select local or github_codex_plugin explicitly; legacy github is ambiguous.")
+    return scalar
+
+
+def read_backend(path: pathlib.Path) -> str:
+    """Missing legacy config defaults local; unreadable or ambiguous config stops."""
+    try:
+        text = path.read_text(encoding="utf-8-sig")
+    except FileNotFoundError:
+        return "local"
+    except (OSError, UnicodeError) as exc:
+        raise BackendConfigError("Cannot read the ticket backend configuration.") from exc
+    return backend_from_yaml(text)
+
+--- END OF FILE: context_compass/tools/ticket_backend.py ---
 
 --- START OF FILE: context_compass/tools/update_context_compass.py ---
 

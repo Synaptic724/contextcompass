@@ -65,4 +65,4 @@ Manual validation expectation
 References
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill

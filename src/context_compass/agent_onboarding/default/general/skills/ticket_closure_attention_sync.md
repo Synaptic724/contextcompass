@@ -8,20 +8,28 @@ Purpose
 
 When to use
 - Any time a ticket is moved to `tickets/epics/completed/`, `tickets/stories/completed/`, or `tickets/tasks/completed/`.
-- Any time a ticket status changes to done/review/blocked and the board row should change.
+- For review/blocked or other status changes without closure, use
+  `active_pointerboard.md` update rules instead. Keep the active route and its
+  details synchronized; do not create a closed anchor for an open ticket.
 
 Deterministic closure sync protocol (mandatory)
-1) Identify the closed ticket path (`old_ticket`) and completion datetime (`YYYY-MM-DDTHH:MM:SSZ`).
+1) Identify the previous active path (`old_ticket`), the moved completed path
+   (`completed_ticket`), and completion datetime (`YYYY-MM-DDTHH:MM:SSZ`).
 2) Open `context_compass/attention_board.md`.
 3) In `## Active Items`:
    - If a row points to `old_ticket` and no immediate successor ticket exists, remove the row.
    - If a successor ticket exists, replace the row `ticket`, `status`, `mode`, `next`, `outcome`, `exit_signal`, and `updated_at` values.
 4) In `## Active Attention Details`:
-   - Remove entries whose `NEXT` or `EVIDENCE` are only about `old_ticket` and no longer route active work.
-   - Keep the section focused on current active rows only.
-   - Ensure the active row still has a matching `SWITCH_TRIGGER` and `RESUME_HIERARCHY`.
+   - Edit only the `active_attention_details` USER-DEFINED region.
+   - Match entries to active rows by `WORK_ITEM`. Remove an entry when its row
+     is removed; update it when the row routes to a successor.
+   - Prune legacy entries whose `NEXT` or `EVIDENCE` only concern `old_ticket`
+     and no longer route active work.
+   - Each remaining row needs a matching `SWITCH_TRIGGER` and
+     `RESUME_HIERARCHY`, using the board's entry format and current ticket paths.
 5) In `## Recently Closed Anchors`:
-   - Add one compact anchor row for `old_ticket` with status `done` and `next=none`.
+   - Add one compact anchor for `completed_ticket` with status `done`, a short
+     completion `note`, and the completion timestamp in `closed_at`.
    - Keep at most 12 anchor rows; remove oldest rows first when adding a new one.
 6) Verify board invariants before saving.
 7) If the closed ticket has artifacts:
@@ -38,8 +46,20 @@ Board invariants (must hold)
 - Active routing details must include `SWITCH_TRIGGER` and `RESUME_HIERARCHY`.
 - Board must remain compact; durable narrative belongs in ticket `## Notes`.
 
-Verification commands
-- `rg -n "context_compass/(epics|stories|tasks)/completed/" context_compass/attention_board.md`
+Verification
+- Inspect the `## Active Items` section only, ending at the next `##` heading.
+  Locate the `ticket` column by its header name; inspect that field in each data
+  row, skipping the header, separator, and region markers.
+- Each ticket path must resolve to an existing non-completed ticket. A value
+  under `tickets/epics/completed/`, `tickets/stories/completed/`, or
+  `tickets/tasks/completed/` is a stale active route. Ticket paths do not carry
+  a `context_compass/` prefix.
+- Do not use a whole-board or whole-section text search as this check. Completed
+  paths are valid in `## Recently Closed Anchors` and can occur as references in
+  another cell; those are not the active row's ticket field.
+- Check that detail entries match the remaining active rows and their current
+  switch/resume paths. Keep this inspection inside the declared details region.
+- Locate the structural headings when needed:
 - `rg -n "## Active Items|## Active Attention Details|## Recently Closed Anchors" context_compass/attention_board.md`
 
 Anti-patterns

@@ -168,6 +168,68 @@ class TestTicketGeneration:
         assert board.read_text() == "# Attention Board\n"
 
 
+class TestTicketBackend:
+    def test_plugin_backend_refuses_local_create_and_preserves_existing_files(self, scanned):
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              "work_tracking:\n  backend: github_codex_plugin\n")
+        write(lane / "epics/keep.md", "# Keep\n\nAuthored decision and Notes.\n")
+        before = {p.relative_to(lane): p.read_bytes() for p in lane.rglob("*") if p.is_file()}
+        res = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane, "--create", "--yes")
+        assert res.returncode == 1
+        assert "REFUSED" in res.stdout and "github_codex_plugin" in res.stdout
+        after = {p.relative_to(lane): p.read_bytes() for p in lane.rglob("*") if p.is_file()}
+        assert after == before
+
+    def test_plugin_preview_ignores_local_archive_ids(self, scanned):
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              "work_tracking:\n  backend: github_codex_plugin\n")
+        archived = write(lane / "epics/completed/old.md",
+                         "- Epic ID: ARCHIVE-author-graph-semantics\n\nDo not read as active work.\n")
+        before = archived.read_bytes()
+        res = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane)
+        assert res.returncode == 0
+        assert "github_codex_plugin" in res.stdout and "DRY RUN" in res.stdout
+        assert "ARCHIVE-author-graph-semantics" not in res.stdout
+        assert archived.read_bytes() == before and story_files(lane) == []
+
+    def test_plugin_preview_does_not_call_local_ticket_lookup(self, scanned, monkeypatch):
+        import graph_semantics_tickets as generator
+
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              "work_tracking:\n  backend: github_codex_plugin\n")
+        monkeypatch.setattr(generator.sys, "argv", [str(TICKETS), "--descriptors", str(desc),
+                                                    "--tickets", str(lane)])
+
+        def no_local_reads(*args):
+            pytest.fail("Plugin preview read inactive local ticket state")
+
+        monkeypatch.setattr(generator, "find_existing", no_local_reads)
+        assert generator.main() == 0
+
+    @pytest.mark.parametrize("value", ["", "unknown", "github", "null"])
+    def test_ambiguous_backend_blocks_creation_without_writes(self, scanned, value):
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              f"work_tracking:\n  backend: {value}\n")
+        res = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane, "--create", "--yes")
+        assert res.returncode == 2
+        assert "ERROR" in res.stdout
+        assert story_files(lane) == []
+        assert list((lane / "epics").glob("*.md")) == []
+
+    def test_legacy_files_setting_preserves_local_generation(self, scanned):
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              "work_tracking:\n  backend: 'files' # older install\n")
+        res = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane, "--create", "--yes")
+        assert res.returncode == 0
+        assert len(story_files(lane)) == 2
+        assert len(list((lane / "epics").glob("*.md"))) == 1
+
+
 class TestIdempotency:
     def test_rerunning_updates_rather_than_duplicates(self, scanned):
         """A scan that doubles the board every run gets switched off in a day."""

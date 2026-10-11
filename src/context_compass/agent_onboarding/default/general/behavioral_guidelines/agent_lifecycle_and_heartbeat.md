@@ -13,15 +13,18 @@ Story steps
    - Acknowledge scope, constraints, and ticket status.
    - Ensure `attention_board.md` reflects active routing and open the linked active ticket.
 3) Work loop
-   - Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` for planning and execution.
+   - Use tickets in the selected backend for planning and execution.
    - Keep ticket checklists current and append findings as they occur in `## Notes`.
 4) Check-out
    - Summarize what changed, what remains, and what to do next.
-   - Move completed tickets to their matching completed folder
-     (`tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/`) only after user confirmation.
+   - Complete tickets only after user confirmation: move local tickets to
+     matching completed folders, or record and verify Issue-body `Status: done`
+     and completion summary, then close through the GitHub plugin.
 
 Artifacts touched
 - `attention_board.md`
+- `issue_board.md` (plugin mode only)
+- The following ticket folders are local-mode surfaces only:
 - `tickets/epics/`
 - `tickets/epics/completed/`
 - `tickets/stories/`

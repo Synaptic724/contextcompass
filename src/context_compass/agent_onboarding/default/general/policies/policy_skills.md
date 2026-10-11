@@ -16,21 +16,27 @@ Placement
 - Keep `AGENTS.MD` at the repository root.
 - Per-directory variants are allowed when explicitly needed.
 
-Certification gate (mandatory)
-- Complete onboarding skills and request approval.
-- Require the approval message to include the exact token
+Certification gate (default unless explicitly overridden)
+- Apply `AGENTS.MD` / Project Instructions Bootstrap before this procedure.
+- Complete the effective onboarding readset and any required attestation.
+- By default, request approval and require the approval message to include the exact token
   `CERTIFY: APPROVED`.
-- Do not use tools or edit files until the user provides this approval token,
+- Do not use non-onboarding tools or edit files until effective onboarding authorization,
   **except tools needed to READ onboarding documents, boards and tickets.** Without
   that carve-out this rule would forbid the onboarding reads it depends on. Reads
-  are permitted; writes - including your mailbox check-in - wait for the token.
-  Root `AGENTS.MD` "Certification gating" is authoritative.
+  are permitted; writes - including your mailbox check-in - wait for effective
+  authorization. Normally this requires the token and assigned name; an explicit
+  waiver removes only its named requirement, without inventing a replacement prompt.
+  Root `AGENTS.MD` / Project Instructions Bootstrap and its certification gate govern.
 
 Required flow
 - Read `AGENTS.MD` and directory-local `AGENTS.MD` (if present).
+- Complete the Project Instructions Bootstrap and resolve project instructions
+  before applying the remaining onboarding or recovery defaults below.
 - Read
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`
-  in full immediately after `AGENTS.MD`.
+  in full after the Project Instructions Bootstrap, applying project
+  replacements/waivers resolved there within their stated scope.
 - Follow role `SKILLS.MD` routing from:
   - `context_compass/SKILLS.MD` - the single role registry; the registry table
     is the only place roles are declared
@@ -66,8 +72,8 @@ Required flow
   state in ticket `## Notes`.
 - Use the Ticket Microcycle with meaningful-finding note gates during
   execution.
-- Use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/` tickets for
-  all planned work.
+- Use Epic/Story/Task tickets in the selected work backend for all planned
+  work. Local `tickets/` lanes apply only when `work_tracking.backend` resolves to `local`.
 - For code-engineering tasks, hand off to engineer profile docs after general
   onboarding:
   - `agent_onboarding/default/engineer/skills/context_protocol.md`
@@ -137,11 +143,19 @@ Order of authority (highest to lowest)
 This ranking answers **"how should I behave?"** - it is a policy ordering, not a
 statement about where truth lives.
 
-1) AGENTS.MD and any other known AGENTS.MD read by you.
-2) SKILLS.MD and any other SKILLS.MD read by you.
-3) Example documentation.
-4) Repo documentation (`README`, `docs/`).
-5) Code (last resort *for policy*).
+This is a project-document ordering, subject to system/developer instructions
+and explicit user direction:
+
+1. The package `AGENTS.MD` bootstrap and delegation contract.
+2. Applicable project onboarding overrides within that delegated scope.
+3. Remaining `AGENTS.MD` requirements and inherited role-policy defaults.
+4. `SKILLS.MD` routing and remaining skill requirements.
+5. Example documentation.
+6. Repo documentation (`README`, `docs/`).
+7. Code (last resort *for policy*).
+
+Existing project-instruction precedence over role defaults remains in force.
+The delegation changes only explicitly overridden requirements, not unrelated policy.
 
 **A different question has the opposite answer.** For **"what does this system
 actually do?"** the ordering inverts: the code is authoritative and every document

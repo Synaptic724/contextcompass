@@ -22,12 +22,13 @@ Story steps
    - Summarize changes and reference relevant files.
    - List remaining risks or follow-ups.
 6) Close
-   - Ask whether acceptance criteria are met before moving the ticket.
+   - Ask whether acceptance criteria are met before closing the ticket in the
+     selected backend.
 
 References
 - `AGENTS.MD`
 - `SKILLS.MD`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 
 

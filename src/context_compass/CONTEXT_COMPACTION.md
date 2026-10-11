@@ -13,7 +13,7 @@ handed off.
 - If empty summaries are not allowed, write only minimal pointer summaries:
   - high-level outcomes (no narrative replay)
   - critical policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - next immediate action
 - Avoid narrative replay; keep durable state externalized to files.
@@ -24,17 +24,21 @@ Before initiating compaction/handoff:
   - `attention_board.md` reflects the current routing, status, blockers, and next actions.
   - Active tickets linked from `attention_board.md` have current checklists and `## Notes`.
 
-Core review set (ALWAYS required) - review these files in order:
+Core review set - apply the Project Instructions Bootstrap in `AGENTS.MD`
+first, then complete every requirement not explicitly overridden. Count an
+already completed read once for this trigger rather than restarting the sequence:
 - `AGENTS.MD`
+- `special_instructions/` project rules and resolved overrides
 - `CONTEXT_COMPACTION.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - resolved role `SKILLS.MD` chain (parent-first; the SKILLS files themselves)
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the workflow skill for the selected work backend
 - `attention_board.md`
-- Active epic/story/task tickets in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+- Active Epic/Story/Task tickets in the selected backend; in plugin mode also
+  read `issue_board.md`, fetch Issue-body Status/Notes, and read relevant comments.
 
 Conditional review set (ONLY when triggered):
 - `artifact_board.md` (when active tickets include artifacts or artifact disposition changes)

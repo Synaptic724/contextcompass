@@ -16,14 +16,17 @@ It never authorizes tooling, edits, implementation, validation, scope expansion,
 
 Execution authority order is:
 1. System and developer instructions.
-2. Repository policy (`AGENTS.MD` and referenced docs).
-3. Explicit user instructions compatible with repository policy.
-4. This execution contract.
-5. Stylistic preferences.
+2. Explicit user instructions.
+3. `AGENTS.MD` gates, including project scopes it explicitly delegates
+   (Project Instructions Bootstrap).
+4. Other repository policy, skills, and docs.
+5. This execution contract.
+6. Stylistic preferences.
 
 Hard rule
 - If this execution contract conflicts with any `AGENTS.MD` rule,
-  `AGENTS.MD` wins. No exceptions.
+  `AGENTS.MD` wins. Project replacements/waivers resolved under the Project
+  Instructions Bootstrap apply within their stated scope.
 - This contract NEVER authorizes bypassing onboarding/re-onboarding,
   certification gates, required reads, or tool-use restrictions.
 ---

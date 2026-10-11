@@ -36,6 +36,6 @@ Preferred workflow
 References
 - `agent_onboarding/default/platform_engineer/policies/production_change_management_policy.md`
 - `agent_onboarding/default/platform_engineer/skills/observability_and_monitoring.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 
 
