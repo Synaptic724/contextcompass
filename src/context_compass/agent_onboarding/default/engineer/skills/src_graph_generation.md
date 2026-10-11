@@ -159,6 +159,17 @@ copy is in version control.
 
 ## Turning the backlog into work - ON DEMAND
 
+Resolve the ticket backend first. The `--create` command below writes local
+ticket files and applies only to `local`. With `github_codex_plugin`, use the
+dry-run findings to compose the existing Epic/Story/Task bodies through the
+plugin instead; keep local ticket folders inactive for that work.
+
+The helper reads `config/context_compass_config.yaml` beside the selected ticket
+lane. It refuses `--create` in plugin mode and previews only the graph census,
+without reading local ticket archives. Its dependency-free selector supports
+the published YAML block format; ambiguous, merged, or flow-form selectors stop
+the helper before it can write. Missing legacy config still means local.
+
 ```bash
 python context_compass/tools/system_documents/python/graph_semantics_tickets.py \
     --descriptors <dir> --tickets context_compass/tickets            # dry run

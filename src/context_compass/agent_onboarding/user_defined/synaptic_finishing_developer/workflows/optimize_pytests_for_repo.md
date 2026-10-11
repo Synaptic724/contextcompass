@@ -81,7 +81,7 @@ burn. See `agent_onboarding/default/engineer/skills/context_protocol.md`.
 ## Required Skills
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/testing_overview.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/pytest_unit.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/component_tests.md`
@@ -92,6 +92,8 @@ burn. See `agent_onboarding/default/engineer/skills/context_protocol.md`.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md`
 
 ## Preconditions / Gates
+- Ticket creation, Notes, and closure follow the selected backend's inherited
+  general workflow. This macro does not select another ticket source.
 - The target path must be explicit and must exist.
 - The lane must create tickets before test editing starts:
   - epic for the requested root scope

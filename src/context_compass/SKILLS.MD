@@ -16,6 +16,9 @@ Purpose
 - Role selection is **per agent, per session**. There is no stored or global
   active role. Multiple agents may hold different roles in the same repository
   at the same time, which is why no single value can represent "the" role.
+- Work tracking is a separate project setting. The general role has shared
+  baseline skills plus one backend baseline selected by `work_tracking.backend`
+  in config; this does not create or select another role.
 
 ## Role registry
 
@@ -59,8 +62,14 @@ Unregistered overlays
 
 ## Role selection directive (non-negotiable)
 
-1. When this file is read, list the roles from the registry table.
-2. Ask the user which role to take on, unless they already selected one.
+Apply `context_compass/AGENTS.MD` / Project Instructions Bootstrap before these
+role-selection defaults. Explicit project overrides apply to all affected steps,
+not only the question to the user; they do not create unregistered roles.
+
+1. During role selection, list the roles from the registry table.
+2. Ask the user which role to take on, unless they already selected one,
+   subject to any project role-prompt replacement resolved in the Project
+   Instructions Bootstrap (`context_compass/AGENTS.MD`).
 3. Resolve the selected role to its `SKILLS.MD` path from the table.
 4. Read that `SKILLS.MD`, then walk `INHERITS_SKILLS_FROM` upward and read the
    whole chain **parent-first**.
@@ -70,6 +79,11 @@ Unregistered overlays
      **Required baseline skills**, **Baseline system orientation** - and a role
      may add another. Match on the baseline label, never on a fixed list of
      headings; a section you fail to recognise is still mandatory.
+   - `Local backend baseline` applies to `local`; `GitHub Codex plugin baseline`
+     applies to `github_codex_plugin` in `work_tracking.backend`.
+     A missing key means `local`; resolve legacy values through the shared
+     `work_tracking_backend.md` skill. Read the selected backend's paths before
+     certification; never apply the inactive backend's storage instructions.
    - **On-demand** skills are conditional. Do NOT read them for certification
      unless a trigger condition is met. When the trigger is met, those paths
      become mandatory and MUST be read before proceeding in that scope.
@@ -100,9 +114,13 @@ match on the STATE, never on a list of headings:
 | **On-demand** | no | only when the section's stated trigger fires |
 | **Self-directed** | no | at the agent's own initiative, no trigger, no permission |
 
-Baseline sections are named for what they hold — `general` uses **Active skills**,
+Baseline sections are named for what they hold — `general` uses **Shared baseline skills**,
 `engineer` uses both **Required baseline skills** and **Baseline system
 orientation**. A role may introduce another; it is still baseline.
+
+`general` also names backend-specific baseline sections. Their paths are
+required only for the selected backend, after the config has been read. This is
+a conditional baseline, not an On-demand skill and not a new role.
 
 **On-demand and Self-directed are both outside certification, and they are not the
 same thing.** On-demand is gated: the section states a trigger, and reading before

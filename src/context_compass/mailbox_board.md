@@ -35,8 +35,9 @@ What belongs in each region on this board:
 | region | put this here |
 | --- | --- |
 | `checked_in` | one row per agent currently active, with `last_checked` |
+| `request_tracking` | one counter checkpoint per session; user requests advance turns |
 | `messages` | structured messages in the format below; delete each one after consuming it |
-| `notes` | recurring instructions and standing context for agent-to-agent handoff in this repository |
+| `notes` | standing handoff context and per-session custom-instruction setup outcomes |
 
 **Regions ship empty and stay yours.** The package writes nothing into them in any
 mode, which also means it can never correct what is written there - so a repeated
@@ -51,8 +52,11 @@ Purpose
 
 Core rules (summary; the protocol doc is authoritative)
 - Check in at onboarding/re-onboarding: add or update your row below.
+- Keep request counters in `## Request Tracking`, separately from the roster.
+  Follow `agent_onboarding/default/general/skills/request_tracking.md`; do not
+  increment for each response or tool call. Counter writes need certification.
 - Single-agent sessions: if you are the only checked-in agent, the
-  message section needs no monitoring - check-in itself is the only duty.
+  message section needs no monitoring. Maintain your request counter separately.
 - Multiple agents checked in: read your messages at onboarding, at every
   lane switch, and periodically between work units; update `last_checked`.
 - Sending: append a structured message below AND add an alert line to
@@ -82,6 +86,12 @@ Message format (append-only; delete after consumption)
 | --- | --- | --- | --- | --- |
 <!-- BEGIN USER-DEFINED: checked_in -->
 <!-- END USER-DEFINED: checked_in -->
+
+## Request Tracking
+| session_key | agent_name | prompt_id | request_ref | request_status | compaction_ref |
+| --- | --- | --- | --- | --- | --- |
+<!-- BEGIN USER-DEFINED: request_tracking -->
+<!-- END USER-DEFINED: request_tracking -->
 
 ## Messages
 <!-- BEGIN USER-DEFINED: messages -->

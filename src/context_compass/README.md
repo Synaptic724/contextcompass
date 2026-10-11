@@ -97,6 +97,7 @@ context_compass/
   special_instructions/         yours - project-specific rules
 
   attention_board.md            live routing; package owns only the MANAGED block
+  issue_board.md                local agent claims for github_codex_plugin
   artifact_board.md
   mailbox_board.md
 ```
@@ -110,13 +111,39 @@ replaced when you upgrade. `MANIFEST.md` records which is which, per file.
 read as repository truth no matter what banner sits on it, so the shape
 reference lives in `examples/` instead and this directory stays yours.
 
+## Optional GitHub Work Tracking
+
+Local Epic/Story/Task files remain the default. An opt-in setting in
+`config/context_compass_config.yaml` chooses `local` or `github_codex_plugin`.
+Plugin mode requires a Codex `connection_nickname` and target `issues_repository`.
+The agent resolves that exact nickname before calling the plugin, rather than
+choosing a GitHub account implicitly. Plugin mode uses Issues for tickets, with Status
+and Notes in their bodies. The Project URL is optional. Local boards and other
+Context Compass documents stay in the repository; plugin connection permissions
+are managed outside this YAML.
+
+The two YAML examples, plugin setup, and migration instructions are in
+`agent_onboarding/default/general/skills/github/README.md`. Do not switch an
+existing project with local tickets until you have reviewed their full content
+and the exact Issue destination.
+
 ## How It Works
 
 ### 1) Policy Bootstrap
 
 The agent starts from the runtime entrypoint:
 
-- The agent reads `AGENTS.MD` and resolves directly into the shared policy chain.
+- The agent reads `AGENTS.MD`, loads `special_instructions/`, and resolves any
+  explicit project onboarding overrides before applying the shared policy chain.
+
+Project instructions can replace or waive a named onboarding requirement within
+their stated scope. Everything else remains in force, and later role documents
+do not undo an applicable override. The same bootstrap runs after compaction or
+handoff. The shipped folder activates no overrides; normal onboarding remains
+the default until the project owner adds instructions.
+
+The canonical rule is `AGENTS.MD` / `Project Instructions Bootstrap`. It does not
+change platform instructions or tool permissions.
 
 ### 2) Role Routing
 
@@ -132,18 +159,23 @@ paths under it:
   one and names them for what they hold — `engineer` carries both
   `Required baseline skills` and a `Baseline system orientation` set.
 - **`On-demand`** (read when the trigger applies).
+- **`Self-directed`** (read when useful to the work, without waiting for a trigger).
 
-The rule is *read every section not marked on-demand*, not *match a list of
-heading names*, so a role can add a baseline section without every policy file in
-the package needing an edit to notice it.
+The default is to read every section marked baseline, not to match a fixed list
+of heading names. Project onboarding overrides are resolved before applying
+those requirements; unaffected baseline requirements still apply.
 
 ### 3) Certification Gate
 
-Before implementation:
+Under the default onboarding rules, before implementation:
 
 - onboarding must be complete,
 - read-integrity must be attested,
 - and user approval must include `CERTIFY: APPROVED`.
+
+An explicit project override changes only the requirement it names. Named work
+records still need a known agent name, and writes wait for effective onboarding
+authorization as defined by the bootstrap.
 
 ### 4) Ticket-First Execution
 
@@ -158,11 +190,14 @@ decisions, blockers, and evidence.
 
 ### 5) Compaction / Re-Entry
 
-After compaction, handoff, or a new session:
+After compaction or handoff:
 
-- re-onboard using the same routing authority,
+- reload project instructions and re-onboard using the same routing authority,
 - rebuild context from board + ticket state,
-- and re-certify before resuming action.
+- and satisfy the effective authorization requirements before resuming action.
+
+Fresh sessions use ONBOARD rather than REONBOARD. Without an explicit override,
+the normal certification requirement remains in force in both flows.
 
 This prevents "performative compliance" and keeps behavior auditable.
 
@@ -225,11 +260,10 @@ several agents can hold different roles in the same repository at once.
 ## Quick Start
 
 1. Place `context_compass/` in your repository.
-2. Ensure your agent reads `AGENTS.MD` at the repository root, or points its own
-   entrypoint file at it.
-3. Select a role from the role map in `SKILLS.MD`.
-4. Start onboarding through `SKILLS.MD` role resolution.
-5. Request `CERTIFY: APPROVED`.
+2. Point your agent at `context_compass/AGENTS.MD`.
+3. Ask it to onboard as a role from `SKILLS.MD`, such as `engineer`.
+4. The bootstrap reads project instructions before applying the role's onboarding requirements.
+5. Under the default flow, provide `AGENT_NAME: <name>` and `CERTIFY: APPROVED`.
 6. Execute through ticket routing (`attention_board.md` + active ticket notes).
 
 ## Why Teams Use This

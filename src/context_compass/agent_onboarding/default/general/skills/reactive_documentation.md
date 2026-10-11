@@ -95,7 +95,7 @@ References
 - `agent_onboarding/default/general/skills/memory_management.md`
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `context_compass/SKILLS.MD`
 
 

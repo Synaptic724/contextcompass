@@ -380,12 +380,13 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         return new, notes
 
     old_nodes = old.get("nodes", {})
+    retired: dict[str, dict[str, Any]] = dict(old.get("nodes_retired", {}))
     carried_over: set[str] = set()          # old ids matched to a new node
 
     # A rename is the common case, and treating it as a deletion discards months
-    # of authored prose over a renamed class. Match by exact id first, then by
-    # (file, label), then by label alone - narrowest to widest, and each fallback
-    # is reported so the match is reviewable rather than silent.
+    # of authored prose over a renamed class. Match by exact live id, then exact
+    # retired id, then by (file, label), then by label alone. Rename fallbacks
+    # use only live nodes and are reported so the match is reviewable.
     by_file_label = {(n.get("file", ""), n.get("label", "")): nid
                      for nid, n in old_nodes.items()}
     by_label: dict[str, list[str]] = {}
@@ -396,6 +397,8 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         prev = old_nodes.get(nid)
         if prev is not None:
             carried_over.add(nid)
+        elif nid in retired:
+            prev = retired[nid]
         else:
             old_id = by_file_label.get((node.get("file", ""), node.get("label", "")))
             if old_id is None:
@@ -422,7 +425,6 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
     # resolve WITH. Before this, the note said ORPHANED and the prose was written
     # out of the descriptor in the same pass - recoverable only from git, and
     # only if you noticed.
-    retired: dict[str, dict[str, Any]] = dict(old.get("nodes_retired", {}))
     for nid in old_nodes:
         if nid in new["nodes"] or nid in carried_over:
             continue

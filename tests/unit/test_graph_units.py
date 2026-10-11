@@ -88,6 +88,63 @@ class TestClassKind:
         assert eg.class_kind([]) == "class"
 
 
+class TestMergeRestoration:
+    @pytest.mark.parametrize("candidate_file", ["src/demo.py", "src/other.py"])
+    def test_exact_retired_id_precedes_live_rename_candidates(self, candidate_file):
+        nid = "demo.Resource"
+        retired = {"id": nid, "label": "Resource", "file": "src/demo.py",
+                   "role": "returning resource", "semantics_authored_against": "old-span"}
+        candidate = {"id": "old.Resource", "label": "Resource", "file": candidate_file,
+                     "role": "different resource"}
+        unrelated = {"id": "demo.Absent", "role": "still retired"}
+        edges = [{"from": nid, "relation": "uses", "to": "demo.Absent",
+                  "why": "Retain the authored relationship"}]
+        old = {"nodes": {"old.Resource": candidate},
+               "nodes_retired": {nid: retired, "demo.Absent": unrelated},
+               "edges_authored": edges}
+        new = {"nodes": {nid: {"id": nid, "label": "Resource", "file": "src/demo.py",
+                               "span_sha256": "new-span"}}}
+
+        merged, notes = eg.merge(new, old)
+
+        assert merged["nodes"][nid]["role"] == "returning resource"
+        assert merged["nodes"][nid]["semantics_authored_against"] == "old-span"
+        assert merged["nodes"][nid]["span_sha256"] == "new-span"
+        assert nid not in merged["nodes_retired"]
+        assert merged["nodes_retired"]["old.Resource"] == {
+            **candidate, "retired_reason": "gone from source"}
+        assert merged["nodes_retired"]["demo.Absent"] == unrelated
+        assert merged["edges_authored"] == edges
+        assert old["nodes_retired"] == {nid: retired, "demo.Absent": unrelated}
+        assert not any(note.startswith(f"RECOVERED node {nid}") for note in notes)
+
+    @pytest.mark.parametrize("authored", [{}, {"role": "live", "semantics_authored_against": "live-span"}])
+    def test_exact_live_id_precedes_a_duplicate_retired_entry(self, authored):
+        nid = "demo.Resource"
+        old = {"nodes": {nid: {"id": nid, **authored}},
+               "nodes_retired": {nid: {"id": nid, "role": "retired",
+                                       "responsibilities": ["Do not resurrect this"],
+                                       "semantics_authored_against": "retired-span"}}}
+        mechanical = {"id": nid, "span_sha256": "live-span"}
+
+        merged, _ = eg.merge({"nodes": {nid: dict(mechanical)}}, old)
+
+        assert merged["nodes"][nid] == {**mechanical, **authored}
+        assert nid not in merged.get("nodes_retired", {})
+
+    def test_retired_nodes_are_not_matched_by_file_or_label(self):
+        retired = {"id": "old.Resource", "label": "Resource", "file": "src/demo.py",
+                   "role": "not the returning node"}
+        old = {"nodes": {}, "nodes_retired": {"old.Resource": retired}}
+        mechanical = {"id": "demo.Resource", "label": "Resource", "file": "src/demo.py"}
+
+        merged, notes = eg.merge({"nodes": {"demo.Resource": dict(mechanical)}}, old)
+
+        assert merged["nodes"]["demo.Resource"] == mechanical
+        assert merged["nodes_retired"] == old["nodes_retired"]
+        assert not any(note.startswith("RESTORED") for note in notes)
+
+
 class TestFmtCell:
     @pytest.mark.parametrize("value", [None, "", []])
     def test_absent_renders_a_dash(self, value):

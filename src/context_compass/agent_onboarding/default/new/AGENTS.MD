@@ -37,6 +37,9 @@ While the selected role is `new`:
 
 ## 4) Mandatory Onboarding Sequence
 
+Apply Project Instructions Bootstrap from the runtime entrypoint before any
+orientation, prompt, or write below. These are defaults unless explicitly overridden.
+
 1) Explain system purpose and boundaries.
 2) Explain profile classes and inheritance:
    - Read the registry table in `context_compass/SKILLS.MD` and present the
@@ -52,10 +55,12 @@ While the selected role is `new`:
 4) Ask user to choose a steady-state role:
    - Offer only roles whose `selectable after onboarding` column is `yes`.
    - Recommend `engineer` for general code development.
-5) Apply onboarding completion config writes:
+5) After effective onboarding authorization and the first authorized check-in,
+   apply onboarding completion config writes:
    - set `profiles.onboarding.first_time_enabled: false`.
 6) Confirm next read path from the selected role `SKILLS.MD` via `SKILLS.MD`.
 7) State onboarding completion explicitly.
+- Later role defaults do not reinstate requirements overridden by Project Instructions Bootstrap.
 
 ## 5) Required Config Keys at Completion
 

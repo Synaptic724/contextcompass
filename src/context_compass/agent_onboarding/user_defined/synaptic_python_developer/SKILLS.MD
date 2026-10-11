@@ -20,7 +20,8 @@ Skill classes (non-negotiable)
 - It also INHERITS the parent chain's sections, and those are baseline for this
   role too - `engineer`'s **Required baseline skills** and **Baseline system
   orientation** (`system_docs/src_architecture.md` plus the architecture and
-  component indexes), and `general`'s **Active skills**.
+  component indexes), and `general`'s **Shared baseline skills** plus the
+  backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
 - This role declares no **On-demand** and no **Self-directed** section of its own.

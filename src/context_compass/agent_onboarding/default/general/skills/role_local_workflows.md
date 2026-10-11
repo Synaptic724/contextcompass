@@ -22,7 +22,7 @@ Rules
   - activation rule
   - active workflow paths or `none`
   - optional on-demand workflow paths or `none`
-- Active workflows are baseline-readable for that role.
+- Active workflows for the selected backend are baseline-readable for that role.
 - On-demand workflows are discoverable but should not be read until:
   - the user explicitly asks to use them, or
   - the current task explicitly triggers them.

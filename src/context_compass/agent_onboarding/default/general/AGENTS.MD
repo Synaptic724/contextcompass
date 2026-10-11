@@ -10,6 +10,9 @@ Certification is denied unless the resolved SKILLS chain is satisfied exactly.
   skills**, **Required baseline skills**, **Baseline system orientation** - and a
   role may add another. Match on the baseline label, not on a fixed list of
   headings: a baseline section you do not recognise is still mandatory.
+- Backend baseline sections apply only to the backend selected by config;
+  shared baseline sections apply in both modes. Do not apply file-ticket
+  storage instructions in plugin mode.
 - Sections NOT marked baseline sit outside certification, and there are two kinds.
   **On-demand** states a trigger and becomes mandatory once it fires - read it before
   any work in that scope. **Self-directed** carries no trigger at all: read it on your
@@ -32,6 +35,9 @@ This general-layer policy inherits root policy from:
 
 Within the general layer, this `AGENTS.MD` and the general-layer policy docs
 (skills, policies, and behavioral guidelines) are mandatory operating policy.
+Project replacements/waivers resolved in the Project Instructions Bootstrap
+(`context_compass/AGENTS.MD`) outrank this baseline within their stated
+scope; later baseline MUST statements do not reinstate overridden requirements.
 They are not optional references or soft suggestions.
 
 ## Non-Negotiables
@@ -118,7 +124,9 @@ As a ritual, after implementing a change:
 
 ### 6) context_compass Ticket Planning (Required)
 
-* Before starting any planned work beyond answering questions, create a structured ticket (epic/story/task) in `tickets/epics/`, `tickets/stories/`, or `tickets/tasks/` using `templates/`.
+* Before starting any planned work beyond answering questions, create a structured
+  Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
+  lanes; plugin mode uses an Issue body in the configured repository.
 * Treat `attention_board.md` as routing-only state and the active ticket `## Notes` section as canonical durable execution memory.
 * Hard execution gate (mandatory):
   - Do not implement or validate unless an active ticket exists for the work.
@@ -143,9 +151,8 @@ As a ritual, after implementing a change:
 * If investigation must expand beyond the current subsystem or exceed
   `workflow.ticket_microcycle.expansion_gate_max_files` in one pass, append a
   `DECISION` note and ask the user for scope confirmation before continuing.
-* Follow `SKILLS.MD` and
-  `agent_onboarding/default/general/skills/workflow.md` for the deep
-  descriptive format and tracking model.
+* Follow `SKILLS.MD`, shared `ticketing.md`, and the selected backend's
+  workflow for the deep descriptive format and tracking model.
 * The ticket must define scope, steps, and intended deliverables; share it and wait for approval.
 * Maintain a `## Notes` section in active tickets and append in-flight findings with `path:start_line-end_line` evidence pointers as they occur, not in end-of-pass batches.
 * Evidence ranges in notes must include both start and end lines. If the evidence is one line, repeat it (`path:42-42`).
@@ -161,9 +168,10 @@ As a ritual, after implementing a change:
   `workflow.ticket_microcycle.minimum_note_score`, improve the note before
   proceeding.
 * Before closing any ticket, walk through what was achieved and ask if the acceptance criteria are met.
-* Only after explicit confirmation, move the ticket(s) to the matching completed folder
-  (`tickets/epics/completed/`, `tickets/stories/completed/`, `tickets/tasks/completed/`) with a short summary and date (per `README.md`).
-* Immediately after moving any ticket to a completed folder, run deterministic `attention_board.md` sync:
+* Only after explicit confirmation, complete the ticket in its selected backend:
+  move local tickets to matching completed folders, or verify the Issue body
+  has `Status: done`, completion summary, and reason, then close through the plugin.
+* Immediately after completing any ticket, run deterministic `attention_board.md` sync:
   - remove/replace active rows that reference the closed ticket,
   - prune stale attention details tied only to the closed ticket,
   - add one compact closed-anchor row,
@@ -262,10 +270,15 @@ explicitly instead of bypassing general rules.
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
 - Preserve a clean audit trail through notes and state transitions.
-- Every assistant response must include one unique `prompt_id`.
-  - `prompt_id` is a per-response identifier, not a per-conversation constant.
-  - Use a fresh random lowercase hex/string value every response.
-  - Do not intentionally repeat a `prompt_id` within the same conversation.
+- Every user-facing assistant response must include the current `prompt_id`.
+  - Use `compact_<count>_turn_<count>`; one user request advances the turn once.
+  - Progress messages and final responses for that request repeat its marker.
+  - Compaction advances the compaction count once and resets the turn to zero.
+  - Follow `skills/request_tracking.md` for persistence and recovery; do not
+    generate random response IDs or guess missing counts.
+- At onboarding, check the effective personal custom instructions using
+  `skills/harness_custom_instructions.md`. Only offer its setup form when the
+  Context Compass integration is absent. Preserve existing user preferences.
 
 ### 14) Continuity Standard
 
@@ -273,7 +286,6 @@ General policy is designed so another reader can restart execution from files
 without replaying prior chat history.
 If a future reader cannot resume safely from ticket + board + notes, the
 current state is incomplete and must be repaired before continuing.
-
 
 
 

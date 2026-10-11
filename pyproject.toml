@@ -24,8 +24,8 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/Synaptic724/contextcompass"
-Repository = "https://github.com/Synaptic724/contextcompass"
+Homepage = "https://github.com/Synaptic724/context_compass"
+Repository = "https://github.com/Synaptic724/context_compass"
 
 [project.scripts]
 contextcompass = "contextcompass_cli.__main__:main"
@@ -58,7 +58,13 @@ packages = ["src/contextcompass_cli"]
 "src/context_compass" = "contextcompass_cli/_package"
 
 [tool.hatch.build.targets.sdist]
-include = ["src/", "tests/", "README.md", "LICENSE", "NOTICE", "pyproject.toml"]
+# Exact roots prevent generic README/LICENSE patterns from including local copies.
+only-include = [
+    "src/context_compass", "src/contextcompass_cli", "tests", "contributor",
+    "AGENTS.md", "README.md", "LICENSE", "NOTICE", "pyproject.toml",
+    ".github/workflows/python-publish.yml",
+]
+exclude = ["**/.codex/**", "**/.agents/**", "**/__pycache__/**", "**/*.pyc", "**/*.pyo"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

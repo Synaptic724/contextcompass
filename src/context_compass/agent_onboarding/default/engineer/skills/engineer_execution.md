@@ -22,8 +22,8 @@ Core rules
   you need. Earlier revisions of this skill named `workspace/agent/`, which the
   package has never shipped and which no lane policy protects, so scratch written
   there was swept on the next cleanup.
-- Promote durable plans and execution artifacts into `tickets/epics/`,
-  `tickets/stories/`, `tickets/tasks/`, and their completed folders.
+- Promote durable plans and execution artifacts into the selected ticket
+  backend; the `tickets/` folders are local-mode storage only.
 
 Preferred workflow
 1) Clarify the goal, constraints, and affected files.
@@ -40,16 +40,15 @@ Preferred workflow
 
 Artifact discipline (engineer)
 - Ideas/opinions/todo: `user_defined/` only.
-- Plans and scope control: use `templates/` and create tickets in
-  `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`.
+- Plans and scope control: use `templates/` and create Epic/Story/Task tickets
+  in the selected backend.
 - For system-impacting changes under patch framework:
   - maintain active patch docs under `system_docs/patches/active/<patch_id>/`,
   - link patch docs from active tickets,
   - complete merge+cleanup closure gates before marking work done.
 - Status updates: keep `attention_board.md` current and append detailed
   findings to ticket `## Notes`.
-- Closures: move completed tickets to their matching completed folder with
-  summary + date.
+- Closures: use the selected backend's closure procedure with summary + date.
 - Convert approved todos into tickets instead of leaving them in scratch.
 
 Examples
@@ -57,6 +56,6 @@ Examples
 
 References
 - `AGENTS.MD`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 - `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`

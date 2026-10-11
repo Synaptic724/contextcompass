@@ -67,6 +67,5 @@ Failure behavior
 
 References
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/workflow.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+- the selected backend's general workflow and closure skills
 - `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`

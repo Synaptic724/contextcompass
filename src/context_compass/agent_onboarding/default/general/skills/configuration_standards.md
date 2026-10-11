@@ -57,7 +57,7 @@ Enforcement surfaces
   - `context_compass/templates/story_template.md`
   - `context_compass/templates/task_template.md`
 - Process policy:
-  - `context_compass/agent_onboarding/default/general/skills/workflow.md`
+  - the YAML-selected backend workflow in `agent_onboarding/default/general/SKILLS.MD`
   - `context_compass/SKILLS.MD`
   - `context_compass/agent_onboarding/default/general/skills/ticketing.md`
 

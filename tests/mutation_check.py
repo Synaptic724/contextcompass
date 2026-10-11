@@ -358,7 +358,7 @@ def main() -> int:
     # pyproject.toml carries the pytest config, so the scratch copy needs it or
     # markers and testpaths are lost and every mutation "passes" against an
     # empty collection.
-    for item in ("src", "tests", "pyproject.toml", "README.md"):
+    for item in ("src", "tests", "contributor", "pyproject.toml", "README.md"):
         s = REPO / item
         if not s.exists():
             continue

@@ -102,7 +102,7 @@ References
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/reactive_documentation.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `workflow.md`
+- the YAML-selected backend's general workflow skill
 
 
 

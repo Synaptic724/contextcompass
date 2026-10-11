@@ -63,7 +63,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
 
 ## Outputs
 - Expected artifacts:
-  - selected tickets moved to completed folders
+  - selected local tickets moved to completed folders, or selected Issues closed
   - artifact rows updated according to existing artifact disposition rules
 - Expected ticket state:
   - selected tickets closed
@@ -73,18 +73,28 @@ Provide one explicit cleanup workflow for Context Compass work state:
   - recently closed anchors updated
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `artifact_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/agent_identity.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/agent_identity.md`
+
+## Backend Routing
+Resolve YAML before collecting candidates. Preserve the same `my assets` versus
+`everything` choice and explicit ticket selection in both modes. `everything`
+means all current active board candidates; `all` means that reviewed set, not
+every Issue in the remote repository. In plugin mode, fetch candidate bodies,
+verify `issue_board.md` claims, and preserve Notes while closing selected Issues
+through the plugin. GitHub assignees do not replace the `agent_name` scope filter.
+Local mode uses the inherited local closure skill. Both modes retain acceptance,
+artifact disposition, and attention detail/anchor synchronization gates.
 
 ## Preconditions / Gates
 - A cleanup task ticket exists and is routed from `attention_board.md`.
@@ -137,7 +147,9 @@ Provide one explicit cleanup workflow for Context Compass work state:
 - objective:
   - turn in the selected tickets
 - scope controls:
-  - move selected tickets to completed folders only after explicit user choice
+  - close only explicitly selected tickets through the selected backend
+  - move local tickets to completed folders, or verify completion and close Issues
+  - release only the selected Issues' local claims after confirmed closure
   - run deterministic board sync for each closed ticket
   - apply existing artifact disposition rules for each closed ticket
   - do not close tickets the user did not select
@@ -150,6 +162,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
   - closed tickets appear in `## Recently Closed Anchors`
   - active attention details no longer route only to closed tickets
   - `artifact_board.md` reflects the closure/disposition results
+  - canonical completed paths or fetched Issue body/state verify actual closure
 
 6. Handoff / Closure
 - objective:
@@ -190,7 +203,7 @@ Provide one explicit cleanup workflow for Context Compass work state:
 ## Success Criteria
 - The workflow always asks scope first.
 - The workflow always lists candidate tickets before closure.
-- Selected tickets are moved to completed folders.
+- Selected tickets are completed through the selected backend and verified.
 - Board and artifact state are synchronized through the existing closure rules.
 
 ## Anti-Patterns

@@ -27,15 +27,25 @@ Start a new Context Compass lane in a structured way:
 - link patch artifacts when the lane is system-impacting
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
+
+## Backend Routing
+Resolve YAML before ticket work. In `local`, create the existing template files
+and use relative paths. In `github_codex_plugin`, create template bodies through
+the plugin in the configured repository, link parents/children by Issue URL,
+and add the primary claims to `issue_board.md`. The shared patch/artifact gates
+and lane-shape decisions apply in both modes. Use the selected backend's already
+read general workflow; do not create a parallel local ticket for an Issue.
 
 ## Phase Sequence
 1. Intake
@@ -78,7 +88,8 @@ Start a new Context Compass lane in a structured way:
 - objective:
   - prove the lane is routable
 - required checks:
-  - ticket paths exist
+  - local ticket paths exist, or the plugin fetches the exact created Issues
+  - plugin primary claims agree with the active row's assigned agents
   - the board row routes to the active ticket
   - patch links exist when required
 

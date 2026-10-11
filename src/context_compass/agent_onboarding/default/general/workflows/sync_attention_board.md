@@ -24,13 +24,23 @@ Rebuild or repair `attention_board.md` from current active ticket truth when
 the board drifts or becomes stale.
 
 ## Required Reads
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `attention_board.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
 
 ## Required Skills
+- `agent_onboarding/default/general/skills/work_tracking_backend.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
 - `agent_onboarding/default/general/skills/ticketing.md`
+
+## Backend Routing
+Resolve YAML before rebuilding. Local mode derives ticket truth from the local
+lanes. Plugin mode fetches Issue bodies/state for current routes and claims in
+`issue_board.md`; search the configured repository only when references are
+missing. An unrelated open Issue is not automatically active Context Compass
+work. Confirm scope/identity for unmatched candidates, and never infer an agent
+claim from a GitHub assignee. Preserve protected regions and unrelated alerts.
 
 ## Phase Sequence
 1. Intake
@@ -46,6 +56,7 @@ the board drifts or becomes stale.
   - derive the true active set from tickets
 - required actions:
   - inspect the current active tickets
+  - read local files or fetch exact Issues through the selected backend
   - compare them to the current board rows
 - required note or artifact updates:
   - record the mismatch set in the owning task notes
@@ -71,6 +82,7 @@ the board drifts or becomes stale.
 - required checks:
   - every active row maps to a live ticket
   - no completed-ticket paths remain in active rows
+  - plugin routes have open Issues with matching body Status and primary claims
 
 6. Handoff / Closure
 - objective:

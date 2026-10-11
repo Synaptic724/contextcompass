@@ -13,7 +13,7 @@ Ensure continuity and minimize lost context when a session is compacted or hande
 - If empty summaries are not allowed, write only minimal pointer summaries:
   - high-level outcomes (no narrative replay)
   - policy anchor paths that MUST be re-read
-  - active ticket path(s)
+  - active ticket path(s) or Issue URL(s)
   - changed file path(s)
   - next immediate action
 
@@ -26,9 +26,10 @@ Core review set (ALWAYS required) - review these files in order:
 - `context_compass/SKILLS.MD`
 - resolved role `SKILLS.MD` chain (parent-first; the SKILLS files themselves)
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the workflow skill for the selected work backend
 - `attention_board.md`
-- Active epic/story/task tickets in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/`
+- Active Epic/Story/Task tickets in the selected backend; in plugin mode also
+  read `issue_board.md`, fetch Issue-body Status/Notes, and read relevant comments.
 - **The role's baseline system-orientation set, when the role declares one and the
   files exist.** For `engineer` and everything inheriting it that is:
   - `system_docs/src_architecture.md`

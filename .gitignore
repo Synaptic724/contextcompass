@@ -21,6 +21,10 @@ htmlcov/
 .idea/
 .vscode/
 
+# Local operating state and machine-specific harness settings
+/.local/
+/src/.codex/
+
 # OS
 .DS_Store
 Thumbs.db

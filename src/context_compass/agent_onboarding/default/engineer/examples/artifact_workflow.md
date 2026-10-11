@@ -1,5 +1,8 @@
 # Engineer Example: Artifact Workflow
 
+This is a local-backend example. In plugin mode, use the same content and
+artifact rules, but place the ticket in an Issue and route via its URL.
+
 Context
 - An engineer needs to make control-file casing uniform so every role registry
   and entrypoint resolves on a case-sensitive filesystem.
@@ -98,7 +101,8 @@ Tactics / runbook
 ```
 
 Work queue conversion
-- When approved, convert the todo into a story/task ticket in `tickets/stories/` or `tickets/tasks/`.
+- In local mode, convert the approved todo into a story/task ticket in
+  `tickets/stories/` or `tickets/tasks/`; plugin mode uses an Issue body.
 - Example work items (summarized):
   - Task: rename control files to the single casing convention
   - Task: sweep references and prove readset resolution after the rename

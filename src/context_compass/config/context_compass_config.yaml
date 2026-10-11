@@ -40,12 +40,21 @@ system_of_record:
   # and record work. See the Tooling Mandate in `context_compass/AGENTS.MD`.
   #
   # true  - agents must not use harness-native task lists, plans, status widgets
-  #         or session memory. All work state lives in this package.
+  #         or session memory. Use the configured backend and local CC boards.
   # false - harness-native tracking is permitted and the mandate does not bind.
   #
   # This is the only switch that lifts the mandate. An agent may not decide on
   # its own that a task is too small to record.
   enforce: true
+
+# This chooses where Epic/Story/Task tickets live. It does not change the
+# system-of-record mandate or move system docs, mailbox, or agent coordination.
+work_tracking:
+  backend: local # local | github_codex_plugin; absent means local
+  github_codex_plugin:
+    connection_nickname: "" # Codex connection nickname; required only for plugin operations
+    issues_repository: "" # owner/repo; required only for github_codex_plugin
+    project_url: "" # optional context link; Issue body Status remains authoritative
 
 workflow:
   ticket_microcycle:

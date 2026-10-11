@@ -19,7 +19,7 @@ Handoff rules
   - ensure each ticket has acceptance criteria and validation steps.
 
 References
-- `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
+- `agent_onboarding/default/general/skills/ticketing.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md`
 
 

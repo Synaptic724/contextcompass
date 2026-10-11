@@ -10,7 +10,8 @@ import shutil
 
 import pytest
 
-from conftest import TOOLS, run_tool, write
+from conftest import PKG_ROOT, TOOLS, run_tool, write
+from cleanup_context_compass import user_regions
 
 pytestmark = pytest.mark.integration
 
@@ -241,7 +242,7 @@ class TestUnmigratedBoards:
 
 class TestInstanceLaneSeeding:
     def test_a_lane_the_new_version_introduces_arrives(self, install_and_new):
-        """melder's manifest listed `user_defined/` files that were not on disk,
+        """An older install's manifest listed `user_defined/` files absent on disk,
         because the updater skipped INSTANCE before it could ever create one."""
         install, new = install_and_new
         write(new / "user_defined" / "README.md", "# user_defined\n\nYour space.\n")
@@ -261,7 +262,7 @@ class TestInstanceLaneSeeding:
         assert mine.read_text() == "# MY VERSION\n"
 
     def test_seed_instance_repairs_a_lane_recorded_but_never_written(self, install_and_new):
-        """The state melder was left in by the pre-2.5.0 skip: the manifest
+        """The state an install was left in by the pre-2.5.0 skip: the manifest
         listed `user_defined/README.md` and the file had never existed.
 
         Absent AND in `shipped` is indistinguishable from a deletion, so the
@@ -305,3 +306,183 @@ class TestInstanceLaneSeeding:
 
         run_tool(UPDATER, "--install", install, "--new", new, "--apply")
         assert not (install / "user_defined" / "README.md").exists()
+
+
+DETAIL_T1 = ("- WORK_ITEM: parser_retry\n"
+             "  SWITCH_TRIGGER: backoff branch lands and the 429 path is covered\n"
+             "  RESUME_HIERARCHY:\n"
+             "    - tickets/stories/2026-09-29_retry_story.md\n"
+             "    - tickets/tasks/2026-09-29_parser_retry_task.md\n")
+DETAIL_T2 = ("- WORK_ITEM: cache_refresh\n"
+             "  SWITCH_TRIGGER: review lane signals acceptance\n"
+             "  RESUME_HIERARCHY:\n"
+             "    - tickets/stories/2026-09-29_cache_story.md\n"
+             "    - tickets/tasks/2026-09-29_cache_refresh_task.md\n")
+
+# Older already-regioned board: regions present, details section absent.
+# This is the install side everywhere below; user content lives ONLY here.
+OLD_BOARD = """\
+# Attention Board
+
+<!-- BEGIN MANAGED: contract -->
+V1 package prose.
+<!-- END MANAGED: contract -->
+
+## Active Items
+| work_item | status |
+| --- | --- |
+<!-- BEGIN USER-DEFINED: active_items -->
+| parser_retry | in_progress |
+<!-- END USER-DEFINED: active_items -->
+
+## Recently Closed Anchors
+| work_item | status |
+| --- | --- |
+<!-- BEGIN USER-DEFINED: closed_anchors -->
+| nightly_cleanup | done |
+<!-- END USER-DEFINED: closed_anchors -->
+
+## Notes
+<!-- BEGIN USER-DEFINED: notes -->
+Standing instructions.
+<!-- END USER-DEFINED: notes -->
+"""
+
+# Incoming package board: V1 prose replaced, details section declared, and
+# every USER-DEFINED region EMPTY, so a broken carry cannot pass by copying
+# package data identical to the install's.
+PACKAGE_BOARD = """\
+# Attention Board
+
+<!-- BEGIN MANAGED: contract -->
+V2 package prose, rewritten.
+<!-- END MANAGED: contract -->
+
+## Active Items
+| work_item | status |
+| --- | --- |
+<!-- BEGIN USER-DEFINED: active_items -->
+<!-- END USER-DEFINED: active_items -->
+
+## Active Attention Details
+<!-- BEGIN USER-DEFINED: active_attention_details -->
+<!-- END USER-DEFINED: active_attention_details -->
+
+## Recently Closed Anchors
+| work_item | status |
+| --- | --- |
+<!-- BEGIN USER-DEFINED: closed_anchors -->
+<!-- END USER-DEFINED: closed_anchors -->
+
+## Notes
+<!-- BEGIN USER-DEFINED: notes -->
+<!-- END USER-DEFINED: notes -->
+"""
+
+
+def write_manifested_pair(tmp_path, install_board, new_board):
+    install, new = tmp_path / "install", tmp_path / "new"
+    for root, board in ((install, install_board), (new, new_board)):
+        write(root / "AGENTS.MD", "# AGENTS\n")
+        write(root / "attention_board.md", board)
+    for root, version in ((install, "1.0.0"), (new, "2.0.0")):
+        res = run_tool(MANIFEST, "--root", root, "--version", version)
+        assert res.returncode == 0, res.stdout + res.stderr
+    return install, new
+
+
+@pytest.fixture
+def detail_install_and_new(tmp_path):
+    return write_manifested_pair(tmp_path, OLD_BOARD, PACKAGE_BOARD)
+
+
+def regions_of(board_path):
+    text = board_path.read_text(encoding="utf-8")
+    return {name: text[s:e] for name, s, e in user_regions(text)}
+
+
+class TestShippedDetailsRegion:
+    def test_shipped_template_declares_an_empty_details_region(self):
+        """The real template, not a synthetic stand-in: a purely synthetic
+        fixture would pass while the shipped package still lacked the region.
+        """
+        text = (PKG_ROOT / "attention_board.md").read_text(encoding="utf-8")
+        assert "## Active Attention Details" in text
+        bodies = regions_of(PKG_ROOT / "attention_board.md")
+        assert "active_attention_details" in bodies
+        assert bodies["active_attention_details"] == "\n"
+
+
+class TestDetailsRegionUpgrade:
+    def test_upgrade_adds_the_region_and_preserves_content(
+            self, detail_install_and_new):
+        install, new = detail_install_and_new
+        before = regions_of(install / "attention_board.md")
+        res = run_tool(UPDATER, "--install", install, "--new", new, "--apply")
+        assert res.returncode == 0, res.stdout + res.stderr
+        text = (install / "attention_board.md").read_text(encoding="utf-8")
+        assert "V2 package prose, rewritten." in text
+        after = regions_of(install / "attention_board.md")
+        assert after["active_attention_details"] == "\n"
+        for name in ("active_items", "closed_anchors", "notes"):
+            assert after[name] == before[name]
+
+    def test_populated_details_survive_a_second_upgrade(self, tmp_path):
+        populated = PACKAGE_BOARD.replace(
+            "<!-- BEGIN USER-DEFINED: active_attention_details -->\n",
+            "<!-- BEGIN USER-DEFINED: active_attention_details -->\n"
+            + DETAIL_T1 + DETAIL_T2)
+        install, new = write_manifested_pair(tmp_path, populated, PACKAGE_BOARD)
+        before = regions_of(install / "attention_board.md")
+        first = run_tool(UPDATER, "--install", install, "--new", new, "--apply")
+        assert first.returncode == 0, first.stdout + first.stderr
+        mid = regions_of(install / "attention_board.md")
+        assert mid["active_attention_details"] == before["active_attention_details"]
+        second = run_tool(UPDATER, "--install", install, "--new", new, "--apply")
+        assert second.returncode == 0, second.stdout + second.stderr
+        after = regions_of(install / "attention_board.md")
+        assert after["active_attention_details"] == before["active_attention_details"]
+
+    def test_notes_held_details_are_preserved_not_relocated(self, tmp_path):
+        """Details already protected inside Notes must survive with text
+        identical and must NOT be silently moved into the new region: carry
+        maps same-name regions only, so relocation needs an explicit step."""
+        noted = OLD_BOARD.replace(
+            "Standing instructions.\n", "Standing instructions.\n" + DETAIL_T1)
+        install, new = write_manifested_pair(tmp_path, noted, PACKAGE_BOARD)
+        before = regions_of(install / "attention_board.md")
+        res = run_tool(UPDATER, "--install", install, "--new", new, "--apply")
+        assert res.returncode == 0, res.stdout + res.stderr
+        after = regions_of(install / "attention_board.md")
+        assert after["notes"] == before["notes"]
+        assert DETAIL_T1 in after["notes"]
+        assert after["active_attention_details"] == "\n"
+
+
+class TestLegacyDetailsMigration:
+    def test_open_text_details_map_into_the_new_region(self, tmp_path):
+        legacy = ("# Attention Board\n\n"
+                  "<!-- BEGIN MANAGED: contract -->\nV1 package prose.\n"
+                  "<!-- END MANAGED: contract -->\n\n"
+                  "## Active Items\n| work_item | status |\n|---|---|\n"
+                  "| parser_retry | in_progress |\n\n"
+                  "## Active Attention Details\n" + DETAIL_T1)
+        install, new = write_manifested_pair(tmp_path, legacy, PACKAGE_BOARD)
+
+        res = run_tool(UPDATER, "--install", install, "--new", new, "--check")
+        assert res.returncode == 0, res.stdout + res.stderr
+        assert "MIGRATE" in res.stdout
+
+        mig = run_tool(MIGRATE, "--install", install, "--new", new, "--apply")
+        assert mig.returncode == 0, mig.stdout + mig.stderr
+        bodies = regions_of(install / "attention_board.md")
+        assert bodies["active_attention_details"] == "\n" + DETAIL_T1
+        assert bodies["active_items"] == "\n| parser_retry | in_progress |\n"
+        assert "---" not in bodies["active_attention_details"]
+
+        final = run_tool(UPDATER, "--install", install, "--new", new, "--apply")
+        assert final.returncode == 0, final.stdout + final.stderr
+        bodies = regions_of(install / "attention_board.md")
+        assert "V2 package prose, rewritten." in (install / "attention_board.md").read_text()
+        assert bodies["active_attention_details"] == "\n" + DETAIL_T1
+        assert bodies["active_items"] == "\n| parser_retry | in_progress |\n"

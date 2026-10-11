@@ -84,17 +84,63 @@ class TestOrphanRetention:
         assert "ORPHANED" in res.stdout
         assert "RETAINED" in res.stdout
 
-    def test_a_node_that_comes_back_is_un_retired(self, graph):
+    @pytest.mark.parametrize("changed", [False, True], ids=["unchanged", "changed"])
+    @pytest.mark.parametrize("stamped", [False, True], ids=["unverified", "accepted"])
+    def test_a_node_that_comes_back_retains_its_authored_content(self, graph, changed, stamped):
         src, desc, p = graph
+        nid = "app.thing.Gamma"
+        d = json.loads(p.read_text())
+        before = d["nodes"][nid]
+        authored = {
+            "include": False,
+            "role": "authored for Gamma",
+            "responsibilities": ["Keep the authored explanation"],
+            "owns_state": [],
+            "phases": ["runtime"],
+        }
+        before.update(authored)
+        if stamped:
+            authored["semantics_authored_against"] = before["semantics_authored_against"]
+        else:
+            del before["semantics_authored_against"]
+        p.write_text(json.dumps(d, indent=2))
+
         write(src / "app" / "thing.py", "class Alpha:\n    def run(self):\n        return 1\n")
-        run_tool(EXTRACT, "--src", src, "--out", desc)
-        write(src / "app" / "thing.py", TWO_CLASSES)
         res = run_tool(EXTRACT, "--src", src, "--out", desc)
+        assert res.returncode == 0, res.stderr
+        retired = json.loads(p.read_text())["nodes_retired"][nid]
+        assert {field: retired[field] for field in authored} == authored
+
+        source = "\n" + TWO_CLASSES
+        if changed:
+            source = source.replace("def go(self): ...", "def resume(self):\n        return 2")
+        write(src / "app" / "thing.py", source)
+        res = run_tool(EXTRACT, "--src", src, "--out", desc)
+        assert res.returncode == 0, res.stderr
 
         d = json.loads(p.read_text())
-        assert "app.thing.Gamma" in d["nodes"]
-        assert "app.thing.Gamma" not in d.get("nodes_retired", {}), "no duplicate"
-        assert "RESTORED" in res.stdout
+        restored = d["nodes"][nid]
+        assert {field: restored[field] for field in authored} == authored
+        assert "retired_reason" not in restored
+        assert nid not in d.get("nodes_retired", {}), "no duplicate"
+        assert restored["lineno"] == before["lineno"] + 1
+        assert restored["public_methods"] == (["resume"] if changed else ["go"])
+        assert (restored["span_sha256"] != before["span_sha256"]) == changed
+        assert f"RESTORED node {nid}" in res.stdout
+        assert f"NEW node {nid}" not in res.stdout
+        assert f"UNSEMANTIC node {nid}" not in res.stdout
+        if not stamped:
+            assert "semantics_authored_against" not in restored
+            assert f"UNVERIFIED node {nid}" in res.stdout
+        elif changed:
+            assert f"SEMANTICS_STALE node {nid}" in res.stdout
+        else:
+            assert f"SEMANTICS_STALE node {nid}" not in res.stdout
+            assert f"UNVERIFIED node {nid}" not in res.stdout
+
+        res = run_tool(EXTRACT, "--src", src, "--out", desc)
+        assert res.returncode == 0, res.stderr
+        assert json.loads(p.read_text()) == d, "subsequent extraction must preserve the result"
 
     def test_a_node_with_no_semantics_is_just_removed(self, graph):
         """Retention is for authored work. Quarantining mechanical scaffold would

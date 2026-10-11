@@ -57,7 +57,7 @@ Artifact discipline (design)
 References
 - `agent_onboarding/default/design_engineer/policies/design_quality_policy.md`
 - `agent_onboarding/default/design_engineer/policies/decision_record_policy.md`
-- `agent_onboarding/default/general/skills/workflow.md`
+- the selected backend's general workflow skill
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
 - `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
 - `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
