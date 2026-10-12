@@ -25,7 +25,6 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/general.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/policies/policy_skills.md`
 - `agent_onboarding/default/general/skills/agent_stance.md`
@@ -125,6 +124,12 @@ system documents. Three states, defined in `context_compass/SKILLS.MD`.
   - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
   - Keep local mode active until a reviewed dry run, complete remote verification,
     and explicit owner approval of the destination and content.
+
+- `agent_onboarding/default/general/skills/ticket_design.md`
+  - Trigger: creating a new ticket, using a custom ticket template, or reading/writing
+    a ticket containing `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
+  - Read the selected full template and canonical `templates/ticket_contract.json`.
+    Do not apply this design to historical records or change an agent's role.
 
 
 

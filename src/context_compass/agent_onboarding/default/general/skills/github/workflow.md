@@ -22,10 +22,16 @@ for the same work; a Project URL is optional context.
   stores all three as Issues. Follow parent-first routing and keep reciprocal
   references consistent. Native hierarchy tools are optional enhancements when
   exposed; explicit links remain required. Do not invent or discard a dependency.
-- A blocked Issue stays open and carries `Status: blocked`, its blocker Issue
-  links or concrete external condition, and one unblock action in its body.
+- A blocked Issue stays open and carries the chosen design's blocked state,
+  its blocker Issue links or concrete external condition, and one unblock action.
 
 ## Microcycle, Notes, and Status
+
+For a new design with `AGILE_METADATA`, follow `ticket_design.md` and the
+canonical definition instead of the ordinary Status enum below. Metadata owns
+workflow; the body retains canonical Notes and a derived Status view. Native
+closure remains a projection, not acceptance. Authored posts/comments/Notes
+identify their actual agent name and role/function under `agent_identity.md`.
 
 - The existing microcycle and note fields apply unchanged. Append each meaningful
   finding to `## Notes` in the Issue body before another work tranche. Preserve
@@ -35,7 +41,8 @@ for the same work; a Project URL is optional context.
   and reason in State Transition Event and Notes. `draft`, `ready`,
   `in_progress`, `blocked`, and `review` are open Issue states; a completed
   ticket has `Status: done` and GitHub state `closed`.
-- The Issue body Status is authoritative for workflow routing. Open/closed is
+- For a non-Agile design the Issue body Status is authoritative for routing.
+  For an Agile design use its canonical metadata and checked derived Status. Open/closed is
   GitHub's coarse lifecycle check. Stop and reconcile a mismatch with the body
   or attention route; an optional Project's Status cannot override the ticket.
 - Update Context / Handoff Summary in the same canonical body when continuation
@@ -60,12 +67,13 @@ for the same work; a Project URL is optional context.
 ## Closure and recovery
 
 - Follow the existing owner acceptance gate. Record completion summary,
-  `Status: done`, Updated timestamp, and transition reason in the Issue body;
+  accepted metadata/derived Status for Agile or `Status: done` for non-Agile,
+  Updated timestamp, and transition reason in the Issue body;
   verify that update, close the Issue through the plugin, and verify state.
 - Remove or replace active attention rows/details, add one compact closed anchor,
   release the local claim, and synchronize artifact/context dispositions. An
-  open Issue with `Status: done` after a failed close is an incomplete transition
-  to repair; do not report the ticket closed.
+  open Issue with accepted metadata or `Status: done` after a failed close has a
+  pending projection to repair; do not report the ticket closed.
 - After compaction/handoff, reread YAML, both ticket and communication selectors
   plus their baselines, `issue_board.md`,
   attention route, and the exact active Issue bodies and relevant comments.

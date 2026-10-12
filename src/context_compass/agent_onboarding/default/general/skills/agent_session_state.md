@@ -1,6 +1,6 @@
 # Agent session state
 
-Shared registration, request-counter, and setup-outcome duties that hold in
+Shared registration and setup-outcome duties that hold in
 both communication modes. The store remains existing `mailbox_board.md`
 sections. No columns are renamed and no state is migrated or deleted by
 selecting a transport. This document extracts the shared duties; it does not
@@ -11,9 +11,16 @@ replace the board schema.
 Use `mailbox_board.md` inside its USER-DEFINED region:
 
 - `## Checked-In Agents` roster rows for session presence.
-- `## Request Tracking` rows for `prompt_id` markers per `request_tracking.md`.
 - `## Notes` associated with the session key for harness setup outcomes per
   `harness_custom_instructions.md`.
+
+## Session identity
+
+Prefer an exposed native session ID for the session key. If none is
+available, establish the key from the runtime owner and the first check-in
+UTC timestamp. Keep it for this session, even when the certified name
+changes, and preserve it across recovery. Do not emit the session key as a
+response suffix or generate a new session key for each response.
 
 Column order and message schema elsewhere on the board are unchanged. Boards
 hold references and responsibility; detailed history lives in tickets.
@@ -35,30 +42,27 @@ hold references and responsibility; detailed history lives in tickets.
 Reading state rows is allowed during onboarding and re-onboarding. Writing
 rows waits for effective onboarding authorization as defined by `AGENTS.MD`
 and the Project Instructions Bootstrap, with a known owner-provided or
-project-instructed agent name. Counters and names must never be guessed.
+project-instructed agent name. Names must never be guessed.
 There is no pre-authorization write exception with or without a waiver.
 
-First authorized actions, in order, include writing the check-in row and
-persisting the request-counter row for the current request, then consuming
-only the sections allowed by the selected transport.
+First authorized actions, in order, include writing the check-in row,
+then consuming only the sections allowed by the selected transport.
 
 ## Narrow reads in codex_mcp mode
 
-In `codex_mcp` mode, read only `## Checked-In Agents`,
-`## Request Tracking`, and relevant session `## Notes` above. Never read
+In `codex_mcp` mode, read only `## Checked-In Agents`
+and relevant session `## Notes` above. Never read
 mailbox message instructions, `## Messages`, or `attention_board.md`
 message alerts for communication. Existing user-region names and table columns
-stay unchanged. Counter maintenance is separate from message
-polling. A single active agent updates its counter without polling any message
-surface.
+stay unchanged.
 
 ## Concurrency
 
-Re-read before editing shared state. Maintain only your own check-in row,
-your own request-tracking row, and your own setup outcome. Never delete or
-edit another agent's rows, except stale-marking an old `active` presence row
-during your own check-in. On a write conflict, re-read and retry against
-current content without overwriting another agent's concurrent change.
+Re-read before editing shared state. Maintain only your own check-in row
+and your own setup outcome. Never delete or edit rows owned by other agents,
+except stale-marking an old `active` presence row during your own check-in.
+On a write conflict, re-read and retry against current content without
+overwriting the concurrent change of another agent.
 
 Timestamps are ISO-8601 UTC. When a session ends deliberately, set presence
 to `departed`. Keep the stable session key when the certified name changes
@@ -71,7 +75,6 @@ Read only the protocol selected by `agent_communication.backend`.
 
 - `AGENTS.MD`
 - `agent_onboarding/default/general/skills/agent_communication_backend.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 - `agent_onboarding/default/general/skills/codex_mcp.md`

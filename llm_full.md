@@ -126,7 +126,7 @@ holds state about the work that lives outside this repository.
   or use CLI authentication as a substitute for the selected plugin.
 - Resolve `agent_communication.backend` independently from the ticket backend.
   Missing means `mailbox`; `codex_mcp` selects the available Codex/MCP chat tools
-  for messages only. Agent registration, request counters, setup outcomes and
+  for messages only. Agent registration, setup outcomes and
   ticket/board ownership stay in Context Compass. Read the shared session-state
   skill and only the selected communication baseline; do not read inactive
   mailbox messaging instructions or use native chat as the durable work record.
@@ -205,7 +205,7 @@ problem), STOP and report it. Do NOT silently fall back to harness-only tracking
   before any non-onboarding tools, edits, or execution. A waived prompt or token must not leave
   dependent steps waiting for the waived event: named records still require a
   known owner-provided or project-instructed agent name (ask only when the
-  name is missing or ambiguous, never guess identities or counters), and
+  name is missing or ambiguous, never guess identities), and
   waived reads must not be claimed as performed.
 - A waiver without a replacement removes that named requirement; do not invent
   another approval prompt in its place. Complete every remaining requirement.
@@ -263,10 +263,9 @@ An applicable delegated override is compliance with that bootstrap, not a bypass
 - Re-read `context_compass/AGENTS.MD` and
   `context_compass/agent_onboarding/default/general/skills/compaction_requirements.md`
   before continuing work.
-- Recover the per-session request counter under `mailbox_board.md` `## Request Tracking`,
-  following `agent_onboarding/default/general/skills/request_tracking.md`.
-  Advance the compaction count once per actual compaction, not per reread or
-  handoff; defer persistence until effective onboarding authorization permits writes.
+- Recover shared session presence and setup outcomes under `mailbox_board.md`
+  following `agent_onboarding/default/general/skills/agent_session_state.md`;
+  defer persistence until effective onboarding authorization permits writes.
 - For compaction/handoff summaries, you MUST keep summaries empty when the runtime allows it;
   otherwise you MUST use minimal file-pointer summaries only.
 - Post a `REONBOARD: COMPLETE` attestation before any action. One canonical format,
@@ -299,7 +298,7 @@ After any context compaction or handoff, apply the bootstrap before these recove
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
 - Re-read `agent_onboarding/default/general/skills/compaction_requirements.md`.
-- Re-read the roster, Request Tracking and relevant setup Notes in
+- Re-read the roster and relevant setup Notes in
   `context_compass/mailbox_board.md` through `agent_session_state.md`. In mailbox
   mode also recover addressed messages through `mailbox_protocol.md`; in
   `codex_mcp` mode skip mailbox Messages and message alerts and use `codex_mcp.md`.
@@ -353,10 +352,9 @@ Before any tooling, edits, or execution:
   and resolve `mailbox` or `codex_mcp` independently. Read the shared
   `agent_session_state.md`; count these reads once in the general baseline.
 - Read `SKILLS.MD`.
-- Read `agent_onboarding/default/general/skills/request_tracking.md` and
-  `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
-  Count these reads toward the role's baseline; do not read them again in the
-  same onboarding pass just because the role lists them too.
+- Read `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
+  Count this read toward the baseline; do not read it again in the
+  same onboarding pass just because the role lists it too.
   Check the effective personal custom instructions for the current harness.
   The setup form runs only when Context Compass is absent; existing setup is
   not an invitation to rewrite the user's custom instructions.
@@ -364,7 +362,7 @@ Before any tooling, edits, or execution:
   statements in this gate restate defaults and do not reinstate an overridden
   requirement. Use relative repo paths only.
 - Read only the shared state sections of `context_compass/mailbox_board.md`:
-  Checked-In Agents, Request Tracking and relevant Notes. Mailbox mode also reads
+  Checked-In Agents and relevant Notes. Mailbox mode also reads
   addressed Messages; MCP mode does not read mailbox Messages or message alerts.
   Reads are permitted during onboarding; writes wait for effective authorization.
 - Do NOT write your check-in row until effective onboarding authorization is
@@ -448,13 +446,13 @@ Certification gating (default unless explicitly overridden):
 - With an applicable explicit project replacement/waiver, effective onboarding
   authorization (Project Instructions Bootstrap) governs instead of the literal
   token above; the name for named records must still be known from
-  owner/project instructions, and counters must never be guessed.
+  owner/project instructions, and names must never be guessed.
 - If certification remains required and is missing, stop and request it before
   non-onboarding edits or tool use. A waiver does not waive other unmet requirements.
 - **First actions after effective onboarding authorization, in order:**
   1. Write your check-in row on `mailbox_board.md` using the supplied `AGENT_NAME`.
-     Sync this session's request counter in `## Request Tracking` in that same
-     check-in pass, following `agent_session_state.md` and `request_tracking.md`.
+     Update only your check-in row in that same check-in pass, following
+     `agent_session_state.md`.
   2. Recover the selected message transport: consume addressed mailbox messages
      only in mailbox mode; use authorized MCP reads in `codex_mcp` mode.
   3. Route from `attention_board.md` to the active ticket and begin.
@@ -857,8 +855,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.18.1 |
-| files | 463 |
+| package_version | 2.19.0 |
+| files | 465 |
 
 ## Lane policy
 
@@ -880,7 +878,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 360 | restore | replace |
+| PACKAGE | 362 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -891,7 +889,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `7934a4842d23dd210d9fc5b940412865c23301c8bff0dad682acf609f947734e` |
+| `AGENTS.MD` | PACKAGE | `37ee27cacf1151457bb48e8877e8e755fd4661c90b19dc013982ccfd23c55697` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -987,24 +985,24 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `b4894df8d79a3c435f972ff4696a68ec7faeabaf58e5ea9736bbe5049cfc5614` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `d940dc21774146243d3399ab078907bca807122894c23ddb5c4799cc1b6f3b73` |
 | `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `0ab1110e36047e772e4c0babd50a34b13bc2a3a8b5945df496b94d4722d0f7ff` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `337c11ae46d95133df51513b1866414dc21c4dc78375da003376705c8bec97c2` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `1bee612b4eb49502457711d9480de746f80f3706d9c8f5a28884b5a2b6178583` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2303e4c9225e988bfb15d9541c979c69a498c54b8971a4fbfabac8bc3afd835b` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
-| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `e37796fd1551b0f00b4ba7a0412d429c56f0f47b37a833e7715aa09e30eda601` |
-| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `c16d0f4a69374fa247ed139fb2f5e016c2c44597d1ba69b9619773e6de7f3f4e` |
+| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
+| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `212bcb6a0a69ebb3244bd06df3321f6b483750b538983b4945d178db4e2c2e1b` |
 | `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
-| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `a8ab74724a1b334a40e9080e62b6334360fdd08bf9c93ca60653d90d88f1ec1d` |
-| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `eb8af0c70e70b907a0e109e5694e88141b064a2c1ecda2370a78b9457b2cd7aa` |
+| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
+| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `912ee9e5651e8f573f89634d32d964afc6cc96d1a38f4bddc0ec14f8ae0bbbca` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `0bd27e96f10e4c7624ab7661ba57680a780ec993a4ce807c8cad1028cd429111` |
-| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `b134200ef309bb87f98539bc63a6110f762a2f5179b0c984ed9618614c8fc412` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `a9e48c7205565fb6da82e6dedd88979b2b465180accad10fc2212605f5754d73` |
+| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
 | `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `060c248e8b64f46d3b63e667bf9fa7e7a72d4a94702142f56b5806ba7f8b5bdc` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
@@ -1019,22 +1017,22 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `f5e7291f67552cf5a70c38430cfdd565246e9062c737ac6e0d61b4521dfdc6b4` |
-| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `c801570d9017ee5bec2c8d435a697bdd02702c7cac41b0ba2a92f428637eb296` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `297a27cf2f0cf6dc75748beb8acc9cd287b85a911772d19a839b62ee065d9e09` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
-| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `7a25d6cad5b34f9750507c8491d83fbc1ce1414ad17809ce5dbd689d74856ca8` |
+| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
 | `agent_onboarding/default/general/skills/mrp_policy.md` | PACKAGE | `edce5c8dc9ffaeaf6f47cb61fc56757280e47f62459d533537c8f242dc163174` |
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
 | `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `f0a7eb63ffe980fcc535284950f8962e170a443ca868492ac9b5ddd217fadb14` |
 | `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `72921b765339dfd1a2fb570e5c72679330414a59562061cdc5ec098ad4962f21` |
-| `agent_onboarding/default/general/skills/request_tracking.md` | PACKAGE | `b1789317e5026b0fd5eed07a849d26cd00c24edd5d04d9d132a7345d43f55604` |
 | `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `c8c5a4767b88002c844d05abe390353a9296729419f5c32237de5005659e7720` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `951b02cc16058159148e471859f6bc6a518fff45d2581fc1aa058e69aa287e83` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
+| `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `8833c5e79755990fa4029d9d955316eb96b1b21ed7a99ad6382a7e1286d46bc6` |
 | `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `7a394001f5aa79e32bd44455a6189836e4fbfad70e6f52b9a653635a21b3f264` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
@@ -1065,7 +1063,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/new/behavioral_guidelines/user_onboarding_flow.md` | PACKAGE | `ac9d0cd3e70bed374128befb3428b2c6a5f281676a04fc7c1865df0f20020450` |
 | `agent_onboarding/default/new/policies/new_onboarding_policy.md` | PACKAGE | `6bc29fde4ef122a5f7240fa84cf77163b7738d9ecdeaf6aa05b32771698f7f84` |
 | `agent_onboarding/default/new/README.md` | PACKAGE | `9c3be26e36e70072b3b8bc93fb3d16be0eb51fd28d9bea4301f1777f7dde4303` |
-| `agent_onboarding/default/new/SKILLS.MD` | PACKAGE | `0e110b34454afef8684abb13d929bda8e3fcfcacfd6f7125fd1b5445fd466dcb` |
+| `agent_onboarding/default/new/SKILLS.MD` | PACKAGE | `90d0881d3a6cc29fe7ee9f027784f9b1612f2338beb678054426d7fc762002c3` |
 | `agent_onboarding/default/new/skills/configuration_map_guide.md` | PACKAGE | `870364caba56738edb642bea1877b666592c24757d0ae490a3309a07b5652632` |
 | `agent_onboarding/default/new/skills/first_time_profile_setup.md` | PACKAGE | `b82a2cb493bc7a6e6185b2dcf89b3612e8e62f15015f7b1b41973338388e3422` |
 | `agent_onboarding/default/new/skills/new.md` | PACKAGE | `3385f44aa662d550cd7f85bc8f84bff78e215a331c2ac127c91de07529290102` |
@@ -1259,7 +1257,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
 | `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
-| `config/context_compass_config.yaml` | CONFIG | `bd297b2069c0d8d453e543ab8dab3fc71f77e7f879a79e13fb9ca311568056fe` |
+| `config/context_compass_config.yaml` | CONFIG | `4d5a1e4404aa5e1e974fdd4bf1e1780da22df3108aef6410325049b6b9774f04` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -1310,10 +1308,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
 | `issue_board.md` | LIVE | `acfd4d5ce81dd375efd55f19f2104d64af938b3dec538e98c94b5932e25466e1` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
-| `mailbox_board.md` | LIVE | `a0c10e8e94510505fb57933cb94ffbd231822a6c37cd6d56ff46cb8ac258791b` |
+| `mailbox_board.md` | LIVE | `03ff6176b1cbdf00fbfe1671b17f0d4efe5be0dfd66bd4234e89fd68672d19d5` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
-| `README.md` | PACKAGE | `fe7591f905267ee0979dfedafffd889648a877907565f6d357d4ccd380469288` |
+| `README.md` | PACKAGE | `55111ca435fc49469ab294dac5c6a41a9a27ace4128340d97bfbb7754ad528cb` |
 | `SKILLS.MD` | PACKAGE | `afff6c19936ac56eb7d6a5d788394c4f8466d7bc3b64dbead5d86248fcb5d276` |
 | `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -1322,9 +1320,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `system_docs/patches/active/_template_patch_id/code_description_patch_TEMPLATE_COMPONENT.md` | RESET | `262130e44568da2ce6720095b9ab9956ab9787d81a5e2daa73ba3300e3c04d13` |
 | `system_docs/patches/active/_template_patch_id/component_patch_TEMPLATE_COMPONENT.md` | RESET | `fedc2095f94e5be8f11bed1fae34faee05730d78c435819e907970356ecebd1c` |
 | `system_docs/system_docs_read_first.md` | RESET | `792b745c1eb7947c135f188ee2a055408bff9e0a39f7ff4432f25468b32cc61b` |
-| `templates/epic_template.md` | PACKAGE | `811e6afbf9f683245fc87633ad62a17dd68d9632d14fe7c6488f4843153cb5b4` |
-| `templates/story_template.md` | PACKAGE | `f48a1e67f6909909756d8d58b4e4566caa4573294c0bdb74aa1b27414c52233f` |
-| `templates/task_template.md` | PACKAGE | `3b46d339cee264485d23f8952e57819fcbcc0c2f275003409933069580883f05` |
+| `templates/epic_template.md` | PACKAGE | `8cd7ff15ca237456211a632bde4680fa5edc380e73918a8913ff6c524c7fca4c` |
+| `templates/story_template.md` | PACKAGE | `26bdbb21c7d6d9bc79f2a23e54fceeb53d62629fa08433eabed7cece8d7292ff` |
+| `templates/task_template.md` | PACKAGE | `36695623c0e4502babd1ca3578c8c4981baa972bbbb8a743b35ad040f20aac2e` |
+| `templates/ticket_contract.json` | PACKAGE | `609b85839735d487dafa2c162b1022f7386d89b08435a8319ab8551948d89928` |
 | `templates/workflow_advanced_template.md` | PACKAGE | `312aa2e4e2f17a04959419e7f4af29a4e199239c9d9c453688b7025e56bf1a74` |
 | `templates/workflow_simple_template.md` | PACKAGE | `b78e8c24260030735d2d9558fc33f5f31d737a3accc19f71645d373fcbd80492` |
 | `tickets/epics/archive/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -1351,6 +1350,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/system_documents/python/graph_walker.py` | PACKAGE | `be0aa367a5f9bd66bb5adddba7dde4294abb44a9926dd981d20ab6500e6d7a02` |
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
 | `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
+| `tools/ticket_design.py` | PACKAGE | `e7a0688926b60f69028bc2180349797db15328bae31255224e0321c4aa9c4141` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |
 
@@ -1961,7 +1961,7 @@ and the exact Issue destination.
 `agent_communication.backend` selects `mailbox` or `codex_mcp` independently of
 ticket storage. Missing means `mailbox`, preserving existing installations.
 With `codex_mcp`, agents read the MCP skill instead of mailbox message features.
-Existing registration, request counters and setup outcomes stay in the mailbox
+Existing registration and setup outcomes stay in the mailbox
 board's state sections; other boards and their ownership rules do not change.
 Stored messages and alerts are left untouched. Available tools and human
 authorization are still required; this setting installs nothing.
@@ -10050,12 +10050,8 @@ explicitly instead of bypassing general rules.
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
 - Preserve a clean audit trail through notes and state transitions.
-- Every user-facing assistant response must include the current `prompt_id`.
-  - Use `compact_<count>_turn_<count>`; one user request advances the turn once.
-  - Progress messages and final responses for that request repeat its marker.
-  - Compaction advances the compaction count once and resets the turn to zero.
-  - Follow `skills/request_tracking.md` for persistence and recovery; do not
-    generate random response IDs or guess missing counts.
+- Represent yourself in responses and authored ticket posts/Notes using the
+  assigned name and actual role/function under `skills/agent_identity.md`.
 - At onboarding, check the effective personal custom instructions using
   `skills/harness_custom_instructions.md`. Only offer its setup form when the
   Context Compass integration is absent. Preserve existing user preferences.
@@ -10134,7 +10130,6 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/general.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
 - `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/policies/policy_skills.md`
 - `agent_onboarding/default/general/skills/agent_stance.md`
@@ -10234,6 +10229,12 @@ system documents. Three states, defined in `context_compass/SKILLS.MD`.
   - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
   - Keep local mode active until a reviewed dry run, complete remote verification,
     and explicit owner approval of the destination and content.
+
+- `agent_onboarding/default/general/skills/ticket_design.md`
+  - Trigger: creating a new ticket, using a custom ticket template, or reading/writing
+    a ticket containing `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
+  - Read the selected full template and canonical `templates/ticket_contract.json`.
+    Do not apply this design to historical records or change an agent's role.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/SKILLS.MD ---
 
@@ -10841,8 +10842,8 @@ missing ticket selection defaults to `local` per `work_tracking_backend.md`.
 ## Shared state in both modes
 
 Both transports use the same shared agent-session state store defined in
-`agent_session_state.md`. Registration, request counters, and setup outcomes
-remain in existing `mailbox_board.md` sections. No migration or deletion
+`agent_session_state.md`. Registration and setup outcomes remain in existing
+`mailbox_board.md` sections. No migration or deletion
 occurs when switching transports. In `codex_mcp` mode read those state
 sections narrowly and never read mailbox message instructions, `## Messages`,
 or `attention_board.md` message alerts for communication.
@@ -10887,7 +10888,8 @@ Rules
   - do not assume the previous session name is still valid
   - ask again on every onboarding or re-onboarding cycle
 - `owner` and `agent_name` are different fields:
-  - `owner` is the current executor/runtime owner
+  - ticket `Owner` is the accountable person, coordinator, or team
+  - roster `owner` identifies the runtime owner; it is not technical authorship
   - `agent_name` is the user-facing assigned name or names
 - `Agent Name` / `agent_name` may contain one name or multiple assigned names
   in a comma-separated list.
@@ -10897,6 +10899,24 @@ Rules
   When the certification token is waived by an applicable explicit project
   replacement, the name must still be known from owner or project
   instructions; ask only when it is missing or ambiguous, and never guess it.
+
+Visible identity
+- Prefix user-facing responses with the full assigned name and actual
+  role/function: `<agent_name> (<role/function>):`. Use the current known
+  identity, not the model name, runtime UUID, publishing account, or ticket Owner.
+- If the applicable naming rule has not established a name, identify yourself
+  as `unassigned` and resolve it through that rule. Do not invent a name or role.
+- Sign each authored ticket post, comment, and structured Note with that same
+  name and role/function. A ticket's executor field does not identify every
+  past contributor. New structured Notes include `AUTHOR` and `AUTHOR_ROLE`.
+- Preserve native hosting-account attribution. Record actual prose, design,
+  implementation, test, and evidence contributions by actor, scope, and revision;
+  never infer authorship from Owner, executor, assignee, or publishing account.
+- Public posts use an approved project-visible identity, not private session
+  identifiers or restricted rosters. Existing scope and tool permissions apply;
+  this rule creates neither a per-post approval gate nor a posting cadence.
+- Do not fabricate names or authorship for historical records. Apply these
+  fields to new contributions and preserve earlier evidence.
 
 Non-goals
 - This skill does not define long-term persistence of names across sessions.
@@ -10944,7 +10964,7 @@ Worklists
 
 # Agent session state
 
-Shared registration, request-counter, and setup-outcome duties that hold in
+Shared registration and setup-outcome duties that hold in
 both communication modes. The store remains existing `mailbox_board.md`
 sections. No columns are renamed and no state is migrated or deleted by
 selecting a transport. This document extracts the shared duties; it does not
@@ -10955,9 +10975,16 @@ replace the board schema.
 Use `mailbox_board.md` inside its USER-DEFINED region:
 
 - `## Checked-In Agents` roster rows for session presence.
-- `## Request Tracking` rows for `prompt_id` markers per `request_tracking.md`.
 - `## Notes` associated with the session key for harness setup outcomes per
   `harness_custom_instructions.md`.
+
+## Session identity
+
+Prefer an exposed native session ID for the session key. If none is
+available, establish the key from the runtime owner and the first check-in
+UTC timestamp. Keep it for this session, even when the certified name
+changes, and preserve it across recovery. Do not emit the session key as a
+response suffix or generate a new session key for each response.
 
 Column order and message schema elsewhere on the board are unchanged. Boards
 hold references and responsibility; detailed history lives in tickets.
@@ -10979,30 +11006,27 @@ hold references and responsibility; detailed history lives in tickets.
 Reading state rows is allowed during onboarding and re-onboarding. Writing
 rows waits for effective onboarding authorization as defined by `AGENTS.MD`
 and the Project Instructions Bootstrap, with a known owner-provided or
-project-instructed agent name. Counters and names must never be guessed.
+project-instructed agent name. Names must never be guessed.
 There is no pre-authorization write exception with or without a waiver.
 
-First authorized actions, in order, include writing the check-in row and
-persisting the request-counter row for the current request, then consuming
-only the sections allowed by the selected transport.
+First authorized actions, in order, include writing the check-in row,
+then consuming only the sections allowed by the selected transport.
 
 ## Narrow reads in codex_mcp mode
 
-In `codex_mcp` mode, read only `## Checked-In Agents`,
-`## Request Tracking`, and relevant session `## Notes` above. Never read
+In `codex_mcp` mode, read only `## Checked-In Agents`
+and relevant session `## Notes` above. Never read
 mailbox message instructions, `## Messages`, or `attention_board.md`
 message alerts for communication. Existing user-region names and table columns
-stay unchanged. Counter maintenance is separate from message
-polling. A single active agent updates its counter without polling any message
-surface.
+stay unchanged.
 
 ## Concurrency
 
-Re-read before editing shared state. Maintain only your own check-in row,
-your own request-tracking row, and your own setup outcome. Never delete or
-edit another agent's rows, except stale-marking an old `active` presence row
-during your own check-in. On a write conflict, re-read and retry against
-current content without overwriting another agent's concurrent change.
+Re-read before editing shared state. Maintain only your own check-in row
+and your own setup outcome. Never delete or edit rows owned by other agents,
+except stale-marking an old `active` presence row during your own check-in.
+On a write conflict, re-read and retry against current content without
+overwriting the concurrent change of another agent.
 
 Timestamps are ISO-8601 UTC. When a session ends deliberately, set presence
 to `departed`. Keep the stable session key when the certified name changes
@@ -11015,7 +11039,6 @@ Read only the protocol selected by `agent_communication.backend`.
 
 - `AGENTS.MD`
 - `agent_onboarding/default/general/skills/agent_communication_backend.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 - `agent_onboarding/default/general/skills/codex_mcp.md`
@@ -11050,10 +11073,7 @@ Tone rules
 - Be direct and technical. No polite padding, no motivational fluff.
 - Do not mirror insults; stay professional and blunt.
 - Professional baseline only when comparing quality or practice.
-- Append `prompt_id: <value>` to every user-facing assistant response.
-- Use `compact_<count>_turn_<count>` from `request_tracking.md`.
-- Count user requests, not assistant messages. Responses to the same request
-  repeat its marker; tools and progress updates do not increment it.
+- Represent yourself by the assigned name and role/function under `agent_identity.md`.
 
 Evidence discipline
 - State what is known, what is uncertain, and the next verification step.
@@ -11157,11 +11177,11 @@ References
 
 This skill applies only when `agent_communication.backend` resolves to
 `codex_mcp`. It replaces message transport only. Ticket backend, boards,
-registration, request counters, custom-instruction setup outcomes, and ticket
+registration, custom-instruction setup outcomes, and ticket
 history remain as defined in shared skills. Do not read mailbox message
 instructions, `mailbox_board.md` `## Messages`, or `attention_board.md`
-message alerts for communication in this mode. Read only `## Checked-In Agents`,
-`## Request Tracking`, and relevant session `## Notes`.
+message alerts for communication in this mode. Read only `## Checked-In Agents`
+and relevant session `## Notes`.
 Continue reading non-mailbox blockers and cross-agent flags on the attention
 board; skipping mailbox notices does not deactivate those shared alerts.
 
@@ -11219,7 +11239,7 @@ or new-agent creation belongs in this protocol.
 
 ## Concurrency and preservation
 
-- Maintain shared presence, counters, and setup outcomes only through narrow
+- Maintain shared presence and setup outcomes only through narrow
   `agent_session_state.md` reads and writes. Never write mailbox messages
   or alerts in this mode.
 - Keep one writer per ticket file or Issue body. Leave shared-board updates
@@ -11247,9 +11267,8 @@ overridden remain mandatory; do not treat a later MUST as cancelling an override
 - **REONBOARD** is mandatory after any context compaction or handoff.
 - **ONBOARD** is mandatory at the start of a fresh session.
 - Do not substitute ONBOARD for REONBOARD or vice-versa.
-- Follow `request_tracking.md` for `prompt_id: compact_<count>_turn_<count>`.
-  A real compaction increments `compact` once and resets `turn` to zero; a
-  handoff alone does not. User requests advance turns, assistant messages do not.
+- Treat a confirmed compaction as a recovery event; a handoff alone does not
+  change recovery requirements.
 
 Non-negotiable rules
 - After a trigger event: **STOP. REONBOARD/ONBOARD. THEN ACT.**
@@ -11323,9 +11342,8 @@ Run this sequence exactly once per trigger event.
    and verify they match. In plugin mode, also check `issue_board.md`, fetched
    Issue-body Status/Notes, and relevant Issue comments. Do not read local
    ticket archives in place of the active Issues.
-   Read this session's row under mailbox `## Request Tracking` and recover the
-   request counter. Apply a confirmed compaction once, retaining its event
-   reference. Do not write the transition until effective onboarding authorization permits it.
+   Recover shared presence and setup outcomes before resuming.
+   Do not write the transition until effective onboarding authorization permits it.
    Existing custom instructions suppress the setup form; a recorded decline
    must not become another setup prompt merely because compaction occurred.
 8) Publish the required REONBOARD attestation (below), reporting actual reads and any applicable waivers honestly.
@@ -11427,7 +11445,6 @@ References
 - `agent_onboarding/default/general/skills/context_compaction.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/compaction_requirements.md ---
@@ -13005,10 +13022,16 @@ for the same work; a Project URL is optional context.
   stores all three as Issues. Follow parent-first routing and keep reciprocal
   references consistent. Native hierarchy tools are optional enhancements when
   exposed; explicit links remain required. Do not invent or discard a dependency.
-- A blocked Issue stays open and carries `Status: blocked`, its blocker Issue
-  links or concrete external condition, and one unblock action in its body.
+- A blocked Issue stays open and carries the chosen design's blocked state,
+  its blocker Issue links or concrete external condition, and one unblock action.
 
 ## Microcycle, Notes, and Status
+
+For a new design with `AGILE_METADATA`, follow `ticket_design.md` and the
+canonical definition instead of the ordinary Status enum below. Metadata owns
+workflow; the body retains canonical Notes and a derived Status view. Native
+closure remains a projection, not acceptance. Authored posts/comments/Notes
+identify their actual agent name and role/function under `agent_identity.md`.
 
 - The existing microcycle and note fields apply unchanged. Append each meaningful
   finding to `## Notes` in the Issue body before another work tranche. Preserve
@@ -13018,7 +13041,8 @@ for the same work; a Project URL is optional context.
   and reason in State Transition Event and Notes. `draft`, `ready`,
   `in_progress`, `blocked`, and `review` are open Issue states; a completed
   ticket has `Status: done` and GitHub state `closed`.
-- The Issue body Status is authoritative for workflow routing. Open/closed is
+- For a non-Agile design the Issue body Status is authoritative for routing.
+  For an Agile design use its canonical metadata and checked derived Status. Open/closed is
   GitHub's coarse lifecycle check. Stop and reconcile a mismatch with the body
   or attention route; an optional Project's Status cannot override the ticket.
 - Update Context / Handoff Summary in the same canonical body when continuation
@@ -13043,12 +13067,13 @@ for the same work; a Project URL is optional context.
 ## Closure and recovery
 
 - Follow the existing owner acceptance gate. Record completion summary,
-  `Status: done`, Updated timestamp, and transition reason in the Issue body;
+  accepted metadata/derived Status for Agile or `Status: done` for non-Agile,
+  Updated timestamp, and transition reason in the Issue body;
   verify that update, close the Issue through the plugin, and verify state.
 - Remove or replace active attention rows/details, add one compact closed anchor,
   release the local claim, and synchronize artifact/context dispositions. An
-  open Issue with `Status: done` after a failed close is an incomplete transition
-  to repair; do not report the ticket closed.
+  open Issue with accepted metadata or `Status: done` after a failed close has a
+  pending projection to repair; do not report the ticket closed.
 - After compaction/handoff, reread YAML, both ticket and communication selectors
   plus their baselines, `issue_board.md`,
   attention route, and the exact active Issue bodies and relevant comments.
@@ -13109,7 +13134,7 @@ Record such a skipped check honestly, not as evidence of PRESENT or ABSENT statu
    approval requirements still apply. If the user declines or chooses
    manual setup, respect that choice through re-onboarding in the same session.
    After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
-   with the session key from `request_tracking.md` and `agent_session_state.md`.
+   with the session identity from `agent_session_state.md`.
    This setup-outcome store is independent of `agent_communication.backend`. Do not store the contents of
    their personal instructions there. Retry only when requested or when the
    harness or instruction source changes.
@@ -13225,10 +13250,6 @@ Context Compass ONBOARD flow before taking any non-onboarding action.
 After a context compaction or handoff, stop and complete the Context Compass
 REONBOARD flow before taking any other action. Do this once for every event.
 
-Follow the request counter contract in
-context_compass/agent_onboarding/default/general/skills/request_tracking.md.
-Use prompt_id: compact_<count>_turn_<count>; count user requests, not assistant
-messages or tool calls, and recover the counters from Context Compass.
 ```
 
 All following clauses apply under that same Context Compass scope. Add only the
@@ -13308,7 +13329,6 @@ a global preference overrides a stricter governing rule.
 ## References
 
 - `AGENTS.MD`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 - `config/context_compass_config.yaml`
 
@@ -13437,7 +13457,7 @@ document is a snapshot, and a snapshot is stale the moment the package changes.
 This skill applies only when `agent_communication.backend` resolves to
 `mailbox` (the default when absent). In `codex_mcp` mode skip the checking,
 sending, and receiving sections below and use `codex_mcp.md` for transport.
-Maintain shared presence, counters, and setup outcomes in both modes through
+Maintain shared presence and setup outcomes in both modes through
 `agent_session_state.md`; existing board columns and schemas are unchanged.
 
 Canonical board: `context_compass/mailbox_board.md`.
@@ -13471,11 +13491,11 @@ single durable history.
   `| <agent_name> | <owner> | <checked_in_at> | <last_checked> | active |`
 - `checked_in_at` is set when you first check in for the session;
   `last_checked` updates EVERY time you read the message section.
-- In that same first authorized check-in, initialize or recover YOUR session
-  row under `## Request Tracking`, using `request_tracking.md` and the shared
-  duties in `agent_session_state.md`. Keep the stable
-  session key when the user changes your name during re-onboarding. The existing
-  roster's columns and message schema are unchanged.
+- Keep any harness setup outcome under `## Notes` associated with your session
+  identity, following `harness_custom_instructions.md` and the shared duties in
+  `agent_session_state.md`. Keep the stable session identity when
+  the user changes your name during re-onboarding. The existing roster columns
+  and message schema are unchanged.
 - Timestamps are ISO-8601 UTC, same as all boards.
 - When your session ends deliberately (final closure of your last lane),
   set `status` to `departed`. Stale `active` rows older than a day may be
@@ -13484,8 +13504,7 @@ single durable history.
 ## When checking is required (keep it cheap)
 
 - If you are the ONLY agent in `## Checked-In Agents` with status
-  `active`, do not poll messages. Maintain your request counter once per user
-  request as defined in `request_tracking.md`; that is not message polling.
+  `active`, do not poll messages.
 - If MULTIPLE agents are active, read your messages:
   - at onboarding / re-onboarding (after check-in),
   - at every lane open, lane switch, and lane closure,
@@ -13529,10 +13548,10 @@ single durable history.
 - Both boards are shared files: on a write-conflict, re-read the current
   content and retry your edit against it. Never resolve a race by
   overwriting another agent's concurrent change.
-- Legal writes are: appending messages, maintaining YOUR check-in row,
-  maintaining YOUR request-tracking row and setup outcome in `## Notes`,
-  and deleting messages addressed TO YOU. Never delete or edit another
-  agent's messages or check-in row (stale-marking excepted).
+- Legal writes are: appending messages, maintaining YOUR check-in row and
+  setup outcome in `## Notes`, and deleting messages addressed TO YOU.
+  Never delete or edit messages or check-in rows owned by other agents
+  (stale-marking excepted).
 
 ## Boundary with attention_board.md
 
@@ -13892,138 +13911,6 @@ References
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/repo_topology.md ---
 
---- START OF FILE: context_compass/agent_onboarding/default/general/skills/request_tracking.md ---
-
-# Request Tracking
-
-## Purpose
-
-Make request order and compaction boundaries visible through `prompt_id`.
-The marker counts user requests, not assistant responses. Its state belongs in
-Context Compass so recovery does not depend on temporary chat memory.
-
-## Marker contract
-
-```text
-prompt_id: compact_0_turn_0
-```
-
-- `compact` is the number of confirmed compaction events in this session.
-- `turn` is the user-request index in the current compaction segment, starting
-  at zero. Neither number has a single-digit limit.
-- Start a genuinely new session at `compact_0_turn_0` for its first user request.
-- Increment `turn` exactly once for each subsequent user request. A submitted
-  clarification, correction, approval, or steering message is a new request,
-  even if it arrives while work is running. Multiple questions in one submitted
-  request still count once.
-- Assistant progress messages, final responses, tool calls/results, retries,
-  and internal continuations do NOT advance `turn`. They belong to the request
-  that caused them. Runtime notifications and compaction notices are not user
-  requests.
-- Append the current `prompt_id` to user-facing assistant messages. Multiple
-  messages for the same request intentionally repeat the same marker. It is not
-  a globally unique message identifier or a count of model/API invocations.
-- Keep the marker outside any required attestation block; it does not add a
-  field to the canonical onboarding attestation.
-
-## Compaction and handoff
-
-- On each confirmed compaction, increment `compact` once and reset `turn` to
-  zero. Complete REONBOARD before returning to ordinary work.
-- A compaction can occur inside one request. Its resumed work uses the new
-  segment's `turn_0`; the next user request uses `turn_1`. Do not fabricate a new
-  user request to explain the reset.
-- If a new user request is the first work after compaction, it occupies
-  `turn_0`. Apply the compaction transition before counting that request so it
-  is not accidentally assigned `turn_1`.
-- Re-reading instructions or repeating a certification request is not another
-  compaction. Repeated processing of the same event must not increment twice.
-- A handoff without compaction does not increment `compact`. A continuation of
-  the same session restores its own row. A separate agent/session starts its
-  own count and does not inherit another agent's counter.
-
-Example, with two responses to one request:
-
-```text
-First user request, progress:  prompt_id: compact_0_turn_0
-First user request, final:     prompt_id: compact_0_turn_0
-Second user request:           prompt_id: compact_0_turn_1
-Compaction, resumed work:      prompt_id: compact_1_turn_0
-Next user request:             prompt_id: compact_1_turn_1
-```
-
-## Durable state
-
-Use `mailbox_board.md` / `## Request Tracking`, inside its USER-DEFINED region.
-This store is independent of `agent_communication.backend`. In `codex_mcp`
-mode maintain the same row through narrow state-section reads per
-`agent_session_state.md`; never open message sections for counter work.
-Maintain one row per session, alongside the existing agent check-in roster:
-
-| Field | Meaning |
-| --- | --- |
-| `session_key` | Stable key for this conversation/session, independent of the assigned agent name. |
-| `agent_name` | Current certified name; update it if the user renames the agent during re-onboarding. |
-| `prompt_id` | Current `compact_<count>_turn_<count>` marker. |
-| `request_ref` | Current user-message ID, or a receipt timestamp assigned once when the request arrives. |
-| `request_status` | `open` while handling that request; `complete` when its final response is ready. |
-| `compaction_ref` | Last processed compaction event ID or its fixed receipt timestamp; `none` initially. |
-
-- Prefer an exposed native conversation/session ID for `session_key`. If none
-  is available, establish a key from the runtime owner and the first check-in
-  UTC timestamp. Keep it for this session, even when the certified name changes.
-- Prefer native user-message and compaction-event IDs for the two references.
-  A runtime turn ID is not necessarily a user-message ID: steering can add a
-  user request inside an existing runtime turn. Never merge those requests.
-- When IDs are unavailable, capture each receipt timestamp once and preserve
-  it. A new tool read or a new response must not mint another request/event.
-- These keys are local correlation metadata, not extra random response IDs.
-  Keep summaries, message contents, credentials, and personal file paths out
-  of the table. In permitted pointer-only recovery summaries, a pointer to this
-  section and the session row is sufficient.
-- After effective onboarding authorization, as defined by `AGENTS.MD` /
-  Project Instructions Bootstrap, update your
-  row for each new user request before doing ordinary work; mark it complete
-  before its final response. A resumed `open` request retains its index unless
-  a confirmed compaction starts a new segment. Counter writes still require a
-  known name and must never guess one; there is no pre-authorization write
-  exception with or without a waiver.
-- After effective onboarding authorization for re-entry, persist the compaction transition with your check-in
-  before resuming. Match `compaction_ref` so one event is not applied twice.
-- Before effective onboarding authorization, reading the row is allowed
-  but writing it is not. Derive the pending marker from the row and visible
-  requests/events, then persist it with the first authorized check-in. Do not
-  introduce a pre-authorization write exception for counters.
-- Re-read before editing shared state. Change only your session row, preserving
-  the other rows and all existing mailbox messages and check-ins.
-- Counter maintenance is separate from message polling. A single active agent
-  updates its counter without polling the message section.
-
-## Recovery when state is missing
-
-Read the saved row before assigning a marker after compaction or handoff. Do not
-choose another agent's row, the largest number on the board, or zero merely
-because your chat context is shorter. An empty tracking section in an upgraded
-install does not prove an existing conversation is new.
-
-If the session cannot be matched or prior counts/events cannot be established,
-use `prompt_id: UNKNOWN` and state what is missing. Recover from available
-evidence or ask the user to identify the session or approve a new counting
-baseline. Do not silently reset or invent a historical count. An interrupted
-pre-certification flow can lose pending counts; report that uncertainty too.
-
-The counter makes continuity easier to inspect. It does not replace required
-reads, evidence, ticket notes, or re-onboarding, and it does not prove adherence.
-
-## References
-
-- `AGENTS.MD`
-- `agent_onboarding/default/general/skills/compaction_requirements.md`
-- `agent_onboarding/default/general/skills/mailbox_protocol.md`
-- `mailbox_board.md`
-
---- END OF FILE: context_compass/agent_onboarding/default/general/skills/request_tracking.md ---
-
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/role_local_workflows.md ---
 
 # role_local_workflows
@@ -14268,6 +14155,108 @@ References
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/ticket_closure_attention_sync.md ---
 
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/ticket_design.md ---
+
+# Ticket design and optional Agile metadata
+
+Applies to new/future tickets and new contributions. This is not a migration
+procedure, role selector, permission grant or replacement for onboarding.
+
+## Choose the design
+
+Read `ticket_design` in `config/context_compass_config.yaml` before creating a
+new ticket. Its `instructions` are project guidance. Its `templates` map Epic,
+Story and Task to context-compass-relative files. Users can point those paths
+at their own templates under `user_defined/`; keep the full ticket composition,
+required gates, Notes, evidence and handoff. Do not overwrite an existing ticket
+to apply a new design.
+
+Agile metadata is optional **by ticket design**. Do not add it merely because a
+GitHub plugin exists or an agent holds a particular role. Non-Agile designs
+retain their ordinary Status authority. A selected Agile design adds one
+`AGILE_METADATA` JSON block inside the existing `project_fields` region.
+
+## Canonical definition
+
+Read `templates/ticket_contract.json` for the versioned fields, values,
+invariants and attribution policy. That file is the source-owned definition;
+tools and portable bundles derive from it rather than another handwritten
+ticket rulebook. Read the full selected template as well.
+
+When metadata is present, its workflow is canonical. The visible Status is
+`phase / execution / resolution`, derived from that object, not an old-status
+compatibility mapping. Native hosting state and Projects cannot override it.
+Metadata evidence references point to existing body Notes by `EVENT_ID` or
+`DATETIME`; they do not create another evidence store. Retain the configured
+note-quality requirement. Unknown evidence is not an acceptable transition ref.
+
+Accepted resolution additionally references Notes with the explicit conclusions
+specified by `accepted_note_fields` in the canonical definition. These record
+authorized acceptance, validation, child dispositions and reconciled routing;
+the presence of a passing test or a closed Issue cannot supply those conclusions.
+The checker validates declarations, not their authenticity or truth.
+
+Each state event has a logical event identity. Reusing that identity for a
+different payload is a conflict. A revision/hash check is a client safeguard,
+not an atomic lock supplied by GitHub. Read, preserve, write, fetch and reconcile
+uncertain effects under the primary writer's custody.
+
+## Names, authors and review
+
+`Owner` is accountable custody. `Agent Name` and `Agent Role` describe the actual
+executor. Each new authored Note, post or comment identifies its own full author
+name and actual role/function under `agent_identity.md`. Do not treat the current
+executor as the author of all earlier contributions.
+
+`TICKET_ATTRIBUTION`, when used, records contribution-scoped authors, the
+observed publishing service/account and exact review targets. It is not an
+identity registry. Public examples use generic project actors; public work must
+not disclose restricted rosters or runtime identifiers. Native created-by
+attribution stays intact. No per-post approval gate or posting cadence is added.
+Its readable Contribution Attribution labels are generated from the canonical
+definition and JSON object; do not maintain another editable copy of those facts.
+
+Both optional objects use this exact wrapper inside `project_fields`, replacing
+the example name with `AGILE_METADATA` or `TICKET_ATTRIBUTION`:
+
+````text
+<!-- BEGIN OBJECT_NAME -->
+```json
+{ "fields": "from the canonical definition" }
+```
+<!-- END OBJECT_NAME -->
+````
+
+State-event Notes include an `EVENT_ID` matching `last_event_id`. This identifies
+one actual workflow change; it is not emitted on each assistant response. The
+Python helpers `initial_metadata`, `render_new` and `transition` construct/check
+these wrappers while retaining the complete ticket and prior Notes.
+
+Passing validation, entering acceptance phase, or closing an Issue does not
+establish authorized acceptance. A reviewer who authored or materially edited
+the target is not independent by changing a role label. Historical unknown
+authorship stays unknown; this feature does not repair old records.
+
+## Helpers and portable delivery
+
+`tools/ticket_design.py` validates the chosen new-format metadata and attribution,
+performs preserving in-memory transitions, and produces source-derived bundles.
+It never writes to GitHub or updates boards, credentials, global instructions or
+installed projects. New-file output refuses an existing target.
+
+For local agents, read the installed canonical definition and selected template.
+For a cloud reader, create one complete ticket-contract bundle for the selected
+type/backend, with its source hashes and explicit versioned note-score binding.
+Do not load both that bundle and an independently maintained copy of its rules.
+It is a ticket-contract delivery unit, not proof that onboarding was completed
+or permission to skip other actual runtime/coordination gates.
+
+Custom template content may be project-private. Generating a bundle is not
+publication authorization. Check its audience before sharing it. No token-saving
+or adherence claim is made without actual read/behavior measurements.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/ticket_design.md ---
+
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/ticket_microcycle.md ---
 
 
@@ -14338,6 +14327,13 @@ Templates
 - `artifact_board.md`
 - `context_management/context_board.md`
 
+New-ticket design
+- Resolve `ticket_design` guidance and template paths using `ticket_design.md`.
+- Optional Agile metadata and named attribution follow that source-owned contract.
+  Do not migrate old tickets, replace the full composition, or infer agent identity
+  from the hosting account. When metadata is present, its derived Status replaces
+  the ordinary Status enum for that ticket only; all actual acceptance gates remain.
+
 Deep descriptive model (required)
 Each ticket must be specific, evidence-based, and durable. Avoid vague goals.
 
@@ -14384,8 +14380,9 @@ Workflow rules
 10) After confirmation:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
-   - In plugin mode, record `Status: done` and transition reason in the Issue
-     body, verify it, close the Issue, and verify state through the plugin.
+   - In plugin mode, record accepted metadata and its derived Status for an Agile
+     design, or `Status: done` for a non-Agile design. Record the transition reason,
+     verify the body, close the Issue, and verify state through the plugin.
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -14427,6 +14424,8 @@ Mandatory execution gates
 Notes format requirement
 - New note entries should include:
   - `DATETIME` (ISO-8601 UTC: `YYYY-MM-DDTHH:MM:SSZ`)
+  - `AUTHOR` (full assigned agent name or verified human author)
+  - `AUTHOR_ROLE` (actual role/function, not inferred from the publishing account)
   - `TYPE`:
     `FACT` | `UNKNOWN` | `HYPOTHESIS` | `DECISION` | `DECISION_REQUEST` |
     `PLAN` | `STRATEGY_DISCUSSION` | `ASSUMPTION_CHALLENGE` | `CONFLICT` |
@@ -16322,7 +16321,7 @@ Active skills
 - `agent_onboarding/default/new/AGENTS.MD`
 - `agent_onboarding/default/new/skills/new.md`
 - `agent_onboarding/default/general/skills/execution_contract.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/agent_identity.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
@@ -24896,9 +24895,21 @@ work_tracking:
     project_url: "" # optional context link; Issue body Status remains authoritative
 
 # This selects agent-to-agent message transport, not ticket storage or state.
-# Roster, request counters and setup outcomes remain on the existing local board.
+# Roster and setup outcomes remain on the existing local board.
 agent_communication:
   backend: mailbox # mailbox | codex_mcp; absent means mailbox
+
+# Guidance and templates for NEW tickets. This does not select an agent role
+# or rewrite existing tickets. Optional metadata belongs to the chosen design.
+ticket_design:
+  instructions: >
+    Use the complete template for the chosen ticket type. Record actual agent
+    names and roles, contribution authors, publisher and review separately.
+    Include Agile metadata only when the selected ticket design calls for it.
+  templates:
+    epic: templates/epic_template.md
+    story: templates/story_template.md
+    task: templates/task_template.md
 
 workflow:
   ticket_microcycle:
@@ -27396,7 +27407,6 @@ What belongs in each region on this board:
 | region | put this here |
 | --- | --- |
 | `checked_in` | one row per agent currently active, with `last_checked` |
-| `request_tracking` | one counter checkpoint per session; user requests advance turns |
 | `messages` | structured messages in the format below; delete each one after consuming it |
 | `notes` | standing handoff context and per-session custom-instruction setup outcomes |
 
@@ -27406,25 +27416,23 @@ policy pasted into a region will not update when the package's own copy does. Pu
 standing instructions in `notes` once; do not restate MANAGED text.
 
 Purpose
-- Shared registration, request counters and setup outcomes in every communication mode.
+- Shared registration and setup outcomes in every communication mode.
 - Mailbox-mode message passing (point-to-point handoffs, notices, questions, acks).
 - Companion to `attention_board.md` (which stays routing/broadcast-only).
 - Shared state: `agent_onboarding/default/general/skills/agent_session_state.md`.
 - Message transport: `agent_communication.backend` in the config selects mailbox or codex_mcp.
-  MCP agents read only Checked-In Agents, Request Tracking and relevant Notes; they skip
+  MCP agents read only Checked-In Agents and relevant Notes; they skip
   the messaging rules below and the Messages region. Existing messages remain untouched.
 
 Shared state rules
 - Check in at onboarding/re-onboarding: add or update your row below.
-- Keep request counters in `## Request Tracking`, separately from the roster.
-  Follow `agent_onboarding/default/general/skills/request_tracking.md`; do not
-  increment for each response or tool call. State writes need effective onboarding authorization.
+- State writes need effective onboarding authorization.
 - Keep per-session setup outcomes in Notes and preserve other agents' state.
 - Data races on this file are expected: re-read and retry, never overwrite another agent's edit.
 
 Mailbox messaging rules (mailbox mode only; mailbox_protocol.md is authoritative)
 - Single-agent sessions: if you are the only checked-in agent, the
-  message section needs no monitoring. Maintain your request counter separately.
+  message section needs no monitoring.
 - Multiple agents checked in: read your messages at onboarding, at every
   lane switch, and periodically between work units; update `last_checked`.
 - Sending: append a structured message below AND add an alert line to
@@ -27452,12 +27460,6 @@ Message format (mailbox mode only; append-only, delete after consumption)
 | --- | --- | --- | --- | --- |
 <!-- BEGIN USER-DEFINED: checked_in -->
 <!-- END USER-DEFINED: checked_in -->
-
-## Request Tracking
-| session_key | agent_name | prompt_id | request_ref | request_status | compaction_ref |
-| --- | --- | --- | --- | --- | --- |
-<!-- BEGIN USER-DEFINED: request_tracking -->
-<!-- END USER-DEFINED: request_tracking -->
 
 ## Messages
 <!-- BEGIN USER-DEFINED: messages -->
@@ -27821,8 +27823,9 @@ numbers, they are simply the wrong ones.
 ## Metadata
 - Epic ID: EPIC-YYYY-MM-DD-<slug>
 - Status: draft | ready | in_progress | blocked | done
-- Owner:
-- Agent Name: <one or more assigned names, comma-separated>
+- Owner: <accountable person/coordinator/team; not inferred technical author>
+- Agent Name: <actual assigned executor names, comma-separated; not publishing account>
+- Agent Role: <actual executor role/function; UNKNOWN if not established>
 - Priority: p0 | p1 | p2 | p3
 - Created: YYYY-MM-DDTHH:MM:SSZ
 - Updated: YYYY-MM-DDTHH:MM:SSZ
@@ -27921,8 +27924,15 @@ numbers, they are simply the wrong ones.
   - <topic or question> | UNKNOWN
 - IF_UNKNOWN: UNKNOWN | ask user before implementation | none
 
+## Contribution Attribution
+- Ticket/Work Author(s): <actor; contribution kind; scope; artifact revision; evidence>
+- Published By: <observed hosting service/account and receipt; UNKNOWN before publication>
+- Independent Review: <reviewer; exact target revision/scope; verdict/evidence; independence>
+
 ## Notes
 - DATETIME: YYYY-MM-DDTHH:MM:SSZ
+  AUTHOR: <full assigned agent name or verified human author>
+  AUTHOR_ROLE: <actual role/function>
   TYPE:
     FACT | UNKNOWN | HYPOTHESIS | DECISION | DECISION_REQUEST | PLAN |
     STRATEGY_DISCUSSION | ASSUMPTION_CHALLENGE | CONFLICT | TRADEOFF |
@@ -27976,8 +27986,9 @@ what editing the rest of the template would cost you.
 - Story ID: STORY-YYYY-MM-DD-<slug>
 - Epic: EPIC-YYYY-MM-DD-<slug>
 - Status: draft | ready | in_progress | blocked | done
-- Owner:
-- Agent Name: <one or more assigned names, comma-separated>
+- Owner: <accountable person/coordinator/team; not inferred technical author>
+- Agent Name: <actual assigned executor names, comma-separated; not publishing account>
+- Agent Role: <actual executor role/function; UNKNOWN if not established>
 - Priority: p0 | p1 | p2 | p3
 - Created: YYYY-MM-DDTHH:MM:SSZ
 - Updated: YYYY-MM-DDTHH:MM:SSZ
@@ -28057,8 +28068,15 @@ As a <user/persona>, I want <capability>, so that <outcome>.
   - <topic or question> | UNKNOWN
 - IF_UNKNOWN: UNKNOWN | ask user before implementation | none
 
+## Contribution Attribution
+- Ticket/Work Author(s): <actor; contribution kind; scope; artifact revision; evidence>
+- Published By: <observed hosting service/account and receipt; UNKNOWN before publication>
+- Independent Review: <reviewer; exact target revision/scope; verdict/evidence; independence>
+
 ## Notes
 - DATETIME: YYYY-MM-DDTHH:MM:SSZ
+  AUTHOR: <full assigned agent name or verified human author>
+  AUTHOR_ROLE: <actual role/function>
   TYPE:
     FACT | UNKNOWN | HYPOTHESIS | DECISION | DECISION_REQUEST | PLAN |
     STRATEGY_DISCUSSION | ASSUMPTION_CHALLENGE | CONFLICT | TRADEOFF |
@@ -28112,8 +28130,9 @@ what editing the rest of the template would cost you.
 - Task ID: TASK-YYYY-MM-DD-<slug>
 - Story: STORY-YYYY-MM-DD-<slug>
 - Status: draft | ready | in_progress | blocked | done
-- Owner:
-- Agent Name: <one or more assigned names, comma-separated>
+- Owner: <accountable person/coordinator/team; not inferred technical author>
+- Agent Name: <actual assigned executor names, comma-separated; not publishing account>
+- Agent Role: <actual executor role/function; UNKNOWN if not established>
 - Priority: p0 | p1 | p2 | p3
 - Created: YYYY-MM-DDTHH:MM:SSZ
 - Updated: YYYY-MM-DDTHH:MM:SSZ
@@ -28197,8 +28216,15 @@ what editing the rest of the template would cost you.
 - Keep notes append-only; correct history only for factual errors.
 - Promote `UNKNOWN` to `FACT` only with direct evidence pointers.
 
+## Contribution Attribution
+- Ticket/Work Author(s): <actor; contribution kind; scope; artifact revision; evidence>
+- Published By: <observed hosting service/account and receipt; UNKNOWN before publication>
+- Independent Review: <reviewer; exact target revision/scope; verdict/evidence; independence>
+
 ## Notes
 - DATETIME: YYYY-MM-DDTHH:MM:SSZ
+  AUTHOR: <full assigned agent name or verified human author>
+  AUTHOR_ROLE: <actual role/function>
   TYPE:
     FACT | UNKNOWN | HYPOTHESIS | DECISION | DECISION_REQUEST | PLAN |
     STRATEGY_DISCUSSION | ASSUMPTION_CHALLENGE | CONFLICT | TRADEOFF |
@@ -28230,6 +28256,78 @@ what editing the rest of the template would cost you.
 -->
 
 --- END OF FILE: context_compass/templates/task_template.md ---
+
+--- START OF FILE: context_compass/templates/ticket_contract.json ---
+
+{
+  "format_version": 1,
+  "profile": {"id": "agile", "version": 1},
+  "schema_version": 1,
+  "phases": ["planning", "design", "implementation", "test", "review", "integration", "acceptance"],
+  "execution": ["draft", "ready", "active", "blocked", "paused", "idle"],
+  "resolution": ["unresolved", "accepted", "canceled", "duplicate"],
+  "priorities": ["p0", "p1", "p2", "p3"],
+  "metadata_fields": [
+    "schema_version", "profile", "ticket_id", "revision", "phase", "execution",
+    "resolution", "last_event_id", "contract_ref", "evidence_refs"
+  ],
+  "optional_metadata_fields": ["skipped_phases", "extensions"],
+  "evidence_requirements": {
+    "all": ["transition"],
+    "ready": ["readiness"],
+    "active": ["start"],
+    "blocked": ["blocker"],
+    "paused": ["pause"],
+    "accepted": ["acceptance", "validation", "children", "routing"],
+    "canceled": ["disposition"],
+    "duplicate": ["disposition", "successor"]
+  },
+  "accepted_state": {"phase": "acceptance", "execution": "idle"},
+  "accepted_note_fields": {
+    "acceptance": {"ACCEPTANCE": "authorized"},
+    "validation": {"VALIDATION": "recorded"},
+    "children": {"CHILDREN": "dispositioned"},
+    "routing": {"ROUTING": "reconciled"}
+  },
+  "terminal_execution": "idle",
+  "contribution_kinds": ["prose", "design", "implementation", "test", "evidence"],
+  "review_verdicts": ["pass", "conditional", "fail", "unknown"],
+  "author_fields": ["actor", "role", "kind", "scope", "revision", "evidence_ref"],
+  "review_fields": ["actor", "role", "scope", "target_revision", "verdict", "evidence_ref", "independent"],
+  "publisher_fields": ["service", "account", "receipt_ref"],
+  "attribution_labels": {
+    "authors": "Ticket/Work Author(s)",
+    "published_by": "Published By",
+    "reviews": "Independent Review"
+  },
+  "note_fields": [
+    "DATETIME", "AUTHOR", "AUTHOR_ROLE", "TYPE", "CLAIM", "EVIDENCE",
+    "IMPACT", "NEXT", "REREAD", "SCORE_0_TO_10"
+  ],
+  "policy": [
+    "The full Epic, Story or Task remains the record; optional metadata never replaces its composition.",
+    "Agile metadata is selected by ticket design, not by the agent role or hosting service.",
+    "AGILE_METADATA owns workflow when present. Status is its derived view, not a second editable master.",
+    "Body Notes are canonical. Comments are attributed evidence reconciled before a state transition.",
+    "Phase is current focus, not proof of earlier gates. Rework and approved skipped phases retain evidence.",
+    "Ready requires prerequisites, ownership and scope; active requires actual start.",
+    "Blocked evidence names the reason and unblock owner/action; paused evidence names the resume condition.",
+    "Acceptance requires applicable authorized acceptance, validation, child disposition and routing evidence.",
+    "Canceled and duplicate are not accepted delivery. Duplicate evidence identifies the successor.",
+    "Owner, executor, contribution author, publisher and reviewer are distinct; never infer one from another.",
+    "Authored responses, posts, comments and Notes identify the actual full agent name and role/function.",
+    "Independent review targets an exact scope/revision and cannot be claimed by its author or material editor.",
+    "Priority expresses scheduling urgency, not risk or permission. Existing approval and safety gates remain.",
+    "Use one primary writer, full-body revision/hash checks, logical event IDs and readback verification.",
+    "Local checks are not server CAS. Uncertain or partial effects need reconciliation before another write.",
+    "Native Issue state and Project fields are projections; closure is not acceptance.",
+    "Schema validation checks declared content, not evidence truth, authenticated identity or user permission.",
+    "New-ticket design does not authorize historical rewrites, private disclosure, installs or publication.",
+    "Read the selected canonical sources once per intact context; reconcile source/config changes on recovery."
+  ]
+}
+
+--- END OF FILE: context_compass/templates/ticket_contract.json ---
 
 --- START OF FILE: context_compass/templates/workflow_advanced_template.md ---
 
@@ -33054,6 +33152,527 @@ def read_backend(path: pathlib.Path) -> str:
     return backend_from_yaml(text)
 
 --- END OF FILE: context_compass/tools/ticket_backend.py ---
+
+--- START OF FILE: context_compass/tools/ticket_design.py ---
+
+#!/usr/bin/env python3
+"""New-ticket design helpers. Pure transitions, explicit new-file output, no hosting writes."""
+
+from __future__ import annotations
+
+import argparse
+import datetime
+import hashlib
+import json
+import pathlib
+import re
+import sys
+
+from ticket_backend import read_backend
+
+
+class ContractError(ValueError):
+    """Declared ticket content cannot establish the selected contract safely."""
+
+
+def _pairs(items):
+    result = {}
+    for key, value in items:
+        if key in result:
+            raise ContractError(f"Duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def _json(text):
+    try:
+        return json.loads(text, object_pairs_hook=_pairs)
+    except (ValueError, TypeError) as exc:
+        raise ContractError(f"Invalid contract JSON: {exc}") from exc
+
+
+def digest(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def definition(root: pathlib.Path) -> tuple[dict, str]:
+    text = (root / "templates/ticket_contract.json").read_text(encoding="utf-8")
+    spec = _json(text)
+    if spec.get("format_version") != 1:
+        raise ContractError("Unsupported canonical contract format.")
+    return spec, "sha256:" + digest(text)
+
+
+def _mapping_block(text: str, key: str) -> list[str]:
+    lines = text.splitlines()
+    matches = [i for i, line in enumerate(lines) if re.match(rf"^{re.escape(key)}:", line)]
+    if len(matches) > 1:
+        raise ContractError(f"Duplicate YAML block: {key}")
+    if not matches:
+        return []
+    start = matches[0]
+    if re.sub(r"\s+#.*$", "", lines[start]).strip() != key + ":":
+        raise ContractError(f"Use a literal block mapping for {key}.")
+    end = next((i for i in range(start + 1, len(lines))
+                if re.match(r"^[A-Za-z_][A-Za-z0-9_-]*:", lines[i])), len(lines))
+    block = lines[start + 1:end]
+    if any("\t" in line[:len(line) - len(line.lstrip())] for line in block):
+        raise ContractError("YAML indentation must use spaces.")
+    return block
+
+
+def settings(root: pathlib.Path) -> tuple[dict[str, str], int]:
+    text = (root / "config/context_compass_config.yaml").read_text(encoding="utf-8-sig")
+    paths = {kind: f"templates/{kind}_template.md" for kind in ("epic", "story", "task")}
+    block = _mapping_block(text, "ticket_design")
+    selectors = [i for i, line in enumerate(block) if re.match(r"^  templates:", line)]
+    if any(re.match(r"^\s+templates:", line) and not re.match(r"^  templates:", line) for line in block):
+        raise ContractError("Use the documented two-space templates selector; do not guess a design.")
+    if len(selectors) > 1:
+        raise ContractError("Duplicate templates selector.")
+    if selectors:
+        start = selectors[0]
+        if block[start].split("#", 1)[0].strip() != "templates:":
+            raise ContractError("Use literal template-path mappings.")
+        seen = set()
+        for line in block[start + 1:]:
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            if not line.startswith("    "):
+                break
+            match = re.fullmatch(r"    (epic|story|task):[ \t]+(.*)", line)
+            if not match or match[1] in seen:
+                raise ContractError("Unsupported or duplicate ticket template selector.")
+            seen.add(match[1])
+            value = re.split(r"[ \t]+#", match[2], maxsplit=1)[0].strip()
+            if value.startswith('"'):
+                value = _json(value)
+            elif value.startswith("'") and value.endswith("'"):
+                value = value[1:-1].replace("''", "'")
+            if not isinstance(value, str) or not value or value[0] in "&*!{|>":
+                raise ContractError("Template paths must be literal relative strings.")
+            paths[match[1]] = value
+    workflow = "\n".join(_mapping_block(text, "workflow"))
+    scores = re.findall(r"(?m)^    minimum_note_score:[ \t]+(\d+)(?:[ \t]+#.*)?$", workflow)
+    if len(scores) != 1 or not 0 <= int(scores[0]) <= 10:
+        raise ContractError("An explicit note-quality binding from 0 to 10 is required.")
+    return paths, int(scores[0])
+
+
+def template_path(root: pathlib.Path, kind: str) -> pathlib.Path:
+    paths, _ = settings(root)
+    if kind not in paths:
+        raise ContractError("Select epic, story or task.")
+    value = paths[kind].replace("\\", "/")
+    if pathlib.PureWindowsPath(value).drive or pathlib.PurePosixPath(value).is_absolute():
+        raise ContractError("Template paths must be context-compass-relative.")
+    path = (root / value).resolve()
+    if not path.is_relative_to(root.resolve()):
+        raise ContractError("Template path leaves the Context Compass root.")
+    if not path.is_file():
+        raise ContractError(f"Template is unavailable: {value}")
+    return path
+
+
+def design_instructions(root: pathlib.Path) -> str:
+    text = (root / "config/context_compass_config.yaml").read_text(encoding="utf-8-sig")
+    block = _mapping_block(text, "ticket_design")
+    matches = [i for i, line in enumerate(block) if re.match(r"^  instructions:", line)]
+    if len(matches) > 1:
+        raise ContractError("Duplicate design instructions.")
+    if not matches:
+        return ""
+    start = matches[0]
+    value = block[start].split(":", 1)[1].strip()
+    if value in (">", "|", ">-", "|-"):
+        lines = []
+        for line in block[start + 1:]:
+            if line.strip() and not line.startswith("    "):
+                break
+            lines.append(line[4:] if line.startswith("    ") else "")
+        return ("\n" if value.startswith("|") else " ").join(lines).strip()
+    if value.startswith('"'):
+        value = _json(value)
+    elif value.startswith("'") and value.endswith("'"):
+        value = value[1:-1].replace("''", "'")
+    if not isinstance(value, str) or value.startswith(("&", "*", "!", "{", "[")):
+        raise ContractError("Use literal design instructions.")
+    return value
+
+
+def _known(value) -> bool:
+    return (isinstance(value, str) and bool(value.strip()) and not value.startswith("<")
+            and value.strip().lower() not in {"unknown", "unassigned", "none", ""})
+
+
+def _named(value) -> bool:
+    return _known(value) and not re.fullmatch(
+        r"[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}", value)
+
+
+def _section(text: str, heading: str) -> tuple[int, int]:
+    matches = list(re.finditer(rf"(?m)^## {re.escape(heading)}[ \t]*$", text))
+    if len(matches) != 1:
+        raise ContractError(f"Expected one complete {heading} section.")
+    start = matches[0].end()
+    next_heading = re.search(r"(?m)^## ", text[start:])
+    return start, start + next_heading.start() if next_heading else len(text)
+
+
+def _fields(text: str) -> dict[str, str]:
+    pairs = re.findall(r"(?m)^[ \t]*(?:- )?([A-Z][A-Z_0-9]*):[ \t]*(.*)$", text)
+    return _pairs(pairs)
+
+
+def validate_note(root: pathlib.Path, note: str) -> dict[str, str]:
+    spec, _ = definition(root)
+    fields = _fields(note)
+    if any(key not in fields for key in spec["note_fields"]):
+        raise ContractError("A complete named, structured Note is required.")
+    if (not _named(fields["AUTHOR"])
+            or not all(_known(fields[key]) for key in ("AUTHOR_ROLE", "CLAIM", "IMPACT", "NEXT"))):
+        raise ContractError("Note author, role and content must be explicit.")
+    if not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", fields["DATETIME"]):
+        raise ContractError("Note DATETIME must be UTC ISO-8601.")
+    try:
+        datetime.datetime.fromisoformat(fields["DATETIME"].replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ContractError("Note DATETIME is not a real UTC date/time.") from exc
+    contract = (root / "agent_onboarding/default/general/skills/execution_contract.md").read_text(
+        encoding="utf-8")
+    types_section = contract.split("## 9) Type Schema Contract", 1)[1].split("## 10)", 1)[0]
+    types = set(re.findall(r"(?m)^- ([A-Z_]+)$", types_section))
+    if fields["TYPE"] not in types or fields["REREAD"] not in ("REQUIRED", "HELPFUL"):
+        raise ContractError("Unsupported Note type or reread value.")
+    score = fields["SCORE_0_TO_10"]
+    if not score.isdigit() or not settings(root)[1] <= int(score) <= 10:
+        raise ContractError("Note does not meet the configured quality threshold.")
+    if ((fields["EVIDENCE"] and not _known(fields["EVIDENCE"]))
+            or not fields["EVIDENCE"] and not re.search(r"(?m)^[ \t]+- \S", note)):
+        raise ContractError("Note evidence cannot be empty.")
+    return fields
+
+
+def _notes(root: pathlib.Path, text: str) -> dict[str, str]:
+    start, end = _section(text, "Notes")
+    parts = re.split(r"(?m)(?=^- DATETIME:)", text[start:end])
+    result = {}
+    for note in parts:
+        if not note.startswith("- DATETIME:"):
+            continue
+        fields = validate_note(root, note)
+        key = fields.get("EVENT_ID", fields["DATETIME"])
+        if key in result:
+            raise ContractError("Duplicate Note/event identity.")
+        result[key] = note.strip()
+    return result
+
+
+def _region(text: str) -> tuple[int, int]:
+    begin = "<!-- BEGIN USER-DEFINED: project_fields -->"
+    end = "<!-- END USER-DEFINED: project_fields -->"
+    if text.count(begin) != 1 or text.count(end) != 1:
+        raise ContractError("One intact project_fields region is required.")
+    start, stop = text.index(begin) + len(begin), text.index(end)
+    if stop < start:
+        raise ContractError("Reversed project_fields markers.")
+    return start, stop
+
+
+def _block(text: str, name: str):
+    start, end = _region(text)
+    pattern = rf"(?ms)^<!-- BEGIN {name} -->\n```json\n(.*?)\n```\n<!-- END {name} -->"
+    matches = list(re.finditer(pattern, text[start:end]))
+    if len(matches) > 1:
+        raise ContractError(f"Duplicate {name} authority.")
+    markers = text[start:end].count(f"<!-- BEGIN {name} -->")
+    if markers != len(matches) or text[start:end].count(f"<!-- END {name} -->") != len(matches):
+        raise ContractError(f"Malformed {name} block.")
+    return (_json(matches[0][1]), start + matches[0].start(), start + matches[0].end()) if matches else None
+
+
+def _encoded(name: str, data: dict) -> str:
+    return f"<!-- BEGIN {name} -->\n```json\n{json.dumps(data, indent=2)}\n```\n<!-- END {name} -->"
+
+
+def _put(text: str, name: str, data: dict) -> str:
+    current = _block(text, name)
+    encoded = _encoded(name, data)
+    if current:
+        return text[:current[1]] + encoded + text[current[2]:]
+    _, end = _region(text)
+    return text[:end] + encoded + "\n" + text[end:]
+
+
+def validate_attribution(root: pathlib.Path, data: dict) -> None:
+    spec, _ = definition(root)
+    if not isinstance(data, dict) or set(data) != {"authors", "published_by", "reviews"}:
+        raise ContractError("Attribution needs authors, published_by and reviews.")
+    if not isinstance(data["authors"], list) or not isinstance(data["reviews"], list):
+        raise ContractError("Authors and reviews must be lists.")
+    publisher = data["published_by"]
+    if not isinstance(publisher, dict) or set(publisher) != set(spec["publisher_fields"]):
+        raise ContractError("Publisher must have explicit service/account/receipt fields.")
+    if not all(isinstance(value, str) for value in publisher.values()):
+        raise ContractError("Publisher fields are strings; UNKNOWN is explicit.")
+    for author in data["authors"]:
+        if (not isinstance(author, dict) or set(author) != set(spec["author_fields"])
+                or not all(_known(value) for key, value in author.items() if key not in ("actor", "role"))
+                or not (_named(author["actor"]) or author["actor"] == "UNKNOWN")
+                or not (_known(author["role"]) or author["role"] == "UNKNOWN")
+                or author["kind"] not in spec["contribution_kinds"]):
+            raise ContractError("Contribution authors need actor, role, kind, scope, revision and evidence.")
+    for review in data["reviews"]:
+        if (not isinstance(review, dict) or set(review) != set(spec["review_fields"])
+                or type(review["independent"]) is not bool
+                or not all(_known(value) for key, value in review.items() if key not in ("independent", "verdict"))
+                or not _named(review["actor"])
+                or review["verdict"] not in spec["review_verdicts"]):
+            raise ContractError("Review must identify its exact actor, role, target and evidence.")
+        if review["independent"] and any(
+                author["actor"] in (review["actor"], "UNKNOWN") and author["scope"] == review["scope"]
+                and author["revision"] == review["target_revision"] for author in data["authors"]):
+            raise ContractError("An author/material editor cannot independently review that target.")
+
+
+def future_status(metadata: dict) -> str:
+    return " / ".join(metadata[key] for key in ("phase", "execution", "resolution"))
+
+
+def _attribution_view(root: pathlib.Path, data: dict) -> str:
+    labels = definition(root)[0]["attribution_labels"]
+    return "\n" + "\n".join(f"- {labels[key]}: {json.dumps(data[key], sort_keys=True)}"
+                              for key in ("authors", "published_by", "reviews")) + "\n\n"
+
+
+def validate_ticket(root: pathlib.Path, text: str, kind: str) -> dict | None:
+    canonical = (root / f"templates/{kind}_template.md").read_text(encoding="utf-8")
+    for heading in re.findall(r"(?m)^## (.+)$", canonical):
+        _section(text, heading)
+    start, end = _section(text, "Metadata")
+    header = text[start:end]
+    for label in ("Owner", "Agent Name", "Agent Role", "Priority", "Created", "Updated", "Status"):
+        if len(re.findall(rf"(?m)^- {label}:.*$", header)) != 1:
+            raise ContractError(f"Expected one explicit {label} metadata field.")
+    ids = re.findall(rf"(?m)^- {kind.title()} ID: (\S+)[ \t]*$", header)
+    if len(ids) != 1 or not re.fullmatch(rf"{kind.upper()}-\d{{4}}-\d\d-\d\d-[A-Za-z0-9_-]+", ids[0]):
+        raise ContractError("An immutable, type-correct ticket ID is required.")
+    spec, ref = definition(root)
+    attribution = _block(text, "TICKET_ATTRIBUTION")
+    if attribution:
+        validate_attribution(root, attribution[0])
+        view_start, view_end = _section(text, "Contribution Attribution")
+        if text[view_start:view_end] != _attribution_view(root, attribution[0]):
+            raise ContractError("Attribution labels are derived; reconcile the conflicting readable view.")
+    notes = _notes(root, text)
+    if not notes:
+        raise ContractError("New-format tickets need a named, complete body Note.")
+    selected = _block(text, "AGILE_METADATA")
+    if selected is None:
+        return None
+    data = selected[0]
+    if not isinstance(data, dict) or not set(spec["metadata_fields"]) <= set(data):
+        raise ContractError("Incomplete Agile metadata.")
+    if set(data) - set(spec["metadata_fields"] + spec["optional_metadata_fields"]):
+        raise ContractError("Unsupported required metadata semantics.")
+    if (type(data["schema_version"]) is not int or data["schema_version"] != spec["schema_version"]
+            or not isinstance(data["profile"], dict) or data["profile"] != spec["profile"]
+            or type(data["profile"].get("version")) is not int
+            or data["contract_ref"] != ref or data["ticket_id"] != ids[0]):
+        raise ContractError("Unsupported profile/schema/source or mismatched ticket identity.")
+    if type(data["revision"]) is not int or data["revision"] < 1 or not _known(data["last_event_id"]):
+        raise ContractError("Revision and logical event identity must be explicit.")
+    for key in ("phase", "execution", "resolution"):
+        if data[key] not in spec[key + "s" if key == "phase" else key]:
+            raise ContractError(f"Unsupported {key}.")
+    if data["resolution"] != "unresolved" and data["execution"] != spec["terminal_execution"]:
+        raise ContractError("Terminal resolution cannot be active, ready, blocked or paused.")
+    if data["resolution"] == "accepted" and any(data[key] != value for key, value in spec["accepted_state"].items()):
+        raise ContractError("Accepted work must be idle in acceptance phase.")
+    if data["execution"] in ("ready", "active"):
+        for label in ("Owner", "Agent Name", "Agent Role"):
+            values = re.findall(rf"(?m)^- {label}: (.*)$", header)
+            if (len(values) != 1 or not _known(values[0])
+                    or label == "Agent Name" and not all(_named(value.strip()) for value in values[0].split(","))):
+                raise ContractError("Ready/active needs actual accountable owner and named executor/role.")
+    evidence = data["evidence_refs"]
+    if not isinstance(evidence, dict) or any(not _known(value) or value not in notes for value in evidence.values()):
+        raise ContractError("Evidence refs must resolve to actual complete body Notes.")
+    required = (spec["evidence_requirements"]["all"]
+                + spec["evidence_requirements"].get(data["execution"], [])
+                + spec["evidence_requirements"].get(data["resolution"], []))
+    if any(key not in evidence for key in required) or data["last_event_id"] not in notes:
+        raise ContractError("The state needs its event and applicable evidence references.")
+    if any(_fields(notes[evidence[key]])["TYPE"] in ("UNKNOWN", "HYPOTHESIS") for key in required):
+        raise ContractError("Unresolved evidence cannot authorize a workflow state.")
+    if data["resolution"] == "accepted":
+        for key, required_fields in spec["accepted_note_fields"].items():
+            recorded = _fields(notes[evidence[key]])
+            if any(recorded.get(field) != value for field, value in required_fields.items()):
+                raise ContractError("Acceptance requires explicit gate conclusions, not inferred closure or tests.")
+    skipped = data.get("skipped_phases", [])
+    if not isinstance(skipped, list):
+        raise ContractError("Skipped phases must be explicit scoped decisions.")
+    seen = set()
+    for skip in skipped:
+        if (not isinstance(skip, dict) or set(skip) != {"phase", "reason_ref"}
+                or skip["phase"] not in spec["phases"] or skip["phase"] in seen
+                or skip["phase"] == data["phase"] or not _known(skip["reason_ref"])
+                or skip["reason_ref"] not in notes):
+            raise ContractError("A skipped phase needs unique phase and body decision evidence.")
+        seen.add(skip["phase"])
+    if "extensions" in data and not isinstance(data["extensions"], dict):
+        raise ContractError("Informational extensions must be an object.")
+    statuses = re.findall(r"(?m)^- Status: (.*)$", header)
+    if statuses != [future_status(data)]:
+        raise ContractError("Status is derived from metadata; reconcile the conflicting view.")
+    return data
+
+
+def initial_metadata(root: pathlib.Path, ticket_id: str, event_id: str) -> dict:
+    spec, ref = definition(root)
+    return {"schema_version": spec["schema_version"], "profile": spec["profile"],
+            "ticket_id": ticket_id, "revision": 1, "phase": "planning", "execution": "draft",
+            "resolution": "unresolved", "last_event_id": event_id, "contract_ref": ref,
+            "evidence_refs": {"transition": event_id}}
+
+
+def render_new(root: pathlib.Path, kind: str, ticket_id: str, title: str, owner: str,
+               agent_name: str, role: str, note: str, metadata: dict | None = None,
+               attribution: dict | None = None) -> str:
+    fields = validate_note(root, note)
+    if not _known(title) or "\n" in title or "\r" in title:
+        raise ContractError("A single explicit ticket title is required.")
+    text = template_path(root, kind).read_text(encoding="utf-8")
+    text = re.sub(rf"(?m)^# {kind.title()}:.*$", lambda _: f"# {kind.title()}: {title}", text, count=1)
+    if metadata is not None and (not isinstance(metadata, dict)
+            or not {"revision", "phase", "execution", "resolution"} <= set(metadata)):
+        raise ContractError("Incomplete new-ticket metadata.")
+    values = {kind.title() + " ID": ticket_id, "Owner": owner, "Agent Name": agent_name,
+              "Agent Role": role, "Created": fields["DATETIME"], "Updated": fields["DATETIME"],
+              "Status": future_status(metadata) if metadata is not None else "draft"}
+    for label, value in values.items():
+        text, count = re.subn(rf"(?m)^- {re.escape(label)}:.*$", lambda _: f"- {label}: {value}", text, count=1)
+        if count != 1 or "\n" in value or "\r" in value:
+            raise ContractError(f"Missing or invalid template field: {label}")
+    start, end = _section(text, "Notes")
+    text = text[:start] + "\n" + note.strip() + "\n\n" + text[end:]
+    if metadata is not None:
+        if not isinstance(metadata, dict) or not {"revision", "execution", "resolution"} <= set(metadata):
+            raise ContractError("Incomplete new-ticket metadata.")
+        if (metadata["revision"], metadata["execution"], metadata["resolution"]) != (1, "draft", "unresolved"):
+            raise ContractError("New tickets start draft/unresolved at revision 1.")
+        text = _put(text, "AGILE_METADATA", metadata)
+        start, end = _section(text, "State Transition Event")
+        text = (text[:start] + "\n- from_state: none (new ticket)\n- to_state: " + future_status(metadata)
+                + "\n- transition_reason: " + metadata["last_event_id"] + "\n\n" + text[end:])
+    if attribution is not None:
+        text = _put(text, "TICKET_ATTRIBUTION", attribution)
+        start, end = _section(text, "Contribution Attribution")
+        text = text[:start] + _attribution_view(root, attribution) + text[end:]
+    validate_ticket(root, text, kind)
+    return text
+
+
+def transition(root: pathlib.Path, text: str, kind: str, metadata: dict, note: str,
+               expected_revision: int, expected_hash: str) -> str:
+    current = validate_ticket(root, text, kind)
+    if current is None:
+        raise ContractError("This helper transitions only the explicit new Agile contract.")
+    if digest(text) != expected_hash or current["revision"] != expected_revision:
+        raise ContractError("Stale full-body revision/hash; reconcile the current writer's content.")
+    fields = validate_note(root, note)
+    event = fields.get("EVENT_ID")
+    if not _known(event) or event != metadata["last_event_id"]:
+        raise ContractError("Transition Note and metadata need the same logical event.")
+    history = _notes(root, text)
+    if event in history:
+        validate_ticket(root, _put(text, "AGILE_METADATA", metadata), kind)
+        if metadata == current and history[event] == note.strip():
+            return text
+        raise ContractError("Conflicting duplicate event payload.")
+    if metadata["revision"] != expected_revision + 1 or metadata["ticket_id"] != current["ticket_id"]:
+        raise ContractError("Revision must advance once; ticket identity is immutable.")
+    if metadata["execution"] in ("paused", "blocked") and metadata["phase"] != current["phase"]:
+        raise ContractError("Pause/block retains the current phase.")
+    result = _put(text, "AGILE_METADATA", metadata)
+    start, end = _section(result, "Metadata")
+    header = re.sub(r"(?m)^- Status:.*$", lambda _: "- Status: " + future_status(metadata), result[start:end])
+    header = re.sub(r"(?m)^- Updated:.*$", lambda _: "- Updated: " + fields["DATETIME"], header)
+    result = result[:start] + header + result[end:]
+    start, end = _section(result, "State Transition Event")
+    event_view = (f"\n- from_state: {future_status(current)}\n- to_state: {future_status(metadata)}\n"
+                  f"- transition_reason: {metadata['evidence_refs'].get('transition', 'UNKNOWN')}\n\n")
+    result = result[:start] + event_view + result[end:]
+    _, end = _section(result, "Notes")
+    result = result[:end].rstrip() + "\n\n" + note.strip() + "\n\n" + result[end:]
+    validate_ticket(root, result, kind)
+    return result
+
+
+def native_projection(root: pathlib.Path, text: str, kind: str, observed_state: str) -> dict[str, str]:
+    metadata = validate_ticket(root, text, kind)
+    if metadata is None or observed_state not in ("open", "closed"):
+        raise ContractError("Projection needs a validated Agile ticket and actual open/closed state.")
+    resolution = metadata["resolution"]
+    if resolution == "unresolved":
+        return {"state": "open", "result": "consistent" if observed_state == "open" else "discrepancy"}
+    return {"state": "closed", "state_reason": "completed" if resolution == "accepted" else "not_planned",
+            "result": "consistent" if observed_state == "closed" else "projection_pending"}
+
+
+def bundle(root: pathlib.Path, kind: str, backend: str) -> str:
+    root = root.resolve()
+    if backend not in ("local", "github_codex_plugin"):
+        raise ContractError("Select an explicit supported host backend.")
+    sources = [root / "templates/ticket_contract.json", template_path(root, kind)]
+    general = root / "agent_onboarding/default/general/skills"
+    sources += [general / "ticket_design.md", general / "agent_identity.md",
+                general / "execution_contract.md", general / "ticketing.md"]
+    sources += ([general / "github/workflow.md", general / "github/codex_plugin.md"]
+                if backend == "github_codex_plugin" else [general / "ticketing_skill_contract.md"])
+    binding = {"binding_version": 1, "backend": backend, "minimum_note_score": settings(root)[1],
+               "design_instructions": design_instructions(root)}
+    parts = ["# Source-Derived Ticket Contract\n\nNot an onboarding receipt or publication grant.\n",
+             "## Host Binding\n\n```json\n" + json.dumps(binding, indent=2) + "\n```\n"]
+    for path in sources:
+        content = path.read_text(encoding="utf-8")
+        relative = path.relative_to(root).as_posix()
+        parts += [f"\n<!-- SOURCE: {relative}; sha256: {digest(content)} -->\n", content, "\n"]
+    return "".join(parts)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=pathlib.Path, default=pathlib.Path(__file__).resolve().parents[1])
+    sub = parser.add_subparsers(dest="command", required=True)
+    check = sub.add_parser("validate")
+    check.add_argument("--kind", required=True, choices=("epic", "story", "task"))
+    check.add_argument("--ticket", required=True, type=pathlib.Path)
+    delivery = sub.add_parser("bundle")
+    delivery.add_argument("--kind", required=True, choices=("epic", "story", "task"))
+    delivery.add_argument("--backend", choices=("local", "github_codex_plugin"))
+    delivery.add_argument("--out", required=True, type=pathlib.Path)
+    args = parser.parse_args()
+    try:
+        if args.command == "validate":
+            validate_ticket(args.root, args.ticket.read_text(encoding="utf-8"), args.kind)
+            print("OK: declared ticket contract validates; evidence truth/authorization remain separate.")
+        else:
+            text = bundle(args.root, args.kind, args.backend or read_backend(args.root / "config/context_compass_config.yaml"))
+            with args.out.open("x", encoding="utf-8", newline="\n") as output:
+                output.write(text)
+            print(f"WROTE: {args.out}")
+    except (ContractError, OSError, ValueError, TypeError, KeyError) as exc:
+        print(f"REFUSED: {exc}", file=sys.stderr)
+        return 2
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+--- END OF FILE: context_compass/tools/ticket_design.py ---
 
 --- START OF FILE: context_compass/tools/update_context_compass.py ---
 

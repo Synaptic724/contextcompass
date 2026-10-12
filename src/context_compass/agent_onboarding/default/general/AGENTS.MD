@@ -270,12 +270,8 @@ explicitly instead of bypassing general rules.
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
 - Preserve a clean audit trail through notes and state transitions.
-- Every user-facing assistant response must include the current `prompt_id`.
-  - Use `compact_<count>_turn_<count>`; one user request advances the turn once.
-  - Progress messages and final responses for that request repeat its marker.
-  - Compaction advances the compaction count once and resets the turn to zero.
-  - Follow `skills/request_tracking.md` for persistence and recovery; do not
-    generate random response IDs or guess missing counts.
+- Represent yourself in responses and authored ticket posts/Notes using the
+  assigned name and actual role/function under `skills/agent_identity.md`.
 - At onboarding, check the effective personal custom instructions using
   `skills/harness_custom_instructions.md`. Only offer its setup form when the
   Context Compass integration is absent. Preserve existing user preferences.

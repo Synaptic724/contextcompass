@@ -27,8 +27,8 @@ missing ticket selection defaults to `local` per `work_tracking_backend.md`.
 ## Shared state in both modes
 
 Both transports use the same shared agent-session state store defined in
-`agent_session_state.md`. Registration, request counters, and setup outcomes
-remain in existing `mailbox_board.md` sections. No migration or deletion
+`agent_session_state.md`. Registration and setup outcomes remain in existing
+`mailbox_board.md` sections. No migration or deletion
 occurs when switching transports. In `codex_mcp` mode read those state
 sections narrowly and never read mailbox message instructions, `## Messages`,
 or `attention_board.md` message alerts for communication.

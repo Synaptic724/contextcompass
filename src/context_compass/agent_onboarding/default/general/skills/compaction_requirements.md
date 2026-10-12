@@ -14,9 +14,8 @@ overridden remain mandatory; do not treat a later MUST as cancelling an override
 - **REONBOARD** is mandatory after any context compaction or handoff.
 - **ONBOARD** is mandatory at the start of a fresh session.
 - Do not substitute ONBOARD for REONBOARD or vice-versa.
-- Follow `request_tracking.md` for `prompt_id: compact_<count>_turn_<count>`.
-  A real compaction increments `compact` once and resets `turn` to zero; a
-  handoff alone does not. User requests advance turns, assistant messages do not.
+- Treat a confirmed compaction as a recovery event; a handoff alone does not
+  change recovery requirements.
 
 Non-negotiable rules
 - After a trigger event: **STOP. REONBOARD/ONBOARD. THEN ACT.**
@@ -90,9 +89,8 @@ Run this sequence exactly once per trigger event.
    and verify they match. In plugin mode, also check `issue_board.md`, fetched
    Issue-body Status/Notes, and relevant Issue comments. Do not read local
    ticket archives in place of the active Issues.
-   Read this session's row under mailbox `## Request Tracking` and recover the
-   request counter. Apply a confirmed compaction once, retaining its event
-   reference. Do not write the transition until effective onboarding authorization permits it.
+   Recover shared presence and setup outcomes before resuming.
+   Do not write the transition until effective onboarding authorization permits it.
    Existing custom instructions suppress the setup form; a recorded decline
    must not become another setup prompt merely because compaction occurred.
 8) Publish the required REONBOARD attestation (below), reporting actual reads and any applicable waivers honestly.
@@ -194,5 +192,4 @@ References
 - `agent_onboarding/default/general/skills/context_compaction.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
