@@ -38,11 +38,22 @@ def skill_paths(text):
     return set(re.findall(r"(?m)^- `(agent_onboarding/[^`]+|issue_board\.md)`$", text))
 
 
+def baseline_section(text, heading):
+    headings = (
+        "Shared baseline skills", "Local backend baseline", "GitHub Codex plugin baseline",
+        "Mailbox communication baseline", "Codex MCP communication baseline", "Note on the board paths",
+    )
+    tail = text.split(heading, 1)[1]
+    return re.split(
+        r"(?m)^(?:" + "|".join(re.escape(item) for item in headings) + r")", tail, maxsplit=1
+    )[0]
+
+
 def general_readsets():
     text = (PKG_ROOT / "agent_onboarding/default/general/SKILLS.MD").read_text(encoding="utf-8")
-    shared = text.split("Shared baseline skills", 1)[1].split("Local backend baseline", 1)[0]
-    local = text.split("Local backend baseline", 1)[1].split("GitHub Codex plugin baseline", 1)[0]
-    plugin = text.split("GitHub Codex plugin baseline", 1)[1].split("Note on the board", 1)[0]
+    shared = baseline_section(text, "Shared baseline skills")
+    local = baseline_section(text, "Local backend baseline")
+    plugin = baseline_section(text, "GitHub Codex plugin baseline")
     return skill_paths(shared), skill_paths(local), skill_paths(plugin)
 
 
@@ -114,9 +125,9 @@ def test_local_and_plugin_readsets_resolve_one_ticket_source():
     assert "Local backend baseline" in skills
     assert "GitHub Codex plugin baseline" in skills
     assert "github/workflow.md" in skills and "issue_board.md" in skills
-    shared = skills.split("Shared baseline skills", 1)[1].split("Local backend baseline", 1)[0]
-    local = skills.split("Local backend baseline", 1)[1].split("GitHub Codex plugin baseline", 1)[0]
-    plugin = skills.split("GitHub Codex plugin baseline", 1)[1].split("Note on the board", 1)[0]
+    shared = baseline_section(skills, "Shared baseline skills")
+    local = baseline_section(skills, "Local backend baseline")
+    plugin = baseline_section(skills, "GitHub Codex plugin baseline")
     assert "skills/role_local_workflows.md" in shared
     assert "general/WORKFLOWS.MD" in shared
     macros = {

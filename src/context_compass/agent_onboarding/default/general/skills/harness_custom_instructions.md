@@ -44,7 +44,8 @@ Record such a skipped check honestly, not as evidence of PRESENT or ABSENT statu
    approval requirements still apply. If the user declines or chooses
    manual setup, respect that choice through re-onboarding in the same session.
    After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
-   with the session key from `request_tracking.md`. Do not store the contents of
+   with the session key from `request_tracking.md` and `agent_session_state.md`.
+   This setup-outcome store is independent of `agent_communication.backend`. Do not store the contents of
    their personal instructions there. Retry only when requested or when the
    harness or instruction source changes.
 
@@ -177,9 +178,11 @@ clauses selected by the user:
   `system_of_record.enforce` setting. Native tracking is permitted only where
   the project owner has set it to `false`; custom text alone does not change it.
 - **Coordination allowed:** Coordinate with agents registered in Context Compass
-  through its boards and mailbox, following the repository's policy.
+  through its configured `agent_communication.backend`, following repository
+  policy and preserving shared Context Compass registration and session state.
 - **Coordination by permission:** Ask before coordinating with other agents, then
-  use Context Compass's boards and mailbox for the approved coordination.
+  use the configured communication backend for the approved coordination;
+  keep assignments and results in the canonical Context Compass work record.
 - **Subagents by permission:** Do not create or use harness subagents unless the
   project owner explicitly approves that specific delegation. Approval does not
   grant continuing permission for additional subagents.

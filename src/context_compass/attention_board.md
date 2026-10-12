@@ -86,6 +86,11 @@ Active detail entry format (add actual entries only inside the USER-DEFINED regi
 ```
 
 Message alert rules
+- Apply only when `agent_communication.backend` resolves to `mailbox`. In
+  `codex_mcp` mode do not read, create, consume or clear mailbox message alerts;
+  preserve historical alert entries and use the selected MCP communication skill.
+- Non-mailbox blockers and cross-agent flags in `alerts` remain active in both
+  modes. Skip only mailbox message notices, not the board's other attention data.
 - Senders add one line per message sent on `mailbox_board.md`:
   `- NEW MESSAGE for <agent_name> (from <agent_name>, <DATETIME>)`.
 - The named recipient clears their line in the same pass that consumes the

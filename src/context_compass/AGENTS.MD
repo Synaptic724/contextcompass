@@ -57,6 +57,12 @@ holds state about the work that lives outside this repository.
   `agent_onboarding/default/general/skills/work_tracking_backend.md`.
   If config, tools, or access are invalid, stop; never silently switch backends
   or use CLI authentication as a substitute for the selected plugin.
+- Resolve `agent_communication.backend` independently from the ticket backend.
+  Missing means `mailbox`; `codex_mcp` selects the available Codex/MCP chat tools
+  for messages only. Agent registration, request counters, setup outcomes and
+  ticket/board ownership stay in Context Compass. Read the shared session-state
+  skill and only the selected communication baseline; do not read inactive
+  mailbox messaging instructions or use native chat as the durable work record.
 - You are NOT PERMITTED to use harness tracking to override, replace, shadow, or
   mirror `context_compass`. There is NO fallback and NO mirror: `context_compass`
   is the ONLY tracking, routing, and memory system. Do not keep a parallel or
@@ -190,7 +196,7 @@ An applicable delegated override is compliance with that bootstrap, not a bypass
 - Re-read `context_compass/AGENTS.MD` and
   `context_compass/agent_onboarding/default/general/skills/compaction_requirements.md`
   before continuing work.
-- Recover the per-session request counter under mailbox `## Request Tracking`,
+- Recover the per-session request counter under `mailbox_board.md` `## Request Tracking`,
   following `agent_onboarding/default/general/skills/request_tracking.md`.
   Advance the compaction count once per actual compaction, not per reread or
   handoff; defer persistence until effective onboarding authorization permits writes.
@@ -219,17 +225,19 @@ After any context compaction or handoff, apply the bootstrap before these recove
 - Re-read `agent_onboarding/default/general/skills/execution_contract.md` in
   full, applying resolved project replacements/waivers within their stated scope.
 - Read `config/context_compass_config.yaml` and resolve the ticket backend with
-  `agent_onboarding/default/general/skills/work_tracking_backend.md`, then read
-  `SKILLS.MD`. Count the selector read once in the resolved general baseline.
+  `agent_onboarding/default/general/skills/work_tracking_backend.md` and message
+  transport with `agent_onboarding/default/general/skills/agent_communication_backend.md`,
+  then read `SKILLS.MD`. Count each selector read once in the general baseline.
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
 - Re-read `agent_onboarding/default/general/skills/compaction_requirements.md`.
-- RE-READ `context_compass/mailbox_board.md` - the roster and any messages
-  addressed to you. Update your row and consume those messages as your FIRST
-  action after effective onboarding authorization, not before it: both are writes,
-  and bootstrap/onboarding read permission covers reads only. Per
-  `agent_onboarding/default/general/skills/mailbox_protocol.md`.
+- Re-read the roster, Request Tracking and relevant setup Notes in
+  `context_compass/mailbox_board.md` through `agent_session_state.md`. In mailbox
+  mode also recover addressed messages through `mailbox_protocol.md`; in
+  `codex_mcp` mode skip mailbox Messages and message alerts and use `codex_mcp.md`.
+  Update shared session state as the first authorized action, then recover the
+  selected transport. Both state/message writes wait for effective authorization.
 - Role README reads are allowed for `new` first-time onboarding only; non-`new`
   roles use policy/skills docs. This restriction never excludes Markdown in special_instructions/.
 - By default, re-certify with a message that includes:
@@ -274,6 +282,9 @@ Before any tooling, edits, or execution:
 - Read `agent_onboarding/default/general/skills/work_tracking_backend.md` and
   resolve `local` or `github_codex_plugin` before reading ticket state. Count
   this read once if the role's general baseline also lists it.
+- Read `agent_onboarding/default/general/skills/agent_communication_backend.md`
+  and resolve `mailbox` or `codex_mcp` independently. Read the shared
+  `agent_session_state.md`; count these reads once in the general baseline.
 - Read `SKILLS.MD`.
 - Read `agent_onboarding/default/general/skills/request_tracking.md` and
   `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
@@ -285,14 +296,16 @@ Before any tooling, edits, or execution:
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements in this gate restate defaults and do not reinstate an overridden
   requirement. Use relative repo paths only.
-- READ `context_compass/mailbox_board.md` - the checked-in roster and any messages
-  addressed to you. Reading is permitted during onboarding; writes wait for effective authorization.
+- Read only the shared state sections of `context_compass/mailbox_board.md`:
+  Checked-In Agents, Request Tracking and relevant Notes. Mailbox mode also reads
+  addressed Messages; MCP mode does not read mailbox Messages or message alerts.
+  Reads are permitted during onboarding; writes wait for effective authorization.
 - Do NOT write your check-in row until effective onboarding authorization is
   satisfied and `AGENT_NAME` is known. The default flow obtains both through the
   certification message. If certification is waived, clarify only a missing or
   ambiguous name rather than demand the waived token. Check in as your FIRST
   authorized action, per
-  `agent_onboarding/default/general/skills/mailbox_protocol.md`.
+  `agent_onboarding/default/general/skills/agent_session_state.md`.
 - After the bootstrap, apply the registry's default role-selection procedure
   unless explicitly overridden: list roles and ask which to take unless the user
   already selected one. Project instructions do not create unregistered roles.
@@ -306,8 +319,9 @@ Before any tooling, edits, or execution:
   as required unless an applicable project override changes that requirement.
   Sections marked `Local backend baseline` or `GitHub Codex plugin baseline`
   apply only when `work_tracking.backend` resolves to that backend; all shared baseline
-  sections always apply. The config is read before the role chain. Do not read
-  the inactive backend's baseline as an operating instruction.
+  sections always apply. Communication baselines apply only when
+  `agent_communication.backend` selects them. Read both selectors before the role
+  chain; never read an inactive ticket or communication baseline as operating instructions.
   - **The test is the label, not the heading.** Roles name their baseline
     sections differently - **Active skills**, **Required baseline skills**,
     **Baseline system orientation** - and a role may introduce another. Read
@@ -373,8 +387,9 @@ Certification gating (default unless explicitly overridden):
 - **First actions after effective onboarding authorization, in order:**
   1. Write your check-in row on `mailbox_board.md` using the supplied `AGENT_NAME`.
      Sync this session's request counter in `## Request Tracking` in that same
-     check-in pass, following `request_tracking.md`.
-  2. Consume any messages addressed to you.
+     check-in pass, following `agent_session_state.md` and `request_tracking.md`.
+  2. Recover the selected message transport: consume addressed mailbox messages
+     only in mailbox mode; use authorized MCP reads in `codex_mcp` mode.
   3. Route from `attention_board.md` to the active ticket and begin.
 
 ## Communication Style and Feedback Standards

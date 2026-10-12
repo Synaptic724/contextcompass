@@ -297,3 +297,50 @@ class TestRenderIndex:
         doc, sections = ag.assemble([descriptor("src/a.py")])
         index = ag.render_index(doc, sections)
         assert "| `src/a.py` |" in index
+
+
+class TestBaseDotted:
+    def test_bare_name(self):
+        import ast
+        node = ast.parse("class A(B): pass").body[0].bases[0]
+        assert eg.base_dotted(node) == "B"
+
+    def test_dotted_chain(self):
+        import ast
+        node = ast.parse("class A(left.Base): pass").body[0].bases[0]
+        assert eg.base_dotted(node) == "left.Base"
+
+    def test_subscript_strips_to_dotted(self):
+        import ast
+        node = ast.parse("class A(pkg.Mod[T]): pass").body[0].bases[0]
+        assert eg.base_dotted(node) == "pkg.Mod"
+
+    def test_call_returns_none(self):
+        import ast
+        node = ast.parse("x = foo(1)").body[0].value
+        assert eg.base_dotted(node) is None
+
+
+class TestImportMapBindings:
+    def _map(self, src, mod="pkg.main"):
+        import ast
+        return eg.import_map(ast.parse(src), mod)
+
+    def test_plain_import_binds_module(self):
+        assert self._map("import threading").get("threading") == "threading"
+
+    def test_unaliased_dotted_import_binds_package(self):
+        m = self._map("import package.sub")
+        assert m.get("package") == "package"
+        assert "package.sub" not in m
+
+    def test_aliased_dotted_import(self):
+        assert self._map("import package.sub as ps").get("ps") == "package.sub"
+
+    def test_from_alias(self):
+        m = self._map("from pkg.iface import IStore as MyStore", "pkg.main")
+        assert m.get("MyStore") == "pkg.iface.IStore"
+
+    def test_later_import_rebinds_root(self):
+        m = self._map("from external import Member as pkg\nimport pkg.sub\n")
+        assert m.get("pkg") == "pkg"

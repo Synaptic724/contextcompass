@@ -48,7 +48,9 @@ links remain explicit even if native hierarchy tools are unavailable.
 
 Your local `issue_board.md` records agent claims and `attention_board.md` records
 current focus using Issue URLs. Mailbox, artifacts, context packs, system docs,
-and special instructions stay in your repository. A Project URL can identify a
+and special instructions stay in your repository. Message transport follows the
+independent `agent_communication.backend` selector (default `mailbox`); MCP
+mode replaces transport only and preserves all state sections. A Project URL can identify a
 related Project, but it is optional and does not replace Issue-body Status.
 
 An agent onboarding or recovering from compaction reads the selected backend's

@@ -63,8 +63,10 @@ Run this sequence exactly once per trigger event.
 3) Read `agent_onboarding/default/general/skills/execution_contract.md` in full,
    applying resolved project replacements/waivers within their stated scope.
 4) Read `config/context_compass_config.yaml` and resolve `work_tracking.backend`
-   using `work_tracking_backend.md`, then resolve the selected role via the
-   registry table in `context_compass/SKILLS.MD`.
+   using `work_tracking_backend.md` plus `agent_communication.backend` using
+   `agent_communication_backend.md`, then resolve the selected role via the
+   registry table in `context_compass/SKILLS.MD`. Read only the selected
+   message skill and preserve pauses and pending approvals.
    - If the active role cannot be determined: **STOP and ask the user**.
 5) Read the resolved role `SKILLS.MD` chain in parent-first order.
 6) Read every path in every section each resolved `SKILLS.MD` marks as

@@ -37,6 +37,7 @@ Rules
   no replacement removes the named requirement; do not ask for a substitute token.
   Effective authorization governs the same subsequent steps; identity, mailbox, and
   counter rules still require a known owner-provided or project-instructed
-  name and never permit guessing.
+  name and never permit guessing. Shared session-state writes follow
+  `agent_session_state.md` in both communication modes.
 
 

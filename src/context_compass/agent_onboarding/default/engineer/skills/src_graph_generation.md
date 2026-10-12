@@ -25,6 +25,29 @@ python context_compass/tools/system_documents/python/assemble_graph.py \
 `--check` on either script reports without writing. Run it before assuming the
 graph is current.
 
+## Resolving inheritance targets
+
+The Python extractor resolves bases through their source expressions and import
+bindings, without importing or executing the project's code.
+
+- Plain imports, module aliases and `from` aliases preserve the qualified target.
+  `import package.sub` binds `package`; `import package.sub as sub` binds `sub`.
+- Each base expression is resolved independently. Two bases named `Base` from
+  different modules remain separate relationships, even on the same class.
+- A qualified base does not fall back to an unrelated import, local class or
+  builtin with the same short name. Unknown roots and dynamic expressions such
+  as `factory().Base` remain unresolved rather than receiving a guessed target.
+- Eligible bare builtin classes resolve only after imports and local class
+  definitions. Builtin functions are not class targets. Existing declaration
+  markers and filtered stdlib bases remain markers, not new graph edges.
+- `implements` follows the resolved interface ID, not a matching short label in
+  another module. Generic base subscripts retain their underlying class target.
+
+Descriptor layout and node IDs are unchanged. `to_label` remains the short
+display name; resolved edges carry the qualified `to` ID. Temporary expression
+metadata is not saved. Re-extraction still preserves authored fields and stamps,
+including when an exact retired node ID returns.
+
 ## A file the interpreter cannot parse leaves the graph silently
 
 `extract_graph.py` walks source with `ast.parse`. A file that raises `SyntaxError`

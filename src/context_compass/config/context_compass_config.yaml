@@ -56,6 +56,11 @@ work_tracking:
     issues_repository: "" # owner/repo; required only for github_codex_plugin
     project_url: "" # optional context link; Issue body Status remains authoritative
 
+# This selects agent-to-agent message transport, not ticket storage or state.
+# Roster, request counters and setup outcomes remain on the existing local board.
+agent_communication:
+  backend: mailbox # mailbox | codex_mcp; absent means mailbox
+
 workflow:
   ticket_microcycle:
     enabled: true
