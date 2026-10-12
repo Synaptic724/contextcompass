@@ -124,6 +124,12 @@ holds state about the work that lives outside this repository.
   `agent_onboarding/default/general/skills/work_tracking_backend.md`.
   If config, tools, or access are invalid, stop; never silently switch backends
   or use CLI authentication as a substitute for the selected plugin.
+- Resolve `agent_communication.backend` independently from the ticket backend.
+  Missing means `mailbox`; `codex_mcp` selects the available Codex/MCP chat tools
+  for messages only. Agent registration, request counters, setup outcomes and
+  ticket/board ownership stay in Context Compass. Read the shared session-state
+  skill and only the selected communication baseline; do not read inactive
+  mailbox messaging instructions or use native chat as the durable work record.
 - You are NOT PERMITTED to use harness tracking to override, replace, shadow, or
   mirror `context_compass`. There is NO fallback and NO mirror: `context_compass`
   is the ONLY tracking, routing, and memory system. Do not keep a parallel or
@@ -257,7 +263,7 @@ An applicable delegated override is compliance with that bootstrap, not a bypass
 - Re-read `context_compass/AGENTS.MD` and
   `context_compass/agent_onboarding/default/general/skills/compaction_requirements.md`
   before continuing work.
-- Recover the per-session request counter under mailbox `## Request Tracking`,
+- Recover the per-session request counter under `mailbox_board.md` `## Request Tracking`,
   following `agent_onboarding/default/general/skills/request_tracking.md`.
   Advance the compaction count once per actual compaction, not per reread or
   handoff; defer persistence until effective onboarding authorization permits writes.
@@ -286,17 +292,19 @@ After any context compaction or handoff, apply the bootstrap before these recove
 - Re-read `agent_onboarding/default/general/skills/execution_contract.md` in
   full, applying resolved project replacements/waivers within their stated scope.
 - Read `config/context_compass_config.yaml` and resolve the ticket backend with
-  `agent_onboarding/default/general/skills/work_tracking_backend.md`, then read
-  `SKILLS.MD`. Count the selector read once in the resolved general baseline.
+  `agent_onboarding/default/general/skills/work_tracking_backend.md` and message
+  transport with `agent_onboarding/default/general/skills/agent_communication_backend.md`,
+  then read `SKILLS.MD`. Count each selector read once in the general baseline.
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
 - Re-read `agent_onboarding/default/general/skills/compaction_requirements.md`.
-- RE-READ `context_compass/mailbox_board.md` - the roster and any messages
-  addressed to you. Update your row and consume those messages as your FIRST
-  action after effective onboarding authorization, not before it: both are writes,
-  and bootstrap/onboarding read permission covers reads only. Per
-  `agent_onboarding/default/general/skills/mailbox_protocol.md`.
+- Re-read the roster, Request Tracking and relevant setup Notes in
+  `context_compass/mailbox_board.md` through `agent_session_state.md`. In mailbox
+  mode also recover addressed messages through `mailbox_protocol.md`; in
+  `codex_mcp` mode skip mailbox Messages and message alerts and use `codex_mcp.md`.
+  Update shared session state as the first authorized action, then recover the
+  selected transport. Both state/message writes wait for effective authorization.
 - Role README reads are allowed for `new` first-time onboarding only; non-`new`
   roles use policy/skills docs. This restriction never excludes Markdown in special_instructions/.
 - By default, re-certify with a message that includes:
@@ -341,6 +349,9 @@ Before any tooling, edits, or execution:
 - Read `agent_onboarding/default/general/skills/work_tracking_backend.md` and
   resolve `local` or `github_codex_plugin` before reading ticket state. Count
   this read once if the role's general baseline also lists it.
+- Read `agent_onboarding/default/general/skills/agent_communication_backend.md`
+  and resolve `mailbox` or `codex_mcp` independently. Read the shared
+  `agent_session_state.md`; count these reads once in the general baseline.
 - Read `SKILLS.MD`.
 - Read `agent_onboarding/default/general/skills/request_tracking.md` and
   `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
@@ -352,14 +363,16 @@ Before any tooling, edits, or execution:
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements in this gate restate defaults and do not reinstate an overridden
   requirement. Use relative repo paths only.
-- READ `context_compass/mailbox_board.md` - the checked-in roster and any messages
-  addressed to you. Reading is permitted during onboarding; writes wait for effective authorization.
+- Read only the shared state sections of `context_compass/mailbox_board.md`:
+  Checked-In Agents, Request Tracking and relevant Notes. Mailbox mode also reads
+  addressed Messages; MCP mode does not read mailbox Messages or message alerts.
+  Reads are permitted during onboarding; writes wait for effective authorization.
 - Do NOT write your check-in row until effective onboarding authorization is
   satisfied and `AGENT_NAME` is known. The default flow obtains both through the
   certification message. If certification is waived, clarify only a missing or
   ambiguous name rather than demand the waived token. Check in as your FIRST
   authorized action, per
-  `agent_onboarding/default/general/skills/mailbox_protocol.md`.
+  `agent_onboarding/default/general/skills/agent_session_state.md`.
 - After the bootstrap, apply the registry's default role-selection procedure
   unless explicitly overridden: list roles and ask which to take unless the user
   already selected one. Project instructions do not create unregistered roles.
@@ -373,8 +386,9 @@ Before any tooling, edits, or execution:
   as required unless an applicable project override changes that requirement.
   Sections marked `Local backend baseline` or `GitHub Codex plugin baseline`
   apply only when `work_tracking.backend` resolves to that backend; all shared baseline
-  sections always apply. The config is read before the role chain. Do not read
-  the inactive backend's baseline as an operating instruction.
+  sections always apply. Communication baselines apply only when
+  `agent_communication.backend` selects them. Read both selectors before the role
+  chain; never read an inactive ticket or communication baseline as operating instructions.
   - **The test is the label, not the heading.** Roles name their baseline
     sections differently - **Active skills**, **Required baseline skills**,
     **Baseline system orientation** - and a role may introduce another. Read
@@ -440,8 +454,9 @@ Certification gating (default unless explicitly overridden):
 - **First actions after effective onboarding authorization, in order:**
   1. Write your check-in row on `mailbox_board.md` using the supplied `AGENT_NAME`.
      Sync this session's request counter in `## Request Tracking` in that same
-     check-in pass, following `request_tracking.md`.
-  2. Consume any messages addressed to you.
+     check-in pass, following `agent_session_state.md` and `request_tracking.md`.
+  2. Recover the selected message transport: consume addressed mailbox messages
+     only in mailbox mode; use authorized MCP reads in `codex_mcp` mode.
   3. Route from `attention_board.md` to the active ticket and begin.
 
 ## Communication Style and Feedback Standards
@@ -842,8 +857,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.17.0 |
-| files | 460 |
+| package_version | 2.18.1 |
+| files | 463 |
 
 ## Lane policy
 
@@ -865,7 +880,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 357 | restore | replace |
+| PACKAGE | 360 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -876,7 +891,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `66e5e186fd892e5d2270a8f0bbfcef72167215fc2444007d091f23f72cde4d6a` |
+| `AGENTS.MD` | PACKAGE | `7934a4842d23dd210d9fc5b940412865c23301c8bff0dad682acf609f947734e` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -964,7 +979,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/package_maintenance.md` | PACKAGE | `c4a4c6ae98ee9dc01aaf3b2d225530f2d9b5c37a6bb276f80a9c289a6188855a` |
 | `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md` | PACKAGE | `ef21a63c7d632ab30ed07777c664a8221ca8ef02566212e85f68bdf683fd349d` |
 | `agent_onboarding/default/engineer/skills/patch_framework_gating.md` | PACKAGE | `087ba842ecd75fe29bb66d75366882f688f2cb3f2e3596a5f24a397d9414fc5a` |
-| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `acc81d0637c452b3fb1073ba448a000906ef480523d1f030cdbc63ba747d6bfb` |
+| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `dd8c63ec3eac198546d589172e4eef5bd15e93d171b29d712c5a8037646a46f6` |
 | `agent_onboarding/default/engineer/skills/src_graph_usage.md` | PACKAGE | `52a7015595450ba1022f2cc3baae4c6e2dffdf161da60528de0b39f1064440c6` |
 | `agent_onboarding/default/engineer/skills/staleness_protocol.md` | PACKAGE | `f9a4ffd6221f01d03e2d659238f76aafcf7e4b8813d3b9ac5ba0577f932e3f86` |
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
@@ -977,16 +992,19 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `0ab1110e36047e772e4c0babd50a34b13bc2a3a8b5945df496b94d4722d0f7ff` |
-| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `da0a4c55ba84987f12e02fd5df5cf2bb11d6e94c6332a2f001f92b55d23ab863` |
+| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `337c11ae46d95133df51513b1866414dc21c4dc78375da003376705c8bec97c2` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `73913d7883192345051425973d8d41a5d11f8481cd8978161adc741b29ea3b8a` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `1bee612b4eb49502457711d9480de746f80f3706d9c8f5a28884b5a2b6178583` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
+| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `e37796fd1551b0f00b4ba7a0412d429c56f0f47b37a833e7715aa09e30eda601` |
 | `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `c16d0f4a69374fa247ed139fb2f5e016c2c44597d1ba69b9619773e6de7f3f4e` |
 | `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
+| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `a8ab74724a1b334a40e9080e62b6334360fdd08bf9c93ca60653d90d88f1ec1d` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `eb8af0c70e70b907a0e109e5694e88141b064a2c1ecda2370a78b9457b2cd7aa` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `830561cecd2b4fb2831fb993f76246dccf14536e5901f79a6a2083d3202f4ffc` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `0bd27e96f10e4c7624ab7661ba57680a780ec993a4ce807c8cad1028cd429111` |
+| `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `b134200ef309bb87f98539bc63a6110f762a2f5179b0c984ed9618614c8fc412` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
 | `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `060c248e8b64f46d3b63e667bf9fa7e7a72d4a94702142f56b5806ba7f8b5bdc` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
@@ -995,33 +1013,33 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
 | `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
-| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `2261a3f6f42a25dc21a81cc1f96273ea2f5017c59867d59a9829cdac9a0b66cd` |
+| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `9fee6f1d6eeea57576a48dec2829f8b96db3c204ab880803253c77e2cdd62b0d` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
-| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `001923fedaf454612beea9e5c66a62502f2e3f94f837325509e8d9d75f3e4222` |
+| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `52e6d1c9147b7b423b50c26472da890597cc293d99f9d1878c1015049c9ea53d` |
-| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `66d1842135b014bc46f7a261323c4a3634487aed467756e2df6702bf966c3ed9` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `f5e7291f67552cf5a70c38430cfdd565246e9062c737ac6e0d61b4521dfdc6b4` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `c801570d9017ee5bec2c8d435a697bdd02702c7cac41b0ba2a92f428637eb296` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
-| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `d1a0b8eeabc440625e1ac0be5550e6299d7cf52df9ed25fd1997f37baf7ab27d` |
+| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `7a25d6cad5b34f9750507c8491d83fbc1ce1414ad17809ce5dbd689d74856ca8` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
 | `agent_onboarding/default/general/skills/mrp_policy.md` | PACKAGE | `edce5c8dc9ffaeaf6f47cb61fc56757280e47f62459d533537c8f242dc163174` |
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
 | `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `f0a7eb63ffe980fcc535284950f8962e170a443ca868492ac9b5ddd217fadb14` |
 | `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `72921b765339dfd1a2fb570e5c72679330414a59562061cdc5ec098ad4962f21` |
-| `agent_onboarding/default/general/skills/request_tracking.md` | PACKAGE | `be3fa07f04c50735896e85ad01a3812b7e5deaeacedd3b3117953fd2d0a8be51` |
+| `agent_onboarding/default/general/skills/request_tracking.md` | PACKAGE | `b1789317e5026b0fd5eed07a849d26cd00c24edd5d04d9d132a7345d43f55604` |
 | `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
-| `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `b7f3a92d6cfa8604dd4c4c3fdc19e203a8fb6798cad668a0b9f846766067085d` |
+| `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
 | `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `c8c5a4767b88002c844d05abe390353a9296729419f5c32237de5005659e7720` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
 | `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `7a394001f5aa79e32bd44455a6189836e4fbfad70e6f52b9a653635a21b3f264` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
-| `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `556d2dc2369611cc30f19c1809cb761f81dac1215e69b6e9d5deea1003795e86` |
+| `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
 | `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `e4fc21b6ba5b8e1bedb8abe05f7bd410241d01383f9953373e5a100923956c7c` |
-| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `610aa1b08d09bafa40be842d04464d734dc510d408285556120d05d0dfdb7556` |
+| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `d0d84d9e709ca437c998051e410b427b2f8eded73b1eed8b7e948386515c3ba2` |
 | `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
 | `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
@@ -1240,8 +1258,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/IMPORTANT_CONSIDERATION.md` | RESET | `593c5f85859354065042e4e09368459f869eecc49dd94b651ed82c0ca761ac2d` |
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
-| `attention_board.md` | LIVE | `a9a227336d9dd724401f19fd33b7e7863dd0fa742563cfb68f7ff494c4e50541` |
-| `config/context_compass_config.yaml` | CONFIG | `7bee9db2e4e0c1d1135b9e172c263fb15e269f3ed69febcfd973b14ba4c9ca9f` |
+| `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
+| `config/context_compass_config.yaml` | CONFIG | `bd297b2069c0d8d453e543ab8dab3fc71f77e7f879a79e13fb9ca311568056fe` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -1290,12 +1308,12 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/security_review_flow.md` | PACKAGE | `4f4a79abcc9130062637bcd9b6133e59c1d397bab483a8262ec91e72816b1cfb` |
 | `examples/story_designer_task_flow.md` | PACKAGE | `75def243d169840f744772b92088ee5547f7f683f54e7f09c3bf684faa63f864` |
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
-| `issue_board.md` | LIVE | `92bfb5049a1cec460280b9b1d082df37d3dcf25ad1b2bd9ddbeacf91ac054465` |
+| `issue_board.md` | LIVE | `acfd4d5ce81dd375efd55f19f2104d64af938b3dec538e98c94b5932e25466e1` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
-| `mailbox_board.md` | LIVE | `6597cf9d88e69a85d9e6622216062f330c9f93ee2904b37b5e76f114a6125427` |
+| `mailbox_board.md` | LIVE | `a0c10e8e94510505fb57933cb94ffbd231822a6c37cd6d56ff46cb8ac258791b` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
-| `README.md` | PACKAGE | `5e749e8c82b2be2235957477b707cf809571b95f9dff9c87894bbde3d2b7f938` |
+| `README.md` | PACKAGE | `fe7591f905267ee0979dfedafffd889648a877907565f6d357d4ccd380469288` |
 | `SKILLS.MD` | PACKAGE | `afff6c19936ac56eb7d6a5d788394c4f8466d7bc3b64dbead5d86248fcb5d276` |
 | `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -1328,7 +1346,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
-| `tools/system_documents/python/extract_graph.py` | PACKAGE | `b093a1004e20853e9ecc628c969f890d4b1c31875df9080f934bc3458bc93fd3` |
+| `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
 | `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `d509c818d216178465843d71398ad28a46b46119a744c0987487c83bc49382e3` |
 | `tools/system_documents/python/graph_walker.py` | PACKAGE | `be0aa367a5f9bd66bb5adddba7dde4294abb44a9926dd981d20ab6500e6d7a02` |
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
@@ -1937,6 +1955,16 @@ The two YAML examples, plugin setup, and migration instructions are in
 `agent_onboarding/default/general/skills/github/README.md`. Do not switch an
 existing project with local tickets until you have reviewed their full content
 and the exact Issue destination.
+
+## Optional MCP Messaging
+
+`agent_communication.backend` selects `mailbox` or `codex_mcp` independently of
+ticket storage. Missing means `mailbox`, preserving existing installations.
+With `codex_mcp`, agents read the MCP skill instead of mailbox message features.
+Existing registration, request counters and setup outcomes stay in the mailbox
+board's state sections; other boards and their ownership rules do not change.
+Stored messages and alerts are left untouched. Available tools and human
+authorization are still required; this setting installs nothing.
 
 ## How It Works
 
@@ -8597,6 +8625,29 @@ python context_compass/tools/system_documents/python/assemble_graph.py \
 `--check` on either script reports without writing. Run it before assuming the
 graph is current.
 
+## Resolving inheritance targets
+
+The Python extractor resolves bases through their source expressions and import
+bindings, without importing or executing the project's code.
+
+- Plain imports, module aliases and `from` aliases preserve the qualified target.
+  `import package.sub` binds `package`; `import package.sub as sub` binds `sub`.
+- Each base expression is resolved independently. Two bases named `Base` from
+  different modules remain separate relationships, even on the same class.
+- A qualified base does not fall back to an unrelated import, local class or
+  builtin with the same short name. Unknown roots and dynamic expressions such
+  as `factory().Base` remain unresolved rather than receiving a guessed target.
+- Eligible bare builtin classes resolve only after imports and local class
+  definitions. Builtin functions are not class targets. Existing declaration
+  markers and filtered stdlib bases remain markers, not new graph edges.
+- `implements` follows the resolved interface ID, not a matching short label in
+  another module. Generic base subscripts retain their underlying class target.
+
+Descriptor layout and node IDs are unchanged. `to_label` remains the short
+display name; resolved edges carry the qualified `to` ID. Temporary expression
+metadata is not saved. Re-extraction still preserves authored fields and stamps,
+including when an exact retired node ID returns.
+
 ## A file the interpreter cannot parse leaves the graph silently
 
 `extract_graph.py` walks source with `ast.parse`. A file that raises `SyntaxError`
@@ -10067,11 +10118,16 @@ Inheritance
 - `INHERITS_SKILLS_FROM: none`
 
 Activation rule
-- Read every shared baseline path and exactly one backend baseline below.
+- Read every shared baseline path, exactly one ticket backend baseline below,
+  and exactly one communication baseline below.
 - Resolve `work_tracking.backend` from `config/context_compass_config.yaml`
   before these reads. Missing means `local`; `github_codex_plugin` requires an
   Issue repository and connected GitHub plugin. Resolve legacy values using
   `work_tracking_backend.md`; an invalid selection blocks work.
+- Resolve `agent_communication.backend` from the same config before messaging
+  reads. Missing means `mailbox`. Resolve using
+  `agent_communication_backend.md`; an invalid selection blocks communication
+  work. Ticket and communication selectors are independent.
 
 Shared baseline skills
 - `agent_onboarding/default/general/AGENTS.MD`
@@ -10098,7 +10154,8 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/context_window_budget.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
-- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `agent_onboarding/default/general/skills/agent_communication_backend.md`
+- `agent_onboarding/default/general/skills/agent_session_state.md`
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
@@ -10130,6 +10187,18 @@ Read these paths only when `work_tracking.backend` is `github_codex_plugin`.
 - `agent_onboarding/default/general/skills/github/codex_plugin.md`
 - `agent_onboarding/default/general/skills/github/workflow.md`
 - `issue_board.md`
+
+Mailbox communication baseline
+Read this path only when `agent_communication.backend` resolves to `mailbox`
+(the default when absent).
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+
+Codex MCP communication baseline
+Read this path only when `agent_communication.backend` resolves to
+`codex_mcp`.
+- `agent_onboarding/default/general/skills/codex_mcp.md`
+
+Every shared-state instruction stays baseline in both transports.
 
 Note on the board paths in that list. `attention_board.md`,
 `artifact_board.md`, `context_management/context_board.md`, and, in plugin mode,
@@ -10427,6 +10496,9 @@ Required flow
   execution.
 - Use Epic/Story/Task tickets in the selected work backend for all planned
   work. Local `tickets/` lanes apply only when `work_tracking.backend` resolves to `local`.
+- Resolve `agent_communication.backend` independently and read only the
+  selected message skill. Default `mailbox` remains compatible with both
+  ticket backends.
 - For code-engineering tasks, hand off to engineer profile docs after general
   onboarding:
   - `agent_onboarding/default/engineer/skills/context_protocol.md`
@@ -10738,6 +10810,58 @@ References
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/active_pointerboard.md ---
 
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/agent_communication_backend.md ---
+
+# Agent communication backend
+
+Read `agent_communication.backend` from `config/context_compass_config.yaml` after
+project instructions and before reading messaging baseline skills. The selected
+transport applies to every role inheriting `general`, including recovery
+after compaction or handoff. Resolve exactly one transport before agent-to-agent
+communication work.
+
+| YAML value | message transport | required general readset |
+| --- | --- | --- |
+| `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts | shared + mailbox message baseline |
+| `codex_mcp` | available message-only MCP thread tools | shared + MCP message baseline |
+
+An absent `agent_communication` block or absent `backend` key means `mailbox`.
+A blank value, unknown value, or contradictory configuration blocks
+communication work. Do not choose a transport from installed tools, available
+plugins, or folder contents.
+
+## Independence from ticket backend
+
+`agent_communication.backend` and `work_tracking.backend` are independent
+selectors. All four combinations are supported. Ticket selection never implies
+a transport, and transport selection never implies a ticket backend. Resolve
+both before work. Missing communication selection defaults to `mailbox`;
+missing ticket selection defaults to `local` per `work_tracking_backend.md`.
+
+## Shared state in both modes
+
+Both transports use the same shared agent-session state store defined in
+`agent_session_state.md`. Registration, request counters, and setup outcomes
+remain in existing `mailbox_board.md` sections. No migration or deletion
+occurs when switching transports. In `codex_mcp` mode read those state
+sections narrowly and never read mailbox message instructions, `## Messages`,
+or `attention_board.md` message alerts for communication.
+
+## No fallback
+
+If the selected transport, required tools, or contact authority fails, stop
+and report the failed operation. Do not switch transports silently, do not
+use harness-native tracking as a substitute, and do not use CLI authentication
+as a substitute for the selected path. Selecting `codex_mcp` does not grant
+contact authority or permission to create agents.
+
+## Older configuration
+
+There is no legacy alias for this selector. Older installs without this block
+continue on `mailbox` with unchanged semantics.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/agent_communication_backend.md ---
+
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/agent_identity.md ---
 
 # agent_identity
@@ -10815,6 +10939,89 @@ Worklists
   claim agents locally in `issue_board.md` and close only after confirmation.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/agent_lifecycle.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/agent_session_state.md ---
+
+# Agent session state
+
+Shared registration, request-counter, and setup-outcome duties that hold in
+both communication modes. The store remains existing `mailbox_board.md`
+sections. No columns are renamed and no state is migrated or deleted by
+selecting a transport. This document extracts the shared duties; it does not
+replace the board schema.
+
+## Store
+
+Use `mailbox_board.md` inside its USER-DEFINED region:
+
+- `## Checked-In Agents` roster rows for session presence.
+- `## Request Tracking` rows for `prompt_id` markers per `request_tracking.md`.
+- `## Notes` associated with the session key for harness setup outcomes per
+  `harness_custom_instructions.md`.
+
+Column order and message schema elsewhere on the board are unchanged. Boards
+hold references and responsibility; detailed history lives in tickets.
+
+## Roster row form
+
+- Add or update your row in `## Checked-In Agents` exactly as:
+  `| <agent_name> | <owner> | <checked_in_at> | <last_checked> | active |`
+- `checked_in_at` is set when you first check in for the session.
+- `last_checked` updates every time you read the message section in mailbox
+  mode; that refresh behavior is retained. In `codex_mcp` mode update it on
+  each narrow state check-in pass.
+- When your session ends deliberately, set presence to `departed`. Stale
+  marking applies only to `active` rows older than one day and may be set by
+  any agent during its own check-in.
+
+## Authorization
+
+Reading state rows is allowed during onboarding and re-onboarding. Writing
+rows waits for effective onboarding authorization as defined by `AGENTS.MD`
+and the Project Instructions Bootstrap, with a known owner-provided or
+project-instructed agent name. Counters and names must never be guessed.
+There is no pre-authorization write exception with or without a waiver.
+
+First authorized actions, in order, include writing the check-in row and
+persisting the request-counter row for the current request, then consuming
+only the sections allowed by the selected transport.
+
+## Narrow reads in codex_mcp mode
+
+In `codex_mcp` mode, read only `## Checked-In Agents`,
+`## Request Tracking`, and relevant session `## Notes` above. Never read
+mailbox message instructions, `## Messages`, or `attention_board.md`
+message alerts for communication. Existing user-region names and table columns
+stay unchanged. Counter maintenance is separate from message
+polling. A single active agent updates its counter without polling any message
+surface.
+
+## Concurrency
+
+Re-read before editing shared state. Maintain only your own check-in row,
+your own request-tracking row, and your own setup outcome. Never delete or
+edit another agent's rows, except stale-marking an old `active` presence row
+during your own check-in. On a write conflict, re-read and retry against
+current content without overwriting another agent's concurrent change.
+
+Timestamps are ISO-8601 UTC. When a session ends deliberately, set presence
+to `departed`. Keep the stable session key when the certified name changes
+during re-onboarding.
+
+## References
+
+Communication protocol references are conditional, not extra shared reads.
+Read only the protocol selected by `agent_communication.backend`.
+
+- `AGENTS.MD`
+- `agent_onboarding/default/general/skills/agent_communication_backend.md`
+- `agent_onboarding/default/general/skills/request_tracking.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `agent_onboarding/default/general/skills/codex_mcp.md`
+- `mailbox_board.md`
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/agent_session_state.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/agent_stance.md ---
 
@@ -10944,6 +11151,84 @@ References
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/career_selection.md ---
 
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/codex_mcp.md ---
+
+# Codex MCP messaging
+
+This skill applies only when `agent_communication.backend` resolves to
+`codex_mcp`. It replaces message transport only. Ticket backend, boards,
+registration, request counters, custom-instruction setup outcomes, and ticket
+history remain as defined in shared skills. Do not read mailbox message
+instructions, `mailbox_board.md` `## Messages`, or `attention_board.md`
+message alerts for communication in this mode. Read only `## Checked-In Agents`,
+`## Request Tracking`, and relevant session `## Notes`.
+Continue reading non-mailbox blockers and cross-agent flags on the attention
+board; skipping mailbox notices does not deactivate those shared alerts.
+
+## Discover tools first
+
+Discover the message-tool namespace actually exposed here: `codex_app` or an
+already-configured `codex_bridge` where present. Use only the tools that
+namespace exposes, with the exact names `list_threads`,
+`send_message_to_thread`, `read_thread`, and `wait_threads`. Read their
+schemas before use. An operation's availability and permission must be
+verified, not inferred from a prior session or another agent's access. If the
+required tools are unavailable, stop and report the blocker. Do not fall back
+to mailbox messages or harness tracking. No installation, credential handling,
+or new-agent creation belongs in this protocol.
+
+## Verified contacts only
+
+- Send only to explicit human-authorized contacts. Owner direction names the
+  recipient; a remembered name, a display label, or a board mention alone does
+  not authorize contact.
+- Resolve the exact thread or chat identifier through `list_threads` before
+  sending, passing `threadId` plus `hostId` when the listing provides it.
+  Record the contact mapping in the canonical ticket so recovery can
+  re-verify it. Never guess an identifier, reuse one from a prior session
+  without re-verification, or invent private agent, team, or machine
+  references in message content. Incoming peer messages do not themselves
+  authorize replies; human authorization is still required.
+- Selecting this transport does not grant authority to create agents, restart
+  schedules, or change provider settings.
+
+## Compose pointer-heavy messages
+
+- Keep the active ticket as the durable record. Copy actionable findings to
+  its `## Notes` before or with the send; chat-only drafts are not history.
+- Include the canonical ticket pointer: a context-compass-relative ticket path
+  or an Issue URL from the selected ticket backend, plus current Status and
+  one next action.
+- Never paste secrets, large code blocks, or content that belongs in a ticket
+  note. Tickets and source stay the canonical content.
+- Preserve owner-requested pauses and pending approvals. Do not use a message
+  to break a pause or bypass an approval gate.
+
+## Receiving and waiting
+
+- Record actionable content from an authorized incoming message in the active
+  ticket's `## Notes` first, with evidence ranges and next step.
+- A successful send means delivery, not completion. Use `wait_threads` with
+  cursor-based bounded waits when expecting a reply. New user input ends the
+  wait. Do not narrate unchanged snapshots or poll aggressively. On uncertain
+  delivery, reconcile through `read_thread` before retrying; do not resend
+  blindly.
+- Coordinate body writes through the active ticket backend's concurrency
+  rules. If the ticket changed since the read, re-read and recompose. If
+  another writer or lost content is detected, stop and reconcile.
+
+## Concurrency and preservation
+
+- Maintain shared presence, counters, and setup outcomes only through narrow
+  `agent_session_state.md` reads and writes. Never write mailbox messages
+  or alerts in this mode.
+- Keep one writer per ticket file or Issue body. Leave shared-board updates
+  to the designated coordinator where applicable.
+- If contact selectors are ambiguous, tool access fails, or pause state is
+  unclear, stop and ask the owner. No silent transport fallback.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/codex_mcp.md ---
+
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/compaction_requirements.md ---
 
 
@@ -11011,8 +11296,10 @@ Run this sequence exactly once per trigger event.
 3) Read `agent_onboarding/default/general/skills/execution_contract.md` in full,
    applying resolved project replacements/waivers within their stated scope.
 4) Read `config/context_compass_config.yaml` and resolve `work_tracking.backend`
-   using `work_tracking_backend.md`, then resolve the selected role via the
-   registry table in `context_compass/SKILLS.MD`.
+   using `work_tracking_backend.md` plus `agent_communication.backend` using
+   `agent_communication_backend.md`, then resolve the selected role via the
+   registry table in `context_compass/SKILLS.MD`. Read only the selected
+   message skill and preserve pauses and pending approvals.
    - If the active role cannot be determined: **STOP and ask the user**.
 5) Read the resolved role `SKILLS.MD` chain in parent-first order.
 6) Read every path in every section each resolved `SKILLS.MD` marks as
@@ -11879,7 +12166,9 @@ links remain explicit even if native hierarchy tools are unavailable.
 
 Your local `issue_board.md` records agent claims and `attention_board.md` records
 current focus using Issue URLs. Mailbox, artifacts, context packs, system docs,
-and special instructions stay in your repository. A Project URL can identify a
+and special instructions stay in your repository. Message transport follows the
+independent `agent_communication.backend` selector (default `mailbox`); MCP
+mode replaces transport only and preserves all state sections. A Project URL can identify a
 related Project, but it is optional and does not replace Issue-body Status.
 
 An agent onboarding or recovering from compaction reads the selected backend's
@@ -12298,8 +12587,9 @@ nickname selection does not grant permission to run tools before those gates.
   verify both the intended change and retained content. Never send a note alone
   as the replacement body.
 - Hold the primary local claim while editing. Coordinate body writes through
-  the mailbox; the current update tool does not expose an atomic compare-and-swap
-  lease. If the body changed since the read, re-read and recompose; if another
+  the selected communication transport per `agent_communication_backend.md`
+  (mailbox messages or MCP thread tools); the current update tool does not
+  expose an atomic compare-and-swap lease. If the body changed since the read, re-read and recompose; if another
   writer or lost content is detected, stop and reconcile before continuing.
 - Omit labels, assignees, milestone, title, and state when the change does not
   target them. The update tool's label and assignee arguments replace their
@@ -12324,6 +12614,9 @@ Project tools are not currently exposed by this plugin. Treat an optional
 Project URL as context; never claim membership or Project Status was updated
 without an available tool and verified result. Do not require CLI installation,
 CLI login, API tokens in YAML, or manual shell authentication to use this mode.
+
+Ticket and communication selectors are independent. Both ticket backends work
+with either transport; default mailbox transport remains compatible.
 
 Authentication belongs to the owner's plugin connection. On missing access or
 403/404 errors, name the operation and destination and request the relevant
@@ -12735,6 +13028,9 @@ for the same work; a Project URL is optional context.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
   Keep one primary writer per Issue and coordinate reviewer/support work.
+  Coordination transport follows `agent_communication.backend`; in `codex_mcp`
+  mode skip mailbox messages and alerts while preserving shared state per
+  `agent_session_state.md`.
   GitHub usernames and assignees are separate from Context Compass agent names.
 - `attention_board.md` holds current focus. The `ticket` cell is the Issue URL;
   `RESUME_HIERARCHY` lists parent-first Issue URLs ending at that same Issue.
@@ -12753,7 +13049,8 @@ for the same work; a Project URL is optional context.
   release the local claim, and synchronize artifact/context dispositions. An
   open Issue with `Status: done` after a failed close is an incomplete transition
   to repair; do not report the ticket closed.
-- After compaction/handoff, reread YAML, the selected baseline, `issue_board.md`,
+- After compaction/handoff, reread YAML, both ticket and communication selectors
+  plus their baselines, `issue_board.md`,
   attention route, and the exact active Issue bodies and relevant comments.
   Recover from canonical Notes and next action. Read parent Issues in the
   declared hierarchy rather than substituting local epic/story/task folders.
@@ -12812,7 +13109,8 @@ Record such a skipped check honestly, not as evidence of PRESENT or ABSENT statu
    approval requirements still apply. If the user declines or chooses
    manual setup, respect that choice through re-onboarding in the same session.
    After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
-   with the session key from `request_tracking.md`. Do not store the contents of
+   with the session key from `request_tracking.md` and `agent_session_state.md`.
+   This setup-outcome store is independent of `agent_communication.backend`. Do not store the contents of
    their personal instructions there. Retry only when requested or when the
    harness or instruction source changes.
 
@@ -12945,9 +13243,11 @@ clauses selected by the user:
   `system_of_record.enforce` setting. Native tracking is permitted only where
   the project owner has set it to `false`; custom text alone does not change it.
 - **Coordination allowed:** Coordinate with agents registered in Context Compass
-  through its boards and mailbox, following the repository's policy.
+  through its configured `agent_communication.backend`, following repository
+  policy and preserving shared Context Compass registration and session state.
 - **Coordination by permission:** Ask before coordinating with other agents, then
-  use Context Compass's boards and mailbox for the approved coordination.
+  use the configured communication backend for the approved coordination;
+  keep assignments and results in the canonical Context Compass work record.
 - **Subagents by permission:** Do not create or use harness subagents unless the
   project owner explicitly approves that specific delegation. Approval does not
   grant continuing permission for additional subagents.
@@ -13134,6 +13434,12 @@ document is a snapshot, and a snapshot is stale the moment the package changes.
 
 # Mailbox Protocol
 
+This skill applies only when `agent_communication.backend` resolves to
+`mailbox` (the default when absent). In `codex_mcp` mode skip the checking,
+sending, and receiving sections below and use `codex_mcp.md` for transport.
+Maintain shared presence, counters, and setup outcomes in both modes through
+`agent_session_state.md`; existing board columns and schemas are unchanged.
+
 Canonical board: `context_compass/mailbox_board.md`.
 Alert surface: `## Message Alerts` section at the top of
 `context_compass/attention_board.md`.
@@ -13166,7 +13472,8 @@ single durable history.
 - `checked_in_at` is set when you first check in for the session;
   `last_checked` updates EVERY time you read the message section.
 - In that same first authorized check-in, initialize or recover YOUR session
-  row under `## Request Tracking`, using `request_tracking.md`. Keep the stable
+  row under `## Request Tracking`, using `request_tracking.md` and the shared
+  duties in `agent_session_state.md`. Keep the stable
   session key when the user changes your name during re-onboarding. The existing
   roster's columns and message schema are unchanged.
 - Timestamps are ISO-8601 UTC, same as all boards.
@@ -13648,6 +13955,9 @@ Next user request:             prompt_id: compact_1_turn_1
 ## Durable state
 
 Use `mailbox_board.md` / `## Request Tracking`, inside its USER-DEFINED region.
+This store is independent of `agent_communication.backend`. In `codex_mcp`
+mode maintain the same row through narrow state-section reads per
+`agent_session_state.md`; never open message sections for counter work.
 Maintain one row per session, alongside the existing agent check-in roster:
 
 | Field | Meaning |
@@ -13875,6 +14185,8 @@ Required flow
 Certification record
 - Track certification in the session narrative and update `attention_board.md`
   routing when certification state affects execution.
+- Shared check-in and session state require effective onboarding authorization
+  in both communication modes per `agent_session_state.md`.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/self_certification.md ---
 
@@ -14380,7 +14692,8 @@ Rules
   no replacement removes the named requirement; do not ask for a substitute token.
   Effective authorization governs the same subsequent steps; identity, mailbox, and
   counter rules still require a known owner-provided or project-instructed
-  name and never permit guessing.
+  name and never permit guessing. Shared session-state writes follow
+  `agent_session_state.md` in both communication modes.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/user_approved_certification.md ---
 
@@ -14437,6 +14750,13 @@ If plugin access, required Issue tools, or repository permission fails, stop and
 report the failed operation. Do not switch to local tickets, `gh`, or direct
 HTTP as an implicit fallback. CLI helpers under `github/` are optional standalone
 tools and are not part of this backend's onboarding or authentication.
+
+## Independent communication selector
+
+Resolve `agent_communication.backend` separately using
+`agent_communication_backend.md`. Ticket and communication selectors combine
+independently; all four combinations are supported. Default mailbox transport
+remains compatible with both ticket backends.
 
 ## Shared state and changing backends
 
@@ -24477,6 +24797,11 @@ Active detail entry format (add actual entries only inside the USER-DEFINED regi
 ```
 
 Message alert rules
+- Apply only when `agent_communication.backend` resolves to `mailbox`. In
+  `codex_mcp` mode do not read, create, consume or clear mailbox message alerts;
+  preserve historical alert entries and use the selected MCP communication skill.
+- Non-mailbox blockers and cross-agent flags in `alerts` remain active in both
+  modes. Skip only mailbox message notices, not the board's other attention data.
 - Senders add one line per message sent on `mailbox_board.md`:
   `- NEW MESSAGE for <agent_name> (from <agent_name>, <DATETIME>)`.
 - The named recipient clears their line in the same pass that consumes the
@@ -24569,6 +24894,11 @@ work_tracking:
     connection_nickname: "" # Codex connection nickname; required only for plugin operations
     issues_repository: "" # owner/repo; required only for github_codex_plugin
     project_url: "" # optional context link; Issue body Status remains authoritative
+
+# This selects agent-to-agent message transport, not ticket storage or state.
+# Roster, request counters and setup outcomes remain on the existing local board.
+agent_communication:
+  backend: mailbox # mailbox | codex_mcp; absent means mailbox
 
 workflow:
   ticket_microcycle:
@@ -27001,8 +27331,9 @@ The `claim` value is `primary`, `review`, or `support`; `responsibility` says
 what the agent is doing. `owner` is the accountable human or team, and
 `agent_name` is the Context Compass execution identity. A GitHub assignee is
 not an agent identity. Only the primary claim may edit the Issue body; other
-agents send findings through the mailbox for the primary writer to append to
+agents send findings through the configured communication backend for the primary writer to append to
 Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+Mailbox and MCP modes use the same local roster/state and Issue claim ownership.
 
 The board ships with empty user regions. In `local` mode leave them inactive;
 the local ticket files and attention board remain the complete work route.
@@ -27075,16 +27406,23 @@ policy pasted into a region will not update when the package's own copy does. Pu
 standing instructions in `notes` once; do not restate MANAGED text.
 
 Purpose
-- Targeted agent-to-agent message passing (point-to-point handoffs,
-  notices, questions, acks).
+- Shared registration, request counters and setup outcomes in every communication mode.
+- Mailbox-mode message passing (point-to-point handoffs, notices, questions, acks).
 - Companion to `attention_board.md` (which stays routing/broadcast-only).
-- Canonical protocol: `agent_onboarding/default/general/skills/mailbox_protocol.md`.
+- Shared state: `agent_onboarding/default/general/skills/agent_session_state.md`.
+- Message transport: `agent_communication.backend` in the config selects mailbox or codex_mcp.
+  MCP agents read only Checked-In Agents, Request Tracking and relevant Notes; they skip
+  the messaging rules below and the Messages region. Existing messages remain untouched.
 
-Core rules (summary; the protocol doc is authoritative)
+Shared state rules
 - Check in at onboarding/re-onboarding: add or update your row below.
 - Keep request counters in `## Request Tracking`, separately from the roster.
   Follow `agent_onboarding/default/general/skills/request_tracking.md`; do not
-  increment for each response or tool call. Counter writes need certification.
+  increment for each response or tool call. State writes need effective onboarding authorization.
+- Keep per-session setup outcomes in Notes and preserve other agents' state.
+- Data races on this file are expected: re-read and retry, never overwrite another agent's edit.
+
+Mailbox messaging rules (mailbox mode only; mailbox_protocol.md is authoritative)
 - Single-agent sessions: if you are the only checked-in agent, the
   message section needs no monitoring. Maintain your request counter separately.
 - Multiple agents checked in: read your messages at onboarding, at every
@@ -27094,12 +27432,10 @@ Core rules (summary; the protocol doc is authoritative)
 - Receiving: copy any actionable content into your active ticket's
   `## Notes` (tickets are the durable truth), DELETE the message here,
   and clear your alert line in `attention_board.md` in the same pass.
-- Data races on this file are expected: re-read and retry, never
-  overwrite another agent's concurrent edit.
 - No secrets, ever. Keep messages pointer-heavy (paths/ticket refs),
   not content-heavy.
 
-Message format (append-only; delete after consumption)
+Message format (mailbox mode only; append-only, delete after consumption)
 ```
 - TO: <agent_name>
   FROM: <agent_name>
@@ -30817,6 +31153,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import builtins
 import hashlib
 import json
 import collections
@@ -30883,6 +31220,18 @@ def base_name(node: ast.expr) -> str | None:
         return node.attr
     if isinstance(node, ast.Subscript):  # Generic[T] -> Generic
         return base_name(node.value)
+    return None
+
+
+def base_dotted(node: ast.expr) -> str | None:
+    """Dotted source text of a base class expression, or None."""
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        head = base_dotted(node.value)
+        return f"{head}.{node.attr}" if head else None
+    if isinstance(node, ast.Subscript):
+        return base_dotted(node.value)
     return None
 
 
@@ -30955,6 +31304,14 @@ def import_map(tree: ast.Module, mod: str) -> dict[str, str]:
     """
     out: dict[str, str] = {}
     for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.asname:
+                    out[alias.asname] = alias.name
+                else:
+                    top = alias.name.split(".")[0]
+                    out[top] = top
+            continue
         if not isinstance(node, ast.ImportFrom):
             continue
         if node.level:                                  # relative import
@@ -31067,7 +31424,14 @@ def extract(path: pathlib.Path, src_root: pathlib.Path,
 
     for cls in [n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]:
         cid = f"{mod}.{cls.name}"
-        raw_bases = [b for b in (base_name(b) for b in cls.bases) if b]
+        labeled: list[tuple[str, str | None]] = []
+        for bnode in cls.bases:
+            label = base_name(bnode)
+            if not label:
+                continue
+            dotted = base_dotted(bnode)
+            labeled.append((label, dotted))
+        raw_bases = [label for label, _ in labeled]
         bases, markers = split_bases(raw_bases)
         methods = sorted(
             m.name for m in cls.body
@@ -31082,8 +31446,16 @@ def extract(path: pathlib.Path, src_root: pathlib.Path,
         # relation is provisional: `implements` vs `specializes` depends on
         # whether the target is an interface, which is only knowable after every
         # file has been parsed. main() resolves it in a second pass.
-        for b in bases:
-            edges.append({"from": cid, "to_label": b, "relation": "specializes"})
+        graph_dotted: list[tuple[str, str | None]] = []
+        for label, dotted in labeled:
+            if label in TYPE_MARKERS or label in STDLIB_BASES:
+                continue
+            graph_dotted.append((label, dotted))
+        for label, dotted in graph_dotted:
+            edge: dict[str, Any] = {"from": cid, "to_label": label, "relation": "specializes"}
+            if dotted != label:
+                edge["_to_dotted"] = dotted
+            edges.append(edge)
         for sub in ast.walk(cls):
             if isinstance(sub, ast.Call):
                 name = base_name(sub.func)
@@ -31320,8 +31692,8 @@ def main() -> int:
             continue
         parsed.append((path, desc))
 
-    interface_labels = {n["label"] for _, d in parsed for n in d["nodes"].values()
-                        if n["kind"] == "interface"}
+    interface_ids = {nid for _, d in parsed for nid, n in d["nodes"].items()
+                     if n.get("kind") == "interface"}
     # every class id defined anywhere, for same-module resolution
     local_defs = {(d["nodes"][nid]["file"], d["nodes"][nid]["label"]): nid
                   for _, d in parsed for nid in d["nodes"]
@@ -31330,13 +31702,27 @@ def main() -> int:
         imports = d.get("imports", {})
         for e in d["edges_out"]:
             label = e["to_label"]
-            target = imports.get(label) or local_defs.get((d["source"], label))
+            qualified = "_to_dotted" in e
+            dotted = e.pop("_to_dotted", None)
+            target = None
+            # An unsupported qualified expression must not become a bare-name guess.
+            if qualified:
+                if dotted is not None and "." in dotted:
+                    head, _, rest = dotted.partition(".")
+                    if head in imports:
+                        target = f"{imports[head]}.{rest}"
+            else:
+                target = imports.get(label) or local_defs.get((d["source"], label))
+                if not target and label in builtins.__dict__:
+                    obj = builtins.__dict__[label]
+                    if isinstance(obj, type):
+                        target = f"builtins.{label}"
             if target:
                 e["to"] = target
                 stats_resolved[0] += 1
             else:
                 stats_resolved[1] += 1
-            if label in interface_labels:
+            if target in interface_ids:
                 e["relation"] = "implements"
 
     # PASS 2 - merge with any authored descriptor and write

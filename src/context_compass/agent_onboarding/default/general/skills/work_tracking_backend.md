@@ -50,6 +50,13 @@ report the failed operation. Do not switch to local tickets, `gh`, or direct
 HTTP as an implicit fallback. CLI helpers under `github/` are optional standalone
 tools and are not part of this backend's onboarding or authentication.
 
+## Independent communication selector
+
+Resolve `agent_communication.backend` separately using
+`agent_communication_backend.md`. Ticket and communication selectors combine
+independently; all four combinations are supported. Default mailbox transport
+remains compatible with both ticket backends.
+
 ## Shared state and changing backends
 
 `system_of_record.enforce` is independent of backend selection. Both backends

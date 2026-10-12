@@ -45,6 +45,9 @@ for the same work; a Project URL is optional context.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
   Keep one primary writer per Issue and coordinate reviewer/support work.
+  Coordination transport follows `agent_communication.backend`; in `codex_mcp`
+  mode skip mailbox messages and alerts while preserving shared state per
+  `agent_session_state.md`.
   GitHub usernames and assignees are separate from Context Compass agent names.
 - `attention_board.md` holds current focus. The `ticket` cell is the Issue URL;
   `RESUME_HIERARCHY` lists parent-first Issue URLs ending at that same Issue.
@@ -63,7 +66,8 @@ for the same work; a Project URL is optional context.
   release the local claim, and synchronize artifact/context dispositions. An
   open Issue with `Status: done` after a failed close is an incomplete transition
   to repair; do not report the ticket closed.
-- After compaction/handoff, reread YAML, the selected baseline, `issue_board.md`,
+- After compaction/handoff, reread YAML, both ticket and communication selectors
+  plus their baselines, `issue_board.md`,
   attention route, and the exact active Issue bodies and relevant comments.
   Recover from canonical Notes and next action. Read parent Issues in the
   declared hierarchy rather than substituting local epic/story/task folders.

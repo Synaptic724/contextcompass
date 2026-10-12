@@ -21,8 +21,9 @@ The `claim` value is `primary`, `review`, or `support`; `responsibility` says
 what the agent is doing. `owner` is the accountable human or team, and
 `agent_name` is the Context Compass execution identity. A GitHub assignee is
 not an agent identity. Only the primary claim may edit the Issue body; other
-agents send findings through the mailbox for the primary writer to append to
+agents send findings through the configured communication backend for the primary writer to append to
 Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+Mailbox and MCP modes use the same local roster/state and Issue claim ownership.
 
 The board ships with empty user regions. In `local` mode leave them inactive;
 the local ticket files and attention board remain the complete work route.

@@ -70,8 +70,9 @@ nickname selection does not grant permission to run tools before those gates.
   verify both the intended change and retained content. Never send a note alone
   as the replacement body.
 - Hold the primary local claim while editing. Coordinate body writes through
-  the mailbox; the current update tool does not expose an atomic compare-and-swap
-  lease. If the body changed since the read, re-read and recompose; if another
+  the selected communication transport per `agent_communication_backend.md`
+  (mailbox messages or MCP thread tools); the current update tool does not
+  expose an atomic compare-and-swap lease. If the body changed since the read, re-read and recompose; if another
   writer or lost content is detected, stop and reconcile before continuing.
 - Omit labels, assignees, milestone, title, and state when the change does not
   target them. The update tool's label and assignee arguments replace their
@@ -96,6 +97,9 @@ Project tools are not currently exposed by this plugin. Treat an optional
 Project URL as context; never claim membership or Project Status was updated
 without an available tool and verified result. Do not require CLI installation,
 CLI login, API tokens in YAML, or manual shell authentication to use this mode.
+
+Ticket and communication selectors are independent. Both ticket backends work
+with either transport; default mailbox transport remains compatible.
 
 Authentication belongs to the owner's plugin connection. On missing access or
 403/404 errors, name the operation and destination and request the relevant

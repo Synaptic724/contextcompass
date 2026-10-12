@@ -52,6 +52,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import builtins
 import hashlib
 import json
 import collections
@@ -118,6 +119,18 @@ def base_name(node: ast.expr) -> str | None:
         return node.attr
     if isinstance(node, ast.Subscript):  # Generic[T] -> Generic
         return base_name(node.value)
+    return None
+
+
+def base_dotted(node: ast.expr) -> str | None:
+    """Dotted source text of a base class expression, or None."""
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        head = base_dotted(node.value)
+        return f"{head}.{node.attr}" if head else None
+    if isinstance(node, ast.Subscript):
+        return base_dotted(node.value)
     return None
 
 
@@ -190,6 +203,14 @@ def import_map(tree: ast.Module, mod: str) -> dict[str, str]:
     """
     out: dict[str, str] = {}
     for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.asname:
+                    out[alias.asname] = alias.name
+                else:
+                    top = alias.name.split(".")[0]
+                    out[top] = top
+            continue
         if not isinstance(node, ast.ImportFrom):
             continue
         if node.level:                                  # relative import
@@ -302,7 +323,14 @@ def extract(path: pathlib.Path, src_root: pathlib.Path,
 
     for cls in [n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]:
         cid = f"{mod}.{cls.name}"
-        raw_bases = [b for b in (base_name(b) for b in cls.bases) if b]
+        labeled: list[tuple[str, str | None]] = []
+        for bnode in cls.bases:
+            label = base_name(bnode)
+            if not label:
+                continue
+            dotted = base_dotted(bnode)
+            labeled.append((label, dotted))
+        raw_bases = [label for label, _ in labeled]
         bases, markers = split_bases(raw_bases)
         methods = sorted(
             m.name for m in cls.body
@@ -317,8 +345,16 @@ def extract(path: pathlib.Path, src_root: pathlib.Path,
         # relation is provisional: `implements` vs `specializes` depends on
         # whether the target is an interface, which is only knowable after every
         # file has been parsed. main() resolves it in a second pass.
-        for b in bases:
-            edges.append({"from": cid, "to_label": b, "relation": "specializes"})
+        graph_dotted: list[tuple[str, str | None]] = []
+        for label, dotted in labeled:
+            if label in TYPE_MARKERS or label in STDLIB_BASES:
+                continue
+            graph_dotted.append((label, dotted))
+        for label, dotted in graph_dotted:
+            edge: dict[str, Any] = {"from": cid, "to_label": label, "relation": "specializes"}
+            if dotted != label:
+                edge["_to_dotted"] = dotted
+            edges.append(edge)
         for sub in ast.walk(cls):
             if isinstance(sub, ast.Call):
                 name = base_name(sub.func)
@@ -555,8 +591,8 @@ def main() -> int:
             continue
         parsed.append((path, desc))
 
-    interface_labels = {n["label"] for _, d in parsed for n in d["nodes"].values()
-                        if n["kind"] == "interface"}
+    interface_ids = {nid for _, d in parsed for nid, n in d["nodes"].items()
+                     if n.get("kind") == "interface"}
     # every class id defined anywhere, for same-module resolution
     local_defs = {(d["nodes"][nid]["file"], d["nodes"][nid]["label"]): nid
                   for _, d in parsed for nid in d["nodes"]
@@ -565,13 +601,27 @@ def main() -> int:
         imports = d.get("imports", {})
         for e in d["edges_out"]:
             label = e["to_label"]
-            target = imports.get(label) or local_defs.get((d["source"], label))
+            qualified = "_to_dotted" in e
+            dotted = e.pop("_to_dotted", None)
+            target = None
+            # An unsupported qualified expression must not become a bare-name guess.
+            if qualified:
+                if dotted is not None and "." in dotted:
+                    head, _, rest = dotted.partition(".")
+                    if head in imports:
+                        target = f"{imports[head]}.{rest}"
+            else:
+                target = imports.get(label) or local_defs.get((d["source"], label))
+                if not target and label in builtins.__dict__:
+                    obj = builtins.__dict__[label]
+                    if isinstance(obj, type):
+                        target = f"builtins.{label}"
             if target:
                 e["to"] = target
                 stats_resolved[0] += 1
             else:
                 stats_resolved[1] += 1
-            if label in interface_labels:
+            if target in interface_ids:
                 e["relation"] = "implements"
 
     # PASS 2 - merge with any authored descriptor and write

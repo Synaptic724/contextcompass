@@ -9,11 +9,16 @@ Inheritance
 - `INHERITS_SKILLS_FROM: none`
 
 Activation rule
-- Read every shared baseline path and exactly one backend baseline below.
+- Read every shared baseline path, exactly one ticket backend baseline below,
+  and exactly one communication baseline below.
 - Resolve `work_tracking.backend` from `config/context_compass_config.yaml`
   before these reads. Missing means `local`; `github_codex_plugin` requires an
   Issue repository and connected GitHub plugin. Resolve legacy values using
   `work_tracking_backend.md`; an invalid selection blocks work.
+- Resolve `agent_communication.backend` from the same config before messaging
+  reads. Missing means `mailbox`. Resolve using
+  `agent_communication_backend.md`; an invalid selection blocks communication
+  work. Ticket and communication selectors are independent.
 
 Shared baseline skills
 - `agent_onboarding/default/general/AGENTS.MD`
@@ -40,7 +45,8 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/active_documentation.md`
 - `agent_onboarding/default/general/skills/context_window_budget.md`
 - `agent_onboarding/default/general/skills/active_pointerboard.md`
-- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `agent_onboarding/default/general/skills/agent_communication_backend.md`
+- `agent_onboarding/default/general/skills/agent_session_state.md`
 - `agent_onboarding/default/general/skills/unknowns_gate_reference.md`
 - `agent_onboarding/default/general/skills/self_certification.md`
 - `agent_onboarding/default/general/skills/user_approved_certification.md`
@@ -72,6 +78,18 @@ Read these paths only when `work_tracking.backend` is `github_codex_plugin`.
 - `agent_onboarding/default/general/skills/github/codex_plugin.md`
 - `agent_onboarding/default/general/skills/github/workflow.md`
 - `issue_board.md`
+
+Mailbox communication baseline
+Read this path only when `agent_communication.backend` resolves to `mailbox`
+(the default when absent).
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+
+Codex MCP communication baseline
+Read this path only when `agent_communication.backend` resolves to
+`codex_mcp`.
+- `agent_onboarding/default/general/skills/codex_mcp.md`
+
+Every shared-state instruction stays baseline in both transports.
 
 Note on the board paths in that list. `attention_board.md`,
 `artifact_board.md`, `context_management/context_board.md`, and, in plugin mode,

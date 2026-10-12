@@ -272,6 +272,10 @@ Not every handoff should be broadcast. `mailbox_board.md` carries point-to-point
 messages between named agents — handoff, notice, question, ack — so directed
 communication does not turn the routing board into noise.
 
+If your agents have Codex MCP messaging tools, you can use those for handoffs
+instead. The switch changes how messages travel, not where your work is kept.
+Registration, counters, tickets and the boards keep their existing jobs.
+
 ## Roles
 
 `SKILLS.MD` is the **single role registry**. A role exists if and only if it has a
@@ -423,6 +427,7 @@ alone. Notable keys:
 | --- | --- |
 | `system_of_record.enforce` | when `true`, agents may not use harness task lists, plans or session memory to track work. This package is the only tracking surface. |
 | `work_tracking.backend` | `local` reads ticket folders; `github_codex_plugin` uses the connected GitHub plugin's Issues |
+| `agent_communication.backend` | `mailbox` sends file messages; `codex_mcp` uses available chat tools while keeping board/session state local |
 | `workflow.ticket_microcycle.*` | strict or relaxed loop, note score floor, expansion gate |
 | `workflow.note_behavior.*` | append-only notes, required evidence ranges, per-ticket focus |
 | `artifacts.*` | store root, disposition defaults, ticket-link requirements |
@@ -470,6 +475,25 @@ The YAML choices, plugin capabilities, and existing-config migration are in
 [the GitHub setup guide](src/context_compass/agent_onboarding/default/general/skills/github/README.md).
 Existing file tickets are not published or migrated just because you enable the
 mode; review their content and destination first.
+
+### Optional MCP Messaging
+
+For agents with Codex MCP chat tools, choose:
+
+```yaml
+agent_communication:
+  backend: codex_mcp
+```
+
+`mailbox` remains the default, including older installs without this setting.
+Either choice works with local tickets or GitHub Issues. MCP agents read the
+MCP messaging skill instead of mailbox messaging instructions and use the chat
+tools for authorized handoffs and replies. The setting does not install an MCP
+server or grant permission to contact agents.
+
+The existing mailbox board still holds registration, request counters and setup
+outcomes. MCP agents read just those state sections, not stored messages or
+message alerts. Existing messages and all other boards stay intact.
 
 ## Upgrading An Existing Install
 

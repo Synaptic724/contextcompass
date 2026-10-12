@@ -59,6 +59,9 @@ Next user request:             prompt_id: compact_1_turn_1
 ## Durable state
 
 Use `mailbox_board.md` / `## Request Tracking`, inside its USER-DEFINED region.
+This store is independent of `agent_communication.backend`. In `codex_mcp`
+mode maintain the same row through narrow state-section reads per
+`agent_session_state.md`; never open message sections for counter work.
 Maintain one row per session, alongside the existing agent check-in roster:
 
 | Field | Meaning |

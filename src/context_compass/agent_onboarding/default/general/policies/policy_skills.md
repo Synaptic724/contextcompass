@@ -74,6 +74,9 @@ Required flow
   execution.
 - Use Epic/Story/Task tickets in the selected work backend for all planned
   work. Local `tickets/` lanes apply only when `work_tracking.backend` resolves to `local`.
+- Resolve `agent_communication.backend` independently and read only the
+  selected message skill. Default `mailbox` remains compatible with both
+  ticket backends.
 - For code-engineering tasks, hand off to engineer profile docs after general
   onboarding:
   - `agent_onboarding/default/engineer/skills/context_protocol.md`

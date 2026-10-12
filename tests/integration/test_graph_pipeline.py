@@ -314,3 +314,152 @@ class TestMigrate:
         assert "Engine constructs its stages." in doc
         assert "| authored |" in doc
         assert "- role: drives the run loop" in doc
+
+
+class TestQualifiedResolution:
+    def _extract(self, tmp_path, files):
+        from conftest import write
+        src = tmp_path / "src"
+        for rel, text in files.items():
+            write(src / rel, text)
+        out = tmp_path / "desc"
+        res = run_tool(EXTRACT, "--src", src, "--out", out)
+        assert res.returncode == 0, res.stderr
+        return out
+
+    def _edges(self, out, name):
+        import json
+        return json.loads((out / name).read_text())["edges_out"]
+
+    def test_qualified_plain_imports_resolve_independently(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "left.py": "class Base:\n    pass\n",
+            "right.py": "from typing import Protocol\n\n\nclass Base(Protocol):\n    def get(self) -> None: ...\n",
+            "main.py": "import left\nimport right\n\n\nclass Foo(left.Base):\n    pass\n\n\nclass Bar(right.Base):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        foo = next(e for e in edges if e["from"] == "main.Foo")
+        bar = next(e for e in edges if e["from"] == "main.Bar")
+        assert foo["to_label"] == "Base"
+        assert bar["to_label"] == "Base"
+        assert foo["to"] == "left.Base"
+        assert bar["to"] == "right.Base"
+        assert foo["relation"] == "specializes"
+        assert bar["relation"] == "implements"
+        assert all("_to_dotted" not in e for e in edges)
+
+    def test_qualified_unknown_and_shortname_not_redirected(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "x.py": "class Base:\n    pass\n",
+            "main.py": "from x import Base\n\n\nclass Local:\n    pass\n\n\nclass Foo(other.Base):\n    pass\n\n\nclass Bar(unknown.Base):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        assert all("to" not in e for e in edges)
+        assert {e["to_label"] for e in edges} == {"Base"}
+
+    def test_bare_builtin_resolves_but_function_and_qualified_root_do_not(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "main.py": "class Good(ReferenceError):\n    pass\n\n\nclass BadLen(len):\n    pass\n\n\nclass BadQual(mystery.ReferenceError):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        good = next(e for e in edges if e["from"] == "main.Good")
+        bad_len = next(e for e in edges if e["from"] == "main.BadLen")
+        bad_qual = next(e for e in edges if e["from"] == "main.BadQual")
+        assert good.get("to") == "builtins.ReferenceError"
+        assert "to" not in bad_len
+        assert "to" not in bad_qual
+
+    def test_aliased_interface_implements_via_target(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "pkg/__init__.py": "",
+            "pkg/iface.py": "from typing import Protocol\n\n\nclass IStore(Protocol):\n    def get(self) -> None: ...\n",
+            "pkg/main.py": "from pkg.iface import IStore as MyStore\n\n\nclass Foo(MyStore):\n    pass\n",
+        })
+        edges = self._edges(out, "pkg/main.json")
+        assert len(edges) == 1
+        assert edges[0]["to"] == "pkg.iface.IStore"
+        assert edges[0]["relation"] == "implements"
+
+    def test_dynamic_qualified_bases_do_not_fall_back_to_short_names(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "other.py": "class Base:\n    pass\n",
+            "main.py": (
+                "from other import Base\n\n"
+                "class DynamicImport(factory().Base):\n    pass\n\n"
+                "class DynamicBuiltin(factory().ReferenceError):\n    pass\n"
+            ),
+        })
+        edges = self._edges(out, "main.json")
+        assert len(edges) == 2
+        assert {edge["to_label"] for edge in edges} == {"Base", "ReferenceError"}
+        assert all("to" not in edge for edge in edges)
+        assert all("_to_dotted" not in edge for edge in edges)
+
+
+class TestQualifiedR1:
+    def _extract(self, tmp_path, files):
+        from conftest import write
+        src = tmp_path / "src"
+        for rel, text in files.items():
+            write(src / rel, text)
+        out = tmp_path / "desc"
+        res = run_tool(EXTRACT, "--src", src, "--out", out)
+        assert res.returncode == 0, res.stderr
+        return out
+
+    def _edges(self, out, name):
+        import json
+        return json.loads((out / name).read_text())["edges_out"]
+
+    def test_one_class_two_qualified_same_label_bases(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "left.py": "class Base:\n    pass\n",
+            "right.py": "from typing import Protocol\n\n\nclass Base(Protocol):\n    def get(self) -> None: ...\n",
+            "main.py": "import left\nimport right\n\n\nclass Both(left.Base, right.Base):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        assert len(edges) == 2
+        first = edges[0]
+        second = edges[1]
+        assert first["from"] == "main.Both"
+        assert second["from"] == "main.Both"
+        assert first["to_label"] == "Base"
+        assert second["to_label"] == "Base"
+        assert first["to"] == "left.Base"
+        assert second["to"] == "right.Base"
+        assert first["relation"] == "specializes"
+        assert second["relation"] == "implements"
+        assert all("_to_dotted" not in e for e in edges)
+
+    def test_module_import_forms_and_generic_bases(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "left.py": "class Base:\n    pass\n",
+            "pkg/__init__.py": "",
+            "pkg/sub.py": "class Base:\n    pass\n",
+            "main.py": "import pkg.sub\nimport pkg.sub as ps\nfrom pkg import sub as submod\nimport left\n\n\nclass A(pkg.sub.Base):\n    pass\n\n\nclass B(ps.Base):\n    pass\n\n\nclass C(submod.Base):\n    pass\n\n\nclass D(left.Base[T]):\n    pass\n\n\nclass E(pkg.sub.Base[T]):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        by_from = {e["from"]: e for e in edges}
+        assert by_from["main.A"]["to"] == "pkg.sub.Base"
+        assert by_from["main.B"]["to"] == "pkg.sub.Base"
+        assert by_from["main.C"]["to"] == "pkg.sub.Base"
+        assert by_from["main.D"]["to"] == "left.Base"
+        assert by_from["main.D"]["to_label"] == "Base"
+        assert by_from["main.E"]["to"] == "pkg.sub.Base"
+        assert by_from["main.E"]["to_label"] == "Base"
+        assert all(e["relation"] == "specializes" for e in edges)
+        assert all("_to_dotted" not in e for e in edges)
+
+    def test_known_qualified_vs_unrelated_and_local_builtin_shadow(self, tmp_path):
+        out = self._extract(tmp_path, {
+            "known.py": "class Base:\n    pass\n",
+            "x.py": "class Base:\n    pass\n",
+            "main.py": "import known\nfrom x import Base\n\n\nclass Base:\n    pass\n\n\nclass Foo(known.Base):\n    pass\n\n\nclass ReferenceError:\n    pass\n\n\nclass Bar(ReferenceError):\n    pass\n\n\nclass Baz(mystery.ReferenceError):\n    pass\n",
+        })
+        edges = self._edges(out, "main.json")
+        by_from = {e["from"]: e for e in edges}
+        assert by_from["main.Foo"]["to"] == "known.Base"
+        assert by_from["main.Foo"]["relation"] == "specializes"
+        assert by_from["main.Bar"]["to"] == "main.ReferenceError"
+        assert "to" not in by_from["main.Baz"]
+        assert all("_to_dotted" not in e for e in edges)

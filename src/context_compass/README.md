@@ -127,6 +127,16 @@ The two YAML examples, plugin setup, and migration instructions are in
 existing project with local tickets until you have reviewed their full content
 and the exact Issue destination.
 
+## Optional MCP Messaging
+
+`agent_communication.backend` selects `mailbox` or `codex_mcp` independently of
+ticket storage. Missing means `mailbox`, preserving existing installations.
+With `codex_mcp`, agents read the MCP skill instead of mailbox message features.
+Existing registration, request counters and setup outcomes stay in the mailbox
+board's state sections; other boards and their ownership rules do not change.
+Stored messages and alerts are left untouched. Available tools and human
+authorization are still required; this setting installs nothing.
+
 ## How It Works
 
 ### 1) Policy Bootstrap
