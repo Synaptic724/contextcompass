@@ -1,0 +1,67 @@
+{
+  "format_version": 1,
+  "profile": {"id": "agile", "version": 1},
+  "schema_version": 1,
+  "phases": ["planning", "design", "implementation", "test", "review", "integration", "acceptance"],
+  "execution": ["draft", "ready", "active", "blocked", "paused", "idle"],
+  "resolution": ["unresolved", "accepted", "canceled", "duplicate"],
+  "priorities": ["p0", "p1", "p2", "p3"],
+  "metadata_fields": [
+    "schema_version", "profile", "ticket_id", "revision", "phase", "execution",
+    "resolution", "last_event_id", "contract_ref", "evidence_refs"
+  ],
+  "optional_metadata_fields": ["skipped_phases", "extensions"],
+  "evidence_requirements": {
+    "all": ["transition"],
+    "ready": ["readiness"],
+    "active": ["start"],
+    "blocked": ["blocker"],
+    "paused": ["pause"],
+    "accepted": ["acceptance", "validation", "children", "routing"],
+    "canceled": ["disposition"],
+    "duplicate": ["disposition", "successor"]
+  },
+  "accepted_state": {"phase": "acceptance", "execution": "idle"},
+  "accepted_note_fields": {
+    "acceptance": {"ACCEPTANCE": "authorized"},
+    "validation": {"VALIDATION": "recorded"},
+    "children": {"CHILDREN": "dispositioned"},
+    "routing": {"ROUTING": "reconciled"}
+  },
+  "terminal_execution": "idle",
+  "contribution_kinds": ["prose", "design", "implementation", "test", "evidence"],
+  "review_verdicts": ["pass", "conditional", "fail", "unknown"],
+  "author_fields": ["actor", "role", "kind", "scope", "revision", "evidence_ref"],
+  "review_fields": ["actor", "role", "scope", "target_revision", "verdict", "evidence_ref", "independent"],
+  "publisher_fields": ["service", "account", "receipt_ref"],
+  "attribution_labels": {
+    "authors": "Ticket/Work Author(s)",
+    "published_by": "Published By",
+    "reviews": "Independent Review"
+  },
+  "note_fields": [
+    "DATETIME", "AUTHOR", "AUTHOR_ROLE", "TYPE", "CLAIM", "EVIDENCE",
+    "IMPACT", "NEXT", "REREAD", "SCORE_0_TO_10"
+  ],
+  "policy": [
+    "The full Epic, Story or Task remains the record; optional metadata never replaces its composition.",
+    "Agile metadata is selected by ticket design, not by the agent role or hosting service.",
+    "AGILE_METADATA owns workflow when present. Status is its derived view, not a second editable master.",
+    "Body Notes are canonical. Comments are attributed evidence reconciled before a state transition.",
+    "Phase is current focus, not proof of earlier gates. Rework and approved skipped phases retain evidence.",
+    "Ready requires prerequisites, ownership and scope; active requires actual start.",
+    "Blocked evidence names the reason and unblock owner/action; paused evidence names the resume condition.",
+    "Acceptance requires applicable authorized acceptance, validation, child disposition and routing evidence.",
+    "Canceled and duplicate are not accepted delivery. Duplicate evidence identifies the successor.",
+    "Owner, executor, contribution author, publisher and reviewer are distinct; never infer one from another.",
+    "Authored responses, posts, comments and Notes identify the actual full agent name and role/function.",
+    "Independent review targets an exact scope/revision and cannot be claimed by its author or material editor.",
+    "Priority expresses scheduling urgency, not risk or permission. Existing approval and safety gates remain.",
+    "Use one primary writer, full-body revision/hash checks, logical event IDs and readback verification.",
+    "Local checks are not server CAS. Uncertain or partial effects need reconciliation before another write.",
+    "Native Issue state and Project fields are projections; closure is not acceptance.",
+    "Schema validation checks declared content, not evidence truth, authenticated identity or user permission.",
+    "New-ticket design does not authorize historical rewrites, private disclosure, installs or publication.",
+    "Read the selected canonical sources once per intact context; reconcile source/config changes on recovery."
+  ]
+}

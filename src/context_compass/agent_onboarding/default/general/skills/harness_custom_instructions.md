@@ -44,7 +44,7 @@ Record such a skipped check honestly, not as evidence of PRESENT or ABSENT statu
    approval requirements still apply. If the user declines or chooses
    manual setup, respect that choice through re-onboarding in the same session.
    After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
-   with the session key from `request_tracking.md` and `agent_session_state.md`.
+   with the session identity from `agent_session_state.md`.
    This setup-outcome store is independent of `agent_communication.backend`. Do not store the contents of
    their personal instructions there. Retry only when requested or when the
    harness or instruction source changes.
@@ -160,10 +160,6 @@ Context Compass ONBOARD flow before taking any non-onboarding action.
 After a context compaction or handoff, stop and complete the Context Compass
 REONBOARD flow before taking any other action. Do this once for every event.
 
-Follow the request counter contract in
-context_compass/agent_onboarding/default/general/skills/request_tracking.md.
-Use prompt_id: compact_<count>_turn_<count>; count user requests, not assistant
-messages or tool calls, and recover the counters from Context Compass.
 ```
 
 All following clauses apply under that same Context Compass scope. Add only the
@@ -243,6 +239,5 @@ a global preference overrides a stricter governing rule.
 ## References
 
 - `AGENTS.MD`
-- `agent_onboarding/default/general/skills/request_tracking.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 - `config/context_compass_config.yaml`

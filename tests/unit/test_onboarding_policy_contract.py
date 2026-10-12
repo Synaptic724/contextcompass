@@ -103,7 +103,6 @@ def test_old_contract_immediately_after_entrypoint_order_is_not_reintroduced(rel
     GENERAL + "skills/agent_identity.md",
     GENERAL + "skills/agent_lifecycle.md",
     GENERAL + "skills/mailbox_protocol.md",
-    GENERAL + "skills/request_tracking.md",
     GENERAL + "skills/harness_custom_instructions.md",
 ])
 def test_gate_dependents_use_effective_onboarding_authorization(relative):

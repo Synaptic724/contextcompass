@@ -17,7 +17,7 @@ waiver that applied only to another session.
 3. Recover local state: the instance's attention routing, the active ticket,
    its notes and handoff summary, shared session state, messages through the
    configured communication backend, and any artifact named in the assignment.
-   MCP mode skips mailbox Messages and message alerts, not registration or counters.
+   MCP mode skips mailbox Messages and message alerts, not registration or setup outcomes.
 4. Re-read only the guide sections the next action needs.
 5. Continue from the ticket's recorded next action. If the ticket, board, and
    notes disagree, stop and reconcile before acting.

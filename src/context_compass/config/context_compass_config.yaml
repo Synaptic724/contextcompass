@@ -57,9 +57,21 @@ work_tracking:
     project_url: "" # optional context link; Issue body Status remains authoritative
 
 # This selects agent-to-agent message transport, not ticket storage or state.
-# Roster, request counters and setup outcomes remain on the existing local board.
+# Roster and setup outcomes remain on the existing local board.
 agent_communication:
   backend: mailbox # mailbox | codex_mcp; absent means mailbox
+
+# Guidance and templates for NEW tickets. This does not select an agent role
+# or rewrite existing tickets. Optional metadata belongs to the chosen design.
+ticket_design:
+  instructions: >
+    Use the complete template for the chosen ticket type. Record actual agent
+    names and roles, contribution authors, publisher and review separately.
+    Include Agile metadata only when the selected ticket design calls for it.
+  templates:
+    epic: templates/epic_template.md
+    story: templates/story_template.md
+    task: templates/task_template.md
 
 workflow:
   ticket_microcycle:

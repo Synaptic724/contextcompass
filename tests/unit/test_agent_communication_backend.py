@@ -65,8 +65,8 @@ def test_every_role_resolves_independent_ticket_and_message_baselines(role, tick
         inactive_ticket = "local" if ticket_backend == "github_codex_plugin" else "github_codex_plugin"
         assert not sets[inactive_ticket] & active
         assert GENERAL + "skills/agent_session_state.md" in active
-        assert GENERAL + "skills/request_tracking.md" in active
         assert GENERAL + "skills/harness_custom_instructions.md" in active
+        assert GENERAL + "skills/request_tracking.md" not in active
     for path in active:
         assert (PKG_ROOT / path).is_file(), (role, path)
 
@@ -88,15 +88,18 @@ def test_default_and_message_only_boundary():
 def test_mcp_keeps_state_but_skips_mailbox_messages_and_alerts():
     mcp = normalized(read(GENERAL + "skills/codex_mcp.md"))
     state = normalized(read(GENERAL + "skills/agent_session_state.md"))
-    for heading in ("Checked-In Agents", "Request Tracking", "Notes"):
+    for heading in ("Checked-In Agents", "Notes"):
         assert heading in state and heading in mcp
+    assert "Request Tracking" not in state
     assert "effective onboarding authorization" in state
     assert "must never be guessed" in state
     assert "message alerts" in mcp and "## Messages" in mcp
     assert "Never write mailbox messages or alerts" in mcp
     assert "No silent transport fallback" in mcp
     assert "Selecting" in read(GENERAL + "skills/agent_communication_backend.md")
-    assert "prompt_id" in read(GENERAL + "skills/request_tracking.md")
+    for source in (mcp, state):
+        assert "prompt_id" not in source
+        assert "request counter" not in source
 
 
 def test_mcp_names_real_tools_and_separates_delivery_from_completion():
@@ -127,6 +130,33 @@ def test_custom_instruction_clauses_follow_configured_transport():
     assert "use Context Compass's boards and mailbox" not in text
     assert "configured agent_communication.backend" in text
     assert "setup-outcome store is independent" in text
+
+
+def test_session_identity_and_setup_survive_counter_removal():
+    state = normalized(read(GENERAL + "skills/agent_session_state.md"))
+    setup = normalized(read(GENERAL + "skills/harness_custom_instructions.md"))
+    assert "exposed native session ID" in state
+    assert "runtime owner and the first check-in UTC timestamp" in state
+    assert "preserve it across recovery" in state
+    assert "session identity from agent_session_state.md" in setup
+    assert "If the user declines or chooses manual setup" in setup
+    assert "Do not emit the session key as a response suffix" in state
+
+
+def test_counter_protocol_is_not_shipped_or_required():
+    assert not (PKG_ROOT / GENERAL / "skills/request_tracking.md").exists()
+    forbidden = re.compile(
+        r"prompt[_ -]?id|compact_.*turn_|request[_ -]tracking|request counter|request-counter",
+        re.IGNORECASE,
+    )
+    remaining = [
+        path.relative_to(PKG_ROOT).as_posix()
+        for path in PKG_ROOT.rglob("*.md")
+        if forbidden.search(path.read_text(encoding="utf-8"))
+    ]
+    assert not remaining, "Retired counter protocol remains in: " + ", ".join(remaining)
+    board = read("mailbox_board.md")
+    assert {name for name, _, _ in user_regions(board)} == {"checked_in", "messages", "notes"}
 
 
 def test_mcp_does_not_disable_non_message_attention_flags():

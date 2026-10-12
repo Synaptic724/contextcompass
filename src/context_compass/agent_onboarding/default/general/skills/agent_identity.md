@@ -21,7 +21,8 @@ Rules
   - do not assume the previous session name is still valid
   - ask again on every onboarding or re-onboarding cycle
 - `owner` and `agent_name` are different fields:
-  - `owner` is the current executor/runtime owner
+  - ticket `Owner` is the accountable person, coordinator, or team
+  - roster `owner` identifies the runtime owner; it is not technical authorship
   - `agent_name` is the user-facing assigned name or names
 - `Agent Name` / `agent_name` may contain one name or multiple assigned names
   in a comma-separated list.
@@ -31,6 +32,24 @@ Rules
   When the certification token is waived by an applicable explicit project
   replacement, the name must still be known from owner or project
   instructions; ask only when it is missing or ambiguous, and never guess it.
+
+Visible identity
+- Prefix user-facing responses with the full assigned name and actual
+  role/function: `<agent_name> (<role/function>):`. Use the current known
+  identity, not the model name, runtime UUID, publishing account, or ticket Owner.
+- If the applicable naming rule has not established a name, identify yourself
+  as `unassigned` and resolve it through that rule. Do not invent a name or role.
+- Sign each authored ticket post, comment, and structured Note with that same
+  name and role/function. A ticket's executor field does not identify every
+  past contributor. New structured Notes include `AUTHOR` and `AUTHOR_ROLE`.
+- Preserve native hosting-account attribution. Record actual prose, design,
+  implementation, test, and evidence contributions by actor, scope, and revision;
+  never infer authorship from Owner, executor, assignee, or publishing account.
+- Public posts use an approved project-visible identity, not private session
+  identifiers or restricted rosters. Existing scope and tool permissions apply;
+  this rule creates neither a per-post approval gate nor a posting cadence.
+- Do not fabricate names or authorship for historical records. Apply these
+  fields to new contributions and preserve earlier evidence.
 
 Non-goals
 - This skill does not define long-term persistence of names across sessions.

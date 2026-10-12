@@ -178,18 +178,53 @@ unchanged until you add one.
 These are project-policy overrides, not changes to the agent platform's system
 instructions or tool permissions.
 
-### Follow the request count
+### Know Who Is Doing The Work
 
-Responses now carry a marker such as `prompt_id: compact_0_turn_3`. The turn
-advances once for each user request, including follow-up messages. Several
-progress updates and a final answer to that request all carry the same marker;
-tool calls do not advance it.
+Agents represent themselves by their assigned name and actual role, including
+in their replies, ticket posts and Notes. If several agents share one GitHub
+account, you can still tell who wrote the finding or did the work. The person
+accountable for a ticket, its executor, its authors, its publisher and its
+reviewer are recorded separately. Posting a result is not the same as authoring
+it, and reviewing your own work is not independent review.
 
-After compaction, the next segment starts at `compact_1_turn_0`. Each agent
-session keeps its own counter checkpoint in the mailbox, so it can recover the
-count during re-onboarding. A missing checkpoint is reported as unknown instead
-of being silently reset. The marker helps you follow continuity alongside the
-agent's actual ticket notes and recovery work.
+### Choose Your Ticket Design
+
+The full Epic, Story and Task templates remain available. For new tickets, you
+can point Context Compass at your own complete templates in
+`context_compass/config/context_compass_config.yaml`:
+
+```yaml
+ticket_design:
+  instructions: >
+    Use our complete ticket templates and record the actual author of each Note.
+    Include Agile metadata only when the selected ticket design calls for it.
+  templates:
+    epic: templates/epic_template.md
+    story: templates/story_template.md
+    task: user_defined/ticket_templates/my_task.md
+```
+
+Paths are relative to `context_compass/`. Put your custom file at the configured
+path and retain the complete ticket sections, evidence and acceptance gates.
+This setting does not select an agent role or rewrite tickets you already have.
+
+An Agile design can include optional versioned metadata describing the current
+phase, execution condition and resolution. That lets you distinguish work in
+review from work waiting on a blocker, without treating GitHub's open/closed
+flag as the whole story. Notes remain in the ticket body, and acceptance still
+needs the actual acceptance and validation evidence.
+
+The canonical definition is `context_compass/templates/ticket_contract.json`.
+The included helper can check a completed new-format ticket or build a hashed
+contract bundle for a cloud reader, without posting anything to GitHub:
+
+```bash
+python context_compass/tools/ticket_design.py validate --kind task --ticket path/to/task.md
+python context_compass/tools/ticket_design.py bundle --kind task --backend local --out ticket_contract.md
+```
+
+Bundle output refuses to replace an existing file. Custom templates can contain
+project-private information, so review a generated bundle before sharing it.
 
 ## Core Features
 
@@ -491,8 +526,8 @@ MCP messaging skill instead of mailbox messaging instructions and use the chat
 tools for authorized handoffs and replies. The setting does not install an MCP
 server or grant permission to contact agents.
 
-The existing mailbox board still holds registration, request counters and setup
-outcomes. MCP agents read just those state sections, not stored messages or
+The existing mailbox board still holds registration and setup outcomes.
+MCP agents read just those state sections, not stored messages or
 message alerts. Existing messages and all other boards stay intact.
 
 ## Upgrading An Existing Install

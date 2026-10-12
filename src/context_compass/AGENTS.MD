@@ -59,7 +59,7 @@ holds state about the work that lives outside this repository.
   or use CLI authentication as a substitute for the selected plugin.
 - Resolve `agent_communication.backend` independently from the ticket backend.
   Missing means `mailbox`; `codex_mcp` selects the available Codex/MCP chat tools
-  for messages only. Agent registration, request counters, setup outcomes and
+  for messages only. Agent registration, setup outcomes and
   ticket/board ownership stay in Context Compass. Read the shared session-state
   skill and only the selected communication baseline; do not read inactive
   mailbox messaging instructions or use native chat as the durable work record.
@@ -138,7 +138,7 @@ problem), STOP and report it. Do NOT silently fall back to harness-only tracking
   before any non-onboarding tools, edits, or execution. A waived prompt or token must not leave
   dependent steps waiting for the waived event: named records still require a
   known owner-provided or project-instructed agent name (ask only when the
-  name is missing or ambiguous, never guess identities or counters), and
+  name is missing or ambiguous, never guess identities), and
   waived reads must not be claimed as performed.
 - A waiver without a replacement removes that named requirement; do not invent
   another approval prompt in its place. Complete every remaining requirement.
@@ -196,10 +196,9 @@ An applicable delegated override is compliance with that bootstrap, not a bypass
 - Re-read `context_compass/AGENTS.MD` and
   `context_compass/agent_onboarding/default/general/skills/compaction_requirements.md`
   before continuing work.
-- Recover the per-session request counter under `mailbox_board.md` `## Request Tracking`,
-  following `agent_onboarding/default/general/skills/request_tracking.md`.
-  Advance the compaction count once per actual compaction, not per reread or
-  handoff; defer persistence until effective onboarding authorization permits writes.
+- Recover shared session presence and setup outcomes under `mailbox_board.md`
+  following `agent_onboarding/default/general/skills/agent_session_state.md`;
+  defer persistence until effective onboarding authorization permits writes.
 - For compaction/handoff summaries, you MUST keep summaries empty when the runtime allows it;
   otherwise you MUST use minimal file-pointer summaries only.
 - Post a `REONBOARD: COMPLETE` attestation before any action. One canonical format,
@@ -232,7 +231,7 @@ After any context compaction or handoff, apply the bootstrap before these recove
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
 - Re-read `agent_onboarding/default/general/skills/compaction_requirements.md`.
-- Re-read the roster, Request Tracking and relevant setup Notes in
+- Re-read the roster and relevant setup Notes in
   `context_compass/mailbox_board.md` through `agent_session_state.md`. In mailbox
   mode also recover addressed messages through `mailbox_protocol.md`; in
   `codex_mcp` mode skip mailbox Messages and message alerts and use `codex_mcp.md`.
@@ -286,10 +285,9 @@ Before any tooling, edits, or execution:
   and resolve `mailbox` or `codex_mcp` independently. Read the shared
   `agent_session_state.md`; count these reads once in the general baseline.
 - Read `SKILLS.MD`.
-- Read `agent_onboarding/default/general/skills/request_tracking.md` and
-  `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
-  Count these reads toward the role's baseline; do not read them again in the
-  same onboarding pass just because the role lists them too.
+- Read `agent_onboarding/default/general/skills/harness_custom_instructions.md`.
+  Count this read toward the baseline; do not read it again in the
+  same onboarding pass just because the role lists it too.
   Check the effective personal custom instructions for the current harness.
   The setup form runs only when Context Compass is absent; existing setup is
   not an invitation to rewrite the user's custom instructions.
@@ -297,7 +295,7 @@ Before any tooling, edits, or execution:
   statements in this gate restate defaults and do not reinstate an overridden
   requirement. Use relative repo paths only.
 - Read only the shared state sections of `context_compass/mailbox_board.md`:
-  Checked-In Agents, Request Tracking and relevant Notes. Mailbox mode also reads
+  Checked-In Agents and relevant Notes. Mailbox mode also reads
   addressed Messages; MCP mode does not read mailbox Messages or message alerts.
   Reads are permitted during onboarding; writes wait for effective authorization.
 - Do NOT write your check-in row until effective onboarding authorization is
@@ -381,13 +379,13 @@ Certification gating (default unless explicitly overridden):
 - With an applicable explicit project replacement/waiver, effective onboarding
   authorization (Project Instructions Bootstrap) governs instead of the literal
   token above; the name for named records must still be known from
-  owner/project instructions, and counters must never be guessed.
+  owner/project instructions, and names must never be guessed.
 - If certification remains required and is missing, stop and request it before
   non-onboarding edits or tool use. A waiver does not waive other unmet requirements.
 - **First actions after effective onboarding authorization, in order:**
   1. Write your check-in row on `mailbox_board.md` using the supplied `AGENT_NAME`.
-     Sync this session's request counter in `## Request Tracking` in that same
-     check-in pass, following `agent_session_state.md` and `request_tracking.md`.
+     Update only your check-in row in that same check-in pass, following
+     `agent_session_state.md`.
   2. Recover the selected message transport: consume addressed mailbox messages
      only in mailbox mode; use authorized MCP reads in `codex_mcp` mode.
   3. Route from `attention_board.md` to the active ticket and begin.

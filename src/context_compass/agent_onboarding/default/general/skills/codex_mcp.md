@@ -2,11 +2,11 @@
 
 This skill applies only when `agent_communication.backend` resolves to
 `codex_mcp`. It replaces message transport only. Ticket backend, boards,
-registration, request counters, custom-instruction setup outcomes, and ticket
+registration, custom-instruction setup outcomes, and ticket
 history remain as defined in shared skills. Do not read mailbox message
 instructions, `mailbox_board.md` `## Messages`, or `attention_board.md`
-message alerts for communication in this mode. Read only `## Checked-In Agents`,
-`## Request Tracking`, and relevant session `## Notes`.
+message alerts for communication in this mode. Read only `## Checked-In Agents`
+and relevant session `## Notes`.
 Continue reading non-mailbox blockers and cross-agent flags on the attention
 board; skipping mailbox notices does not deactivate those shared alerts.
 
@@ -64,7 +64,7 @@ or new-agent creation belongs in this protocol.
 
 ## Concurrency and preservation
 
-- Maintain shared presence, counters, and setup outcomes only through narrow
+- Maintain shared presence and setup outcomes only through narrow
   `agent_session_state.md` reads and writes. Never write mailbox messages
   or alerts in this mode.
 - Keep one writer per ticket file or Issue body. Leave shared-board updates

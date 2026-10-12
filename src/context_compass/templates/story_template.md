@@ -6,8 +6,9 @@
 - Story ID: STORY-YYYY-MM-DD-<slug>
 - Epic: EPIC-YYYY-MM-DD-<slug>
 - Status: draft | ready | in_progress | blocked | done
-- Owner:
-- Agent Name: <one or more assigned names, comma-separated>
+- Owner: <accountable person/coordinator/team; not inferred technical author>
+- Agent Name: <actual assigned executor names, comma-separated; not publishing account>
+- Agent Role: <actual executor role/function; UNKNOWN if not established>
 - Priority: p0 | p1 | p2 | p3
 - Created: YYYY-MM-DDTHH:MM:SSZ
 - Updated: YYYY-MM-DDTHH:MM:SSZ
@@ -87,8 +88,15 @@ As a <user/persona>, I want <capability>, so that <outcome>.
   - <topic or question> | UNKNOWN
 - IF_UNKNOWN: UNKNOWN | ask user before implementation | none
 
+## Contribution Attribution
+- Ticket/Work Author(s): <actor; contribution kind; scope; artifact revision; evidence>
+- Published By: <observed hosting service/account and receipt; UNKNOWN before publication>
+- Independent Review: <reviewer; exact target revision/scope; verdict/evidence; independence>
+
 ## Notes
 - DATETIME: YYYY-MM-DDTHH:MM:SSZ
+  AUTHOR: <full assigned agent name or verified human author>
+  AUTHOR_ROLE: <actual role/function>
   TYPE:
     FACT | UNKNOWN | HYPOTHESIS | DECISION | DECISION_REQUEST | PLAN |
     STRATEGY_DISCUSSION | ASSUMPTION_CHALLENGE | CONFLICT | TRADEOFF |

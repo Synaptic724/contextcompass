@@ -3,7 +3,7 @@
 This skill applies only when `agent_communication.backend` resolves to
 `mailbox` (the default when absent). In `codex_mcp` mode skip the checking,
 sending, and receiving sections below and use `codex_mcp.md` for transport.
-Maintain shared presence, counters, and setup outcomes in both modes through
+Maintain shared presence and setup outcomes in both modes through
 `agent_session_state.md`; existing board columns and schemas are unchanged.
 
 Canonical board: `context_compass/mailbox_board.md`.
@@ -37,11 +37,11 @@ single durable history.
   `| <agent_name> | <owner> | <checked_in_at> | <last_checked> | active |`
 - `checked_in_at` is set when you first check in for the session;
   `last_checked` updates EVERY time you read the message section.
-- In that same first authorized check-in, initialize or recover YOUR session
-  row under `## Request Tracking`, using `request_tracking.md` and the shared
-  duties in `agent_session_state.md`. Keep the stable
-  session key when the user changes your name during re-onboarding. The existing
-  roster's columns and message schema are unchanged.
+- Keep any harness setup outcome under `## Notes` associated with your session
+  identity, following `harness_custom_instructions.md` and the shared duties in
+  `agent_session_state.md`. Keep the stable session identity when
+  the user changes your name during re-onboarding. The existing roster columns
+  and message schema are unchanged.
 - Timestamps are ISO-8601 UTC, same as all boards.
 - When your session ends deliberately (final closure of your last lane),
   set `status` to `departed`. Stale `active` rows older than a day may be
@@ -50,8 +50,7 @@ single durable history.
 ## When checking is required (keep it cheap)
 
 - If you are the ONLY agent in `## Checked-In Agents` with status
-  `active`, do not poll messages. Maintain your request counter once per user
-  request as defined in `request_tracking.md`; that is not message polling.
+  `active`, do not poll messages.
 - If MULTIPLE agents are active, read your messages:
   - at onboarding / re-onboarding (after check-in),
   - at every lane open, lane switch, and lane closure,
@@ -95,10 +94,10 @@ single durable history.
 - Both boards are shared files: on a write-conflict, re-read the current
   content and retry your edit against it. Never resolve a race by
   overwriting another agent's concurrent change.
-- Legal writes are: appending messages, maintaining YOUR check-in row,
-  maintaining YOUR request-tracking row and setup outcome in `## Notes`,
-  and deleting messages addressed TO YOU. Never delete or edit another
-  agent's messages or check-in row (stale-marking excepted).
+- Legal writes are: appending messages, maintaining YOUR check-in row and
+  setup outcome in `## Notes`, and deleting messages addressed TO YOU.
+  Never delete or edit messages or check-in rows owned by other agents
+  (stale-marking excepted).
 
 ## Boundary with attention_board.md
 

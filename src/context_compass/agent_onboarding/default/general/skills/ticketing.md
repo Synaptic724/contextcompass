@@ -18,6 +18,13 @@ Templates
 - `artifact_board.md`
 - `context_management/context_board.md`
 
+New-ticket design
+- Resolve `ticket_design` guidance and template paths using `ticket_design.md`.
+- Optional Agile metadata and named attribution follow that source-owned contract.
+  Do not migrate old tickets, replace the full composition, or infer agent identity
+  from the hosting account. When metadata is present, its derived Status replaces
+  the ordinary Status enum for that ticket only; all actual acceptance gates remain.
+
 Deep descriptive model (required)
 Each ticket must be specific, evidence-based, and durable. Avoid vague goals.
 
@@ -64,8 +71,9 @@ Workflow rules
 10) After confirmation:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
-   - In plugin mode, record `Status: done` and transition reason in the Issue
-     body, verify it, close the Issue, and verify state through the plugin.
+   - In plugin mode, record accepted metadata and its derived Status for an Agile
+     design, or `Status: done` for a non-Agile design. Record the transition reason,
+     verify the body, close the Issue, and verify state through the plugin.
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -107,6 +115,8 @@ Mandatory execution gates
 Notes format requirement
 - New note entries should include:
   - `DATETIME` (ISO-8601 UTC: `YYYY-MM-DDTHH:MM:SSZ`)
+  - `AUTHOR` (full assigned agent name or verified human author)
+  - `AUTHOR_ROLE` (actual role/function, not inferred from the publishing account)
   - `TYPE`:
     `FACT` | `UNKNOWN` | `HYPOTHESIS` | `DECISION` | `DECISION_REQUEST` |
     `PLAN` | `STRATEGY_DISCUSSION` | `ASSUMPTION_CHALLENGE` | `CONFLICT` |
