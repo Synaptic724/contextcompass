@@ -51,7 +51,10 @@ def test_source_bundle_has_one_selected_template_and_refuses_existing_output(bac
     first = run_tool(SCRIPT, "--root", PKG_ROOT, "bundle", "--kind", "story", "--backend", backend, "--out", output)
     assert first.returncode == 0, first.stderr
     original = output.read_bytes()
-    sources = re.findall(r"<!-- SOURCE: (.*?); sha256: ([0-9a-f]{64}) -->", output.read_text())
+    bundle_text = output.read_text(encoding="utf-8")
+    assert "ordinary chat messages need no name/role prefix" in bundle_text
+    assert "Authored responses, posts" not in bundle_text
+    sources = re.findall(r"<!-- SOURCE: (.*?); sha256: ([0-9a-f]{64}) -->", bundle_text)
     assert len({path for path, _ in sources}) == len(sources)
     for path, sha in sources:
         assert digest((PKG_ROOT / path).read_text(encoding="utf-8")) == sha
@@ -95,14 +98,34 @@ def test_generic_custom_template_survives_new_ticket_rendering(tmp_path):
     assert validate_ticket(tmp_path, rendered, "task") == data
 
 
-def test_identity_rules_name_every_new_contribution_without_account_inference():
+def test_identity_rules_name_ticket_contributions_without_account_inference():
     identity = (PKG_ROOT / "agent_onboarding/default/general/skills/agent_identity.md").read_text()
-    assert "<agent_name> (<role/function>):" in identity
+    assert "Ticket bodies, Notes and ticket comments must identify" in identity
     assert "Sign each authored ticket post, comment, and structured Note" in identity
-    assert "not the model name, runtime UUID, publishing account, or ticket Owner" in identity
+    assert "not the model name, runtime UUID, publishing account, or ticket Owner" in " ".join(identity.split())
     assert "neither a per-post approval gate nor a posting cadence" in identity
     for kind in ("epic", "story", "task"):
         template = (PKG_ROOT / f"templates/{kind}_template.md").read_text()
         assert "AUTHOR:" in template and "AUTHOR_ROLE:" in template
         assert "## Contribution Attribution" in template
         assert "Ticket/Work Author(s)" in template and "Published By" in template and "Independent Review" in template
+
+
+@pytest.mark.parametrize("relative", [
+    "agent_onboarding/default/general/skills/agent_identity.md",
+    "agent_onboarding/default/general/AGENTS.MD",
+    "agent_onboarding/default/general/skills/agent_stance.md",
+    "templates/ticket_contract.json",
+    "../../README.md",
+])
+def test_mandatory_name_role_attribution_is_ticket_scoped_not_chat_scoped(relative):
+    text = " ".join((PKG_ROOT / relative).read_text(encoding="utf-8").split()).lower()
+    assert "ticket bodies, notes and ticket comments" in text
+    assert any(exemption in text for exemption in (
+        "ordinary chat messages do not require a name/role prefix",
+        "ordinary chat messages do not need a name/role prefix",
+        "ordinary chat messages need no name/role prefix",
+    ))
+    assert "prefix user-facing responses" not in text
+    assert "represent yourself in responses" not in text
+    assert "authored responses, posts" not in text

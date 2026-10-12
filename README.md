@@ -180,8 +180,9 @@ instructions or tool permissions.
 
 ### Know Who Is Doing The Work
 
-Agents represent themselves by their assigned name and actual role, including
-in their replies, ticket posts and Notes. If several agents share one GitHub
+Agents identify themselves by their assigned name and actual role in ticket
+bodies, Notes and ticket comments. Ordinary chat messages do not need a
+name/role prefix. If several agents share one GitHub
 account, you can still tell who wrote the finding or did the work. The person
 accountable for a ticket, its executor, its authors, its publisher and its
 reviewer are recorded separately. Posting a result is not the same as authoring

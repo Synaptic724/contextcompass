@@ -6,7 +6,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.0 |
+| package_version | 2.19.1 |
 | files | 465 |
 
 ## Lane policy
@@ -136,7 +136,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `d940dc21774146243d3399ab078907bca807122894c23ddb5c4799cc1b6f3b73` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `1af391db8a11f1b55b040c24131fb60d8a63c50a7b7bf02c0d23938c5bd51429` |
 | `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
@@ -147,10 +147,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
-| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `212bcb6a0a69ebb3244bd06df3321f6b483750b538983b4945d178db4e2c2e1b` |
+| `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `0e313f6c053b697f7c6bf32ef613ece738a62b806791ba03e521788a1e89f620` |
 | `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
-| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `912ee9e5651e8f573f89634d32d964afc6cc96d1a38f4bddc0ec14f8ae0bbbca` |
+| `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
 | `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `a9e48c7205565fb6da82e6dedd88979b2b465180accad10fc2212605f5754d73` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
@@ -474,7 +474,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `templates/epic_template.md` | PACKAGE | `8cd7ff15ca237456211a632bde4680fa5edc380e73918a8913ff6c524c7fca4c` |
 | `templates/story_template.md` | PACKAGE | `26bdbb21c7d6d9bc79f2a23e54fceeb53d62629fa08433eabed7cece8d7292ff` |
 | `templates/task_template.md` | PACKAGE | `36695623c0e4502babd1ca3578c8c4981baa972bbbb8a743b35ad040f20aac2e` |
-| `templates/ticket_contract.json` | PACKAGE | `609b85839735d487dafa2c162b1022f7386d89b08435a8319ab8551948d89928` |
+| `templates/ticket_contract.json` | PACKAGE | `7ed84cf08517496c27398fe5a658965918eef4095eb5f310e7f0072011011a35` |
 | `templates/workflow_advanced_template.md` | PACKAGE | `312aa2e4e2f17a04959419e7f4af29a4e199239c9d9c453688b7025e56bf1a74` |
 | `templates/workflow_simple_template.md` | PACKAGE | `b78e8c24260030735d2d9558fc33f5f31d737a3accc19f71645d373fcbd80492` |
 | `tickets/epics/archive/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
