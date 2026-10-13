@@ -112,7 +112,7 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 
 ## Closure Confirmation
 - [ ] Work walkthrough shared with user
-- [ ] Acceptance criteria confirmed by user
+- [ ] Criteria, required tests/reviews and delegated acceptance or reserved-owner disposition recorded
 - [ ] Applicable anti-pattern checks are clear or escalated with evidence.
 
 ## Noting Behavior

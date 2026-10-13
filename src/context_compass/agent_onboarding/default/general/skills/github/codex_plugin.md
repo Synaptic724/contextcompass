@@ -78,10 +78,17 @@ nickname selection does not grant permission to run tools before those gates.
   target them. The update tool's label and assignee arguments replace their
   full sets; use additive tools for approved additions where exposed.
 - Close through `github_update_issue(state: closed, state_reason: completed)`
-  only after the existing acceptance gate and a verified completion body update.
+  after a verified completion body update and satisfied criteria, required tests and required reviews.
+  Authorized agents close routine completed work without another owner ping; reserved owner decisions
+  still wait for explicit disposition. Do not infer authority from tool access or bypass unmet gates.
   A reopened Issue requires the owner-approved reason and body Status update.
 
 ## Capability boundaries
+The assigned agent maintains current status, evidence, requested scoped review and final closure;
+review is proportionate to consequence, uncertainty and contract. Self-checks are not independent review.
+Keep concise claim, impact, material limits and next action in canonical body Notes with exact
+retrievable supporting comment/doc links. Do not copy full linked reports or add substantive
+Notes for unchanged checks/ACKs; preserve required in-body state/evidence and all history/custom regions.
 
 The plugin currently exposes Issue search, fetch, create, update, and comment
 reads. A tool called `add_comment_to_issue` is documented for PR Conversation

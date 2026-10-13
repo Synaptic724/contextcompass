@@ -34,6 +34,18 @@ Relaxed mode loop
     synchronized with those findings.
 - Unknown-first evidence rules remain unchanged.
 
+Document semantics in both modes
+- Record each meaningful changed finding, decision or result once at appropriate ticket depth,
+  before dependent work required by the configured microcycle. Keep concise claim, impact,
+  material limits and next action inline with exact retrievable supporting comment/doc links.
+- Do not copy full linked reports or create substantive Notes for unchanged checks/ACKs.
+  Required in-body state/evidence and routing updates still apply; a link alone is not the record.
+- Preserve all existing Notes/history/custom regions. Concision is not permission to compact or
+  migrate historical tickets. Parent owners synthesize child outcomes and remaining work rather
+  than copying tactical logs; child completion does not accept the parent.
+- These semantics do not waive onboarding/reentry, strict/relaxed configuration, evidence timing,
+  denied/uncertain-write handling, note fields or the configured note-quality requirement.
+
 Config source
 - `config/context_compass_config.yaml`
 - Keys:

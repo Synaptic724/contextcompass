@@ -855,7 +855,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.1 |
+| package_version | 2.19.2 |
 | files | 465 |
 
 ## Lane policy
@@ -985,7 +985,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `1af391db8a11f1b55b040c24131fb60d8a63c50a7b7bf02c0d23938c5bd51429` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `5f95f506bdef5d2e8eb5e253a87588433854f1f6a560a0463f442c743689d439` |
 | `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
@@ -1011,13 +1011,13 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
 | `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
-| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `9fee6f1d6eeea57576a48dec2829f8b96db3c204ab880803253c77e2cdd62b0d` |
+| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `f11a5ede42bdba0e7daedaa3e082550c0f56fa85b43ab9062459ac88551ae78f` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
 | `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `297a27cf2f0cf6dc75748beb8acc9cd287b85a911772d19a839b62ee065d9e09` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `22e833fb8133f299e9096883547410313bcaf9ee48b2f8dabeb4cf10483f7190` |
 | `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
@@ -1029,14 +1029,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `951b02cc16058159148e471859f6bc6a518fff45d2581fc1aa058e69aa287e83` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `75acf6929ee04be4f5d620ed99a5ff5f92865b397c27c22b40b1732634c15b26` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
 | `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `8833c5e79755990fa4029d9d955316eb96b1b21ed7a99ad6382a7e1286d46bc6` |
-| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `7a394001f5aa79e32bd44455a6189836e4fbfad70e6f52b9a653635a21b3f264` |
+| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `464e488811e7e4f76ce352343db60fe97dcd785ca7ffe103bdb7613eca07a9e7` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
-| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `e4fc21b6ba5b8e1bedb8abe05f7bd410241d01383f9953373e5a100923956c7c` |
+| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `415693c482a8664f5e1fc3781318ea89f04c92674febb06e9e1cdee56cea5bd6` |
 | `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `d0d84d9e709ca437c998051e410b427b2f8eded73b1eed8b7e948386515c3ba2` |
 | `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
 | `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
@@ -1320,9 +1320,9 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `system_docs/patches/active/_template_patch_id/code_description_patch_TEMPLATE_COMPONENT.md` | RESET | `262130e44568da2ce6720095b9ab9956ab9787d81a5e2daa73ba3300e3c04d13` |
 | `system_docs/patches/active/_template_patch_id/component_patch_TEMPLATE_COMPONENT.md` | RESET | `fedc2095f94e5be8f11bed1fae34faee05730d78c435819e907970356ecebd1c` |
 | `system_docs/system_docs_read_first.md` | RESET | `792b745c1eb7947c135f188ee2a055408bff9e0a39f7ff4432f25468b32cc61b` |
-| `templates/epic_template.md` | PACKAGE | `8cd7ff15ca237456211a632bde4680fa5edc380e73918a8913ff6c524c7fca4c` |
-| `templates/story_template.md` | PACKAGE | `26bdbb21c7d6d9bc79f2a23e54fceeb53d62629fa08433eabed7cece8d7292ff` |
-| `templates/task_template.md` | PACKAGE | `36695623c0e4502babd1ca3578c8c4981baa972bbbb8a743b35ad040f20aac2e` |
+| `templates/epic_template.md` | PACKAGE | `39461f2f31fe1aaa78758f77bd7a787abddcfac47540e7b20affd8ad70719888` |
+| `templates/story_template.md` | PACKAGE | `c2c5d6516625538a457df8bfde8fb22994de2375dd0c060a48e61be2a274e302` |
+| `templates/task_template.md` | PACKAGE | `12ff599f545f8d86d27575f1ff59162cbc4165f00fdc8b94e1ab995d7b4e7d62` |
 | `templates/ticket_contract.json` | PACKAGE | `7ed84cf08517496c27398fe5a658965918eef4095eb5f310e7f0072011011a35` |
 | `templates/workflow_advanced_template.md` | PACKAGE | `312aa2e4e2f17a04959419e7f4af29a4e199239c9d9c453688b7025e56bf1a74` |
 | `templates/workflow_simple_template.md` | PACKAGE | `b78e8c24260030735d2d9558fc33f5f31d737a3accc19f71645d373fcbd80492` |
@@ -9947,10 +9947,20 @@ As a ritual, after implementing a change:
   (`SCORE_0_TO_10`); if score is below
   `workflow.ticket_microcycle.minimum_note_score`, improve the note before
   proceeding.
-* Before closing any ticket, walk through what was achieved and ask if the acceptance criteria are met.
-* Only after explicit confirmation, complete the ticket in its selected backend:
+* The assigned agent owns current status, evidence, requested scoped review and final closure.
+  Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+  full-code-review parking state. Self-checks are not independent review.
+* Authorized agents close routine completed work after criteria, required tests and required reviews
+  are satisfied, without another owner ping. Reserved owner decisions still wait for explicit acceptance.
+  Missing authority or an unmet gate is a concrete blocker, not inferred approval.
+* Record delegated acceptance or reserved-owner disposition, then complete the selected backend:
   move local tickets to matching completed folders, or verify the Issue body
   has `Status: done`, completion summary, and reason, then close through the plugin.
+* Record each meaningful changed finding once at appropriate task/story/epic depth. Keep concise claim,
+  impact, material limits and next action inline with exact retrievable supporting links; do not copy
+  full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
+  state/evidence, prior Notes and custom regions. Parent owners reconcile child outcomes and remaining
+  work; child completion does not accept the parent.
 * Immediately after completing any ticket, run deterministic `attention_board.md` sync:
   - remove/replace active rows that reference the closed ticket,
   - prune stale attention details tied only to the closed ticket,
@@ -12615,10 +12625,17 @@ nickname selection does not grant permission to run tools before those gates.
   target them. The update tool's label and assignee arguments replace their
   full sets; use additive tools for approved additions where exposed.
 - Close through `github_update_issue(state: closed, state_reason: completed)`
-  only after the existing acceptance gate and a verified completion body update.
+  after a verified completion body update and satisfied criteria, required tests and required reviews.
+  Authorized agents close routine completed work without another owner ping; reserved owner decisions
+  still wait for explicit disposition. Do not infer authority from tool access or bypass unmet gates.
   A reopened Issue requires the owner-approved reason and body Status update.
 
 ## Capability boundaries
+The assigned agent maintains current status, evidence, requested scoped review and final closure;
+review is proportionate to consequence, uncertainty and contract. Self-checks are not independent review.
+Keep concise claim, impact, material limits and next action in canonical body Notes with exact
+retrievable supporting comment/doc links. Do not copy full linked reports or add substantive
+Notes for unchanged checks/ACKs; preserve required in-body state/evidence and all history/custom regions.
 
 The plugin currently exposes Issue search, fetch, create, update, and comment
 reads. A tool called `add_comment_to_issue` is documented for PR Conversation
@@ -13052,6 +13069,14 @@ identify their actual agent name and role/function under `agent_identity.md`.
   changes. A full-body update must retain unrelated sections and prior history.
 
 ## Local responsibility and routing
+Record each meaningful changed finding once at the appropriate ticket depth. Keep concise claim,
+impact, material limits and next action inline with exact retrievable comment/doc links; do not copy
+full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
+state/evidence, prior history and custom regions; comments remain supporting evidence.
+The assigned agent owns current status, evidence, requested scoped review and final closure.
+Review is proportionate to actual consequence, uncertainty and contract, not automatic full-code
+review. High-consequence or uncertain changes request scoped review; self-checks are not independent.
+Parent owners synthesize child outcomes and remaining work; child completion does not accept the parent.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
   Keep one primary writer per Issue and coordinate reviewer/support work.
@@ -13069,7 +13094,10 @@ identify their actual agent name and role/function under `agent_identity.md`.
 
 ## Closure and recovery
 
-- Follow the existing owner acceptance gate. Record completion summary,
+- Authorized agents close routine completed work after criteria, required tests and required reviews
+  are satisfied, without another owner ping. Reserved owner decisions still wait; record missing
+  authority or an unmet gate as the specific blocker. Record delegated acceptance or reserved-owner
+  disposition, completion summary,
   accepted metadata/derived Status for Agile or `Status: done` for non-Agile,
   Updated timestamp, and transition reason in the Issue body;
   verify that update, close the Issue through the plugin, and verify state.
@@ -14298,6 +14326,18 @@ Relaxed mode loop
     synchronized with those findings.
 - Unknown-first evidence rules remain unchanged.
 
+Document semantics in both modes
+- Record each meaningful changed finding, decision or result once at appropriate ticket depth,
+  before dependent work required by the configured microcycle. Keep concise claim, impact,
+  material limits and next action inline with exact retrievable supporting comment/doc links.
+- Do not copy full linked reports or create substantive Notes for unchanged checks/ACKs.
+  Required in-body state/evidence and routing updates still apply; a link alone is not the record.
+- Preserve all existing Notes/history/custom regions. Concision is not permission to compact or
+  migrate historical tickets. Parent owners synthesize child outcomes and remaining work rather
+  than copying tactical logs; child completion does not accept the parent.
+- These semantics do not waive onboarding/reentry, strict/relaxed configuration, evidence timing,
+  denied/uncertain-write handling, note fields or the configured note-quality requirement.
+
 Config source
 - `config/context_compass_config.yaml`
 - Keys:
@@ -14371,16 +14411,22 @@ Workflow rules
 3) Track progress with checkboxes and status fields.
 4) Use the Ticket Microcycle while active:
    - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-5) For every meaningful finding, update `## Notes` immediately before any further investigation.
+5) Record each meaningful changed finding once in `## Notes` before dependent work,
+   at the appropriate ticket depth; unchanged checks/ACKs are not substantive findings.
 6) Treat new claims as `UNKNOWN` by default; promote to `FACT` only with evidence.
 7) If investigation expands beyond the current subsystem or exceeds
    `workflow.ticket_microcycle.expansion_gate_max_files`, add a `DECISION`
    note and request user confirmation.
 8) Update Context / Handoff Summary as work changes.
 9) Before closing a ticket:
-   - Walk through what was delivered.
-   - Ask the user to confirm acceptance criteria.
-10) After confirmation:
+   - The assigned agent owns current status, evidence, requested scoped review and final closure.
+   - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+     full-code-review parking state. High-consequence or uncertain changes request scoped review
+     of the actual revision and question; self-checks are not independent review.
+   - Authorized agents close routine completed work after criteria, required tests and required
+     reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+     Missing authority or a required gate is a specific blocker; do not infer acceptance.
+10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
    - In plugin mode, record accepted metadata and its derived Status for an Agile
@@ -14444,6 +14490,12 @@ Notes format requirement
   - `SCORE_0_TO_10` (compaction usefulness score; improve entries below
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
+- Preserve all existing history and custom regions; concise Notes do not authorize historical compaction.
+- Keep concise claim, impact, material limits and next action inline, with exact retrievable
+  comment/doc links for supporting detail; do not copy full linked reports. A link alone does not
+  replace required in-body state, decisions, evidence or unresolved limits.
+- Unchanged checks/ACKs do not require a substantive finding Note; required state/routing/evidence
+  updates still apply. This does not relax configured timing or note-quality gates.
 - In plugin mode, `## Notes` remains in the Issue body. A full-body update must
   preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
@@ -14453,6 +14505,8 @@ Per-ticket noting behavior
 - Task notes: tactical findings, immediate impacts, and one-step continuation.
 - Story notes: cross-task synthesis, dependency movement, and gate transitions.
 - Epic notes: program direction, cross-story tradeoffs, and tranche order.
+- Parent owners reconcile child outcomes and remaining work in synthesis Notes, not duplicate
+  tactical logs. Child completion does not accept the parent; its own criteria/authority still apply.
 
 Status discipline
 - Update Status and Updated fields on each state change (UTC DateTime: `YYYY-MM-DDTHH:MM:SSZ`).
@@ -14841,7 +14895,10 @@ Provide a consistent planning and tracking workflow that uses structured tickets
 4. Keep links consistent (epic <-> story <-> task IDs) when using multiple levels.
 5. Use the Ticket Microcycle continuously:
     - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-6. For every meaningful finding, immediately append a ticket `## Notes` entry before any further investigation.
+6. Record each meaningful changed finding once at appropriate ticket depth before dependent work.
+   Keep concise claim, impact, material limits and next action inline with exact retrievable
+   supporting comment/doc links. Do not copy full linked reports or create substantive Notes for
+   unchanged checks/ACKs; preserve required in-body state/evidence and all existing history.
    - Use evidence ranges (`path:start_line-end_line`) rather than single-line anchors.
    - If the ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the
      linked context artifact when that finding changes required rereads or
@@ -14855,9 +14912,14 @@ Provide a consistent planning and tracking workflow that uses structured tickets
     - add/update `context_management/context_board.md` row(s) for each active
       context artifact.
 10. Before closing a ticket:
-    - Walk through what was delivered.
-    - Ask the user to confirm the acceptance criteria are met.
-11. After confirmation:
+    - The assigned agent owns current status, evidence, requested scoped review and final closure.
+    - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+      full-code review. Self-checks are not independent review; high-consequence or uncertain changes
+      request scoped review of the actual revision and consequential question.
+    - Authorized agents close routine completed work after criteria, required tests and required
+      reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+      Missing authority or a required gate is a specific blocker.
+11. After acceptance under delegated authority or explicit reserved-owner disposition:
     - Add a short completion summary with a UTC datetime.
     - Move the file to its matching completed folder (`tickets/epics/completed/`,
       `tickets/stories/completed/`, or `tickets/tasks/completed/`).
@@ -14953,6 +15015,8 @@ When unsure:
   - Default for both is `500`.
 
 ## Per-Ticket Noting Behavior
+- Parent owners reconcile child outcomes and remaining work with synthesis, not duplicate tactical
+  logs. Child completion does not accept the parent; assess its own criteria and authority.
 - Task notes: tactical findings, immediate impact, and one-step continuation.
 - Story notes: cross-task synthesis, dependency movement, and gate transitions.
 - Epic notes: program-level direction, cross-story tradeoffs, and tranche order.
@@ -15034,6 +15098,7 @@ Before moving a ticket to a completed folder:
 - [ ] `context_management/context_board.md` is synchronized when context
       management is active for the ticket.
 - [ ] Acceptance criteria are explicitly met (not "mostly done").
+- [ ] Required tests/reviews and delegated acceptance or reserved-owner disposition are recorded.
 - [ ] Any new/changed behavior has been documented in the relevant C4/C3 docs.
 - [ ] Unknowns introduced during work are either resolved (with evidence) or
       recorded as **UNKNOWN** with investigation pointers.
@@ -27951,7 +28016,7 @@ numbers, they are simply the wrong ones.
 
 ## Closure Confirmation
 - [ ] Work walkthrough shared with user
-- [ ] Acceptance criteria confirmed by user
+- [ ] Criteria, required tests/reviews and delegated acceptance or reserved-owner disposition recorded
 - [ ] Applicable anti-pattern checks are clear or escalated with evidence.
 
 ## Noting Behavior
@@ -28095,7 +28160,7 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 
 ## Closure Confirmation
 - [ ] Work walkthrough shared with user
-- [ ] Acceptance criteria confirmed by user
+- [ ] Criteria, required tests/reviews and delegated acceptance or reserved-owner disposition recorded
 - [ ] Applicable anti-pattern checks are clear or escalated with evidence.
 
 ## Noting Behavior
@@ -28184,7 +28249,7 @@ what editing the rest of the template would cost you.
 ## Applicable Anti-Patterns
 - [ ] No status transition without evidence-backed transition reason.
 - [ ] No implementation/validation from `UNKNOWN` or `HYPOTHESIS`.
-- [ ] No closure without acceptance confirmation and board-sync completion.
+- [ ] No closure without delegated acceptance or reserved-owner disposition and board-sync completion.
 
 ## Done Checklist
 - [ ] Steps complete and checked off
@@ -28195,7 +28260,7 @@ what editing the rest of the template would cost you.
 - [ ] Notes quality maintained (`SCORE_0_TO_10` >=
       `workflow.ticket_microcycle.minimum_note_score`)
 - [ ] Applicable anti-pattern checks are clear or escalated with evidence.
-- [ ] Acceptance criteria reviewed with user and confirmed
+- [ ] Criteria, required tests/reviews and delegated acceptance or reserved-owner disposition recorded
 - [ ] Board sync completed for successor routing or closure anchor update.
 
 ## Artifact Links (Optional)
