@@ -43,7 +43,10 @@ Provide a consistent planning and tracking workflow that uses structured tickets
 4. Keep links consistent (epic <-> story <-> task IDs) when using multiple levels.
 5. Use the Ticket Microcycle continuously:
     - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-6. For every meaningful finding, immediately append a ticket `## Notes` entry before any further investigation.
+6. Record each meaningful changed finding once at appropriate ticket depth before dependent work.
+   Keep concise claim, impact, material limits and next action inline with exact retrievable
+   supporting comment/doc links. Do not copy full linked reports or create substantive Notes for
+   unchanged checks/ACKs; preserve required in-body state/evidence and all existing history.
    - Use evidence ranges (`path:start_line-end_line`) rather than single-line anchors.
    - If the ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the
      linked context artifact when that finding changes required rereads or
@@ -57,9 +60,14 @@ Provide a consistent planning and tracking workflow that uses structured tickets
     - add/update `context_management/context_board.md` row(s) for each active
       context artifact.
 10. Before closing a ticket:
-    - Walk through what was delivered.
-    - Ask the user to confirm the acceptance criteria are met.
-11. After confirmation:
+    - The assigned agent owns current status, evidence, requested scoped review and final closure.
+    - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+      full-code review. Self-checks are not independent review; high-consequence or uncertain changes
+      request scoped review of the actual revision and consequential question.
+    - Authorized agents close routine completed work after criteria, required tests and required
+      reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+      Missing authority or a required gate is a specific blocker.
+11. After acceptance under delegated authority or explicit reserved-owner disposition:
     - Add a short completion summary with a UTC datetime.
     - Move the file to its matching completed folder (`tickets/epics/completed/`,
       `tickets/stories/completed/`, or `tickets/tasks/completed/`).
@@ -155,6 +163,8 @@ When unsure:
   - Default for both is `500`.
 
 ## Per-Ticket Noting Behavior
+- Parent owners reconcile child outcomes and remaining work with synthesis, not duplicate tactical
+  logs. Child completion does not accept the parent; assess its own criteria and authority.
 - Task notes: tactical findings, immediate impact, and one-step continuation.
 - Story notes: cross-task synthesis, dependency movement, and gate transitions.
 - Epic notes: program-level direction, cross-story tradeoffs, and tranche order.
@@ -236,6 +246,7 @@ Before moving a ticket to a completed folder:
 - [ ] `context_management/context_board.md` is synchronized when context
       management is active for the ticket.
 - [ ] Acceptance criteria are explicitly met (not "mostly done").
+- [ ] Required tests/reviews and delegated acceptance or reserved-owner disposition are recorded.
 - [ ] Any new/changed behavior has been documented in the relevant C4/C3 docs.
 - [ ] Unknowns introduced during work are either resolved (with evidence) or
       recorded as **UNKNOWN** with investigation pointers.

@@ -49,6 +49,14 @@ identify their actual agent name and role/function under `agent_identity.md`.
   changes. A full-body update must retain unrelated sections and prior history.
 
 ## Local responsibility and routing
+Record each meaningful changed finding once at the appropriate ticket depth. Keep concise claim,
+impact, material limits and next action inline with exact retrievable comment/doc links; do not copy
+full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
+state/evidence, prior history and custom regions; comments remain supporting evidence.
+The assigned agent owns current status, evidence, requested scoped review and final closure.
+Review is proportionate to actual consequence, uncertainty and contract, not automatic full-code
+review. High-consequence or uncertain changes request scoped review; self-checks are not independent.
+Parent owners synthesize child outcomes and remaining work; child completion does not accept the parent.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
   Keep one primary writer per Issue and coordinate reviewer/support work.
@@ -66,7 +74,10 @@ identify their actual agent name and role/function under `agent_identity.md`.
 
 ## Closure and recovery
 
-- Follow the existing owner acceptance gate. Record completion summary,
+- Authorized agents close routine completed work after criteria, required tests and required reviews
+  are satisfied, without another owner ping. Reserved owner decisions still wait; record missing
+  authority or an unmet gate as the specific blocker. Record delegated acceptance or reserved-owner
+  disposition, completion summary,
   accepted metadata/derived Status for Agile or `Status: done` for non-Agile,
   Updated timestamp, and transition reason in the Issue body;
   verify that update, close the Issue through the plugin, and verify state.

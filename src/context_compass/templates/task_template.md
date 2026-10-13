@@ -57,7 +57,7 @@
 ## Applicable Anti-Patterns
 - [ ] No status transition without evidence-backed transition reason.
 - [ ] No implementation/validation from `UNKNOWN` or `HYPOTHESIS`.
-- [ ] No closure without acceptance confirmation and board-sync completion.
+- [ ] No closure without delegated acceptance or reserved-owner disposition and board-sync completion.
 
 ## Done Checklist
 - [ ] Steps complete and checked off
@@ -68,7 +68,7 @@
 - [ ] Notes quality maintained (`SCORE_0_TO_10` >=
       `workflow.ticket_microcycle.minimum_note_score`)
 - [ ] Applicable anti-pattern checks are clear or escalated with evidence.
-- [ ] Acceptance criteria reviewed with user and confirmed
+- [ ] Criteria, required tests/reviews and delegated acceptance or reserved-owner disposition recorded
 - [ ] Board sync completed for successor routing or closure anchor update.
 
 ## Artifact Links (Optional)

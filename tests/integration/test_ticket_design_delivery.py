@@ -129,3 +129,21 @@ def test_mandatory_name_role_attribution_is_ticket_scoped_not_chat_scoped(relati
     assert "prefix user-facing responses" not in text
     assert "represent yourself in responses" not in text
     assert "authored responses, posts" not in text
+
+
+@pytest.mark.parametrize("kind", ["task", "story", "epic"])
+@pytest.mark.parametrize("backend", ["local", "github_codex_plugin"])
+def test_generated_contract_carries_routine_closure_and_linked_evidence(kind, backend, tmp_path):
+    output = tmp_path / f"{kind}-{backend}.md"
+    result = run_tool(SCRIPT, "--root", PKG_ROOT, "bundle", "--kind", kind,
+                      "--backend", backend, "--out", output)
+    assert result.returncode == 0, result.stdout + result.stderr
+    text = " ".join(output.read_text(encoding="utf-8").split()).lower()
+    for phrase in ("authorized agents close routine completed work",
+                   "reserved owner decisions still wait", "self-checks are not independent review",
+                   "unchanged checks/acks", "material limits", "retrievable",
+                   "child completion does not accept the parent",
+                   "delegated acceptance or reserved-owner disposition"):
+        assert phrase in text, (kind, backend, phrase)
+    template = (PKG_ROOT / f"templates/{kind}_template.md").read_text(encoding="utf-8")
+    assert template in output.read_text(encoding="utf-8")

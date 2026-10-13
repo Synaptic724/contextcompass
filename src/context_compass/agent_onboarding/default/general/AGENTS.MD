@@ -167,10 +167,20 @@ As a ritual, after implementing a change:
   (`SCORE_0_TO_10`); if score is below
   `workflow.ticket_microcycle.minimum_note_score`, improve the note before
   proceeding.
-* Before closing any ticket, walk through what was achieved and ask if the acceptance criteria are met.
-* Only after explicit confirmation, complete the ticket in its selected backend:
+* The assigned agent owns current status, evidence, requested scoped review and final closure.
+  Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+  full-code-review parking state. Self-checks are not independent review.
+* Authorized agents close routine completed work after criteria, required tests and required reviews
+  are satisfied, without another owner ping. Reserved owner decisions still wait for explicit acceptance.
+  Missing authority or an unmet gate is a concrete blocker, not inferred approval.
+* Record delegated acceptance or reserved-owner disposition, then complete the selected backend:
   move local tickets to matching completed folders, or verify the Issue body
   has `Status: done`, completion summary, and reason, then close through the plugin.
+* Record each meaningful changed finding once at appropriate task/story/epic depth. Keep concise claim,
+  impact, material limits and next action inline with exact retrievable supporting links; do not copy
+  full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
+  state/evidence, prior Notes and custom regions. Parent owners reconcile child outcomes and remaining
+  work; child completion does not accept the parent.
 * Immediately after completing any ticket, run deterministic `attention_board.md` sync:
   - remove/replace active rows that reference the closed ticket,
   - prune stale attention details tied only to the closed ticket,

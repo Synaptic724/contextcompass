@@ -59,16 +59,22 @@ Workflow rules
 3) Track progress with checkboxes and status fields.
 4) Use the Ticket Microcycle while active:
    - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-5) For every meaningful finding, update `## Notes` immediately before any further investigation.
+5) Record each meaningful changed finding once in `## Notes` before dependent work,
+   at the appropriate ticket depth; unchanged checks/ACKs are not substantive findings.
 6) Treat new claims as `UNKNOWN` by default; promote to `FACT` only with evidence.
 7) If investigation expands beyond the current subsystem or exceeds
    `workflow.ticket_microcycle.expansion_gate_max_files`, add a `DECISION`
    note and request user confirmation.
 8) Update Context / Handoff Summary as work changes.
 9) Before closing a ticket:
-   - Walk through what was delivered.
-   - Ask the user to confirm acceptance criteria.
-10) After confirmation:
+   - The assigned agent owns current status, evidence, requested scoped review and final closure.
+   - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
+     full-code-review parking state. High-consequence or uncertain changes request scoped review
+     of the actual revision and question; self-checks are not independent review.
+   - Authorized agents close routine completed work after criteria, required tests and required
+     reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+     Missing authority or a required gate is a specific blocker; do not infer acceptance.
+10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
    - In plugin mode, record accepted metadata and its derived Status for an Agile
@@ -132,6 +138,12 @@ Notes format requirement
   - `SCORE_0_TO_10` (compaction usefulness score; improve entries below
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
+- Preserve all existing history and custom regions; concise Notes do not authorize historical compaction.
+- Keep concise claim, impact, material limits and next action inline, with exact retrievable
+  comment/doc links for supporting detail; do not copy full linked reports. A link alone does not
+  replace required in-body state, decisions, evidence or unresolved limits.
+- Unchanged checks/ACKs do not require a substantive finding Note; required state/routing/evidence
+  updates still apply. This does not relax configured timing or note-quality gates.
 - In plugin mode, `## Notes` remains in the Issue body. A full-body update must
   preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
@@ -141,6 +153,8 @@ Per-ticket noting behavior
 - Task notes: tactical findings, immediate impacts, and one-step continuation.
 - Story notes: cross-task synthesis, dependency movement, and gate transitions.
 - Epic notes: program direction, cross-story tradeoffs, and tranche order.
+- Parent owners reconcile child outcomes and remaining work in synthesis Notes, not duplicate
+  tactical logs. Child completion does not accept the parent; its own criteria/authority still apply.
 
 Status discipline
 - Update Status and Updated fields on each state change (UTC DateTime: `YYYY-MM-DDTHH:MM:SSZ`).
