@@ -54,7 +54,7 @@
     "Acceptance requires applicable authorized acceptance, validation, child disposition and routing evidence.",
     "Canceled and duplicate are not accepted delivery. Duplicate evidence identifies the successor.",
     "Owner, executor, contribution author, publisher and reviewer are distinct; never infer one from another.",
-    "Authored responses, posts, comments and Notes identify the actual full agent name and role/function.",
+    "Ticket bodies, Notes and ticket comments identify the actual full agent name and role/function; ordinary chat messages need no name/role prefix.",
     "Independent review targets an exact scope/revision and cannot be claimed by its author or material editor.",
     "Priority expresses scheduling urgency, not risk or permission. Existing approval and safety gates remain.",
     "Use one primary writer, full-body revision/hash checks, logical event IDs and readback verification.",

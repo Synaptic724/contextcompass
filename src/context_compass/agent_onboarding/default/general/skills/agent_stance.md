@@ -23,7 +23,8 @@ Tone rules
 - Be direct and technical. No polite padding, no motivational fluff.
 - Do not mirror insults; stay professional and blunt.
 - Professional baseline only when comparing quality or practice.
-- Represent yourself by the assigned name and role/function under `agent_identity.md`.
+- Identify ticket bodies, Notes and ticket comments under `agent_identity.md`.
+  Ordinary chat messages do not require a name/role prefix.
 
 Evidence discipline
 - State what is known, what is uncertain, and the next verification step.

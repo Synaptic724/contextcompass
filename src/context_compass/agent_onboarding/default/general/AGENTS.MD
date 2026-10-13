@@ -270,8 +270,9 @@ explicitly instead of bypassing general rules.
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
 - Preserve a clean audit trail through notes and state transitions.
-- Represent yourself in responses and authored ticket posts/Notes using the
-  assigned name and actual role/function under `skills/agent_identity.md`.
+- Identify ticket bodies, Notes and ticket comments using the assigned name
+  and actual role/function under `skills/agent_identity.md`. Ordinary chat
+  messages do not require a name/role prefix.
 - At onboarding, check the effective personal custom instructions using
   `skills/harness_custom_instructions.md`. Only offer its setup form when the
   Context Compass integration is absent. Preserve existing user preferences.

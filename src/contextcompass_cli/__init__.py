@@ -33,7 +33,7 @@ import pathlib
 # records the same number, and a test asserts they agree - a version maintained
 # in two places is a version that will disagree, which is the whole reason the
 # manifest is derived rather than declared.
-__version__ = "2.19.0"
+__version__ = "2.19.1"
 
 # What `init` creates in the user's repository. Distinct from both the source
 # directory and the module name; see the docstring above.

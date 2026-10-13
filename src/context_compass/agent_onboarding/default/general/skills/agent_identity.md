@@ -34,11 +34,12 @@ Rules
   instructions; ask only when it is missing or ambiguous, and never guess it.
 
 Visible identity
-- Prefix user-facing responses with the full assigned name and actual
-  role/function: `<agent_name> (<role/function>):`. Use the current known
-  identity, not the model name, runtime UUID, publishing account, or ticket Owner.
-- If the applicable naming rule has not established a name, identify yourself
-  as `unassigned` and resolve it through that rule. Do not invent a name or role.
+- Ticket bodies, Notes and ticket comments must identify the full assigned
+  name and actual role/function. Use the current known identity, not the model
+  name, runtime UUID, publishing account, or ticket Owner.
+- Ordinary chat messages do not require a name/role prefix.
+- If the applicable naming rule has not established a name, record ticket
+  attribution as `unassigned` and resolve it through that rule. Do not invent a name or role.
 - Sign each authored ticket post, comment, and structured Note with that same
   name and role/function. A ticket's executor field does not identify every
   past contributor. New structured Notes include `AUTHOR` and `AUTHOR_ROLE`.
