@@ -39,8 +39,9 @@ or new-agent creation belongs in this protocol.
 
 ## Compose pointer-heavy messages
 
-- Keep the active ticket as the durable record. Copy actionable findings to
-  its `## Notes` before or with the send; chat-only drafts are not history.
+- Keep the active ticket as the durable record. Save actionable findings in supported Notes,
+  comments or authorized linked evidence before sending their pointer; chat-only drafts are
+  not history. Do not force a copy of every comment into body Notes.
 - Include the canonical ticket pointer: a context-compass-relative ticket path
   or an Issue URL from the selected ticket backend, plus current Status and
   one next action.
@@ -51,8 +52,8 @@ or new-agent creation belongs in this protocol.
 
 ## Receiving and waiting
 
-- Record actionable content from an authorized incoming message in the active
-  ticket's `## Notes` first, with evidence ranges and next step.
+- Record actionable authorized message content as a meaningful attributed ticket contribution,
+  with evidence and next step; ordinary transport acknowledgments need no duplicate finding.
 - A successful send means delivery, not completion. Use `wait_threads` with
   cursor-based bounded waits when expecting a reply. New user input ends the
   wait. Do not narrate unchanged snapshots or poll aggressively. On uncertain
@@ -67,7 +68,10 @@ or new-agent creation belongs in this protocol.
 - Maintain shared presence and setup outcomes only through narrow
   `agent_session_state.md` reads and writes. Never write mailbox messages
   or alerts in this mode.
-- Keep one writer per ticket file or Issue body. Leave shared-board updates
+- Full-body replacements and overlapping mutable fields retain latest-content/revision and
+  writer coordination. Supported append-only comments need no body-writer permission; verify
+  their saved readback. No full-policy reread is added per ordinary comment.
+- Keep one writer per ticket file or Issue body replacement. Leave shared-board updates
   to the designated coordinator where applicable.
 - If contact selectors are ambiguous, tool access fails, or pause state is
   unclear, stop and ask the owner. No silent transport fallback.

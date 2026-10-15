@@ -14,10 +14,12 @@ Story steps
    - Ensure `attention_board.md` reflects active routing and open the linked active ticket.
 3) Work loop
    - Use tickets in the selected backend for planning and execution.
-   - Keep ticket checklists current and append findings as they occur in `## Notes`.
+   - Own the complete authorized outcome and keep current checklists/state coherent.
+   - Save attributed findings in supported Notes/comments/documents under shared `ticketing.md`.
 4) Check-out
    - Summarize what changed, what remains, and what to do next.
-   - Complete tickets only after user confirmation: move local tickets to
+   - Complete routine authorized tickets after actual criteria/tests/reviews; reserved owner
+     decisions retain their acceptance gate. Record the disposition, then move local tickets to
      matching completed folders, or record and verify Issue-body `Status: done`
      and completion summary, then close through the GitHub plugin.
 

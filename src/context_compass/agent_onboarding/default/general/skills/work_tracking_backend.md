@@ -38,7 +38,9 @@ catalog before using the connected plugin's repository or Issue tools. Read
 `github/codex_plugin.md` and `github/workflow.md` before operating this backend.
 Fetch the selected Issues instead of reading local ticket folders for current
 ticket state. Issue bodies retain the existing Epic/Story/Task template sections,
-Status, `## Notes`, and handoff summary. The canonical reference is an Issue URL.
+Status, `## Notes`, and the current handoff summary. Supported attributed comments/documents
+can carry findings directly under shared `ticketing.md`; do not copy every comment into the body.
+The canonical reference is an Issue URL.
 
 `work_tracking.github_codex_plugin.project_url` is optional. It can identify an
 associated Project, but Project fields are not the ticket-status authority in
@@ -86,5 +88,6 @@ Set `connection_nickname` explicitly from the current Codex connection nickname.
 Upgrades preserve existing config blocks; they do not choose an account or
 infer a nickname from an earlier CLI login. An older plugin config without this
 field must be completed before plugin operations resume.
-If those earlier Issues contain ticket Notes in comments, complete the history
-and Status reconciliation in `github/migration.md` before resuming their work.
+If an older Issue's canonical Status/history is genuinely inconsistent, reconcile the affected
+state through the existing owner. Meaningful comments alone do not require migration or a body
+copy before ordinary continuation. Explicit backend migration still follows `github/migration.md`.

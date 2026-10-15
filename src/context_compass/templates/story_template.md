@@ -48,7 +48,7 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - [ ] Task: <TASK-ID> - <short description>
 - [ ] Task: <TASK-ID> - <short description>
 - [ ] Enforce Ticket Microcycle across all linked tasks.
-- [ ] Require meaningful-finding note updates during discovery/implementation.
+- [ ] Record meaningful attributed findings in supported Notes/comments or authorized linked evidence.
 
 ## Acceptance Criteria
 - 
@@ -74,6 +74,9 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - 
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -120,9 +123,13 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - Add notes when task routing changes, gate decisions are made, or risks shift.
 - Reference child-task notes for evidence instead of duplicating tactical detail.
 - Keep notes append-only and preserve UNKNOWN-first promotion discipline.
+- Multiple meaningful comments may hold evidence directly; no forced body copy before ordinary
+  continuation. Current scope/state/decisions/handoff stay coherent at material transitions.
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->

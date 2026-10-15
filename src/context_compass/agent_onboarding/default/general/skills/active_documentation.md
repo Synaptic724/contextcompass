@@ -6,22 +6,24 @@ Purpose
 - Keep durable, compaction-safe working memory directly inside active tickets.
 - Ensure findings are captured with concrete evidence pointers while work is in
   flight.
-- Prevent context loss by maintaining an always-current `## Notes` section.
+- Prevent context loss with durable evidence and one current resume view.
 
 Core rule
 - Every active ticket (epic/story/task) must include a `## Notes` section.
-- During active execution, append notes as meaningful findings happen; do not
-  wait for end-of-pass summaries.
+- During execution, save meaningful attributed findings when required by dependent work.
+  Multiple meaningful comments or authorized documents may hold evidence directly; no forced
+  body copy is required before ordinary continuation. Preserve historical Notes/comments.
 - Evidence pointers must include file paths with explicit start/end line ranges
   (`path:start_line-end_line`).
 - UNKNOWN is the default claim state until evidence promotes a claim to FACT.
 - Do not continue investigation to the next finding until the current finding
   is documented.
-- Do not continue to code edits or validation until the current meaningful
-  finding is documented in `## Notes` with evidence and next action.
+- Before dependent code edits or validation, retain the relevant finding with evidence and
+  next action in a supported durable contribution, not necessarily another body Note.
 
 Canonical storage
-- Primary: `## Notes` in the active ticket being worked.
+- Primary: the selected ticket's Notes, supported comments and authorized linked evidence.
+- Current state/scope/decisions/handoff stay coherent at material transitions and closure.
 - Secondary: `attention_board.md` for routing state only.
 - Do not move detailed findings into `attention_board.md`; keep detail in
   ticket notes.
@@ -64,7 +66,8 @@ Update triggers (mandatory)
 6) Before handoff or compaction.
 
 Quality bar
-- Keep notes append-only unless correcting a factual error.
+- Keep historical Notes/comments append-only unless correcting a factual error. Update only the
+  one current resume view in place; link unchanged context and full evidence.
 - Prefer high-signal claims with precise evidence over long narrative.
 - If a finding is single-line evidence, still write a range with same start/end.
 - Mark unverified items as `UNKNOWN`; never promote to fact without evidence.

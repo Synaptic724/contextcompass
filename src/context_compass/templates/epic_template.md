@@ -92,6 +92,9 @@
 - 
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -138,9 +141,13 @@
 - Add notes when priorities, sequencing, or scope boundaries change.
 - Reference story/task evidence instead of duplicating tactical execution logs.
 - Keep notes append-only and preserve UNKNOWN-first promotion discipline.
+- Multiple meaningful comments may hold evidence directly; no forced body copy before ordinary
+  continuation. Current scope/state/decisions/handoff stay coherent at material transitions.
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->

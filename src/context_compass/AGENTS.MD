@@ -42,14 +42,17 @@ holds state about the work that lives outside this repository.
   status widgets, planning trackers, session memory - to plan, track, route, or
   record your work.
 - You MUST use the configured Context Compass work backend for Epic/Story/Task
-  tickets and their `## Notes`. `work_tracking.backend` in
+  tickets and their durable Notes, supported comments and authorized linked evidence.
+  `work_tracking.backend` in
   `config/context_compass_config.yaml` defaults to `local` when absent. In
   `local` mode, read and update tickets under `tickets/epics/`,
   `tickets/stories/`, and `tickets/tasks/`. In `github_codex_plugin` mode,
   resolve the configured `connection_nickname` through the current GitHub
   account catalog before calls, then fetch and update Issues through that
   connection; each Issue body
-  holds its template, Status, and `## Notes`. A Project URL is optional. In both modes,
+  holds its template, Status, `## Notes` and current resume view; supported Issue comments
+  may hold attributed findings directly without copying every finding into the body.
+  A Project URL is optional. In both modes,
   `attention_board.md`, `artifact_board.md` + `artifacts/`,
   `context_management/`, and `mailbox_board.md` remain local. Plugin mode also
   uses local `issue_board.md` for agent claims. Read the backend-specific general

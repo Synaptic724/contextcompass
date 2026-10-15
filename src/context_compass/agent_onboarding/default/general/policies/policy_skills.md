@@ -6,7 +6,8 @@ Purpose
 - Enforce the policy chain so edits stay deterministic and reviewable.
 
 When to use
-- At the start of every session and before editing in a new directory.
+- At actual startup/recovery or when applicable directory/source policy changes. Reuse valid
+  reads in intact context; an ordinary comment is not another full-policy read trigger.
 
 Canonical Contract (from AGENTS.MD)
 This repository is a public library. Code quality and documentation are
@@ -69,7 +70,7 @@ Required flow
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`
   and apply its active-partner + performance-engineering rules.
 - Route active work from `context_compass/attention_board.md` and keep detailed
-  state in ticket `## Notes`.
+  current state in the ticket. Supported attributed comments/documents may hold detailed evidence.
 - Use the Ticket Microcycle with meaningful-finding note gates during
   execution.
 - Use Epic/Story/Task tickets in the selected work backend for all planned
@@ -96,7 +97,8 @@ Documentation and Convention Precedence
   `README`, `CONTRIBUTING`, `docs/`, and any architecture/design notes.
 - Do not invent new conventions if the repo already has a pattern.
 - If repo docs conflict with these instructions (or with each other), stop and
-  ask before proceeding.
+  record the actual conflict. Resolve an already-authorized source correction within its scope;
+  ask only for an unresolved material policy/authority decision, not routine file selection.
 
 Unknowns Gate
 - Apply the canonical policy in
@@ -109,17 +111,19 @@ Unknowns Gate
   requesting user resolution.
 
 Operating Protocol (How You Should Work)
-A) Propose - Confirm - Implement
+A) Plan - Implement Within Authority
 Before making non-trivial edits:
 1. Restate the goal in 3-5 bullets.
 2. List the constraints you will obey (scope, policy, and workflow gates).
 3. List the exact files / symbols you will modify.
-   If any of the above is uncertain, stop and ask before editing.
+   Investigate implementation uncertainty within authorized scope. There is no per-step approval
+   for ordinary work already covered by the outcome. Preserve reserved decisions, security/action
+   permissions, owner STOPs and required tests/reviews; no ticket grants new access.
 
 B) Scope Control
 - Stay within the declared files/symbols.
-- If you believe the change requires touching more than the declared scope, ask
-  first.
+- Record related files required for the complete authorized outcome. Ask for materially expanded
+  scope or a consequential owner decision, not another admission for an ordinary included step.
 
 C) Documentation Ritual
 As a ritual, after implementing a change:
@@ -127,7 +131,7 @@ As a ritual, after implementing a change:
 - Ensure state, evidence, and next actions are accurate and current.
 
 Stop Conditions (Ask Before Proceeding)
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 - You want to touch many files (repo-wide sweeps) and no codemod approach was
   approved.
 - You want to rename/move files or symbols.
@@ -179,8 +183,9 @@ Operational guidance (enriched)
 - Do not improvise conventions; mirror the skills and examples.
 - Treat skills as the executable version of policy.
 - Use examples as canonical style references, not suggestions.
-- Keep scope minimal and reviewable; do not widen without approval.
-- If a change implies touching many files or renames, ask first.
+- Keep scope coherent and reviewable; do not silently widen the authorized outcome.
+- Ordinary related multi-file selection/repair is not a new approval stage. Unapproved renames,
+  dependencies, public-API changes or security/action changes retain their actual permission gates.
 
 Workflow
 1) Check for AGENTS.override.md in the target directory.

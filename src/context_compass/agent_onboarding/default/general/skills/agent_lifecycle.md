@@ -19,8 +19,10 @@ Rules
 
 Worklists
 - In local mode, use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/`
-  for active work, moving to matching completed folders only after confirmation.
+  for active work, moving to matching completed folders after actual authorized completion.
 - In plugin mode, use configured Issue bodies and their Status/Notes for active work;
-  claim agents locally in `issue_board.md` and close only after confirmation.
+  claim agents locally in `issue_board.md` and verify body completion and native closure.
+- Complete routine work under shared `ticketing.md` after its actual criteria and required tests/reviews,
+  without another confirmation. Preserve reserved owner acceptance, real permissions and STOPs.
 
 

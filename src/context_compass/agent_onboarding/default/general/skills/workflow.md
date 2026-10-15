@@ -47,6 +47,8 @@ Provide a consistent planning and tracking workflow that uses structured tickets
    Keep concise claim, impact, material limits and next action inline with exact retrievable
    supporting comment/doc links. Do not copy full linked reports or create substantive Notes for
    unchanged checks/ACKs; preserve required in-body state/evidence and all existing history.
+   Multiple meaningful comments or authorized linked documents may hold attributed findings;
+   no forced body copy is required before ordinary continuation.
    - Use evidence ranges (`path:start_line-end_line`) rather than single-line anchors.
    - If the ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the
      linked context artifact when that finding changes required rereads or
@@ -67,6 +69,9 @@ Provide a consistent planning and tracking workflow that uses structured tickets
     - Authorized agents close routine completed work after criteria, required tests and required
       reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
       Missing authority or a required gate is a specific blocker.
+    - A qualified independent reviewer may accept and close under shared `ticketing.md`.
+      Apply its full-current-evidence and reserved-decision boundaries, not an extra author
+      handback solely for closure.
 11. After acceptance under delegated authority or explicit reserved-owner disposition:
     - Add a short completion summary with a UTC datetime.
     - Move the file to its matching completed folder (`tickets/epics/completed/`,
@@ -132,8 +137,8 @@ When unsure:
 ## Ticket Microcycle (Required)
 - Route from `attention_board.md` to one active ticket at a time.
 - Investigate until one meaningful finding is identified.
-- Immediately document that finding in the ticket `## Notes` section before
-  reading more.
+- Record the finding once in Notes, supported comments or authorized linked evidence before
+  work that depends on it. No forced body copy or approval from another body's writer is needed.
 - When `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the linked context
   artifact before continuing if the finding changes the reusable reread pack or
   topic focus.
@@ -277,6 +282,8 @@ Even inside tickets:
 - Every active ticket must include a `## Notes` section.
 - Every active ticket must include a `Noting Behavior` section aligned to
   ticket type (task/story/epic).
+- Preserve historical Notes/comments and keep one current resume view under shared `ticketing.md`.
+  Ordinary comments do not trigger another full-policy reread; actual recovery/source changes do.
 - New notes entries should be append-only and include:
   - `DATETIME`
   - `TYPE`:

@@ -6,7 +6,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.2 |
+| package_version | 2.19.3 |
 | files | 465 |
 
 ## Lane policy
@@ -40,7 +40,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `37ee27cacf1151457bb48e8877e8e755fd4661c90b19dc013982ccfd23c55697` |
+| `AGENTS.MD` | PACKAGE | `4666e7ca0151711cd49a08d6ac11d455916855846510d012b812da24c3b11adb` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -112,9 +112,9 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `0fd909bafc157c059b2ba2c33b6582fdcdebb1651c07aa96279038510de5dc1a` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `ad431350f713f0e3a6c084ae4fc71886eca6a985d77b169e369c3f44800485c6` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
-| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `2dbfdcbbb8da4d16733f26f3b99bdc45437282e7c8562e82ad492dab31ce8ac8` |
+| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `fa50dfc2d126f742ac0d99717314df1cd496f38c597ddca055296017cc1f7648` |
 | `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
 | `agent_onboarding/default/engineer/examples/eng_task_flow.md` | PACKAGE | `a5f38f4a9d858eabdf66a4a465887a9e83845f30b6f3c0d1eed7ee1b8d621984` |
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md` | PACKAGE | `af66fa71612ae763b2b54d4f0e574956c3e151dcd38526000f53bf83a2e4df19` |
@@ -136,39 +136,39 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `5f95f506bdef5d2e8eb5e253a87588433854f1f6a560a0463f442c743689d439` |
-| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `f5007245f000c1e36e8d9e07e5f427dace97bc8f93a6fa673ace9dce6d39d0fa` |
+| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `f0f2bfa601181aae1d28faa082a35881703b8f383a1455c93853932dda7e78fd` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
-| `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `0ab1110e36047e772e4c0babd50a34b13bc2a3a8b5945df496b94d4722d0f7ff` |
-| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `337c11ae46d95133df51513b1866414dc21c4dc78375da003376705c8bec97c2` |
+| `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
+| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
 | `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2303e4c9225e988bfb15d9541c979c69a498c54b8971a4fbfabac8bc3afd835b` |
-| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
+| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
 | `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `0e313f6c053b697f7c6bf32ef613ece738a62b806791ba03e521788a1e89f620` |
-| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
+| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `88cb4d3009615f01818c58ea317d2c0b6a1a8f859608321bb891ac97c63741a3` |
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `a9e48c7205565fb6da82e6dedd88979b2b465180accad10fc2212605f5754d73` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `8ef7f5975922bd59b438376ee21f0c7ce49fe9e4e9f13ce821d71d837dd02fb5` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
-| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `060c248e8b64f46d3b63e667bf9fa7e7a72d4a94702142f56b5806ba7f8b5bdc` |
+| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `2d1b72abad44a3cbae80a06e61932fdcf3b5d780660b0b943de27106ec683889` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
 | `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `cfc9f0cf1873720130714e331259b443ec7031f77a83b4db2a129b1be1987cca` |
-| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `47cb807557d4e6b48e0546f5c87a9df4a4cc1a24fa1de24dddcc2fed6a0dd5cb` |
+| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `d3188124914b8ea1f5d2fb488207ca0720a02e5e61f6f54355a4db4693bf2346` |
 | `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
 | `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
-| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `f11a5ede42bdba0e7daedaa3e082550c0f56fa85b43ab9062459ac88551ae78f` |
+| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
 | `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `22e833fb8133f299e9096883547410313bcaf9ee48b2f8dabeb4cf10483f7190` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
 | `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
@@ -180,15 +180,15 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `75acf6929ee04be4f5d620ed99a5ff5f92865b397c27c22b40b1732634c15b26` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `f767c8b27cbd7a77fdac029aaf99193b72b3ebfd39b3d650789941763b1f5210` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
-| `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `8833c5e79755990fa4029d9d955316eb96b1b21ed7a99ad6382a7e1286d46bc6` |
-| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `464e488811e7e4f76ce352343db60fe97dcd785ca7ffe103bdb7613eca07a9e7` |
+| `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `7a42efda34866fe68d604ef35b71e478b2153ea1e34013d9421b30ad8ac8e902` |
+| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `381c397d9dfebe0d1ba6682a17e3a9960e991ebfbe05d06188c4b31402b1a12a` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
-| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `415693c482a8664f5e1fc3781318ea89f04c92674febb06e9e1cdee56cea5bd6` |
-| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `d0d84d9e709ca437c998051e410b427b2f8eded73b1eed8b7e948386515c3ba2` |
+| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `a7a87420f0aa08cc7c04d7d320d8855b3837150fbb34d19f2cba35c7f01ef3bd` |
+| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `0044695e4d44fcf383fe6e12d53b8bbcf4db857370dfca20d58ccd48c0bd3c45` |
 | `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
 | `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
@@ -408,7 +408,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
 | `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
-| `config/context_compass_config.yaml` | CONFIG | `4d5a1e4404aa5e1e974fdd4bf1e1780da22df3108aef6410325049b6b9774f04` |
+| `config/context_compass_config.yaml` | CONFIG | `955b2038b584c1b74855ab226101ec34e0e49d86e2bd0ba25fb0c1c96e01900d` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -471,10 +471,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `system_docs/patches/active/_template_patch_id/code_description_patch_TEMPLATE_COMPONENT.md` | RESET | `262130e44568da2ce6720095b9ab9956ab9787d81a5e2daa73ba3300e3c04d13` |
 | `system_docs/patches/active/_template_patch_id/component_patch_TEMPLATE_COMPONENT.md` | RESET | `fedc2095f94e5be8f11bed1fae34faee05730d78c435819e907970356ecebd1c` |
 | `system_docs/system_docs_read_first.md` | RESET | `792b745c1eb7947c135f188ee2a055408bff9e0a39f7ff4432f25468b32cc61b` |
-| `templates/epic_template.md` | PACKAGE | `39461f2f31fe1aaa78758f77bd7a787abddcfac47540e7b20affd8ad70719888` |
-| `templates/story_template.md` | PACKAGE | `c2c5d6516625538a457df8bfde8fb22994de2375dd0c060a48e61be2a274e302` |
-| `templates/task_template.md` | PACKAGE | `12ff599f545f8d86d27575f1ff59162cbc4165f00fdc8b94e1ab995d7b4e7d62` |
-| `templates/ticket_contract.json` | PACKAGE | `7ed84cf08517496c27398fe5a658965918eef4095eb5f310e7f0072011011a35` |
+| `templates/epic_template.md` | PACKAGE | `560344360d3579b90dda1f6a26dea5c6d375316f1f7d1fb6f726dab0d21f6708` |
+| `templates/story_template.md` | PACKAGE | `f9ef141e45be40f671b4a4b3ec703ef968a794d4695e6c438fcd7b75efbd786a` |
+| `templates/task_template.md` | PACKAGE | `bc10fe7364dc2ee16403905e94f05b6e1315e4d6a61235aa3b5d64dadfddc71c` |
+| `templates/ticket_contract.json` | PACKAGE | `e7e530971f481c17f09a94c5af1bb1da98a6c0d572242d735ccf093a32918300` |
 | `templates/workflow_advanced_template.md` | PACKAGE | `312aa2e4e2f17a04959419e7f4af29a4e199239c9d9c453688b7025e56bf1a74` |
 | `templates/workflow_simple_template.md` | PACKAGE | `b78e8c24260030735d2d9558fc33f5f31d737a3accc19f71645d373fcbd80492` |
 | `tickets/epics/archive/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |

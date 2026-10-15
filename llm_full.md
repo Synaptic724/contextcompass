@@ -109,14 +109,17 @@ holds state about the work that lives outside this repository.
   status widgets, planning trackers, session memory - to plan, track, route, or
   record your work.
 - You MUST use the configured Context Compass work backend for Epic/Story/Task
-  tickets and their `## Notes`. `work_tracking.backend` in
+  tickets and their durable Notes, supported comments and authorized linked evidence.
+  `work_tracking.backend` in
   `config/context_compass_config.yaml` defaults to `local` when absent. In
   `local` mode, read and update tickets under `tickets/epics/`,
   `tickets/stories/`, and `tickets/tasks/`. In `github_codex_plugin` mode,
   resolve the configured `connection_nickname` through the current GitHub
   account catalog before calls, then fetch and update Issues through that
   connection; each Issue body
-  holds its template, Status, and `## Notes`. A Project URL is optional. In both modes,
+  holds its template, Status, `## Notes` and current resume view; supported Issue comments
+  may hold attributed findings directly without copying every finding into the body.
+  A Project URL is optional. In both modes,
   `attention_board.md`, `artifact_board.md` + `artifacts/`,
   `context_management/`, and `mailbox_board.md` remain local. Plugin mode also
   uses local `issue_board.md` for agent claims. Read the backend-specific general
@@ -855,7 +858,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.2 |
+| package_version | 2.19.3 |
 | files | 465 |
 
 ## Lane policy
@@ -889,7 +892,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `37ee27cacf1151457bb48e8877e8e755fd4661c90b19dc013982ccfd23c55697` |
+| `AGENTS.MD` | PACKAGE | `4666e7ca0151711cd49a08d6ac11d455916855846510d012b812da24c3b11adb` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -961,9 +964,9 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `0fd909bafc157c059b2ba2c33b6582fdcdebb1651c07aa96279038510de5dc1a` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `ad431350f713f0e3a6c084ae4fc71886eca6a985d77b169e369c3f44800485c6` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
-| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `2dbfdcbbb8da4d16733f26f3b99bdc45437282e7c8562e82ad492dab31ce8ac8` |
+| `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `fa50dfc2d126f742ac0d99717314df1cd496f38c597ddca055296017cc1f7648` |
 | `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
 | `agent_onboarding/default/engineer/examples/eng_task_flow.md` | PACKAGE | `a5f38f4a9d858eabdf66a4a465887a9e83845f30b6f3c0d1eed7ee1b8d621984` |
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md` | PACKAGE | `af66fa71612ae763b2b54d4f0e574956c3e151dcd38526000f53bf83a2e4df19` |
@@ -985,39 +988,39 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `5f95f506bdef5d2e8eb5e253a87588433854f1f6a560a0463f442c743689d439` |
-| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `7b1f437708ec0ff69123c37d256565ddbdc1ff8a81050bbbcc07fd4b9adf9f16` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `f5007245f000c1e36e8d9e07e5f427dace97bc8f93a6fa673ace9dce6d39d0fa` |
+| `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `f0f2bfa601181aae1d28faa082a35881703b8f383a1455c93853932dda7e78fd` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
-| `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `0ab1110e36047e772e4c0babd50a34b13bc2a3a8b5945df496b94d4722d0f7ff` |
-| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `337c11ae46d95133df51513b1866414dc21c4dc78375da003376705c8bec97c2` |
+| `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
+| `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
 | `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2303e4c9225e988bfb15d9541c979c69a498c54b8971a4fbfabac8bc3afd835b` |
-| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `2822e6fa9841ba6ecc0b06cd4007e3a695d20159892d150691a097ac2b8b8c02` |
+| `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
 | `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `0e313f6c053b697f7c6bf32ef613ece738a62b806791ba03e521788a1e89f620` |
-| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `a25b4f0d9e6b2ae02ac5c009b976319d719f3a1bd7fee04ffa2769ff625930c2` |
+| `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `88cb4d3009615f01818c58ea317d2c0b6a1a8f859608321bb891ac97c63741a3` |
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `a9e48c7205565fb6da82e6dedd88979b2b465180accad10fc2212605f5754d73` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `8ef7f5975922bd59b438376ee21f0c7ce49fe9e4e9f13ce821d71d837dd02fb5` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
-| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `060c248e8b64f46d3b63e667bf9fa7e7a72d4a94702142f56b5806ba7f8b5bdc` |
+| `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `2d1b72abad44a3cbae80a06e61932fdcf3b5d780660b0b943de27106ec683889` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
 | `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `cfc9f0cf1873720130714e331259b443ec7031f77a83b4db2a129b1be1987cca` |
-| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `47cb807557d4e6b48e0546f5c87a9df4a4cc1a24fa1de24dddcc2fed6a0dd5cb` |
+| `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `d3188124914b8ea1f5d2fb488207ca0720a02e5e61f6f54355a4db4693bf2346` |
 | `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
 | `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
-| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `f11a5ede42bdba0e7daedaa3e082550c0f56fa85b43ab9062459ac88551ae78f` |
+| `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
 | `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `22e833fb8133f299e9096883547410313bcaf9ee48b2f8dabeb4cf10483f7190` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
 | `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
@@ -1029,15 +1032,15 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `75acf6929ee04be4f5d620ed99a5ff5f92865b397c27c22b40b1732634c15b26` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `f767c8b27cbd7a77fdac029aaf99193b72b3ebfd39b3d650789941763b1f5210` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
-| `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `8833c5e79755990fa4029d9d955316eb96b1b21ed7a99ad6382a7e1286d46bc6` |
-| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `464e488811e7e4f76ce352343db60fe97dcd785ca7ffe103bdb7613eca07a9e7` |
+| `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `7a42efda34866fe68d604ef35b71e478b2153ea1e34013d9421b30ad8ac8e902` |
+| `agent_onboarding/default/general/skills/ticket_microcycle.md` | PACKAGE | `381c397d9dfebe0d1ba6682a17e3a9960e991ebfbe05d06188c4b31402b1a12a` |
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
-| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `415693c482a8664f5e1fc3781318ea89f04c92674febb06e9e1cdee56cea5bd6` |
-| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `d0d84d9e709ca437c998051e410b427b2f8eded73b1eed8b7e948386515c3ba2` |
+| `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `a7a87420f0aa08cc7c04d7d320d8855b3837150fbb34d19f2cba35c7f01ef3bd` |
+| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `0044695e4d44fcf383fe6e12d53b8bbcf4db857370dfca20d58ccd48c0bd3c45` |
 | `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
 | `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
@@ -1257,7 +1260,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
 | `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
-| `config/context_compass_config.yaml` | CONFIG | `4d5a1e4404aa5e1e974fdd4bf1e1780da22df3108aef6410325049b6b9774f04` |
+| `config/context_compass_config.yaml` | CONFIG | `955b2038b584c1b74855ab226101ec34e0e49d86e2bd0ba25fb0c1c96e01900d` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -1320,10 +1323,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `system_docs/patches/active/_template_patch_id/code_description_patch_TEMPLATE_COMPONENT.md` | RESET | `262130e44568da2ce6720095b9ab9956ab9787d81a5e2daa73ba3300e3c04d13` |
 | `system_docs/patches/active/_template_patch_id/component_patch_TEMPLATE_COMPONENT.md` | RESET | `fedc2095f94e5be8f11bed1fae34faee05730d78c435819e907970356ecebd1c` |
 | `system_docs/system_docs_read_first.md` | RESET | `792b745c1eb7947c135f188ee2a055408bff9e0a39f7ff4432f25468b32cc61b` |
-| `templates/epic_template.md` | PACKAGE | `39461f2f31fe1aaa78758f77bd7a787abddcfac47540e7b20affd8ad70719888` |
-| `templates/story_template.md` | PACKAGE | `c2c5d6516625538a457df8bfde8fb22994de2375dd0c060a48e61be2a274e302` |
-| `templates/task_template.md` | PACKAGE | `12ff599f545f8d86d27575f1ff59162cbc4165f00fdc8b94e1ab995d7b4e7d62` |
-| `templates/ticket_contract.json` | PACKAGE | `7ed84cf08517496c27398fe5a658965918eef4095eb5f310e7f0072011011a35` |
+| `templates/epic_template.md` | PACKAGE | `560344360d3579b90dda1f6a26dea5c6d375316f1f7d1fb6f726dab0d21f6708` |
+| `templates/story_template.md` | PACKAGE | `f9ef141e45be40f671b4a4b3ec703ef968a794d4695e6c438fcd7b75efbd786a` |
+| `templates/task_template.md` | PACKAGE | `bc10fe7364dc2ee16403905e94f05b6e1315e4d6a61235aa3b5d64dadfddc71c` |
+| `templates/ticket_contract.json` | PACKAGE | `e7e530971f481c17f09a94c5af1bb1da98a6c0d572242d735ccf093a32918300` |
 | `templates/workflow_advanced_template.md` | PACKAGE | `312aa2e4e2f17a04959419e7f4af29a4e199239c9d9c453688b7025e56bf1a74` |
 | `templates/workflow_simple_template.md` | PACKAGE | `b78e8c24260030735d2d9558fc33f5f31d737a3accc19f71645d373fcbd80492` |
 | `tickets/epics/archive/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -6667,8 +6670,8 @@ as top-priority bootstrap enforcement rules.
 
 ## 4) Critical Rule Always Enforced
 
-If you do not know, **find out, then ask what is still open** - and **get explicit
-confirmation before acting**.
+If you do not know, **find out, then ask what is still open**. Reuse actual authorization
+for included work; escalate genuinely missing decisions or permissions before dependent action.
 
 The order matters and the two halves are different.
 
@@ -6677,8 +6680,9 @@ The order matters and the two halves are different.
   is written down somewhere in this repository, go and read it. An agent that asks
   "should I look at the component map?" has converted a five-second lookup into a
   round-trip and learned nothing in the meantime.
-- **Editing is acting.** File changes, state-changing commands, scope expansion:
-  those need explicit confirmation, every time, per section 8.
+- **Editing is acting.** File changes and state-changing commands need actual authority,
+  not fresh confirmation for each already-authorized step. Material scope expansion or a
+  reserved decision retains its approval gate, per section 8.
 - **Ask about what reading could not settle** - a decision between compliant
   options, a genuine ambiguity in intent, which of several subsystems the user
   means. Bring what you already found; a question that shows you looked first is
@@ -6702,7 +6706,8 @@ Before acting on anything **outside the explicitly agreed architectural plan**, 
 * **Challenge questionable ideas** respectfully and explain why (risks, inconsistencies, or conflicts).
 * **Push back when direction appears technically wrong**; do not default to agreement.
 * **Ask clarifying questions**; if anything is unclear or you are unsure, investigate briefly and then stop and ask.
-* **Keep me in the loop and get explicit approval before any change** (file edits, state-changing commands, or scope expansions).
+* **Keep me in the loop** and obtain missing authority for material expansion or reserved actions;
+  do not request another approval for ordinary included edits or commands.
 * Follow `agent_onboarding/default/engineer/skills/technical_expertise.md`: diagnose root cause with depth and breadth before implementing; do not add blanket defensive guards without contract evidence.
 * Use `SKILLS.MD`, shared `ticketing.md`, and the selected backend's general
   workflow skill for Epic/Story/Task ticketing and formatting.
@@ -6777,7 +6782,8 @@ This is not optional. For **all public classes and public methods**, write docst
 * Before making edits, read and follow existing repository conventions:
   `README`, `CONTRIBUTING`, `docs/`, and any architecture/design notes.
 * Do not invent new conventions if the repo already has a pattern.
-* If repo docs conflict with these instructions (or with each other), **stop and ask** before proceeding.
+* Record actual source conflicts. Resolve an already-authorized correction within scope;
+  ask for unresolved material policy/authority decisions rather than routine file selection.
 
 ### 7.4) No Drive-By Refactors
 
@@ -6834,7 +6840,7 @@ For repo-wide mechanical edits (e.g., "add this import everywhere", "add a class
 
 ## 8) Operating Protocol How You Should Work
 
-### 8.1) Propose Confirm Implement
+### 8.1) Plan Implement Within Authority
 
 Before making non-trivial edits:
 
@@ -6842,13 +6848,15 @@ Before making non-trivial edits:
 2. List the constraints you will obey (especially docstrings/comments and no-drive-by refactors).
 3. List the **exact files / symbols** you will modify.
 
-If any of the above is uncertain, **stop and ask** before editing.
-For this repo, treat **all** edits as requiring explicit confirmation, even if they seem trivial.
+Investigate implementation uncertainty within authorized scope. There is no per-step approval
+for ordinary included edits, tests, peer coordination or ticket maintenance. Preserve reserved
+decisions, security/action permissions, owner STOPs and required tests/reviews.
 
 ### 8.2) Scope Control
 
 * Stay within the declared files/symbols.
-* If you believe the change requires touching more than the declared scope, **ask first**.
+* Record related files needed for the complete authorized outcome. Ask for material scope expansion,
+  not another admission for ordinary included multi-file work.
 
 ### 8.3) Documentation Ritual
 
@@ -6885,7 +6893,7 @@ As a ritual, after implementing a change:
 
 ## 9) Stop Conditions Ask Before Proceeding
 
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 
 * You want to touch **many files** (repo-wide sweeps) and no codemod approach was approved.
 * You want to rename/move files or symbols.
@@ -7527,7 +7535,10 @@ Story steps
    - Confirm scope, acceptance criteria, and files in scope.
    - Treat unknowns as UNKNOWN by default.
 2) Investigate and document
-   - Investigate until one meaningful finding, then append a `## Notes` entry before more investigation.
+   - Record each meaningful finding before dependent work in supported Notes, attributed
+     comments or authorized linked evidence under shared `ticketing.md`.
+   - Multiple meaningful comments may carry findings directly; no forced body copy is
+     required before ordinary continuation. Preserve historical Notes and author attribution.
    - Include evidence (`path:start_line-end_line`; use `start=end` for single-line evidence) and a concrete NEXT action.
 3) Implement
    - Make minimal, reviewable changes.
@@ -7539,8 +7550,11 @@ Story steps
    - Summarize changes and reference relevant files.
    - List remaining risks or follow-ups.
 6) Close
-   - Ask whether acceptance criteria are met before closing the ticket in the
-     selected backend.
+   - Authorized agents close routine completed work after criteria, required tests and required
+     reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+   - Review is proportionate to actual consequence, uncertainty and contract; self-checks are
+     not independent review. Use shared `ticketing.md` for qualified reviewer acceptance and
+     the selected backend's verified closure sequence.
 
 References
 - `AGENTS.MD`
@@ -9872,7 +9886,7 @@ Ask the user for **guidance** when you cannot tell where to look. Never for
 
 ## Operating Protocol (How You Should Work)
 
-### 2) Propose -> Confirm -> Implement
+### 2) Plan -> Implement Within Authority
 
 Before making non-trivial edits:
 
@@ -9880,13 +9894,16 @@ Before making non-trivial edits:
 2. List the constraints you will obey.
 3. List the **exact files / symbols** you will modify.
 
-If any of the above is uncertain, **stop and ask** before editing.
-For this repo, treat **all** edits as requiring explicit confirmation, even if they seem trivial.
+Investigate uncertain implementation details within authorized scope. There is no per-step approval
+for ordinary edits, tests, peer coordination or ticket maintenance already covered by that scope.
+Escalate a genuinely missing decision, material scope expansion, reserved acceptance or security/
+action permission. Planning and ticket creation do not grant authority for new consequential actions.
 
 ### 3) Scope Control
 
 * Stay within the declared files/symbols.
-* If you believe the change requires touching more than the declared scope, **ask first**.
+* Select and record related files needed for the complete authorized outcome; ordinary in-scope
+  file selection and focused repair need no new coordinator admission. Escalate material expansion.
 
 ### 4) Documentation Ritual
 
@@ -9904,37 +9921,48 @@ As a ritual, after implementing a change:
 
 ### 6) context_compass Ticket Planning (Required)
 
-* Before starting any planned work beyond answering questions, create a structured
+* Before starting any planned work beyond answering questions, search/reuse or create a structured
   Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
   lanes; plugin mode uses an Issue body in the configured repository.
-* Treat `attention_board.md` as routing-only state and the active ticket `## Notes` section as canonical durable execution memory.
+* Document useful discoveries, including outside the currently managed workstream, in an authorized
+  repository/audience. Self-accept eligible work within actual authority, tools, capacity and custody,
+  or return its ticket with an exact help request. Ticket creation does not grant new access.
+* Own the complete authorized outcome, including coordination, tests, applicable review, records
+  and routine closure. Do not wait for approval between ordinary included steps.
+* Treat `attention_board.md` as routing-only state and the selected ticket as the durable record.
+  Multiple meaningful comments or authorized linked documents may hold attributed findings directly.
+  No forced body copy is required before ordinary continuation. Preserve historical Notes/comments.
 * Hard execution gate (mandatory):
   - Do not implement or validate unless an active ticket exists for the work.
   - Do not implement or validate unless `attention_board.md` has an active row routing to that ticket.
   - If the active ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, do not
     implement or validate until every linked context artifact has been read.
-  - Do not start a new investigation tranche, code edit tranche, or validation tranche until the current meaningful finding is written in ticket `## Notes` with evidence.
+  - Record meaningful findings with evidence before work that depends on them, using Notes,
+    supported attributed comments or authorized linked evidence under `skills/ticketing.md`.
   - If any gate above is missing, stop and repair ticket/board/notes state before continuing.
 * Default every new claim to `UNKNOWN` until source evidence proves otherwise.
 * Ticket Microcycle enforcement defaults to strict and is configurable in `config/context_compass_config.yaml`.
 * Follow a strict Ticket Microcycle while working:
   1. Route from `attention_board.md` to one active ticket.
   2. Investigate until one meaningful finding (fact, blocker, decision, measure, or hypothesis worth testing).
-  3. Immediately append a `## Notes` entry before any further investigation.
-  4. Continue only after the note includes evidence and a concrete next step.
+  3. Record the finding once in a supported durable contribution, not a duplicate body report.
+  4. Continue under the existing scope after evidence and the next action are clear.
 * If `workflow.ticket_microcycle.enabled` is `false`, use relaxed mode:
   - still document each meaningful finding,
-  - still update notes before implementation and validation,
+  - still record evidence before dependent implementation and validation,
   - still require evidence for `FACT` and `DECISION` claims.
-* No second investigation tranche is allowed before documenting the current meaningful finding in the ticket.
+* Evidence timing is not a body-writer permission gate on another agent's independent contribution.
 * Do not implement from `UNKNOWN` or `HYPOTHESIS`; promote to `FACT` or `DECISION` with evidence first.
 * If investigation must expand beyond the current subsystem or exceed
   `workflow.ticket_microcycle.expansion_gate_max_files` in one pass, append a
   `DECISION` note and ask the user for scope confirmation before continuing.
 * Follow `SKILLS.MD`, shared `ticketing.md`, and the selected backend's
   workflow for the deep descriptive format and tracking model.
-* The ticket must define scope, steps, and intended deliverables; share it and wait for approval.
-* Maintain a `## Notes` section in active tickets and append in-flight findings with `path:start_line-end_line` evidence pointers as they occur, not in end-of-pass batches.
+* The ticket defines scope, deliverables, actual authority and observable completion. Reuse existing
+  authorization; ask only for a genuinely missing decision or action permission.
+* Maintain the required `## Notes` section and preserve history. Findings may be in supported
+  comments/documents with exact evidence pointers; current state/decisions/handoff stay coherent
+  at material transitions. Do not copy every report into Notes.
 * Evidence ranges in notes must include both start and end lines. If the evidence is one line, repeat it (`path:42-42`).
 * Context management is optional:
   - use it only when the ticket explicitly opts in
@@ -9989,7 +10017,7 @@ As a ritual, after implementing a change:
 
 ## Stop Conditions (Ask Before Proceeding)
 
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 
 * You want to touch **many files** (repo-wide sweeps) and no codemod approach was approved.
 * You want to rename/move files or symbols.
@@ -10010,7 +10038,9 @@ resolved role `SKILLS.MD` files.
 - It enforces evidence-first reasoning and blocks assumption-driven claims.
 - It defines ticket-first execution so work is durable and resumable.
 - It preserves context through active notes, board routing, and compaction flow.
-- It enforces explicit approval gates before meaningful execution.
+- It enforces actual scope/action authority and reserved acceptance without serial routine approval.
+- Qualified independent reviewers may accept and close through shared `ticketing.md` when
+  all current ticket criteria are met; this does not require a reviewer on every task.
 - It sets escalation discipline for scope/risk changes.
 - It keeps security posture strict, especially around secret handling.
 - It preserves process quality across handoffs and context resets.
@@ -10055,7 +10085,7 @@ explicitly instead of bypassing general rules.
 
 ### 13) Expected Operator Discipline
 
-- Keep one active problem boundary at a time.
+- Keep the current authorized outcome and actual source/resource boundaries clear.
 - Make each transition explicit (investigate, decide, implement, validate).
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.
@@ -10317,10 +10347,12 @@ Story steps
    - Ensure `attention_board.md` reflects active routing and open the linked active ticket.
 3) Work loop
    - Use tickets in the selected backend for planning and execution.
-   - Keep ticket checklists current and append findings as they occur in `## Notes`.
+   - Own the complete authorized outcome and keep current checklists/state coherent.
+   - Save attributed findings in supported Notes/comments/documents under shared `ticketing.md`.
 4) Check-out
    - Summarize what changed, what remains, and what to do next.
-   - Complete tickets only after user confirmation: move local tickets to
+   - Complete routine authorized tickets after actual criteria/tests/reviews; reserved owner
+     decisions retain their acceptance gate. Record the disposition, then move local tickets to
      matching completed folders, or record and verify Issue-body `Status: done`
      and completion summary, then close through the GitHub plugin.
 
@@ -10398,22 +10430,30 @@ Purpose
 Story steps
 1) Capture intent
    - Restate the goal, constraints, and scope.
-   - If unclear, ask before writing tickets.
+   - Investigate unknown details within authorized scope; record a useful discovery even when
+     implementation knowledge is incomplete. Ask for a genuinely missing scope/authority decision.
 2) Create tickets
-   - Use `templates/` to create epic/story/task tickets.
+   - Search/reuse first, then use the selected templates and work backend.
+   - Eligible discoveries outside the managed workstream may be ticketed in an authorized
+     repository/audience. Self-accept when authority/custody permit, or return an exact help request.
    - Keep tickets deep and descriptive for handoff durability.
-3) Confirm before edits
+3) Establish the execution boundary
    - Share the plan and files to touch.
-   - Wait for explicit approval before edits.
+   - Reuse actual authority within authorized scope; no per-step approval for ordinary included
+     work. Preserve reserved decisions, security/action permissions and actual owner STOPs.
 4) Execute
    - Follow ticket steps and update checklists as work progresses.
-   - Run the Ticket Microcycle and document each meaningful finding before continuing investigation.
+   - Own the complete authorized outcome, including peer coordination, tests, review and records.
+   - Use the configured microcycle and supported durable evidence under shared `ticketing.md`.
    - Keep changes scoped and reviewable.
 5) Close out
    - Walk through what was delivered.
-   - Ask if acceptance criteria are met.
-   - Move tickets to their matching completed folder (`tickets/epics/completed/`,
-     `tickets/stories/completed/`, `tickets/tasks/completed/`) only after explicit confirmation.
+   - Authorized agents close routine completed work after criteria, required tests and required
+     reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
+   - Review is proportionate to actual consequence, uncertainty and contract; self-checks are not
+     independent review. Failed/unrun required checks stay visible and do not become a pass.
+   - Record delegated acceptance or reserved-owner disposition, complete the selected backend,
+     then reconcile actual routing/artifact state without altering unrelated history.
 
 Artifacts touched
 - `templates/`
@@ -10440,7 +10480,8 @@ Purpose
 - Enforce the policy chain so edits stay deterministic and reviewable.
 
 When to use
-- At the start of every session and before editing in a new directory.
+- At actual startup/recovery or when applicable directory/source policy changes. Reuse valid
+  reads in intact context; an ordinary comment is not another full-policy read trigger.
 
 Canonical Contract (from AGENTS.MD)
 This repository is a public library. Code quality and documentation are
@@ -10503,7 +10544,7 @@ Required flow
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`
   and apply its active-partner + performance-engineering rules.
 - Route active work from `context_compass/attention_board.md` and keep detailed
-  state in ticket `## Notes`.
+  current state in the ticket. Supported attributed comments/documents may hold detailed evidence.
 - Use the Ticket Microcycle with meaningful-finding note gates during
   execution.
 - Use Epic/Story/Task tickets in the selected work backend for all planned
@@ -10530,7 +10571,8 @@ Documentation and Convention Precedence
   `README`, `CONTRIBUTING`, `docs/`, and any architecture/design notes.
 - Do not invent new conventions if the repo already has a pattern.
 - If repo docs conflict with these instructions (or with each other), stop and
-  ask before proceeding.
+  record the actual conflict. Resolve an already-authorized source correction within its scope;
+  ask only for an unresolved material policy/authority decision, not routine file selection.
 
 Unknowns Gate
 - Apply the canonical policy in
@@ -10543,17 +10585,19 @@ Unknowns Gate
   requesting user resolution.
 
 Operating Protocol (How You Should Work)
-A) Propose - Confirm - Implement
+A) Plan - Implement Within Authority
 Before making non-trivial edits:
 1. Restate the goal in 3-5 bullets.
 2. List the constraints you will obey (scope, policy, and workflow gates).
 3. List the exact files / symbols you will modify.
-   If any of the above is uncertain, stop and ask before editing.
+   Investigate implementation uncertainty within authorized scope. There is no per-step approval
+   for ordinary work already covered by the outcome. Preserve reserved decisions, security/action
+   permissions, owner STOPs and required tests/reviews; no ticket grants new access.
 
 B) Scope Control
 - Stay within the declared files/symbols.
-- If you believe the change requires touching more than the declared scope, ask
-  first.
+- Record related files required for the complete authorized outcome. Ask for materially expanded
+  scope or a consequential owner decision, not another admission for an ordinary included step.
 
 C) Documentation Ritual
 As a ritual, after implementing a change:
@@ -10561,7 +10605,7 @@ As a ritual, after implementing a change:
 - Ensure state, evidence, and next actions are accurate and current.
 
 Stop Conditions (Ask Before Proceeding)
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 - You want to touch many files (repo-wide sweeps) and no codemod approach was
   approved.
 - You want to rename/move files or symbols.
@@ -10613,8 +10657,9 @@ Operational guidance (enriched)
 - Do not improvise conventions; mirror the skills and examples.
 - Treat skills as the executable version of policy.
 - Use examples as canonical style references, not suggestions.
-- Keep scope minimal and reviewable; do not widen without approval.
-- If a change implies touching many files or renames, ask first.
+- Keep scope coherent and reviewable; do not silently widen the authorized outcome.
+- Ordinary related multi-file selection/repair is not a new approval stage. Unapproved renames,
+  dependencies, public-API changes or security/action changes retain their actual permission gates.
 
 Workflow
 1) Check for AGENTS.override.md in the target directory.
@@ -10636,22 +10681,24 @@ Purpose
 - Keep durable, compaction-safe working memory directly inside active tickets.
 - Ensure findings are captured with concrete evidence pointers while work is in
   flight.
-- Prevent context loss by maintaining an always-current `## Notes` section.
+- Prevent context loss with durable evidence and one current resume view.
 
 Core rule
 - Every active ticket (epic/story/task) must include a `## Notes` section.
-- During active execution, append notes as meaningful findings happen; do not
-  wait for end-of-pass summaries.
+- During execution, save meaningful attributed findings when required by dependent work.
+  Multiple meaningful comments or authorized documents may hold evidence directly; no forced
+  body copy is required before ordinary continuation. Preserve historical Notes/comments.
 - Evidence pointers must include file paths with explicit start/end line ranges
   (`path:start_line-end_line`).
 - UNKNOWN is the default claim state until evidence promotes a claim to FACT.
 - Do not continue investigation to the next finding until the current finding
   is documented.
-- Do not continue to code edits or validation until the current meaningful
-  finding is documented in `## Notes` with evidence and next action.
+- Before dependent code edits or validation, retain the relevant finding with evidence and
+  next action in a supported durable contribution, not necessarily another body Note.
 
 Canonical storage
-- Primary: `## Notes` in the active ticket being worked.
+- Primary: the selected ticket's Notes, supported comments and authorized linked evidence.
+- Current state/scope/decisions/handoff stay coherent at material transitions and closure.
 - Secondary: `attention_board.md` for routing state only.
 - Do not move detailed findings into `attention_board.md`; keep detail in
   ticket notes.
@@ -10694,7 +10741,8 @@ Update triggers (mandatory)
 6) Before handoff or compaction.
 
 Quality bar
-- Keep notes append-only unless correcting a factual error.
+- Keep historical Notes/comments append-only unless correcting a factual error. Update only the
+  one current resume view in place; link unchanged context and full evidence.
 - Prefer high-signal claims with precise evidence over long narrative.
 - If a finding is single-line evidence, still write a range with same start/end.
 - Mark unverified items as `UNKNOWN`; never promote to fact without evidence.
@@ -10966,9 +11014,11 @@ Rules
 
 Worklists
 - In local mode, use `tickets/epics/`, `tickets/stories/`, and `tickets/tasks/`
-  for active work, moving to matching completed folders only after confirmation.
+  for active work, moving to matching completed folders after actual authorized completion.
 - In plugin mode, use configured Issue bodies and their Status/Notes for active work;
-  claim agents locally in `issue_board.md` and close only after confirmation.
+  claim agents locally in `issue_board.md` and verify body completion and native closure.
+- Complete routine work under shared `ticketing.md` after its actual criteria and required tests/reviews,
+  without another confirmation. Preserve reserved owner acceptance, real permissions and STOPs.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/agent_lifecycle.md ---
 
@@ -11227,8 +11277,9 @@ or new-agent creation belongs in this protocol.
 
 ## Compose pointer-heavy messages
 
-- Keep the active ticket as the durable record. Copy actionable findings to
-  its `## Notes` before or with the send; chat-only drafts are not history.
+- Keep the active ticket as the durable record. Save actionable findings in supported Notes,
+  comments or authorized linked evidence before sending their pointer; chat-only drafts are
+  not history. Do not force a copy of every comment into body Notes.
 - Include the canonical ticket pointer: a context-compass-relative ticket path
   or an Issue URL from the selected ticket backend, plus current Status and
   one next action.
@@ -11239,8 +11290,8 @@ or new-agent creation belongs in this protocol.
 
 ## Receiving and waiting
 
-- Record actionable content from an authorized incoming message in the active
-  ticket's `## Notes` first, with evidence ranges and next step.
+- Record actionable authorized message content as a meaningful attributed ticket contribution,
+  with evidence and next step; ordinary transport acknowledgments need no duplicate finding.
 - A successful send means delivery, not completion. Use `wait_threads` with
   cursor-based bounded waits when expecting a reply. New user input ends the
   wait. Do not narrate unchanged snapshots or poll aggressively. On uncertain
@@ -11255,7 +11306,10 @@ or new-agent creation belongs in this protocol.
 - Maintain shared presence and setup outcomes only through narrow
   `agent_session_state.md` reads and writes. Never write mailbox messages
   or alerts in this mode.
-- Keep one writer per ticket file or Issue body. Leave shared-board updates
+- Full-body replacements and overlapping mutable fields retain latest-content/revision and
+  writer coordination. Supported append-only comments need no body-writer permission; verify
+  their saved readback. No full-policy reread is added per ordinary comment.
+- Keep one writer per ticket file or Issue body replacement. Leave shared-board updates
   to the designated coordinator where applicable.
 - If contact selectors are ambiguous, tool access fails, or pause state is
   unclear, stop and ask the owner. No silent transport fallback.
@@ -11618,9 +11672,9 @@ Read discipline (non-negotiable)
   next actions stay current.
 - Before compaction/handoff, verify `attention_board.md` is current and matches
   active ticket status.
-- Update the `## Notes` section of all active tickets with latest findings and
-  `path:start_line-end_line` evidence pointers (use `start=end` for single-line evidence).
-- Ensure each meaningful finding was written as a note before the next investigation tranche.
+- Retain latest meaningful findings in supported Notes/comments or authorized linked evidence,
+  with exact source/evidence pointers. Preserve historical Notes/comments; do not copy all reports.
+- Keep current scope/state/decisions/handoff coherent before a material transition or recovery.
 - Ensure UNKNOWN-first discipline was followed (unverified claims remain `UNKNOWN`).
 - Ensure note entries carry re-entry metadata when required by the ticket contract.
 - Capture open questions, decisions, and next steps in the relevant ticket.
@@ -11629,11 +11683,14 @@ Read discipline (non-negotiable)
 - If artifacts exist: keep ticket `Artifact Links` sections and `artifact_board.md` synchronized.
 
 ## Handoff Summary Checklist
-- Current state and progress (what is done vs remaining).
-- Key decisions and rationale.
-- Known risks and active blockers.
-- Immediate next steps (1-3 concrete actions).
-- References to any critical files or paths.
+- Keep one current resume view, updated in place rather than several dated "Current" snapshots.
+- Include scope/outcome, controlling decisions/holds, source/evidence revision, completed/remaining
+  criteria, failed/unrun limits, owners and next 1-3 actions with necessary evidence links.
+- Link unchanged context/full evidence; preserve history and artifacts. REQUIRED versus HELPFUL
+  expresses relevance to the applicable continuation, not a perpetual checkpoint reread order.
+- An ordinary comment in intact context does not trigger a full-policy reread or another cycle.
+  Mandatory onboarding/reentry, role/name recovery, certification and changed-source reads still
+  apply at their actual triggers; a resume view or old read receipt cannot replace them.
 
 ## Post-Compaction Verification
 After compaction, re-open the core review set and confirm:
@@ -11801,12 +11858,15 @@ Core rule
 Scope budgeting protocol (mandatory)
 1) Start from `attention_board.md` and the active ticket.
 2) Investigate until one meaningful finding is identified.
-3) Immediately append a `## Notes` entry in the active ticket.
-4) Do not continue investigation until the note has:
+3) Record the finding in supported Notes, attributed comments or authorized linked evidence.
+4) Before dependent investigation, ensure that record has:
    - evidence (`path:start_line-end_line`),
    - impact,
    - concrete next step.
 5) Repeat the loop for each additional meaningful finding.
+
+Multiple meaningful comments may carry findings directly; no forced body copy is required
+before ordinary continuation. Preserve historical Notes/comments and actual author attribution.
 
 **Reading one unit through is ONE pass, not one per finding.** Do not stop in the
 middle of a file to write a note. Finish the class, the method, the call path you
@@ -11833,7 +11893,10 @@ Expansion gate
     that greps rather than opens, to stay under a number. Counting files was never the
     point; not wandering into unrelated subsystems was.
 
-Required note payload per meaningful finding
+Structured Note/state-event payload
+- The fields below apply to structured Notes. Supported ordinary comments follow shared
+  `ticketing.md`: actual author/role, result, evidence, limits and next action, without
+  copying every report or requiring every structured Note field.
 - `DATETIME` (`YYYY-MM-DDTHH:MM:SSZ`)
 - `TYPE`:
   `FACT` | `UNKNOWN` | `HYPOTHESIS` | `DECISION` | `DECISION_REQUEST` |
@@ -12611,6 +12674,13 @@ nickname selection does not grant permission to run tools before those gates.
   Use `github_create_issue` or the equivalent exposed Issue-create tool with
   the explicit repository, title, and body. Keep a stable template ID; route by
   the returned Issue URL and fetch it to verify the content.
+- For supported append-only comments, verify the exact Issue, relevant current context, account,
+  audience and action/content authority. Reuse valid bindings in intact context and verify the
+  saved comment/permalink by readback. No body-writer permission, whole-body read solely for
+  custody, or full-policy reread is required for an independent contribution.
+- Multiple meaningful comments may hold distinct attributed results, explanation, failed/unrun
+  limits and next action. Keep coherent findings together and link long logs/code. There is
+  no forced body copy before ordinary continuation and no comment-count quota.
 - For Notes, Status, decisions, or handoff changes, read the latest complete
   body, preserve every unrelated section and historical note, and send the
   resulting full body through `github_update_issue`. Fetch again afterward and
@@ -12621,6 +12691,8 @@ nickname selection does not grant permission to run tools before those gates.
   (mailbox messages or MCP thread tools); the current update tool does not
   expose an atomic compare-and-swap lease. If the body changed since the read, re-read and recompose; if another
   writer or lost content is detected, stop and reconcile before continuing.
+  These safeguards cover full-body replacements and overlapping mutable fields, not an
+  append-only comment. A comment author does not take custody from a busy body writer.
 - Omit labels, assignees, milestone, title, and state when the change does not
   target them. The update tool's label and assignee arguments replace their
   full sets; use additive tools for approved additions where exposed.
@@ -12633,14 +12705,24 @@ nickname selection does not grant permission to run tools before those gates.
 ## Capability boundaries
 The assigned agent maintains current status, evidence, requested scoped review and final closure;
 review is proportionate to consequence, uncertainty and contract. Self-checks are not independent review.
-Keep concise claim, impact, material limits and next action in canonical body Notes with exact
-retrievable supporting comment/doc links. Do not copy full linked reports or add substantive
+A qualified independent reviewer may accept and close under shared `ticketing.md`; coordinate
+actual overlapping writes, not a ceremonial author return. Verify canonical acceptance before
+the native close and its readback. A denied close stays pending; do not switch identity to bypass it.
+Keep concise claim, impact, material limits and next action with exact retrievable evidence.
+Current in-body state/decisions/handoff remain coherent at material transitions; detailed findings
+may remain in supported comments/documents. Do not copy full linked reports or add substantive
 Notes for unchanged checks/ACKs; preserve required in-body state/evidence and all history/custom regions.
 
 The plugin currently exposes Issue search, fetch, create, update, and comment
 reads. A tool called `add_comment_to_issue` is documented for PR Conversation
 comments and uses `pr_number`; do not assume that means ordinary Issue-comment
-creation is supported. Canonical ticket Notes stay inside `## Notes` in the body.
+creation is supported. Check current schemas rather than the tool's name. An unavailable ordinary
+Issue-comment operation is a capability gap, not a permission denial. Retain the contribution in
+an existing authorized evidence location through a supported operation, or report the exact
+unavailable write and hold only dependent work. Do not claim the comment was saved.
+Preserve the exact denied action on a real denial; do not switch account, backend or route to
+bypass it. Reconcile uncertain effects before a permitted retry. Existing Notes stay in the body;
+their preservation does not force every new comment into that section.
 
 Parent/child and blocker relationships always retain explicit Issue links and
 IDs in template metadata/checklists. Use native sub-issue or dependency tools
@@ -13024,8 +13106,8 @@ This skill applies only when `work_tracking.backend: github_codex_plugin`.
 Use the configured GitHub plugin for ticket operations. Each Issue is one
 Epic, Story, or Task using the existing template. Resolve `connection_nickname`
 through `codex_plugin.md` before all plugin operations, including recovery.
-Its body owns Status, Notes,
-decisions, requirements, and handoff context. Local ticket files are inactive
+Its body owns current Status, decisions, requirements and handoff context. Notes,
+supported comments and authorized documents retain attributed evidence. Local ticket files are inactive
 for the same work; a Project URL is optional context.
 
 ## Intake and hierarchy
@@ -13053,10 +13135,13 @@ workflow; the body retains canonical Notes and a derived Status view. Native
 closure remains a projection, not acceptance. Authored posts/comments/Notes
 identify their actual agent name and role/function under `agent_identity.md`.
 
-- The existing microcycle and note fields apply unchanged. Append each meaningful
-  finding to `## Notes` in the Issue body before another work tranche. Preserve
-  prior Notes in full; comments may supply evidence but are not a second Notes
-  record. Use the read-preserve-update-verify procedure in `codex_plugin.md`.
+- The configured microcycle and structured Note fields remain. Multiple meaningful comments
+  or authorized linked documents may carry attributed findings directly. No forced body copy
+  of every finding is required before ordinary continuation. Preserve historical Notes/comments.
+- Append-only comments need no body-writer permission. Reuse valid account/audience/context
+  binding, use a supported operation and verify readback; no full-policy reread per comment.
+  Latest complete body/revision and writer coordination apply to actual full-body replacements
+  or overlapping mutable fields, not every contribution. Follow `codex_plugin.md`.
 - Keep template Status and Updated metadata current. Record each state change
   and reason in State Transition Event and Notes. `draft`, `ready`,
   `in_progress`, `blocked`, and `review` are open Issue states; a completed
@@ -13072,14 +13157,18 @@ identify their actual agent name and role/function under `agent_identity.md`.
 Record each meaningful changed finding once at the appropriate ticket depth. Keep concise claim,
 impact, material limits and next action inline with exact retrievable comment/doc links; do not copy
 full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
-state/evidence, prior history and custom regions; comments remain supporting evidence.
+state/evidence at material transitions, prior history and custom regions; details may remain in comments.
 The assigned agent owns current status, evidence, requested scoped review and final closure.
+Alternatively, a qualified independent reviewer may accept and close under shared `ticketing.md`,
+without another author handback solely for closure. Keep actual body-write custody and verify
+the accepted canonical state before native closure; a denied close remains pending projection.
 Review is proportionate to actual consequence, uncertainty and contract, not automatic full-code
 review. High-consequence or uncertain changes request scoped review; self-checks are not independent.
 Parent owners synthesize child outcomes and remaining work; child completion does not accept the parent.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
-  Keep one primary writer per Issue and coordinate reviewer/support work.
+  Keep one primary writer for conflicting body/field edits and coordinate reviewer/support work.
+  Independent append-only comments do not acquire that body claim or require its permission.
   Coordination transport follows `agent_communication.backend`; in `codex_mcp`
   mode skip mailbox messages and alerts while preserving shared state per
   `agent_session_state.md`.
@@ -14214,11 +14303,19 @@ invariants and attribution policy. That file is the source-owned definition;
 tools and portable bundles derive from it rather than another handwritten
 ticket rulebook. Read the full selected template as well.
 
+`contract_ref` binds the full canonical text, including policy-only edits, not just its
+schema/profile version. Existing Agile metadata with an older digest is rejected by the
+current checker and transition helper. There is no rebind command or automatic migration.
+Preserve the old body, history and recorded definition; resolve its exact source binding
+or explicitly authorized record handling before a dependent transition. Do not silently
+replace its digest or claim that a package update upgraded historical tickets.
+
 When metadata is present, its workflow is canonical. The visible Status is
 `phase / execution / resolution`, derived from that object, not an old-status
 compatibility mapping. Native hosting state and Projects cannot override it.
 Metadata evidence references point to existing body Notes by `EVENT_ID` or
-`DATETIME`; they do not create another evidence store. Retain the configured
+`DATETIME`; these are concise state-event anchors that may link detailed comments/documents,
+not a demand to copy every finding before ordinary continuation. Retain the configured
 note-quality requirement. Unknown evidence is not an acceptable transition ref.
 
 Accepted resolution additionally references Notes with the explicit conclusions
@@ -14231,6 +14328,9 @@ Each state event has a logical event identity. Reusing that identity for a
 different payload is a conflict. A revision/hash check is a client safeguard,
 not an atomic lock supplied by GitHub. Read, preserve, write, fetch and reconcile
 uncertain effects under the primary writer's custody.
+Those latest-body/revision safeguards apply to full-body replacements and overlapping mutable
+fields. Supported append-only comments need no body-writer permission and no full-policy reread
+in intact context; verify their actual account/audience/context and saved readback separately.
 
 ## Names, authors and review
 
@@ -14268,6 +14368,10 @@ establish authorized acceptance. A reviewer who authored or materially edited
 the target is not independent by changing a role label. Historical unknown
 authorship stays unknown; this feature does not repair old records.
 
+A qualified independent reviewer may perform acceptance and direct closure under shared
+`ticketing.md`. The review record identifies the actual scope/revision and acceptance actor;
+a scoped PASS or a source checker alone cannot establish full authorized acceptance.
+
 ## Helpers and portable delivery
 
 `tools/ticket_design.py` validates the chosen new-format metadata and attribution,
@@ -14299,10 +14403,10 @@ Purpose
 
 Strict mode loop
 1. `Investigate`
-2. `Document` (immediate notes entry)
+2. `Document` (meaningful attributed evidence record)
    - If `CONTEXT_MANAGEMENT_REQUIRED: true`, update the linked context
      artifact when the finding changes the reread pack or active topics.
-3. `Strategy/Plan`
+3. `Strategy/Plan` within the complete authorized outcome
 4. `Document` (decision/plan note)
    - If `CONTEXT_MANAGEMENT_REQUIRED: true`, update the linked context
      artifact when the decision changes the required context or topic focus.
@@ -14327,16 +14431,22 @@ Relaxed mode loop
 - Unknown-first evidence rules remain unchanged.
 
 Document semantics in both modes
+- Multiple meaningful comments, structured Notes or authorized linked documents can hold evidence
+  directly. No forced body copy of each comment is required before ordinary continuation.
+  Preserve attribution and historical Notes/comments; there is no comment quota or spam cadence.
 - Record each meaningful changed finding, decision or result once at appropriate ticket depth,
   before dependent work required by the configured microcycle. Keep concise claim, impact,
   material limits and next action inline with exact retrievable supporting comment/doc links.
 - Do not copy full linked reports or create substantive Notes for unchanged checks/ACKs.
-  Required in-body state/evidence and routing updates still apply; a link alone is not the record.
+  Required in-body state/evidence and routing updates still apply at material transitions; a bare
+  link does not replace the current claim, decision or handoff needed for the next action.
 - Preserve all existing Notes/history/custom regions. Concision is not permission to compact or
   migrate historical tickets. Parent owners synthesize child outcomes and remaining work rather
   than copying tactical logs; child completion does not accept the parent.
 - These semantics do not waive onboarding/reentry, strict/relaxed configuration, evidence timing,
   denied/uncertain-write handling, note fields or the configured note-quality requirement.
+- Evidence timing refers to a supported durable record, not exclusive body-writer control over
+  independent comments. Required tests must actually pass; failed/unrun checks remain explicit.
 
 Config source
 - `config/context_compass_config.yaml`
@@ -14377,6 +14487,17 @@ New-ticket design
   from the hosting account. When metadata is present, its derived Status replaces
   the ordinary Status enum for that ticket only; all actual acceptance gates remain.
 
+Discovery and complete-outcome ownership
+- Search open and completed work before creating a ticket for the same outcome.
+- Document useful discoveries outside the currently managed workstream in an authorized repository
+  and audience. Self-accept eligible work when actual authority, role, tools, capacity and custody
+  permit, or return the useful ticket with an exact help request.
+- Ticket creation does not grant new access, security permission, spending, deployment or another
+  owner's source custody. Preserve owner STOPs, reserved decisions and actual denied actions.
+- Own the complete authorized outcome: refine, implement, coordinate useful peers, test, obtain
+  required reviews, maintain current records and close truthfully. Ordinary included steps need
+  no fresh coordinator admission or per-edit approval.
+
 Deep descriptive model (required)
 Each ticket must be specific, evidence-based, and durable. Avoid vague goals.
 
@@ -14411,13 +14532,14 @@ Workflow rules
 3) Track progress with checkboxes and status fields.
 4) Use the Ticket Microcycle while active:
    - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-5) Record each meaningful changed finding once in `## Notes` before dependent work,
+5) Record each meaningful changed finding once in Notes, a supported attributed comment or
+   authorized linked evidence before dependent work,
    at the appropriate ticket depth; unchanged checks/ACKs are not substantive findings.
 6) Treat new claims as `UNKNOWN` by default; promote to `FACT` only with evidence.
 7) If investigation expands beyond the current subsystem or exceeds
    `workflow.ticket_microcycle.expansion_gate_max_files`, add a `DECISION`
    note and request user confirmation.
-8) Update Context / Handoff Summary as work changes.
+8) Keep one current resume view in Context / Handoff Summary as material state changes.
 9) Before closing a ticket:
    - The assigned agent owns current status, evidence, requested scoped review and final closure.
    - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
@@ -14426,6 +14548,12 @@ Workflow rules
    - Authorized agents close routine completed work after criteria, required tests and required
      reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
      Missing authority or a required gate is a specific blocker; do not infer acceptance.
+   - A qualified independent reviewer may accept and close directly when all ticket criteria
+     and current-revision evidence are satisfied. No extra coordinator approval or author
+     handback is needed solely for closure. A scoped PASS is not full-ticket acceptance.
+   - The reviewer must be competent for the whole accepted scope and independent of its
+     authors/material editors. Preserve actual action/source custody and reserved decisions.
+     Independent review is not required for every task; authorized owner closure remains.
 10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
@@ -14450,7 +14578,9 @@ Mandatory execution gates
     that points to the same active ticket.
 - Notes gate:
   - Do not start another investigation/edit/validation tranche until the current
-    meaningful finding is appended to ticket `## Notes` with evidence pointers.
+    meaningful finding is durably recorded with evidence where dependent work requires it.
+    Multiple meaningful comments or authorized documents may carry that evidence directly;
+    no forced body copy or body-writer permission is required for ordinary continuation.
 - Repair gate:
   - If any gate is broken or stale, stop and repair ticket/board/notes state
     before continuing.
@@ -14471,6 +14601,9 @@ Mandatory execution gates
   - `attention_board.md` must remain ticket-routing-only (no artifact pointers).
 
 Notes format requirement
+- The fields below define structured Notes/state-event anchors. Supported comments may use
+  focused prose with actual author/role, result/explanation, evidence, failed/unrun limits and
+  next action; they need not copy the whole ticket or every structured Note field.
 - New note entries should include:
   - `DATETIME` (ISO-8601 UTC: `YYYY-MM-DDTHH:MM:SSZ`)
   - `AUTHOR` (full assigned agent name or verified human author)
@@ -14491,6 +14624,9 @@ Notes format requirement
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
 - Preserve all existing history and custom regions; concise Notes do not authorize historical compaction.
+- Multiple meaningful comments are independent contributions, not a one-comment quota or a
+  requirement to merge every contribution into Notes before ordinary continuation. Keep coherent
+  findings together; link long logs/code in authorized accessible evidence. Avoid duplicate events.
 - Keep concise claim, impact, material limits and next action inline, with exact retrievable
   comment/doc links for supporting detail; do not copy full linked reports. A link alone does not
   replace required in-body state, decisions, evidence or unresolved limits.
@@ -14498,6 +14634,19 @@ Notes format requirement
   updates still apply. This does not relax configured timing or note-quality gates.
 - In plugin mode, `## Notes` remains in the Issue body. A full-body update must
   preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
+- Current body state, scope, decisions and handoff must be reconciled at material transitions
+  and closure, with concise attributed links rather than copied reports. Optional metadata's
+  state-event references still resolve to concise body Notes; those Notes may link detailed
+  comment/document evidence. Ordinary comments do not require a state transition.
+- Use REREAD REQUIRED for evidence needed by the applicable continuation, HELPFUL for useful
+  context. Reassess relevance rather than rereading every historical entry at each checkpoint.
+  Required onboarding/reentry and changed-source reads remain mandatory.
+- Score actual compaction usefulness, not a default maximum. Retain the configured quality floor.
+- Failed or unrun required tests block implementation acceptance; preserve their failures/limits.
+  Do not weaken tests or move required failures away to claim completion. A research-only outcome
+  records legitimately unrun executable checks without pretending they passed.
+- Preserve denied and uncertain-write boundaries. A comment or ticket cannot authorize a risky
+  action, bypass a denial or manufacture acceptance; self-checks are not independent review.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`.
 
@@ -14507,6 +14656,13 @@ Per-ticket noting behavior
 - Epic notes: program direction, cross-story tradeoffs, and tranche order.
 - Parent owners reconcile child outcomes and remaining work in synthesis Notes, not duplicate
   tactical logs. Child completion does not accept the parent; its own criteria/authority still apply.
+
+Current resume view
+- Keep one current resume view in Context / Handoff Summary, not several dated "Current" snapshots.
+- Include scope/outcome, controlling decisions/holds, source/evidence revision, completed/remaining
+  criteria, failed/unrun limits, owners and next 1-3 actions with necessary evidence links.
+- Update this view in place as state changes; preserve historical Notes/comments and artifacts.
+  Link unchanged context instead of replaying it. Required source reads are not replaced by a summary.
 
 Status discipline
 - Update Status and Updated fields on each state change (UTC DateTime: `YYYY-MM-DDTHH:MM:SSZ`).
@@ -14795,7 +14951,9 @@ catalog before using the connected plugin's repository or Issue tools. Read
 `github/codex_plugin.md` and `github/workflow.md` before operating this backend.
 Fetch the selected Issues instead of reading local ticket folders for current
 ticket state. Issue bodies retain the existing Epic/Story/Task template sections,
-Status, `## Notes`, and handoff summary. The canonical reference is an Issue URL.
+Status, `## Notes`, and the current handoff summary. Supported attributed comments/documents
+can carry findings directly under shared `ticketing.md`; do not copy every comment into the body.
+The canonical reference is an Issue URL.
 
 `work_tracking.github_codex_plugin.project_url` is optional. It can identify an
 associated Project, but Project fields are not the ticket-status authority in
@@ -14843,8 +15001,9 @@ Set `connection_nickname` explicitly from the current Codex connection nickname.
 Upgrades preserve existing config blocks; they do not choose an account or
 infer a nickname from an earlier CLI login. An older plugin config without this
 field must be completed before plugin operations resume.
-If those earlier Issues contain ticket Notes in comments, complete the history
-and Status reconciliation in `github/migration.md` before resuming their work.
+If an older Issue's canonical Status/history is genuinely inconsistent, reconcile the affected
+state through the existing owner. Meaningful comments alone do not require migration or a body
+copy before ordinary continuation. Explicit backend migration still follows `github/migration.md`.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/work_tracking_backend.md ---
 
@@ -14899,6 +15058,8 @@ Provide a consistent planning and tracking workflow that uses structured tickets
    Keep concise claim, impact, material limits and next action inline with exact retrievable
    supporting comment/doc links. Do not copy full linked reports or create substantive Notes for
    unchanged checks/ACKs; preserve required in-body state/evidence and all existing history.
+   Multiple meaningful comments or authorized linked documents may hold attributed findings;
+   no forced body copy is required before ordinary continuation.
    - Use evidence ranges (`path:start_line-end_line`) rather than single-line anchors.
    - If the ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the
      linked context artifact when that finding changes required rereads or
@@ -14919,6 +15080,9 @@ Provide a consistent planning and tracking workflow that uses structured tickets
     - Authorized agents close routine completed work after criteria, required tests and required
       reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
       Missing authority or a required gate is a specific blocker.
+    - A qualified independent reviewer may accept and close under shared `ticketing.md`.
+      Apply its full-current-evidence and reserved-decision boundaries, not an extra author
+      handback solely for closure.
 11. After acceptance under delegated authority or explicit reserved-owner disposition:
     - Add a short completion summary with a UTC datetime.
     - Move the file to its matching completed folder (`tickets/epics/completed/`,
@@ -14984,8 +15148,8 @@ When unsure:
 ## Ticket Microcycle (Required)
 - Route from `attention_board.md` to one active ticket at a time.
 - Investigate until one meaningful finding is identified.
-- Immediately document that finding in the ticket `## Notes` section before
-  reading more.
+- Record the finding once in Notes, supported comments or authorized linked evidence before
+  work that depends on it. No forced body copy or approval from another body's writer is needed.
 - When `CONTEXT_MANAGEMENT_REQUIRED: true`, also update the linked context
   artifact before continuing if the finding changes the reusable reread pack or
   topic focus.
@@ -15129,6 +15293,8 @@ Even inside tickets:
 - Every active ticket must include a `## Notes` section.
 - Every active ticket must include a `Noting Behavior` section aligned to
   ticket type (task/story/epic).
+- Preserve historical Notes/comments and keep one current resume view under shared `ticketing.md`.
+  Ordinary comments do not trigger another full-policy reread; actual recovery/source changes do.
 - New notes entries should be append-only and include:
   - `DATETIME`
   - `TYPE`:
@@ -24983,6 +25149,8 @@ workflow:
   ticket_microcycle:
     enabled: true
     mode: strict
+    # A meaningful record may be Notes, a supported comment or authorized linked evidence.
+    # Evidence timing stays active, with no forced body copy of each comment.
     require_note_before_continue: true
     minimum_note_score: 7
     # Files OUTSIDE the current scope before you stop and ask - a wandering limit,
@@ -25003,6 +25171,7 @@ workflow:
     require_transition_reason: true
     anti_pattern_mode: canonical_catalog_with_applicable_checklist
   note_behavior:
+    # Preserve historical Notes/comments. The one current resume view is updated in place.
     append_only: true
     require_next_single_step: true
     require_evidence_ranges: true
@@ -27978,6 +28147,9 @@ numbers, they are simply the wrong ones.
 - 
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -28024,9 +28196,13 @@ numbers, they are simply the wrong ones.
 - Add notes when priorities, sequencing, or scope boundaries change.
 - Reference story/task evidence instead of duplicating tactical execution logs.
 - Keep notes append-only and preserve UNKNOWN-first promotion discipline.
+- Multiple meaningful comments may hold evidence directly; no forced body copy before ordinary
+  continuation. Current scope/state/decisions/handoff stay coherent at material transitions.
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->
@@ -28096,7 +28272,7 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - [ ] Task: <TASK-ID> - <short description>
 - [ ] Task: <TASK-ID> - <short description>
 - [ ] Enforce Ticket Microcycle across all linked tasks.
-- [ ] Require meaningful-finding note updates during discovery/implementation.
+- [ ] Record meaningful attributed findings in supported Notes/comments or authorized linked evidence.
 
 ## Acceptance Criteria
 - 
@@ -28122,6 +28298,9 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - 
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -28168,9 +28347,13 @@ As a <user/persona>, I want <capability>, so that <outcome>.
 - Add notes when task routing changes, gate decisions are made, or risks shift.
 - Reference child-task notes for evidence instead of duplicating tactical detail.
 - Keep notes append-only and preserve UNKNOWN-first promotion discipline.
+- Multiple meaningful comments may hold evidence directly; no forced body copy before ordinary
+  continuation. Current scope/state/decisions/handoff stay coherent at material transitions.
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->
@@ -28230,7 +28413,8 @@ what editing the rest of the template would cost you.
 - [ ] Run Ticket Microcycle during execution:
       `Investigate -> Document -> Strategy/Plan -> Document -> Implement ->
       Document -> Validate -> Document`.
-- [ ] Document each meaningful finding immediately in `## Notes` before further investigation.
+- [ ] Record meaningful attributed findings in supported Notes/comments or authorized linked evidence
+      before dependent work; no forced body copy.
 
 ## Deliverables
 - 
@@ -28264,6 +28448,9 @@ what editing the rest of the template would cost you.
 - [ ] Board sync completed for successor routing or closure anchor update.
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -28280,7 +28467,8 @@ what editing the rest of the template would cost you.
 
 ## Noting Behavior
 - Note focus: tactical findings, concrete impacts, and single-step continuation.
-- Add a `## Notes` entry after each meaningful finding before continuing.
+- Multiple meaningful comments or authorized documents may hold findings directly; no forced
+  body copy of every finding is required before ordinary continuation.
 - Keep notes append-only; correct history only for factual errors.
 - Promote `UNKNOWN` to `FACT` only with direct evidence pointers.
 
@@ -28307,7 +28495,9 @@ what editing the rest of the template would cost you.
   SCORE_0_TO_10: <0-10 compaction usefulness>
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->
@@ -28376,7 +28566,8 @@ what editing the rest of the template would cost you.
     "The full Epic, Story or Task remains the record; optional metadata never replaces its composition.",
     "Agile metadata is selected by ticket design, not by the agent role or hosting service.",
     "AGILE_METADATA owns workflow when present. Status is its derived view, not a second editable master.",
-    "Body Notes are canonical. Comments are attributed evidence reconciled before a state transition.",
+    "Ticket state is canonical. Multiple meaningful comments or authorized linked evidence may hold findings directly; no forced body copy before ordinary continuation.",
+    "Keep body scope, state, decisions and one current resume view coherent at material transitions; concise state-event Notes may link detailed evidence.",
     "Phase is current focus, not proof of earlier gates. Rework and approved skipped phases retain evidence.",
     "Ready requires prerequisites, ownership and scope; active requires actual start.",
     "Blocked evidence names the reason and unblock owner/action; paused evidence names the resume condition.",
@@ -28385,8 +28576,13 @@ what editing the rest of the template would cost you.
     "Owner, executor, contribution author, publisher and reviewer are distinct; never infer one from another.",
     "Ticket bodies, Notes and ticket comments identify the actual full agent name and role/function; ordinary chat messages need no name/role prefix.",
     "Independent review targets an exact scope/revision and cannot be claimed by its author or material editor.",
+    "A qualified independent reviewer may accept and close directly after all ticket criteria and current-revision evidence are met, without extra coordinator approval or author handback solely for closure.",
+    "A scoped PASS is not full-ticket acceptance. Preserve reserved decisions and actual permissions; independent review is not required for every task.",
     "Priority expresses scheduling urgency, not risk or permission. Existing approval and safety gates remain.",
-    "Use one primary writer, full-body revision/hash checks, logical event IDs and readback verification.",
+    "Use latest complete content/revision and writer coordination for full-body or overlapping-field edits; independent append-only comments need no body-writer permission and require their own readback.",
+    "Reuse valid source/account/context bindings in intact context; ordinary comments do not trigger full-policy rereads. Actual recovery and changed-source reads remain required.",
+    "Search/reuse discovered-work tickets in authorized repositories, including outside the managed workstream; self-accept eligible complete outcomes or return exact help requests. Ticket creation grants no new access.",
+    "Preserve historical Notes/comments and truthful failed/unrun limits. Required implementation tests must work/pass; self-checks do not establish independent acceptance.",
     "Local checks are not server CAS. Uncertain or partial effects need reconciliation before another write.",
     "Native Issue state and Project fields are projections; closure is not acceptance.",
     "Schema validation checks declared content, not evidence truth, authenticated identity or user permission.",
