@@ -4,8 +4,8 @@ This skill applies only when `work_tracking.backend: github_codex_plugin`.
 Use the configured GitHub plugin for ticket operations. Each Issue is one
 Epic, Story, or Task using the existing template. Resolve `connection_nickname`
 through `codex_plugin.md` before all plugin operations, including recovery.
-Its body owns Status, Notes,
-decisions, requirements, and handoff context. Local ticket files are inactive
+Its body owns current Status, decisions, requirements and handoff context. Notes,
+supported comments and authorized documents retain attributed evidence. Local ticket files are inactive
 for the same work; a Project URL is optional context.
 
 ## Intake and hierarchy
@@ -33,10 +33,13 @@ workflow; the body retains canonical Notes and a derived Status view. Native
 closure remains a projection, not acceptance. Authored posts/comments/Notes
 identify their actual agent name and role/function under `agent_identity.md`.
 
-- The existing microcycle and note fields apply unchanged. Append each meaningful
-  finding to `## Notes` in the Issue body before another work tranche. Preserve
-  prior Notes in full; comments may supply evidence but are not a second Notes
-  record. Use the read-preserve-update-verify procedure in `codex_plugin.md`.
+- The configured microcycle and structured Note fields remain. Multiple meaningful comments
+  or authorized linked documents may carry attributed findings directly. No forced body copy
+  of every finding is required before ordinary continuation. Preserve historical Notes/comments.
+- Append-only comments need no body-writer permission. Reuse valid account/audience/context
+  binding, use a supported operation and verify readback; no full-policy reread per comment.
+  Latest complete body/revision and writer coordination apply to actual full-body replacements
+  or overlapping mutable fields, not every contribution. Follow `codex_plugin.md`.
 - Keep template Status and Updated metadata current. Record each state change
   and reason in State Transition Event and Notes. `draft`, `ready`,
   `in_progress`, `blocked`, and `review` are open Issue states; a completed
@@ -52,14 +55,18 @@ identify their actual agent name and role/function under `agent_identity.md`.
 Record each meaningful changed finding once at the appropriate ticket depth. Keep concise claim,
 impact, material limits and next action inline with exact retrievable comment/doc links; do not copy
 full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
-state/evidence, prior history and custom regions; comments remain supporting evidence.
+state/evidence at material transitions, prior history and custom regions; details may remain in comments.
 The assigned agent owns current status, evidence, requested scoped review and final closure.
+Alternatively, a qualified independent reviewer may accept and close under shared `ticketing.md`,
+without another author handback solely for closure. Keep actual body-write custody and verify
+the accepted canonical state before native closure; a denied close remains pending projection.
 Review is proportionate to actual consequence, uncertainty and contract, not automatic full-code
 review. High-consequence or uncertain changes request scoped review; self-checks are not independent.
 Parent owners synthesize child outcomes and remaining work; child completion does not accept the parent.
 
 - `issue_board.md` holds local agent claims; `mailbox_board.md` is the roster.
-  Keep one primary writer per Issue and coordinate reviewer/support work.
+  Keep one primary writer for conflicting body/field edits and coordinate reviewer/support work.
+  Independent append-only comments do not acquire that body claim or require its permission.
   Coordination transport follows `agent_communication.backend`; in `codex_mcp`
   mode skip mailbox messages and alerts while preserving shared state per
   `agent_session_state.md`.

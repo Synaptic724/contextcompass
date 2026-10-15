@@ -17,6 +17,8 @@ def normalized(path: Path) -> str:
 @pytest.mark.parametrize("relative", [
     "AGENTS.MD", "skills/ticketing.md", "skills/workflow.md",
     "skills/github/workflow.md", "skills/github/codex_plugin.md",
+    "behavioral_guidelines/work_intake_and_execution.md",
+    "../engineer/behavioral_guidelines/task_execution_and_validation.md",
 ])
 def test_routine_closure_is_delegated_but_reserved_decisions_wait(relative):
     text = normalized(GENERAL / relative)
@@ -31,6 +33,8 @@ def test_routine_closure_is_delegated_but_reserved_decisions_wait(relative):
 @pytest.mark.parametrize("relative", [
     "AGENTS.MD", "skills/ticketing.md", "skills/workflow.md",
     "skills/github/workflow.md", "skills/github/codex_plugin.md",
+    "behavioral_guidelines/work_intake_and_execution.md",
+    "../engineer/behavioral_guidelines/task_execution_and_validation.md",
 ])
 def test_scoped_review_and_author_independence_remain_explicit(relative):
     text = normalized(GENERAL / relative)

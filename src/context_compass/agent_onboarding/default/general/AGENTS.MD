@@ -92,7 +92,7 @@ Ask the user for **guidance** when you cannot tell where to look. Never for
 
 ## Operating Protocol (How You Should Work)
 
-### 2) Propose -> Confirm -> Implement
+### 2) Plan -> Implement Within Authority
 
 Before making non-trivial edits:
 
@@ -100,13 +100,16 @@ Before making non-trivial edits:
 2. List the constraints you will obey.
 3. List the **exact files / symbols** you will modify.
 
-If any of the above is uncertain, **stop and ask** before editing.
-For this repo, treat **all** edits as requiring explicit confirmation, even if they seem trivial.
+Investigate uncertain implementation details within authorized scope. There is no per-step approval
+for ordinary edits, tests, peer coordination or ticket maintenance already covered by that scope.
+Escalate a genuinely missing decision, material scope expansion, reserved acceptance or security/
+action permission. Planning and ticket creation do not grant authority for new consequential actions.
 
 ### 3) Scope Control
 
 * Stay within the declared files/symbols.
-* If you believe the change requires touching more than the declared scope, **ask first**.
+* Select and record related files needed for the complete authorized outcome; ordinary in-scope
+  file selection and focused repair need no new coordinator admission. Escalate material expansion.
 
 ### 4) Documentation Ritual
 
@@ -124,37 +127,48 @@ As a ritual, after implementing a change:
 
 ### 6) context_compass Ticket Planning (Required)
 
-* Before starting any planned work beyond answering questions, create a structured
+* Before starting any planned work beyond answering questions, search/reuse or create a structured
   Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
   lanes; plugin mode uses an Issue body in the configured repository.
-* Treat `attention_board.md` as routing-only state and the active ticket `## Notes` section as canonical durable execution memory.
+* Document useful discoveries, including outside the currently managed workstream, in an authorized
+  repository/audience. Self-accept eligible work within actual authority, tools, capacity and custody,
+  or return its ticket with an exact help request. Ticket creation does not grant new access.
+* Own the complete authorized outcome, including coordination, tests, applicable review, records
+  and routine closure. Do not wait for approval between ordinary included steps.
+* Treat `attention_board.md` as routing-only state and the selected ticket as the durable record.
+  Multiple meaningful comments or authorized linked documents may hold attributed findings directly.
+  No forced body copy is required before ordinary continuation. Preserve historical Notes/comments.
 * Hard execution gate (mandatory):
   - Do not implement or validate unless an active ticket exists for the work.
   - Do not implement or validate unless `attention_board.md` has an active row routing to that ticket.
   - If the active ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, do not
     implement or validate until every linked context artifact has been read.
-  - Do not start a new investigation tranche, code edit tranche, or validation tranche until the current meaningful finding is written in ticket `## Notes` with evidence.
+  - Record meaningful findings with evidence before work that depends on them, using Notes,
+    supported attributed comments or authorized linked evidence under `skills/ticketing.md`.
   - If any gate above is missing, stop and repair ticket/board/notes state before continuing.
 * Default every new claim to `UNKNOWN` until source evidence proves otherwise.
 * Ticket Microcycle enforcement defaults to strict and is configurable in `config/context_compass_config.yaml`.
 * Follow a strict Ticket Microcycle while working:
   1. Route from `attention_board.md` to one active ticket.
   2. Investigate until one meaningful finding (fact, blocker, decision, measure, or hypothesis worth testing).
-  3. Immediately append a `## Notes` entry before any further investigation.
-  4. Continue only after the note includes evidence and a concrete next step.
+  3. Record the finding once in a supported durable contribution, not a duplicate body report.
+  4. Continue under the existing scope after evidence and the next action are clear.
 * If `workflow.ticket_microcycle.enabled` is `false`, use relaxed mode:
   - still document each meaningful finding,
-  - still update notes before implementation and validation,
+  - still record evidence before dependent implementation and validation,
   - still require evidence for `FACT` and `DECISION` claims.
-* No second investigation tranche is allowed before documenting the current meaningful finding in the ticket.
+* Evidence timing is not a body-writer permission gate on another agent's independent contribution.
 * Do not implement from `UNKNOWN` or `HYPOTHESIS`; promote to `FACT` or `DECISION` with evidence first.
 * If investigation must expand beyond the current subsystem or exceed
   `workflow.ticket_microcycle.expansion_gate_max_files` in one pass, append a
   `DECISION` note and ask the user for scope confirmation before continuing.
 * Follow `SKILLS.MD`, shared `ticketing.md`, and the selected backend's
   workflow for the deep descriptive format and tracking model.
-* The ticket must define scope, steps, and intended deliverables; share it and wait for approval.
-* Maintain a `## Notes` section in active tickets and append in-flight findings with `path:start_line-end_line` evidence pointers as they occur, not in end-of-pass batches.
+* The ticket defines scope, deliverables, actual authority and observable completion. Reuse existing
+  authorization; ask only for a genuinely missing decision or action permission.
+* Maintain the required `## Notes` section and preserve history. Findings may be in supported
+  comments/documents with exact evidence pointers; current state/decisions/handoff stay coherent
+  at material transitions. Do not copy every report into Notes.
 * Evidence ranges in notes must include both start and end lines. If the evidence is one line, repeat it (`path:42-42`).
 * Context management is optional:
   - use it only when the ticket explicitly opts in
@@ -209,7 +223,7 @@ As a ritual, after implementing a change:
 
 ## Stop Conditions (Ask Before Proceeding)
 
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 
 * You want to touch **many files** (repo-wide sweeps) and no codemod approach was approved.
 * You want to rename/move files or symbols.
@@ -230,7 +244,9 @@ resolved role `SKILLS.MD` files.
 - It enforces evidence-first reasoning and blocks assumption-driven claims.
 - It defines ticket-first execution so work is durable and resumable.
 - It preserves context through active notes, board routing, and compaction flow.
-- It enforces explicit approval gates before meaningful execution.
+- It enforces actual scope/action authority and reserved acceptance without serial routine approval.
+- Qualified independent reviewers may accept and close through shared `ticketing.md` when
+  all current ticket criteria are met; this does not require a reviewer on every task.
 - It sets escalation discipline for scope/risk changes.
 - It keeps security posture strict, especially around secret handling.
 - It preserves process quality across handoffs and context resets.
@@ -275,7 +291,7 @@ explicitly instead of bypassing general rules.
 
 ### 13) Expected Operator Discipline
 
-- Keep one active problem boundary at a time.
+- Keep the current authorized outcome and actual source/resource boundaries clear.
 - Make each transition explicit (investigate, decide, implement, validate).
 - Keep uncertainty visible until it is resolved with evidence.
 - Surface blockers early with concrete impact and next-step asks.

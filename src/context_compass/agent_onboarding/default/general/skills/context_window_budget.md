@@ -30,12 +30,15 @@ Core rule
 Scope budgeting protocol (mandatory)
 1) Start from `attention_board.md` and the active ticket.
 2) Investigate until one meaningful finding is identified.
-3) Immediately append a `## Notes` entry in the active ticket.
-4) Do not continue investigation until the note has:
+3) Record the finding in supported Notes, attributed comments or authorized linked evidence.
+4) Before dependent investigation, ensure that record has:
    - evidence (`path:start_line-end_line`),
    - impact,
    - concrete next step.
 5) Repeat the loop for each additional meaningful finding.
+
+Multiple meaningful comments may carry findings directly; no forced body copy is required
+before ordinary continuation. Preserve historical Notes/comments and actual author attribution.
 
 **Reading one unit through is ONE pass, not one per finding.** Do not stop in the
 middle of a file to write a note. Finish the class, the method, the call path you
@@ -62,7 +65,10 @@ Expansion gate
     that greps rather than opens, to stay under a number. Counting files was never the
     point; not wandering into unrelated subsystems was.
 
-Required note payload per meaningful finding
+Structured Note/state-event payload
+- The fields below apply to structured Notes. Supported ordinary comments follow shared
+  `ticketing.md`: actual author/role, result, evidence, limits and next action, without
+  copying every report or requiring every structured Note field.
 - `DATETIME` (`YYYY-MM-DDTHH:MM:SSZ`)
 - `TYPE`:
   `FACT` | `UNKNOWN` | `HYPOTHESIS` | `DECISION` | `DECISION_REQUEST` |

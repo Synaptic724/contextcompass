@@ -77,6 +77,8 @@ workflow:
   ticket_microcycle:
     enabled: true
     mode: strict
+    # A meaningful record may be Notes, a supported comment or authorized linked evidence.
+    # Evidence timing stays active, with no forced body copy of each comment.
     require_note_before_continue: true
     minimum_note_score: 7
     # Files OUTSIDE the current scope before you stop and ask - a wandering limit,
@@ -97,6 +99,7 @@ workflow:
     require_transition_reason: true
     anti_pattern_mode: canonical_catalog_with_applicable_checklist
   note_behavior:
+    # Preserve historical Notes/comments. The one current resume view is updated in place.
     append_only: true
     require_next_single_step: true
     require_evidence_ranges: true

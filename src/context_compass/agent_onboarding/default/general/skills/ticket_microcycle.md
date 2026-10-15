@@ -7,10 +7,10 @@ Purpose
 
 Strict mode loop
 1. `Investigate`
-2. `Document` (immediate notes entry)
+2. `Document` (meaningful attributed evidence record)
    - If `CONTEXT_MANAGEMENT_REQUIRED: true`, update the linked context
      artifact when the finding changes the reread pack or active topics.
-3. `Strategy/Plan`
+3. `Strategy/Plan` within the complete authorized outcome
 4. `Document` (decision/plan note)
    - If `CONTEXT_MANAGEMENT_REQUIRED: true`, update the linked context
      artifact when the decision changes the required context or topic focus.
@@ -35,16 +35,22 @@ Relaxed mode loop
 - Unknown-first evidence rules remain unchanged.
 
 Document semantics in both modes
+- Multiple meaningful comments, structured Notes or authorized linked documents can hold evidence
+  directly. No forced body copy of each comment is required before ordinary continuation.
+  Preserve attribution and historical Notes/comments; there is no comment quota or spam cadence.
 - Record each meaningful changed finding, decision or result once at appropriate ticket depth,
   before dependent work required by the configured microcycle. Keep concise claim, impact,
   material limits and next action inline with exact retrievable supporting comment/doc links.
 - Do not copy full linked reports or create substantive Notes for unchanged checks/ACKs.
-  Required in-body state/evidence and routing updates still apply; a link alone is not the record.
+  Required in-body state/evidence and routing updates still apply at material transitions; a bare
+  link does not replace the current claim, decision or handoff needed for the next action.
 - Preserve all existing Notes/history/custom regions. Concision is not permission to compact or
   migrate historical tickets. Parent owners synthesize child outcomes and remaining work rather
   than copying tactical logs; child completion does not accept the parent.
 - These semantics do not waive onboarding/reentry, strict/relaxed configuration, evidence timing,
   denied/uncertain-write handling, note fields or the configured note-quality requirement.
+- Evidence timing refers to a supported durable record, not exclusive body-writer control over
+  independent comments. Required tests must actually pass; failed/unrun checks remain explicit.
 
 Config source
 - `config/context_compass_config.yaml`

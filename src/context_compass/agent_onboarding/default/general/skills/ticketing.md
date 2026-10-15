@@ -25,6 +25,17 @@ New-ticket design
   from the hosting account. When metadata is present, its derived Status replaces
   the ordinary Status enum for that ticket only; all actual acceptance gates remain.
 
+Discovery and complete-outcome ownership
+- Search open and completed work before creating a ticket for the same outcome.
+- Document useful discoveries outside the currently managed workstream in an authorized repository
+  and audience. Self-accept eligible work when actual authority, role, tools, capacity and custody
+  permit, or return the useful ticket with an exact help request.
+- Ticket creation does not grant new access, security permission, spending, deployment or another
+  owner's source custody. Preserve owner STOPs, reserved decisions and actual denied actions.
+- Own the complete authorized outcome: refine, implement, coordinate useful peers, test, obtain
+  required reviews, maintain current records and close truthfully. Ordinary included steps need
+  no fresh coordinator admission or per-edit approval.
+
 Deep descriptive model (required)
 Each ticket must be specific, evidence-based, and durable. Avoid vague goals.
 
@@ -59,13 +70,14 @@ Workflow rules
 3) Track progress with checkboxes and status fields.
 4) Use the Ticket Microcycle while active:
    - `Investigate -> Document -> Strategy/Plan -> Document -> Implement -> Document -> Validate -> Document`.
-5) Record each meaningful changed finding once in `## Notes` before dependent work,
+5) Record each meaningful changed finding once in Notes, a supported attributed comment or
+   authorized linked evidence before dependent work,
    at the appropriate ticket depth; unchanged checks/ACKs are not substantive findings.
 6) Treat new claims as `UNKNOWN` by default; promote to `FACT` only with evidence.
 7) If investigation expands beyond the current subsystem or exceeds
    `workflow.ticket_microcycle.expansion_gate_max_files`, add a `DECISION`
    note and request user confirmation.
-8) Update Context / Handoff Summary as work changes.
+8) Keep one current resume view in Context / Handoff Summary as material state changes.
 9) Before closing a ticket:
    - The assigned agent owns current status, evidence, requested scoped review and final closure.
    - Review is proportionate to actual consequence, uncertainty and the contract, not an automatic
@@ -74,6 +86,12 @@ Workflow rules
    - Authorized agents close routine completed work after criteria, required tests and required
      reviews are satisfied, without another owner ping. Reserved owner decisions still wait.
      Missing authority or a required gate is a specific blocker; do not infer acceptance.
+   - A qualified independent reviewer may accept and close directly when all ticket criteria
+     and current-revision evidence are satisfied. No extra coordinator approval or author
+     handback is needed solely for closure. A scoped PASS is not full-ticket acceptance.
+   - The reviewer must be competent for the whole accepted scope and independent of its
+     authors/material editors. Preserve actual action/source custody and reserved decisions.
+     Independent review is not required for every task; authorized owner closure remains.
 10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
@@ -98,7 +116,9 @@ Mandatory execution gates
     that points to the same active ticket.
 - Notes gate:
   - Do not start another investigation/edit/validation tranche until the current
-    meaningful finding is appended to ticket `## Notes` with evidence pointers.
+    meaningful finding is durably recorded with evidence where dependent work requires it.
+    Multiple meaningful comments or authorized documents may carry that evidence directly;
+    no forced body copy or body-writer permission is required for ordinary continuation.
 - Repair gate:
   - If any gate is broken or stale, stop and repair ticket/board/notes state
     before continuing.
@@ -119,6 +139,9 @@ Mandatory execution gates
   - `attention_board.md` must remain ticket-routing-only (no artifact pointers).
 
 Notes format requirement
+- The fields below define structured Notes/state-event anchors. Supported comments may use
+  focused prose with actual author/role, result/explanation, evidence, failed/unrun limits and
+  next action; they need not copy the whole ticket or every structured Note field.
 - New note entries should include:
   - `DATETIME` (ISO-8601 UTC: `YYYY-MM-DDTHH:MM:SSZ`)
   - `AUTHOR` (full assigned agent name or verified human author)
@@ -139,6 +162,9 @@ Notes format requirement
     `workflow.ticket_microcycle.minimum_note_score`)
 - Keep notes append-only except when correcting factual errors.
 - Preserve all existing history and custom regions; concise Notes do not authorize historical compaction.
+- Multiple meaningful comments are independent contributions, not a one-comment quota or a
+  requirement to merge every contribution into Notes before ordinary continuation. Keep coherent
+  findings together; link long logs/code in authorized accessible evidence. Avoid duplicate events.
 - Keep concise claim, impact, material limits and next action inline, with exact retrievable
   comment/doc links for supporting detail; do not copy full linked reports. A link alone does not
   replace required in-body state, decisions, evidence or unresolved limits.
@@ -146,6 +172,19 @@ Notes format requirement
   updates still apply. This does not relax configured timing or note-quality gates.
 - In plugin mode, `## Notes` remains in the Issue body. A full-body update must
   preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
+- Current body state, scope, decisions and handoff must be reconciled at material transitions
+  and closure, with concise attributed links rather than copied reports. Optional metadata's
+  state-event references still resolve to concise body Notes; those Notes may link detailed
+  comment/document evidence. Ordinary comments do not require a state transition.
+- Use REREAD REQUIRED for evidence needed by the applicable continuation, HELPFUL for useful
+  context. Reassess relevance rather than rereading every historical entry at each checkpoint.
+  Required onboarding/reentry and changed-source reads remain mandatory.
+- Score actual compaction usefulness, not a default maximum. Retain the configured quality floor.
+- Failed or unrun required tests block implementation acceptance; preserve their failures/limits.
+  Do not weaken tests or move required failures away to claim completion. A research-only outcome
+  records legitimately unrun executable checks without pretending they passed.
+- Preserve denied and uncertain-write boundaries. A comment or ticket cannot authorize a risky
+  action, bypass a denial or manufacture acceptance; self-checks are not independent review.
 - Deep semantic meaning and collaboration behavior for each `TYPE` are defined in:
   `context_compass/agent_onboarding/default/general/skills/execution_contract.md`.
 
@@ -155,6 +194,13 @@ Per-ticket noting behavior
 - Epic notes: program direction, cross-story tradeoffs, and tranche order.
 - Parent owners reconcile child outcomes and remaining work in synthesis Notes, not duplicate
   tactical logs. Child completion does not accept the parent; its own criteria/authority still apply.
+
+Current resume view
+- Keep one current resume view in Context / Handoff Summary, not several dated "Current" snapshots.
+- Include scope/outcome, controlling decisions/holds, source/evidence revision, completed/remaining
+  criteria, failed/unrun limits, owners and next 1-3 actions with necessary evidence links.
+- Update this view in place as state changes; preserve historical Notes/comments and artifacts.
+  Link unchanged context instead of replaying it. Required source reads are not replaced by a summary.
 
 Status discipline
 - Update Status and Updated fields on each state change (UTC DateTime: `YYYY-MM-DDTHH:MM:SSZ`).

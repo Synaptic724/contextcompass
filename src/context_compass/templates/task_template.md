@@ -38,7 +38,8 @@
 - [ ] Run Ticket Microcycle during execution:
       `Investigate -> Document -> Strategy/Plan -> Document -> Implement ->
       Document -> Validate -> Document`.
-- [ ] Document each meaningful finding immediately in `## Notes` before further investigation.
+- [ ] Record meaningful attributed findings in supported Notes/comments or authorized linked evidence
+      before dependent work; no forced body copy.
 
 ## Deliverables
 - 
@@ -72,6 +73,9 @@
 - [ ] Board sync completed for successor routing or closure anchor update.
 
 ## Artifact Links (Optional)
+Qualified independent reviewer acceptance and direct closure follow shared `ticketing.md`;
+this does not make independent review mandatory for every ticket.
+
 - ARTIFACTS_REQUIRED: true | false
 - ARTIFACT_PATHS:
   - <artifacts/YYYY-MM-DD_<slug>.<ext>>
@@ -88,7 +92,8 @@
 
 ## Noting Behavior
 - Note focus: tactical findings, concrete impacts, and single-step continuation.
-- Add a `## Notes` entry after each meaningful finding before continuing.
+- Multiple meaningful comments or authorized documents may hold findings directly; no forced
+  body copy of every finding is required before ordinary continuation.
 - Keep notes append-only; correct history only for factual errors.
 - Promote `UNKNOWN` to `FACT` only with direct evidence pointers.
 
@@ -115,7 +120,9 @@
   SCORE_0_TO_10: <0-10 compaction usefulness>
 
 ## Context / Handoff Summary
-<Succinct summary of current state, key decisions, and next steps for future context.>
+<One current resume view: scope/outcome; controlling decisions/holds; source/evidence revision;
+completed/remaining criteria; failed/unrun limits; owners; next 1-3 actions and necessary links.>
+Update this view in place. Preserve historical Notes/comments and link unchanged context/full evidence.
 
 ## Project-Specific Additions
 <!-- BEGIN USER-DEFINED: project_fields -->

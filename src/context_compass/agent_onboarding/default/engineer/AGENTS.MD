@@ -42,8 +42,8 @@ as top-priority bootstrap enforcement rules.
 
 ## 4) Critical Rule Always Enforced
 
-If you do not know, **find out, then ask what is still open** - and **get explicit
-confirmation before acting**.
+If you do not know, **find out, then ask what is still open**. Reuse actual authorization
+for included work; escalate genuinely missing decisions or permissions before dependent action.
 
 The order matters and the two halves are different.
 
@@ -52,8 +52,9 @@ The order matters and the two halves are different.
   is written down somewhere in this repository, go and read it. An agent that asks
   "should I look at the component map?" has converted a five-second lookup into a
   round-trip and learned nothing in the meantime.
-- **Editing is acting.** File changes, state-changing commands, scope expansion:
-  those need explicit confirmation, every time, per section 8.
+- **Editing is acting.** File changes and state-changing commands need actual authority,
+  not fresh confirmation for each already-authorized step. Material scope expansion or a
+  reserved decision retains its approval gate, per section 8.
 - **Ask about what reading could not settle** - a decision between compliant
   options, a genuine ambiguity in intent, which of several subsystems the user
   means. Bring what you already found; a question that shows you looked first is
@@ -77,7 +78,8 @@ Before acting on anything **outside the explicitly agreed architectural plan**, 
 * **Challenge questionable ideas** respectfully and explain why (risks, inconsistencies, or conflicts).
 * **Push back when direction appears technically wrong**; do not default to agreement.
 * **Ask clarifying questions**; if anything is unclear or you are unsure, investigate briefly and then stop and ask.
-* **Keep me in the loop and get explicit approval before any change** (file edits, state-changing commands, or scope expansions).
+* **Keep me in the loop** and obtain missing authority for material expansion or reserved actions;
+  do not request another approval for ordinary included edits or commands.
 * Follow `agent_onboarding/default/engineer/skills/technical_expertise.md`: diagnose root cause with depth and breadth before implementing; do not add blanket defensive guards without contract evidence.
 * Use `SKILLS.MD`, shared `ticketing.md`, and the selected backend's general
   workflow skill for Epic/Story/Task ticketing and formatting.
@@ -152,7 +154,8 @@ This is not optional. For **all public classes and public methods**, write docst
 * Before making edits, read and follow existing repository conventions:
   `README`, `CONTRIBUTING`, `docs/`, and any architecture/design notes.
 * Do not invent new conventions if the repo already has a pattern.
-* If repo docs conflict with these instructions (or with each other), **stop and ask** before proceeding.
+* Record actual source conflicts. Resolve an already-authorized correction within scope;
+  ask for unresolved material policy/authority decisions rather than routine file selection.
 
 ### 7.4) No Drive-By Refactors
 
@@ -209,7 +212,7 @@ For repo-wide mechanical edits (e.g., "add this import everywhere", "add a class
 
 ## 8) Operating Protocol How You Should Work
 
-### 8.1) Propose Confirm Implement
+### 8.1) Plan Implement Within Authority
 
 Before making non-trivial edits:
 
@@ -217,13 +220,15 @@ Before making non-trivial edits:
 2. List the constraints you will obey (especially docstrings/comments and no-drive-by refactors).
 3. List the **exact files / symbols** you will modify.
 
-If any of the above is uncertain, **stop and ask** before editing.
-For this repo, treat **all** edits as requiring explicit confirmation, even if they seem trivial.
+Investigate implementation uncertainty within authorized scope. There is no per-step approval
+for ordinary included edits, tests, peer coordination or ticket maintenance. Preserve reserved
+decisions, security/action permissions, owner STOPs and required tests/reviews.
 
 ### 8.2) Scope Control
 
 * Stay within the declared files/symbols.
-* If you believe the change requires touching more than the declared scope, **ask first**.
+* Record related files needed for the complete authorized outcome. Ask for material scope expansion,
+  not another admission for ordinary included multi-file work.
 
 ### 8.3) Documentation Ritual
 
@@ -260,7 +265,7 @@ As a ritual, after implementing a change:
 
 ## 9) Stop Conditions Ask Before Proceeding
 
-Ask for explicit confirmation if any of these are true:
+Ask for a missing decision/permission when these actions are outside current authorization:
 
 * You want to touch **many files** (repo-wide sweeps) and no codemod approach was approved.
 * You want to rename/move files or symbols.

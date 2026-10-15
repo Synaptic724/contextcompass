@@ -64,6 +64,13 @@ nickname selection does not grant permission to run tools before those gates.
   Use `github_create_issue` or the equivalent exposed Issue-create tool with
   the explicit repository, title, and body. Keep a stable template ID; route by
   the returned Issue URL and fetch it to verify the content.
+- For supported append-only comments, verify the exact Issue, relevant current context, account,
+  audience and action/content authority. Reuse valid bindings in intact context and verify the
+  saved comment/permalink by readback. No body-writer permission, whole-body read solely for
+  custody, or full-policy reread is required for an independent contribution.
+- Multiple meaningful comments may hold distinct attributed results, explanation, failed/unrun
+  limits and next action. Keep coherent findings together and link long logs/code. There is
+  no forced body copy before ordinary continuation and no comment-count quota.
 - For Notes, Status, decisions, or handoff changes, read the latest complete
   body, preserve every unrelated section and historical note, and send the
   resulting full body through `github_update_issue`. Fetch again afterward and
@@ -74,6 +81,8 @@ nickname selection does not grant permission to run tools before those gates.
   (mailbox messages or MCP thread tools); the current update tool does not
   expose an atomic compare-and-swap lease. If the body changed since the read, re-read and recompose; if another
   writer or lost content is detected, stop and reconcile before continuing.
+  These safeguards cover full-body replacements and overlapping mutable fields, not an
+  append-only comment. A comment author does not take custody from a busy body writer.
 - Omit labels, assignees, milestone, title, and state when the change does not
   target them. The update tool's label and assignee arguments replace their
   full sets; use additive tools for approved additions where exposed.
@@ -86,14 +95,24 @@ nickname selection does not grant permission to run tools before those gates.
 ## Capability boundaries
 The assigned agent maintains current status, evidence, requested scoped review and final closure;
 review is proportionate to consequence, uncertainty and contract. Self-checks are not independent review.
-Keep concise claim, impact, material limits and next action in canonical body Notes with exact
-retrievable supporting comment/doc links. Do not copy full linked reports or add substantive
+A qualified independent reviewer may accept and close under shared `ticketing.md`; coordinate
+actual overlapping writes, not a ceremonial author return. Verify canonical acceptance before
+the native close and its readback. A denied close stays pending; do not switch identity to bypass it.
+Keep concise claim, impact, material limits and next action with exact retrievable evidence.
+Current in-body state/decisions/handoff remain coherent at material transitions; detailed findings
+may remain in supported comments/documents. Do not copy full linked reports or add substantive
 Notes for unchanged checks/ACKs; preserve required in-body state/evidence and all history/custom regions.
 
 The plugin currently exposes Issue search, fetch, create, update, and comment
 reads. A tool called `add_comment_to_issue` is documented for PR Conversation
 comments and uses `pr_number`; do not assume that means ordinary Issue-comment
-creation is supported. Canonical ticket Notes stay inside `## Notes` in the body.
+creation is supported. Check current schemas rather than the tool's name. An unavailable ordinary
+Issue-comment operation is a capability gap, not a permission denial. Retain the contribution in
+an existing authorized evidence location through a supported operation, or report the exact
+unavailable write and hold only dependent work. Do not claim the comment was saved.
+Preserve the exact denied action on a real denial; do not switch account, backend or route to
+bypass it. Reconcile uncertain effects before a permitted retry. Existing Notes stay in the body;
+their preservation does not force every new comment into that section.
 
 Parent/child and blocker relationships always retain explicit Issue links and
 IDs in template metadata/checklists. Use native sub-issue or dependency tools

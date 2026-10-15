@@ -24,11 +24,19 @@ invariants and attribution policy. That file is the source-owned definition;
 tools and portable bundles derive from it rather than another handwritten
 ticket rulebook. Read the full selected template as well.
 
+`contract_ref` binds the full canonical text, including policy-only edits, not just its
+schema/profile version. Existing Agile metadata with an older digest is rejected by the
+current checker and transition helper. There is no rebind command or automatic migration.
+Preserve the old body, history and recorded definition; resolve its exact source binding
+or explicitly authorized record handling before a dependent transition. Do not silently
+replace its digest or claim that a package update upgraded historical tickets.
+
 When metadata is present, its workflow is canonical. The visible Status is
 `phase / execution / resolution`, derived from that object, not an old-status
 compatibility mapping. Native hosting state and Projects cannot override it.
 Metadata evidence references point to existing body Notes by `EVENT_ID` or
-`DATETIME`; they do not create another evidence store. Retain the configured
+`DATETIME`; these are concise state-event anchors that may link detailed comments/documents,
+not a demand to copy every finding before ordinary continuation. Retain the configured
 note-quality requirement. Unknown evidence is not an acceptable transition ref.
 
 Accepted resolution additionally references Notes with the explicit conclusions
@@ -41,6 +49,9 @@ Each state event has a logical event identity. Reusing that identity for a
 different payload is a conflict. A revision/hash check is a client safeguard,
 not an atomic lock supplied by GitHub. Read, preserve, write, fetch and reconcile
 uncertain effects under the primary writer's custody.
+Those latest-body/revision safeguards apply to full-body replacements and overlapping mutable
+fields. Supported append-only comments need no body-writer permission and no full-policy reread
+in intact context; verify their actual account/audience/context and saved readback separately.
 
 ## Names, authors and review
 
@@ -77,6 +88,10 @@ Passing validation, entering acceptance phase, or closing an Issue does not
 establish authorized acceptance. A reviewer who authored or materially edited
 the target is not independent by changing a role label. Historical unknown
 authorship stays unknown; this feature does not repair old records.
+
+A qualified independent reviewer may perform acceptance and direct closure under shared
+`ticketing.md`. The review record identifies the actual scope/revision and acceptance actor;
+a scoped PASS or a source checker alone cannot establish full authorized acceptance.
 
 ## Helpers and portable delivery
 
