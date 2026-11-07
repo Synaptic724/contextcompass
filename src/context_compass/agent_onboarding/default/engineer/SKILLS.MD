@@ -235,6 +235,11 @@ triggers for the system-document entries below.
     implementation.
   - Trigger: `patch_framework_gating.md` applies to the task, or the task points at
     a patch under `system_docs/patches/active/`.
+- `agent_onboarding/default/engineer/skills/testing_discipline.md`
+  - Covers: test-value ranking, unit-first rules, when integration tests are required,
+    the coverage policy, and fixing base code found while testing.
+  - Trigger: before you write, change or review tests, or report test or coverage
+    results.
 - `agent_onboarding/default/engineer/skills/system_orientation.md`
   - Covers: explaining this repository's workflow and documents to the user.
   - Trigger: the user asks how the system works or how to interact with it, or

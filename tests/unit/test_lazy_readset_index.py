@@ -144,3 +144,16 @@ def test_engineer_loads_system_doc_guides_and_procedures_lazily():
     for path in core:
         assert path in eager, path
     assert GENERAL + "skills/ticketing.md" in eager
+
+
+def test_engineer_testing_discipline_is_lazy_but_its_honesty_rules_stay_eager():
+    engineer = "agent_onboarding/default/engineer/"
+    eager, lazy = eager_and_lazy("engineer", "local", "mailbox")
+    assert engineer + "skills/testing_discipline.md" in lazy
+    assert engineer + "skills/testing_discipline.md" not in eager
+    agents = (PKG_ROOT / (engineer + "AGENTS.MD")).read_text(encoding="utf-8")
+    assert "accompanied by tests unless explicitly exempted" in agents
+    assert '"Not run."' in agents
+    assert "Rank S" not in agents
+    skill = (PKG_ROOT / (engineer + "skills/testing_discipline.md")).read_text(encoding="utf-8")
+    assert "Rank S" in skill and "95%" in skill.replace("95 percent", "95%")

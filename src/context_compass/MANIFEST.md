@@ -7,7 +7,7 @@ from the files themselves, which is the only reason it can be trusted.
 | --- | --- |
 | manifest_version | 1.0.0 |
 | package_version | 2.21.0 |
-| files | 469 |
+| files | 470 |
 
 ## Lane policy
 
@@ -29,7 +29,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 366 | restore | replace |
+| PACKAGE | 367 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -112,7 +112,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `dfc0f6a2a9c5c547d2a7bd06ec1dd82e61d750e78bc93401bbf8de8322d23889` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `bdf2743ac29ea81e445ac7a3bbfcd46e15facc64139e6b27ed4dc92df3285372` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `fa50dfc2d126f742ac0d99717314df1cd496f38c597ddca055296017cc1f7648` |
 | `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
@@ -121,7 +121,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md` | PACKAGE | `71b306ab176626ff499afa56b06c8d689adc44ae100f095558b090bd4a07ae76` |
 | `agent_onboarding/default/engineer/policies/engineer_quality_policy.md` | PACKAGE | `fb747be91e0d8eb000791d54b9e4305cc3f08393ee75949a3a329f74fd89588c` |
 | `agent_onboarding/default/engineer/README.md` | PACKAGE | `733cd38fa33408b14f6da0fa78fce0bef964d128f28147080cae9eb192cb51c1` |
-| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `19a0c2948912b069f95bf10ca3b315975ebe014cb223241503b9efe5bb22f977` |
+| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `acfb65bf846bf9df52245738bd73a6d699bf75f0712201847ca179ad418d5800` |
 | `agent_onboarding/default/engineer/skills/context_protocol.md` | PACKAGE | `bdb8bc75935e9d48c429cb0082436a418bef8ab32526fd3ba796a912cd87423f` |
 | `agent_onboarding/default/engineer/skills/documentation_standards.md` | PACKAGE | `bdc4e7076c69789fcb3e701742e1bd4d82128cd1792697df38aa0fd3c3f1b711` |
 | `agent_onboarding/default/engineer/skills/engineer_execution.md` | PACKAGE | `37e08eb3e5067e2a548b71fbb626278bdceed2bf64f1894d9456044599a798c1` |
@@ -134,6 +134,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
 | `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `6791c2395ed9764a735bb51b403d2f0d15d13bfd195fa4f5c648d56b3c3c935a` |
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
+| `agent_onboarding/default/engineer/skills/testing_discipline.md` | PACKAGE | `c07c2ecb962d2395527b3946c1bdc669610f6e7535eafa3befcae9d2f2472758` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
 | `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `ee1344876de3df93ab05a61ea88937cb011660d41a2c4840443fc3202e159629` |

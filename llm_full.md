@@ -864,7 +864,7 @@ from the files themselves, which is the only reason it can be trusted.
 | --- | --- |
 | manifest_version | 1.0.0 |
 | package_version | 2.21.0 |
-| files | 469 |
+| files | 470 |
 
 ## Lane policy
 
@@ -886,7 +886,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 366 | restore | replace |
+| PACKAGE | 367 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -969,7 +969,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `dfc0f6a2a9c5c547d2a7bd06ec1dd82e61d750e78bc93401bbf8de8322d23889` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `bdf2743ac29ea81e445ac7a3bbfcd46e15facc64139e6b27ed4dc92df3285372` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `fa50dfc2d126f742ac0d99717314df1cd496f38c597ddca055296017cc1f7648` |
 | `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
@@ -978,7 +978,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md` | PACKAGE | `71b306ab176626ff499afa56b06c8d689adc44ae100f095558b090bd4a07ae76` |
 | `agent_onboarding/default/engineer/policies/engineer_quality_policy.md` | PACKAGE | `fb747be91e0d8eb000791d54b9e4305cc3f08393ee75949a3a329f74fd89588c` |
 | `agent_onboarding/default/engineer/README.md` | PACKAGE | `733cd38fa33408b14f6da0fa78fce0bef964d128f28147080cae9eb192cb51c1` |
-| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `19a0c2948912b069f95bf10ca3b315975ebe014cb223241503b9efe5bb22f977` |
+| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `acfb65bf846bf9df52245738bd73a6d699bf75f0712201847ca179ad418d5800` |
 | `agent_onboarding/default/engineer/skills/context_protocol.md` | PACKAGE | `bdb8bc75935e9d48c429cb0082436a418bef8ab32526fd3ba796a912cd87423f` |
 | `agent_onboarding/default/engineer/skills/documentation_standards.md` | PACKAGE | `bdc4e7076c69789fcb3e701742e1bd4d82128cd1792697df38aa0fd3c3f1b711` |
 | `agent_onboarding/default/engineer/skills/engineer_execution.md` | PACKAGE | `37e08eb3e5067e2a548b71fbb626278bdceed2bf64f1894d9456044599a798c1` |
@@ -991,6 +991,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
 | `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `6791c2395ed9764a735bb51b403d2f0d15d13bfd195fa4f5c648d56b3c3c935a` |
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
+| `agent_onboarding/default/engineer/skills/testing_discipline.md` | PACKAGE | `c07c2ecb962d2395527b3946c1bdc669610f6e7535eafa3befcae9d2f2472758` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
 | `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `ee1344876de3df93ab05a61ea88937cb011660d41a2c4840443fc3202e159629` |
@@ -6914,219 +6915,15 @@ Ask for a missing decision/permission when these actions are outside current aut
 
 ---
 
-## 10) Testing Discipline Unit-First Component-Second Integration-Third
-
-We are building confidence, not just coverage. **All changes must be accompanied by tests** unless explicitly exempted.
-
-### 10.1) What We Value in Tests Ranked
-
-If you take nothing else from this section, take this:
-
-> **A test is valuable if it would fail for a real regression and would *not* fail for a harmless refactor.**
-
-Here is the ranking we use when judging test quality. Higher ranks are strictly preferred.
-
-#### Rank S - System Contract Tests (Highest Value)
-
-These tests prove end-to-end correctness of a *meaningful* contract boundary without re-implementing the system.
-
-**Signals:**
-
-* Exercises real wiring across multiple components (minimal real set).
-* Catches regression in control flow, data flow, and lifecycle behavior.
-* Fails for real breakage, not for refactors.
-
-**Examples:**
-
-* A "root revalidation" flow that uses real blueprints and validates outcomes.
-* A concurrency primitive integration test that proves ordering/invariants.
-
-> Use these sparingly and intentionally. They cost more to maintain.
-
-#### Rank A - Behavioral Unit Contract Tests (High Value)
-
-These are the backbone of the repo: small tests that validate contracts, invariants, and error behavior.
-
-**Signals:**
-
-* Asserts behavior through **public methods** and **documented outputs**.
-* Validates meaningful branches and error paths.
-* Avoids coupling to private fields/implementation details.
-
-**Examples:**
-
-* "Given these inputs, return/raise exactly X."
-* "After cleanup, public methods raise or behave as documented."
-* "Last-write-wins semantics for a registry."
-
-#### Rank B - State Transition Tests (Medium-High Value)
-
-Tests that validate a clear state machine / lifecycle, especially around concurrency and cleanup.
-
-**Signals:**
-
-* Proves valid transitions and prevents illegal transitions.
-* Focuses on lifecycle invariants (cleaned vs active, idempotence, ordering).
-* Uses introspection APIs (`describe()`, snapshots) rather than poking raw private fields.
-
-#### Rank C - Collaboration/Boundary Mock Tests (Medium Value)
-
-These validate that we call collaborators correctly. They're useful when the collaborator is expensive, external, or nondeterministic.
-
-**Signals:**
-
-* Mocks are used at **real boundaries** (I/O, network, filesystem, subprocess, time, OS).
-* Asserts calls that matter (ordering, arguments, exactly-once / at-most-once) *when that is part of the contract*.
-
-**Warning:**
-
-* These become brittle if you over-specify calls.
-
-#### Rank D - Regression Reproduction Tests (Targeted Value)
-
-A test that exists to lock down a specific bug. Great when it's truly a regression guard.
-
-**Signals:**
-
-* Title references the bug symptom.
-* Minimal reproduction.
-* Assertions match the corrected behavior.
-
-#### Rank E - Line-Coverage Fillers (Low Value)
-
-Tests that exist mainly to execute lines but don't assert meaningful behavior.
-
-**Signals:**
-
-* Asserts "it didn't crash" with no contract outcome.
-* Asserts values that are incidental.
-
-> We avoid these unless they are stepping stones toward higher-rank tests.
-
-#### Rank F - Attribute/Existence Checks (Very Low Value)
-
-This is the bottom. These tests almost always waste time and fail for harmless refactors.
-
-**Examples (bad):**
-
-* `assert obj._some_private_field is not None` (unless the field is part of a documented public contract, which is rare)
-* `assert hasattr(obj, "x")` / `assert "x" in obj.__dict__` / `assert isinstance(obj._pending_changes, dict)`
-
-**Why this is bad:**
-
-* Doesn't prove correctness.
-* Over-couples tests to implementation.
-* Encourages "coverage mirage."
-
-**Only acceptable when:**
-
-* The attribute is explicitly part of a public, documented contract (rare), or
-* You are validating cleanup nulling **as part of a lifecycle safety contract** and there is no better public signal.
-
-### 10.2) Rules Unit Tests First Mock and Isolated
-
-The default approach is **mocked / isolated unit tests**.
-
-* **Mock external boundaries** (I/O, filesystem, network, subprocesses, clocks, OS calls, databases, thread scheduling, random sources).
-* Validate **contracts** (inputs/outputs/raises), **invariants**, and **side effects** (including cleanup ordering) at the smallest reasonable unit.
-* Prefer **contract-level assertions** over implementation-detail assertions.
-* Avoid flakiness: tests must run reliably on repeated runs.
-
-#### Contract-level assertion checklist
-
-When writing a unit test, you should be able to answer "yes" to most of these:
-
-* The test asserts an observable outcome (return, raise, snapshot, or state transition).
-* The test would fail if a real regression happened.
-* The test would still pass after a harmless refactor (renaming locals, reordering statements, or changing internal data structures).
-* Mocks are only used at true boundaries.
-* Assertions focus on *behavior* rather than "internal shape".
-
-If not, the test is probably Rank E/F.
-
-### 10.3) Integration Tests Second Only When Needed
-
-Integration tests are required when behavior cannot be proven safely via mocks/unit tests.
-
-Use integration tests when at least one is true:
-
-* Correctness depends on real interactions across multiple components (e.g., concurrency scheduling, orchestration behavior, serializer/codec correctness across layers).
-* Mocking would require re-implementing the system under test or would make the test meaningless.
-* The integration is the contract (e.g., plugin wiring, adapter boundaries, real concurrency primitives).
-
-Rules for integration tests:
-
-* Keep them **scoped**: integrate only the minimal set of real components needed.
-* Make them **explicit**: use clear naming and markers (e.g., `@pytest.mark.integration`) if the repo uses them.
-* Ensure they remain **repeatable** and not environment-dependent unless explicitly documented.
-
-### 10.4) Coverage Target 95 Percent or Higher Non-Negotiable
-
-#### Agent Execution Constraint (Read Carefully)
-
-AI agents **cannot truthfully confirm** repository-wide coverage levels (including the =95% target) unless the **user** runs the test suite and reports the result.
-
-* Agents must **not** claim coverage numbers.
-* If the user asks whether tests or coverage were run, the only valid answer is **"Not run."**
-
-#### Agent Policy: Prefer Test Density Now; Verify Coverage Later
-
-In the agent environment, **coverage measurement is treated as a follow-up step** that the **user** performs. Agents should **default** to producing a strong test suite using the density heuristic, and then **ask the user to verify =95% coverage later**.
-
-**Default Path - Test Density (Preferred for Agent Work):**
-
-Use this path unless the user explicitly provides coverage output.
-
-* **Baseline density:** target **= 10 tests per 100 LOC** for the changed/covered module(s).
-* **Dense / high cyclomatic complexity code:** increase target to **= 20 tests per 100 LOC** when the code shows any of the following:
-
-  * high cyclomatic complexity (many branches/guards)
-  * heavy error-path logic
-  * concurrency / locking / ordering constraints
-  * lifecycle/cleanup state machines
-  * non-trivial invariants (dirty tracking, revalidation, promotion semantics)
-
-These are heuristics - not a license to create filler tests. Every test must still meet the quality criteria below.
-
-**Follow-Up Path - Coverage Verification (User-Run, Later):**
-
-* Target: **= 95% line coverage** for the relevant package/module(s).
-* Requirement: the **user** runs the suite and reports the output.
-* Agent reporting: if the user has not run it, you must say **"Not run."** and you must not guess.
-
-If the user reports coverage below target, agents should add tests by increasing **branch/error/lifecycle** coverage - not by adding filler assertions.
-
-We target **= 95% line coverage** across the library.
-
-* Heuristic: we want at least **10 tests per 100 LOC**, but do not game it. If you have 95 percent or higher coverage but fewer than 10 tests per 100 LOC, that's acceptable.
-* Coverage must not be "gamed" (no meaningless tests whose only purpose is to execute lines).
-
-**Where we focus coverage:**
-
-* Public API contracts
-* Critical branching logic
-* Error paths
-* Lifecycle/cleanup behavior
-* Concurrency-sensitive behavior (as testable)
-
-If a component cannot reasonably hit the coverage target (rare), document the reason and the mitigation (integration coverage, property tests, or explicit exclusion with rationale) **and ask before applying exclusions**.
-
-### 10.5) Truthful Validation Reporting
-
-When reporting validation status:
-
-* Only claim unit/integration/coverage runs if you actually ran them.
-* If not run, say **"Not run."**
-* If recommending commands, be specific and repo-consistent. Do not invent a workflow that contradicts repository docs.
-
-### 10.6) Fixing Broken Base Code While Writing Tests
-
-If you find mistakes while writing tests (bugs, incorrect docstrings, missing cleanup, race conditions):
-
-* Raise them as issues rather than fixing them silently.
-* If you have explicit permission to fix them, follow all rules in this document (docstrings, cleanup, scope control, tests).
-* Do not fix unrelated mistakes outside your declared scope.
-* If the mistakes block your work, explain the situation and ask for guidance.
+## 10) Testing Discipline
+
+* All changes must be accompanied by tests unless explicitly exempted.
+* Never claim tests, lint, type checks or coverage ran unless they did; otherwise say
+  **"Not run."** (section 7.9).
+* The full discipline - test-value ranking, unit-first rules, when integration tests
+  are required, the coverage policy and fixing base code found while testing - is
+  `agent_onboarding/default/engineer/skills/testing_discipline.md`, in the engineer
+  lazy index.
 
 ---
 
@@ -7430,6 +7227,11 @@ triggers for the system-document entries below.
     implementation.
   - Trigger: `patch_framework_gating.md` applies to the task, or the task points at
     a patch under `system_docs/patches/active/`.
+- `agent_onboarding/default/engineer/skills/testing_discipline.md`
+  - Covers: test-value ranking, unit-first rules, when integration tests are required,
+    the coverage policy, and fixing base code found while testing.
+  - Trigger: before you write, change or review tests, or report test or coverage
+    results.
 - `agent_onboarding/default/engineer/skills/system_orientation.md`
   - Covers: explaining this repository's workflow and documents to the user.
   - Trigger: the user asks how the system works or how to interact with it, or
@@ -9747,6 +9549,232 @@ References
 - `agent_onboarding/default/engineer/skills/context_protocol.md`
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/technical_expertise.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/engineer/skills/testing_discipline.md ---
+
+# testing_discipline
+
+Purpose
+- The engineer testing discipline: what makes a test valuable, how to choose unit,
+  component and integration tests, the coverage policy, and truthful reporting.
+- Lazy: read it in full before you write, change or review tests, or report test or
+  coverage results. `engineer/AGENTS.MD` keeps the always-on testing rules.
+
+## Unit first, component second, integration third
+
+We are building confidence, not just coverage. **All changes must be accompanied by tests** unless explicitly exempted.
+
+### 1) What We Value in Tests Ranked
+
+If you take nothing else from this section, take this:
+
+> **A test is valuable if it would fail for a real regression and would *not* fail for a harmless refactor.**
+
+Here is the ranking we use when judging test quality. Higher ranks are strictly preferred.
+
+#### Rank S - System Contract Tests (Highest Value)
+
+These tests prove end-to-end correctness of a *meaningful* contract boundary without re-implementing the system.
+
+**Signals:**
+
+* Exercises real wiring across multiple components (minimal real set).
+* Catches regression in control flow, data flow, and lifecycle behavior.
+* Fails for real breakage, not for refactors.
+
+**Examples:**
+
+* A "root revalidation" flow that uses real blueprints and validates outcomes.
+* A concurrency primitive integration test that proves ordering/invariants.
+
+> Use these sparingly and intentionally. They cost more to maintain.
+
+#### Rank A - Behavioral Unit Contract Tests (High Value)
+
+These are the backbone of the repo: small tests that validate contracts, invariants, and error behavior.
+
+**Signals:**
+
+* Asserts behavior through **public methods** and **documented outputs**.
+* Validates meaningful branches and error paths.
+* Avoids coupling to private fields/implementation details.
+
+**Examples:**
+
+* "Given these inputs, return/raise exactly X."
+* "After cleanup, public methods raise or behave as documented."
+* "Last-write-wins semantics for a registry."
+
+#### Rank B - State Transition Tests (Medium-High Value)
+
+Tests that validate a clear state machine / lifecycle, especially around concurrency and cleanup.
+
+**Signals:**
+
+* Proves valid transitions and prevents illegal transitions.
+* Focuses on lifecycle invariants (cleaned vs active, idempotence, ordering).
+* Uses introspection APIs (`describe()`, snapshots) rather than poking raw private fields.
+
+#### Rank C - Collaboration/Boundary Mock Tests (Medium Value)
+
+These validate that we call collaborators correctly. They're useful when the collaborator is expensive, external, or nondeterministic.
+
+**Signals:**
+
+* Mocks are used at **real boundaries** (I/O, network, filesystem, subprocess, time, OS).
+* Asserts calls that matter (ordering, arguments, exactly-once / at-most-once) *when that is part of the contract*.
+
+**Warning:**
+
+* These become brittle if you over-specify calls.
+
+#### Rank D - Regression Reproduction Tests (Targeted Value)
+
+A test that exists to lock down a specific bug. Great when it's truly a regression guard.
+
+**Signals:**
+
+* Title references the bug symptom.
+* Minimal reproduction.
+* Assertions match the corrected behavior.
+
+#### Rank E - Line-Coverage Fillers (Low Value)
+
+Tests that exist mainly to execute lines but don't assert meaningful behavior.
+
+**Signals:**
+
+* Asserts "it didn't crash" with no contract outcome.
+* Asserts values that are incidental.
+
+> We avoid these unless they are stepping stones toward higher-rank tests.
+
+#### Rank F - Attribute/Existence Checks (Very Low Value)
+
+This is the bottom. These tests almost always waste time and fail for harmless refactors.
+
+**Examples (bad):**
+
+* `assert obj._some_private_field is not None` (unless the field is part of a documented public contract, which is rare)
+* `assert hasattr(obj, "x")` / `assert "x" in obj.__dict__` / `assert isinstance(obj._pending_changes, dict)`
+
+**Why this is bad:**
+
+* Doesn't prove correctness.
+* Over-couples tests to implementation.
+* Encourages "coverage mirage."
+
+**Only acceptable when:**
+
+* The attribute is explicitly part of a public, documented contract (rare), or
+* You are validating cleanup nulling **as part of a lifecycle safety contract** and there is no better public signal.
+
+### 2) Rules Unit Tests First Mock and Isolated
+
+The default approach is **mocked / isolated unit tests**.
+
+* **Mock external boundaries** (I/O, filesystem, network, subprocesses, clocks, OS calls, databases, thread scheduling, random sources).
+* Validate **contracts** (inputs/outputs/raises), **invariants**, and **side effects** (including cleanup ordering) at the smallest reasonable unit.
+* Prefer **contract-level assertions** over implementation-detail assertions.
+* Avoid flakiness: tests must run reliably on repeated runs.
+
+#### Contract-level assertion checklist
+
+When writing a unit test, you should be able to answer "yes" to most of these:
+
+* The test asserts an observable outcome (return, raise, snapshot, or state transition).
+* The test would fail if a real regression happened.
+* The test would still pass after a harmless refactor (renaming locals, reordering statements, or changing internal data structures).
+* Mocks are only used at true boundaries.
+* Assertions focus on *behavior* rather than "internal shape".
+
+If not, the test is probably Rank E/F.
+
+### 3) Integration Tests Second Only When Needed
+
+Integration tests are required when behavior cannot be proven safely via mocks/unit tests.
+
+Use integration tests when at least one is true:
+
+* Correctness depends on real interactions across multiple components (e.g., concurrency scheduling, orchestration behavior, serializer/codec correctness across layers).
+* Mocking would require re-implementing the system under test or would make the test meaningless.
+* The integration is the contract (e.g., plugin wiring, adapter boundaries, real concurrency primitives).
+
+Rules for integration tests:
+
+* Keep them **scoped**: integrate only the minimal set of real components needed.
+* Make them **explicit**: use clear naming and markers (e.g., `@pytest.mark.integration`) if the repo uses them.
+* Ensure they remain **repeatable** and not environment-dependent unless explicitly documented.
+
+### 4) Coverage Target 95 Percent or Higher Non-Negotiable
+
+#### Agent Execution Constraint (Read Carefully)
+
+AI agents **cannot truthfully confirm** repository-wide coverage levels (including the =95% target) unless the **user** runs the test suite and reports the result.
+
+* Agents must **not** claim coverage numbers.
+* If the user asks whether tests or coverage were run, the only valid answer is **"Not run."**
+
+#### Agent Policy: Prefer Test Density Now; Verify Coverage Later
+
+In the agent environment, **coverage measurement is treated as a follow-up step** that the **user** performs. Agents should **default** to producing a strong test suite using the density heuristic, and then **ask the user to verify =95% coverage later**.
+
+**Default Path - Test Density (Preferred for Agent Work):**
+
+Use this path unless the user explicitly provides coverage output.
+
+* **Baseline density:** target **= 10 tests per 100 LOC** for the changed/covered module(s).
+* **Dense / high cyclomatic complexity code:** increase target to **= 20 tests per 100 LOC** when the code shows any of the following:
+
+  * high cyclomatic complexity (many branches/guards)
+  * heavy error-path logic
+  * concurrency / locking / ordering constraints
+  * lifecycle/cleanup state machines
+  * non-trivial invariants (dirty tracking, revalidation, promotion semantics)
+
+These are heuristics - not a license to create filler tests. Every test must still meet the quality criteria below.
+
+**Follow-Up Path - Coverage Verification (User-Run, Later):**
+
+* Target: **= 95% line coverage** for the relevant package/module(s).
+* Requirement: the **user** runs the suite and reports the output.
+* Agent reporting: if the user has not run it, you must say **"Not run."** and you must not guess.
+
+If the user reports coverage below target, agents should add tests by increasing **branch/error/lifecycle** coverage - not by adding filler assertions.
+
+We target **= 95% line coverage** across the library.
+
+* Heuristic: we want at least **10 tests per 100 LOC**, but do not game it. If you have 95 percent or higher coverage but fewer than 10 tests per 100 LOC, that's acceptable.
+* Coverage must not be "gamed" (no meaningless tests whose only purpose is to execute lines).
+
+**Where we focus coverage:**
+
+* Public API contracts
+* Critical branching logic
+* Error paths
+* Lifecycle/cleanup behavior
+* Concurrency-sensitive behavior (as testable)
+
+If a component cannot reasonably hit the coverage target (rare), document the reason and the mitigation (integration coverage, property tests, or explicit exclusion with rationale) **and ask before applying exclusions**.
+
+### 5) Truthful Validation Reporting
+
+When reporting validation status:
+
+* Only claim unit/integration/coverage runs if you actually ran them.
+* If not run, say **"Not run."**
+* If recommending commands, be specific and repo-consistent. Do not invent a workflow that contradicts repository docs.
+
+### 6) Fixing Broken Base Code While Writing Tests
+
+If you find mistakes while writing tests (bugs, incorrect docstrings, missing cleanup, race conditions):
+
+* Raise them as issues rather than fixing them silently.
+* If you have explicit permission to fix them, follow all rules in this document (docstrings, cleanup, scope control, tests).
+* Do not fix unrelated mistakes outside your declared scope.
+* If the mistakes block your work, explain the situation and ask for guidance.
+
+--- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/testing_discipline.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/engineer/workflows/README.md ---
 
