@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md`
 - `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires cross-book canon synchronization.
-- Task requires alternate timeline branch management.
-- Task requires compliance-sensitive factual verification.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced continuity fact checker work.
+  - Trigger: any one of these.
+    - Task requires cross-book canon synchronization.
+    - Task requires alternate timeline branch management.
+    - Task requires compliance-sensitive factual verification.
+  - Do not proceed in that specialized scope until this file is read.

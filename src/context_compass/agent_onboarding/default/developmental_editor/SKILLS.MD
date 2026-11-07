@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/developmental_editor/behavioral_guidelines/developmental_editor_workflow.md`
 - `agent_onboarding/default/developmental_editor/examples/developmental_editor_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires triage for heavily fragmented or incomplete manuscripts.
-- Task requires genre-specific structural redesign.
-- Task requires accelerated pre-release structural recovery.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/developmental_editor/skills/developmental_editor_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced developmental editor work.
+  - Trigger: any one of these.
+    - Task requires triage for heavily fragmented or incomplete manuscripts.
+    - Task requires genre-specific structural redesign.
+    - Task requires accelerated pre-release structural recovery.
+  - Do not proceed in that specialized scope until this file is read.

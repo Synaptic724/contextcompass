@@ -136,13 +136,15 @@ def test_local_and_plugin_readsets_resolve_one_ticket_source():
         "agent_onboarding/default/general/workflows/turn_in_selected_tickets.md",
         "agent_onboarding/default/general/workflows/sync_attention_board.md",
     }
-    assert macros <= skill_paths(shared)
-    assert not macros & skill_paths(local)
+    lazy = skill_paths(skills.split("On-demand skills (lazy readset index)", 1)[1])
+    assert macros <= lazy
+    assert not macros & (skill_paths(shared) | skill_paths(local))
     entries = lambda text: set(re.findall(r"(?m)^- `([^`]+)`$", text))
     local_paths, plugin_paths = entries(local), entries(plugin)
     assert not local_paths & plugin_paths
     assert "agent_onboarding/default/general/skills/workflow.md" in local_paths
-    assert "agent_onboarding/default/general/skills/ticket_closure_attention_sync.md" in local_paths
+    closure = "agent_onboarding/default/general/skills/ticket_closure_attention_sync.md"
+    assert closure in lazy and closure not in local_paths
     assert "agent_onboarding/default/general/skills/github/codex_plugin.md" in plugin_paths
     assert "agent_onboarding/default/general/skills/github/workflow.md" in plugin_paths
     assert "issue_board.md" in plugin_paths

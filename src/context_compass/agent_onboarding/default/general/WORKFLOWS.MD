@@ -9,6 +9,8 @@ Inheritance
 Activation rule
 - Workflows are optional macro behaviors.
 - Workflows are user-generated and user-approved only.
+- Every workflow here is lazy: when the user selects one, read its whole file
+  before acting. The On-demand index in `general/SKILLS.MD` gives each trigger.
 - When a workflow is selected for work, treat the parent-first role chain as
   the workflow lookup order.
 - The active workflows below apply in both backends. Resolve

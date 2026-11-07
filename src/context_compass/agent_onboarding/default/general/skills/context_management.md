@@ -4,8 +4,8 @@ Purpose
 - Define the context-management system for reusable reread packs.
 - Make context-heavy tickets able to point at one derived context document
   instead of embedding long read lists inline.
-- Keep the skill itself baseline-readable in the general role while keeping
-  ticket-level use optional.
+- Keep the skill in the general lazy index: it loads when a ticket opts in or
+  the user asks for a context pack, and ticket-level use stays optional.
 
 Canonical surfaces
 - Board:

@@ -3,18 +3,21 @@
 # SKILLS.MD - engineer
 
 Purpose
-- Define required baseline engineering skills for the `engineer` role.
+- Define the eager and lazy readsets for the `engineer` role.
 
 Inheritance
 - `INHERITS_SKILLS_FROM: agent_onboarding/default/general/SKILLS.MD`
 
 Skill classes (non-negotiable)
-- This role defines three classes of skills:
-  A) **Required baseline skills** (always required for onboarding/certification)
-  B) **Baseline system orientation** (required at onboarding when the files exist)
+- This role defines four classes of skills:
+  A) **Required baseline skills** (eager: always required for onboarding/certification)
+  B) **Baseline system orientation** (eager: required at onboarding when the files exist)
   C) **Self-directed system reading** - every other system document. Not baseline,
      not trigger-gated: **agent-driven OR user-driven**, and agent-driven is the
      ordinary case.
+  D) **On-demand skills (lazy readset index)** - the system-document guides, patch
+     gates and maintenance procedures, each read in full when its trigger fires.
+     The index is at the end of this file.
 
 Why this is called Self-directed and not On-demand (read this before you interpret it)
 - **`On-demand` is a different state and it is reserved.** In this package On-demand
@@ -76,21 +79,11 @@ Required baseline skills
 - `agent_onboarding/default/engineer/WORKFLOWS.MD`
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
 - `agent_onboarding/default/engineer/skills/technical_expertise.md`
-- `agent_onboarding/default/engineer/skills/system_orientation.md`
 - `agent_onboarding/default/engineer/skills/documentation_standards.md`
-- `agent_onboarding/default/engineer/skills/context_protocol.md`
-- `agent_onboarding/default/engineer/skills/src_graph_usage.md`
-- `agent_onboarding/default/engineer/skills/src_graph_generation.md`
-- `agent_onboarding/default/engineer/skills/system_document_build.md`
-- `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
-- `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
 - `agent_onboarding/default/engineer/skills/staleness_protocol.md`
 - `agent_onboarding/default/engineer/policies/engineer_quality_policy.md`
-- `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md`
-- `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md`
-- `agent_onboarding/default/engineer/examples/artifact_workflow.md`
 - `agent_onboarding/default/engineer/examples/eng_task_flow.md`
 
 Baseline system orientation (read every one that exists)
@@ -261,9 +254,6 @@ Read the tests pair when the work concerns the suite. Do not skip it because nob
 asked, and do not drag it in because you happened to be reading the src pair - they
 describe different things.
 
-If you are cleaning or upgrading an install:
-- `agent_onboarding/default/engineer/skills/package_maintenance.md`
-
 Note on a fresh install
 - **`system_docs/` ships empty.** The package does not seed architecture,
   component, test or graph documents, because a shipped placeholder in a live
@@ -288,3 +278,58 @@ Note on the source graph
   DOCUMENT - not to the code it describes. Slice it freely and often; that is what it
   is for. Reading none of it is not the safe reading of this rule, it is the failure
   the rule was written to prevent.
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset. Once a trigger fires, the file is mandatory:
+read the whole file before proceeding in that scope. `design_engineer` adds its own
+triggers for the system-document entries below.
+
+- `agent_onboarding/default/engineer/skills/context_protocol.md`
+  - Covers: navigating the system documents to the code worth opening.
+  - Trigger: before you read or slice `src_architecture.md`, `src_components.md`,
+    `src_graph.md` or their indexes. At onboarding this fires whenever
+    `system_docs/src_architecture.md` exists.
+- `agent_onboarding/default/engineer/skills/src_graph_usage.md`
+  - Covers: reading the generated source graph through its index.
+  - Trigger: before you read `src_graph_index.md` or slice `src_graph.md`.
+- `agent_onboarding/default/engineer/skills/system_document_build.md`
+  - Covers: the authoring format for `src_architecture.md` and `src_components.md`,
+    and how their indexes are built.
+  - Trigger: you are asked to create or update those documents or their indexes,
+    or your change requires updating them.
+- `agent_onboarding/default/engineer/skills/src_graph_generation.md`
+  - Covers: building and maintaining the generated source graph with the
+    extraction tools.
+  - Trigger: you are asked to generate, regenerate or refresh the source graph, or
+    your change requires refreshing it.
+- `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md`
+  - Covers: ranking context quality across file, directory, component and
+    architecture layers.
+  - Trigger: you create or refresh any layer of system context.
+- `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md`
+  - Covers: applying that ranking to engineer context work.
+  - Trigger: the same as `ctx_autonomy_rubric.md`.
+- `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
+  - Covers: the patch gates for system-impacting changes.
+  - Trigger: the task changes architecture or component boundaries, lifecycle
+    behavior, policy or gating behavior, or cross-component contracts, or it
+    requires updating `src_architecture.md`, `src_components.md` or `src_graph.md`.
+- `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
+  - Covers: consuming architecture, component and code-description patches during
+    implementation.
+  - Trigger: `patch_framework_gating.md` applies to the task, or the task points at
+    a patch under `system_docs/patches/active/`.
+- `agent_onboarding/default/engineer/skills/system_orientation.md`
+  - Covers: explaining this repository's workflow and documents to the user.
+  - Trigger: the user asks how the system works or how to interact with it, or
+    wants a walkthrough before work begins.
+- `agent_onboarding/default/engineer/examples/artifact_workflow.md`
+  - Covers: a worked example of scratch capture and an artifact moving through a
+    ticket.
+  - Trigger: before you create or link an artifact for the first time in a session.
+- `agent_onboarding/default/engineer/skills/package_maintenance.md`
+  - Covers: cleaning an install back to shipping state, upgrading one, and
+    preparing the package for distribution.
+  - Trigger: you are preparing the package for distribution, one project's content
+    has ended up inside another install, or a newer Context Compass version needs
+    rolling into a repository.

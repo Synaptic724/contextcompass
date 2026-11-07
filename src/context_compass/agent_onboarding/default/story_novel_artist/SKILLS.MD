@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/story_novel_artist/behavioral_guidelines/story_novel_artist_workflow.md`
 - `agent_onboarding/default/story_novel_artist/examples/story_novel_artist_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires style transfer across books in a series.
-- Task requires publishing-channel-specific art packaging variants.
-- Task requires model/provider migration without losing visual canon.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced story novel artist work.
+  - Trigger: any one of these.
+    - Task requires style transfer across books in a series.
+    - Task requires publishing-channel-specific art packaging variants.
+    - Task requires model/provider migration without losing visual canon.
+  - Do not proceed in that specialized scope until this file is read.

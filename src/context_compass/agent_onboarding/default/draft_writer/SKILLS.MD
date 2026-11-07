@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/draft_writer/behavioral_guidelines/draft_writer_workflow.md`
 - `agent_onboarding/default/draft_writer/examples/draft_writer_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-POV orchestration with constrained chapter budgets.
-- Task requires emergency rewrite of structurally broken manuscripts.
-- Task requires adaptation to strict word-count or serialization constraints.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/draft_writer/skills/draft_writer_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced draft writer work.
+  - Trigger: any one of these.
+    - Task requires multi-POV orchestration with constrained chapter budgets.
+    - Task requires emergency rewrite of structurally broken manuscripts.
+    - Task requires adaptation to strict word-count or serialization constraints.
+  - Do not proceed in that specialized scope until this file is read.
