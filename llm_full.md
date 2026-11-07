@@ -1021,7 +1021,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
-| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `3a00b702e923489ebdaf9d78b169fbc497d72bded6d9c41f49d21598b6b99f8b` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
@@ -13303,9 +13303,16 @@ shipped instruction block.
 
 - Resolve `CLAUDE_CONFIG_DIR` when set; otherwise use `~/.claude`.
 - Inspect its `CLAUDE.md` and relevant user-level rules/imports. A project
-  `CLAUDE.md` is a different scope and does not prove personal setup is present.
-- Claude Code loads `CLAUDE.md`; do not assume it automatically loads a file
-  merely because another harness calls that file `AGENTS.md`.
+  `CLAUDE.md` or `AGENTS.md` is a different scope and does not prove personal
+  setup is present.
+- Claude Code (v2.1.277 or later) reads a repository's `AGENTS.md` as project
+  instructions. By default it does so only when no `CLAUDE.md` or
+  `CLAUDE.local.md` exists in the working directory or above; its Project
+  instructions setting can load both or `CLAUDE.md` only. The personal
+  `~/.claude/CLAUDE.md` loads alongside either.
+- A root `AGENTS.md` that points to `context_compass/AGENTS.MD` therefore
+  already reaches Claude Code. Do not add a project `CLAUDE.md` just to repeat
+  that pointer: under the default setting, it stops `AGENTS.md` from loading.
 - Use `/memory` or the current version's `/context` display to inspect loaded
   instructions. Append only to a user-owned source with approval, then verify
   loading in a fresh session. Do not modify organization-managed instructions.

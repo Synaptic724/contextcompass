@@ -169,7 +169,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
-| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `3a00b702e923489ebdaf9d78b169fbc497d72bded6d9c41f49d21598b6b99f8b` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |

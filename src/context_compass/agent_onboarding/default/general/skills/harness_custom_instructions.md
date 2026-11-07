@@ -84,9 +84,16 @@ shipped instruction block.
 
 - Resolve `CLAUDE_CONFIG_DIR` when set; otherwise use `~/.claude`.
 - Inspect its `CLAUDE.md` and relevant user-level rules/imports. A project
-  `CLAUDE.md` is a different scope and does not prove personal setup is present.
-- Claude Code loads `CLAUDE.md`; do not assume it automatically loads a file
-  merely because another harness calls that file `AGENTS.md`.
+  `CLAUDE.md` or `AGENTS.md` is a different scope and does not prove personal
+  setup is present.
+- Claude Code (v2.1.277 or later) reads a repository's `AGENTS.md` as project
+  instructions. By default it does so only when no `CLAUDE.md` or
+  `CLAUDE.local.md` exists in the working directory or above; its Project
+  instructions setting can load both or `CLAUDE.md` only. The personal
+  `~/.claude/CLAUDE.md` loads alongside either.
+- A root `AGENTS.md` that points to `context_compass/AGENTS.MD` therefore
+  already reaches Claude Code. Do not add a project `CLAUDE.md` just to repeat
+  that pointer: under the default setting, it stops `AGENTS.md` from loading.
 - Use `/memory` or the current version's `/context` display to inspect loaded
   instructions. Append only to a user-owned source with approval, then verify
   loading in a fresh session. Do not modify organization-managed instructions.
