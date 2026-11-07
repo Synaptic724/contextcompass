@@ -274,8 +274,9 @@ ticket loop and the active board. Procedures such as upgrades, cleanup, batch
 turn-in, system-document authoring and setup forms sit in a lazy index instead:
 one entry per file, each saying what it covers and which request or action loads
 it. The agent holds the index from onboarding and reads a file in full only when
-its trigger fires. Run `contextcompass token-report` to see what each role reads
-eagerly and what it can load later.
+its trigger fires. Set `reading.mode: full` in the config to read the lazy entries
+up front as well; the default is `lean`. Run `contextcompass token-report` to see
+what each role reads eagerly and what it can load later.
 
 The third state exists because collapsing it into On-demand produces a specific
 failure: an agent finds no trigger has fired, reads none of the system documents,

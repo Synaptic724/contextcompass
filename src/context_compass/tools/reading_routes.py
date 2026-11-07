@@ -25,6 +25,7 @@ ENTRY = (
 TICKETS = ("local", "github_codex_plugin")
 COMMUNICATIONS = ("mailbox", "codex_mcp")
 EVENTS = ("onboard", "reonboard")
+READING_MODES = ("lean", "full")
 CONDITIONS = {
     "local backend": ("ticket", "local"),
     "github codex plugin": ("ticket", "github_codex_plugin"),
@@ -218,7 +219,36 @@ def configured_backends(root: pathlib.Path) -> tuple[str, str]:
     return ticket, value
 
 
-def requirements(root, roles, name, ticket, communication, event, special_paths, resolved=None):
+def configured_reading_mode(root: pathlib.Path) -> str:
+    """Return `reading.mode` from config: `lean` (also when absent) or `full`."""
+    lines = read_text(root, "config/context_compass_config.yaml").splitlines()
+    start = next((i for i, line in enumerate(lines)
+                  if re.match(r"^(?:reading|'reading'|\"reading\"):", line)), None)
+    if start is None:
+        return "lean"
+    if not re.fullmatch(r"(?:reading|'reading'|\"reading\"):\s*(?:#.*)?", lines[start]):
+        raise RouteError("reading must use a literal block mapping")
+    end = next((i for i in range(start + 1, len(lines))
+                if lines[i].strip() and not lines[i][0].isspace() and not lines[i].startswith("#")), len(lines))
+    block = [line for line in lines[start + 1:end] if line.strip() and not line.lstrip().startswith("#")]
+    indent = min((len(line) - len(line.lstrip()) for line in block), default=0)
+    values = []
+    for line in block:
+        match = re.fullmatch(r"\s*(?:mode|'mode'|\"mode\"):\s*(.*?)\s*", line)
+        if match and len(line) - len(line.lstrip()) == indent:
+            values.append(re.split(r"\s+#", match[1], maxsplit=1)[0].strip().strip("'\""))
+    if len(values) > 1:
+        raise RouteError("Duplicate reading.mode selector")
+    value = values[0] if values else "lean"
+    if value not in READING_MODES:
+        raise RouteError("Select reading.mode lean or full explicitly")
+    return value
+
+
+def requirements(root, roles, name, ticket, communication, event, special_paths, resolved=None,
+                 reading_mode="lean"):
+    if reading_mode not in READING_MODES:
+        raise RouteError(f"Unsupported reading mode: {reading_mode}")
     order, manifests = resolved or chain(root, roles, name)
     entry_text = read_text(root, "AGENTS.MD")
     def locate(label):
@@ -250,6 +280,9 @@ def requirements(root, roles, name, ticket, communication, event, special_paths,
             if condition and {"ticket": ticket, "communication": communication}[condition[0]] != condition[1]:
                 continue
             entry = dict(entry, reason=f"{role}: {entry['section']}")
-            (required if entry["state"] == "baseline" else optional).append(entry)
+            eager = entry["state"] == "baseline" or (reading_mode == "full" and entry["state"] == "on_demand")
+            if eager and entry["state"] == "on_demand":
+                entry["reason"] += " (reading.mode full)"
+            (required if eager else optional).append(entry)
     return {"role_chain": order, "required": required, "optional": optional,
             "optional_sections": sections}

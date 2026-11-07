@@ -55,10 +55,20 @@ contextcompass token-report --role engineer --ticket-backend github_codex_plugin
 These flags do not edit YAML or enable a connector. They let you compare declared
 reading routes before making a separate configuration decision.
 
+`--reading-mode lean|full` does the same for `reading.mode`. In `lean`, the default,
+each role reads its eager readset and loads lazy (On-demand) entries when their
+trigger fires; in `full`, it also reads every lazy entry at onboarding and recovery:
+
+```sh
+contextcompass token-report --role engineer --reading-mode full --out-dir context_compass_report
+```
+
 ## What The Numbers Mean
 
 - **Known tokens:** one copy of the declared full reads plus any precisely identified
   partial text, with shared paths counted once per route.
+- **Lazy tokens:** the full size of the lazy files a route can load by trigger. `lean`
+  reads them only when needed; `full` moves them into the known total.
 - **Session-specific text:** extra material whose size depends on the agent/session.
   The mailbox roster is measurable; relevant Notes and addressed messages are not
   assumed to mean the whole mailbox. A trailing `+` means this extra cost is unresolved.

@@ -20,8 +20,8 @@ _bytecode_setting = sys.dont_write_bytecode
 sys.dont_write_bytecode = True
 try:
     from reading_routes import (  # noqa: E402
-        RouteError, TICKETS, COMMUNICATIONS, EVENTS, registry, chain,
-        configured_backends, relative_path, requirements,
+        RouteError, TICKETS, COMMUNICATIONS, EVENTS, READING_MODES, registry, chain,
+        configured_backends, configured_reading_mode, relative_path, requirements,
     )
 finally:
     sys.dont_write_bytecode = _bytecode_setting
@@ -164,8 +164,11 @@ def calculate_route(inventory, declarations, communication):
             if key not in optional_keys:
                 optional_keys.add(key)
                 optional.append(dict(entry, path=row["path"], tokens=row["tokens"], status=row["status"]))
+    lazy = {row["path"]: row["tokens"] or 0 for row in optional
+            if row["state"] == "on_demand" and row["path"] not in paths}
     return {"role_chain": declarations["role_chain"], "paths": list(paths.values()),
             "known_tokens": sum(p["known_tokens"] or 0 for p in paths.values()),
+            "lazy_tokens": sum(lazy.values()),
             "full_file_reference_tokens": sum(p["full_file_tokens"] or 0 for p in paths.values()),
             "unmeasured_paths": [p["path"] for p in paths.values() if p["known_tokens"] is None],
             "session_specific_paths": [p["path"] for p in paths.values() if p["unresolved"]],
@@ -173,7 +176,8 @@ def calculate_route(inventory, declarations, communication):
 
 
 def build_report(root, counter, encoding="o200k_base", version="injected", role=None,
-                 ticket=None, communication=None, event="onboard", max_bytes=10 * 1024 * 1024, output=None):
+                 ticket=None, communication=None, event="onboard", max_bytes=10 * 1024 * 1024, output=None,
+                 reading_mode=None):
     root = root.resolve()
     if not (root / "AGENTS.MD").is_file():
         raise RouteError("Select an existing Context Compass root containing AGENTS.MD")
@@ -181,9 +185,13 @@ def build_report(root, counter, encoding="o200k_base", version="injected", role=
     if role and role not in roles:
         raise RouteError(f"Unregistered role: {role}")
     configured_ticket, configured_communication = configured_backends(root)
+    configured_mode = configured_reading_mode(root)
     ticket, communication = ticket or configured_ticket, communication or configured_communication
+    mode = reading_mode or configured_mode
     if ticket not in TICKETS or communication not in COMMUNICATIONS or event not in EVENTS:
         raise RouteError("Unsupported ticket, communication or entry-event selection")
+    if mode not in READING_MODES:
+        raise RouteError("Unsupported reading mode selection")
     inventory = Inventory(root, counter, max_bytes, output)
     specials = sorted(p for p, row in inventory.files.items()
                       if p.startswith("special_instructions/") and pathlib.PurePosixPath(p).suffix.lower() == ".md")
@@ -195,12 +203,14 @@ def build_report(root, counter, encoding="o200k_base", version="injected", role=
             resolved, error = None, str(exc)
         for tickets, transport, entry_event in itertools.product(TICKETS, COMMUNICATIONS, EVENTS):
             route = {"id": f"{name}/{tickets}/{transport}/{entry_event}", "role": name,
-                     "ticket_backend": tickets, "communication_backend": transport, "event": entry_event}
+                     "ticket_backend": tickets, "communication_backend": transport, "event": entry_event,
+                     "reading_mode": mode}
             if error:
                 route.update(status="unresolved", error=error, known_tokens=None)
             else:
                 try:
-                    declared = requirements(root, roles, name, tickets, transport, entry_event, specials, resolved)
+                    declared = requirements(root, roles, name, tickets, transport, entry_event, specials,
+                                            resolved, mode)
                     route.update(calculate_route(inventory, declared, transport), status="resolved_declarations")
                 except (RouteError, OSError, UnicodeError) as exc:
                     route.update(status="unresolved", error=str(exc), known_tokens=None)
@@ -219,6 +229,7 @@ def build_report(root, counter, encoding="o200k_base", version="injected", role=
     return {"generator": GENERATOR, "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             "encoding": encoding, "tokenizer_version": version, "root": str(root),
             "selected_route": selected, "configured_backends": {"ticket": configured_ticket, "communication": configured_communication},
+            "reading_mode": {"selected": mode, "configured": configured_mode},
             "roles": roles, "routes": routes, "files": sorted(inventory.files.values(), key=lambda r: r["path"]),
             "warnings": inventory.warnings,
             "limits": ["Source text for the explicit encoding, not model-specific request, billing or cumulative usage.",
@@ -234,7 +245,9 @@ def markdown(report):
     measured = [row for row in report["files"] if row["status"] == "measured"]
     out = ["# Context Compass Token Report", "", f"Generated: {report['generated_at']}", "",
            f"Tokenizer: tiktoken {report['tokenizer_version']}; explicit encoding: `{report['encoding']}`.",
-           f"Inventory: {len(report['files'])} paths; {len(measured)} measured; {len(report['roles'])} registered roles.", "",
+           f"Inventory: {len(report['files'])} paths; {len(measured)} measured; {len(report['roles'])} registered roles.",
+           f"Reading mode: `{report['reading_mode']['selected']}` (configured: `{report['reading_mode']['configured']}`). "
+           "`lean` reads lazy entries when their trigger fires; `full` reads them at onboarding and recovery.", "",
            "This is a map of declared reading choices, not a change to agent instructions.", "",
            "## How To Read This Report", ""]
     out += ["- " + value for value in report["limits"]]
@@ -246,14 +259,15 @@ def markdown(report):
         out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
     out += ["", "## All Route Choices", "",
             "Each role is expanded across both ticket backends, both communication modes and onboarding/recovery.",
-            "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.", "",
-            "| Role | Ticket backend | Messages | Entry | Known tokens | Unmeasured paths | Session-specific paths |",
-            "| --- | --- | --- | --- | ---: | ---: | ---: |"]
+            "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.",
+            "Lazy tokens are the full files this route can load by trigger; `full` mode adds them up front.", "",
+            "| Role | Ticket backend | Messages | Entry | Known tokens | Lazy tokens | Unmeasured paths | Session-specific paths |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: |"]
     for route in report["routes"]:
         if route["status"] == "unresolved":
-            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | UNKNOWN | declaration error | - |")
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | UNKNOWN | - | declaration error | - |")
         else:
-            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | {route['known_tokens']:,}+ | {len(route['unmeasured_paths'])} | {len(route['session_specific_paths'])} |")
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | {route['known_tokens']:,}+ | {route['lazy_tokens']:,} | {len(route['unmeasured_paths'])} | {len(route['session_specific_paths'])} |")
     out += ["", "## Selected Route And Inherited Paths", ""]
     selected = next((r for r in report["routes"] if r["id"] == report["selected_route"]), None)
     if selected and selected["status"] != "unresolved":
@@ -319,6 +333,8 @@ def main(argv=None):
     parser.add_argument("--ticket-backend", choices=TICKETS)
     parser.add_argument("--communication-backend", choices=COMMUNICATIONS)
     parser.add_argument("--event", choices=EVENTS, default="onboard")
+    parser.add_argument("--reading-mode", choices=READING_MODES,
+                        help="lean loads lazy entries by trigger; full reads them up front; default: config")
     parser.add_argument("--encoding", default="o200k_base")
     parser.add_argument("--max-file-bytes", type=int, default=10 * 1024 * 1024,
                         help="larger files stay visible as unmeasured; 0 means unlimited")
@@ -330,7 +346,7 @@ def main(argv=None):
         count, version = tokenizer(args.encoding)
         report = build_report(args.root, count, args.encoding, version, args.role,
                               args.ticket_backend, args.communication_backend, args.event,
-                              args.max_file_bytes, args.out_dir)
+                              args.max_file_bytes, args.out_dir, reading_mode=args.reading_mode)
         if args.out_dir:
             write_report(report, args.out_dir)
             print(f"REPORT: {args.out_dir.resolve() / 'report.md'}")

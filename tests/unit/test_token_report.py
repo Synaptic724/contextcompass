@@ -6,7 +6,8 @@ from pathlib import Path
 import pytest
 
 from conftest import PKG_ROOT, write
-from reading_routes import ENTRY, GENERAL, RouteError, chain, configured_backends, heading, manifest, registry
+from reading_routes import (ENTRY, GENERAL, RouteError, chain, configured_backends, configured_reading_mode,
+                            heading, manifest, registry)
 from token_report import Inventory, build_report, markdown, write_report
 
 pytestmark = pytest.mark.unit
@@ -128,6 +129,41 @@ def test_recovery_adds_its_entry_read_once(report_root):
     report = build_report(report_root, fake_count, role="general", event="reonboard")
     paths = [p["path"] for p in selected(report)["paths"]]
     assert paths.count(GENERAL + "skills/compaction_requirements.md") == 1
+
+
+def test_lean_reads_lazy_entries_by_trigger_and_full_reads_them_up_front(report_root):
+    lean = build_report(report_root, fake_count, role="general")
+    assert lean["reading_mode"] == {"selected": "lean", "configured": "lean"}
+    lean_route = selected(lean)
+    assert "optional.md" not in {p["path"] for p in lean_route["paths"]}
+    assert lean_route["lazy_tokens"] == fake_count("optional policy.\n")
+    full = build_report(report_root, fake_count, role="general", reading_mode="full")
+    full_route = selected(full)
+    paths = {p["path"]: p for p in full_route["paths"]}
+    assert any("reading.mode full" in r["reason"] for r in paths["optional.md"]["reasons"])
+    assert full_route["lazy_tokens"] == 0
+    assert full_route["known_tokens"] == lean_route["known_tokens"] + lean_route["lazy_tokens"]
+    assert "Reading mode: `full`" in markdown(full)
+
+
+@pytest.mark.parametrize("block,expected", [
+    ("", "lean"),
+    ("reading:\n  read_loc_max: 500\n", "lean"),
+    ("reading:\n  mode: full # everything up front\n  read_loc_max: 500\n", "full"),
+    ("reading:\n  mode: 'lean'\n", "lean"),
+])
+def test_configured_reading_mode(report_root, block, expected):
+    config = report_root / "config/context_compass_config.yaml"
+    config.write_text(config.read_text(encoding="utf-8") + block, encoding="utf-8")
+    assert configured_reading_mode(report_root) == expected
+
+
+@pytest.mark.parametrize("block", ["reading:\n  mode: eager\n", "reading:\n  mode: lean\n  mode: full\n"])
+def test_invalid_reading_mode_fails_instead_of_guessing(report_root, block):
+    config = report_root / "config/context_compass_config.yaml"
+    config.write_text(config.read_text(encoding="utf-8") + block, encoding="utf-8")
+    with pytest.raises(RouteError, match="reading.mode"):
+        configured_reading_mode(report_root)
 
 
 def test_missing_required_read_is_not_a_zero_cost_success(report_root):

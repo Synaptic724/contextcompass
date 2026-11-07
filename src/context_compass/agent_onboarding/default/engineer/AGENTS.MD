@@ -5,16 +5,9 @@
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). For this role that is three sections, not two:
-  **Required baseline skills**, **Baseline system orientation**, and the parent's
-  **Active skills**. Match on the baseline label, not on a fixed list of headings -
-  a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- For this role the eager readset is **Required baseline skills**, **Baseline system
+  orientation** and the parent's baseline sections. Lazy (On-demand) entries load in
+  full when their trigger fires; Self-directed system reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 ## 1) Document Purpose
@@ -89,23 +82,10 @@ Before acting on anything **outside the explicitly agreed architectural plan**, 
   standards.
 * Use `agent_onboarding/default/new/README.md` only for first-time `new`
   onboarding setup.
-* System-context documents:
-  - `src_architecture.md` plus `src_architecture_index.md` and
-    `src_components_index.md` are **baseline** - the narrative and the two maps.
-    Read them at onboarding when they exist.
-  - Everything else in `system_docs/` is **Self-directed: agent-driven or
-    user-driven.** You raise the demand yourself, as often as the work needs it.
-    There is no permission step and no trigger list to satisfy first - which is
-    exactly why it is NOT labelled On-demand. On-demand is the trigger-gated state;
-    reading "no trigger fired" off these documents is how an agent ends up never
-    opening them.
-  - Read them **by slice through their index**, keyed on a name you already hold.
-    `src_components.md` and `src_graph.md` are never read whole.
-  - Do NOT force-read system_docs as a box-check when the task does not trigger
-    them, and equally do NOT skip a read because nobody asked for it. Read what
-    the question needs; stop there.
-  - Full policy: `agent_onboarding/default/engineer/SKILLS.MD` and
-    `agent_onboarding/default/engineer/skills/context_protocol.md`.
+* System-context documents follow `agent_onboarding/default/engineer/SKILLS.MD`: the
+  architecture narrative and two indexes are baseline when they exist; everything
+  else in `system_docs/` is Self-directed - read it by slice through its index
+  whenever the question needs it, without asking permission, and stop there.
 
 Do not treat user ideas as gospel. Be curious, thoughtful, and explicit about uncertainties.
 ---

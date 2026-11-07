@@ -139,7 +139,7 @@ def cmd_version(args: argparse.Namespace) -> int:
 def cmd_token_report(args: argparse.Namespace) -> int:
     argv = ["--root", str(args.install.resolve()), "--encoding", args.encoding,
             "--event", args.event, "--max-file-bytes", str(args.max_file_bytes)]
-    for name in ("role", "ticket_backend", "communication_backend", "out_dir"):
+    for name in ("role", "ticket_backend", "communication_backend", "reading_mode", "out_dir"):
         value = getattr(args, name)
         if value is not None:
             argv.extend(["--" + name.replace("_", "-"), str(value)])
@@ -201,6 +201,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--ticket-backend", choices=("local", "github_codex_plugin"))
     p.add_argument("--communication-backend", choices=("mailbox", "codex_mcp"))
     p.add_argument("--event", choices=("onboard", "reonboard"), default="onboard")
+    p.add_argument("--reading-mode", choices=("lean", "full"),
+                   help="lean loads lazy entries by trigger; full reads them up front; default: config")
     p.add_argument("--encoding", default="o200k_base")
     p.add_argument("--max-file-bytes", type=int, default=10 * 1024 * 1024)
     p.add_argument("--out-dir", type=pathlib.Path, help="write report.md, report.json and files.csv")

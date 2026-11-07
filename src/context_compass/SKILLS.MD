@@ -123,6 +123,9 @@ lazy entry is the usual path line followed by two indented sub-items: `Covers:`
 that loads it). Sub-items never change the entry line itself. When a trigger
 fires, read that whole file before acting in its scope. Self-directed reads
 belong to neither set: they have no trigger and are read when the work needs them.
+`reading.mode` in config chooses how the lazy readset loads: `lean`, the default,
+reads each entry when its trigger fires; `full` also reads every entry at
+onboarding and recovery.
 
 Baseline sections are named for what they hold — `general` uses **Shared baseline skills**,
 `engineer` uses both **Required baseline skills** and **Baseline system

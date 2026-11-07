@@ -52,6 +52,20 @@ def test_cli_delegates_to_same_engine_and_uses_explicit_choices(tmp_path):
     assert not any(r["path"].endswith("mailbox_protocol.md") for r in selected["paths"])
 
 
+def test_cli_reading_mode_full_reads_lazy_entries_up_front(tmp_path):
+    env = dict(os.environ, PYTHONPATH=str(REPO_ROOT / "src"), PYTHONDONTWRITEBYTECODE="1")
+    out = tmp_path / "full_report"
+    result = subprocess.run([sys.executable, "-m", "contextcompass_cli", "token-report",
+        "--install", str(PKG_ROOT), "--role", "general", "--reading-mode", "full", "--out-dir", str(out)],
+        cwd=tmp_path, env=env, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads((out / "report.json").read_text())
+    assert report["reading_mode"] == {"selected": "full", "configured": "lean"}
+    route = next(r for r in report["routes"] if r["id"] == report["selected_route"])
+    assert any(p["path"].endswith("workflows/turn_in_selected_tickets.md") for p in route["paths"])
+    assert route["lazy_tokens"] == 0
+
+
 def test_unknown_role_and_encoding_fail_clearly(tmp_path):
     for flags in (("--role", "not_registered"), ("--encoding", "not_an_encoding")):
         result = run_tool(TOOLS / "token_report.py", "--root", PKG_ROOT, *flags, "--out-dir", tmp_path / "unused")

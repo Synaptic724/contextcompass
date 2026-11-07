@@ -230,6 +230,7 @@ After any context compaction or handoff, apply the bootstrap before these recove
   `agent_onboarding/default/general/skills/work_tracking_backend.md` and message
   transport with `agent_onboarding/default/general/skills/agent_communication_backend.md`,
   then read `SKILLS.MD`. Count each selector read once in the general baseline.
+  Resolve `reading.mode` from the same file; missing means `lean`.
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
@@ -334,6 +335,10 @@ Before any tooling, edits, or execution:
     them, without asking permission.
   - **Do not treat Self-directed as On-demand-with-no-trigger-yet.** That reading
     produces an agent that never opens the document, and it has already happened.
+- Resolve `reading.mode` from `config/context_compass_config.yaml`; missing means
+  `lean`. In `lean`, On-demand entries are the lazy readset: read each one in full
+  when its trigger fires. In `full`, also read every On-demand entry in the
+  resolved chain at onboarding and recovery, as if it were baseline.
 - If first-time onboarding is active and selected role is `new`, complete the
   effective onboarding requirements and the first authorized check-in before setting:
   - `profiles.onboarding.first_time_enabled: false`

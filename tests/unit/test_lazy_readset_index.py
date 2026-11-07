@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 
 from conftest import PKG_ROOT
-from reading_routes import manifest, registry, requirements
+from reading_routes import configured_reading_mode, manifest, registry, requirements
 
 pytestmark = pytest.mark.unit
 
@@ -38,6 +38,16 @@ def eager_and_lazy(role, ticket, communication):
     eager = {item["path"] for item in route["required"]}
     lazy = {item["path"] for item in route["optional"] if item["state"] == "on_demand"}
     return eager, lazy
+
+
+def test_shipped_config_defaults_to_lean_and_full_adds_every_lazy_entry():
+    assert configured_reading_mode(PKG_ROOT) == "lean"
+    roles = registry(PKG_ROOT)
+    lean = requirements(PKG_ROOT, roles, "engineer", "local", "mailbox", "onboard", [])
+    full = requirements(PKG_ROOT, roles, "engineer", "local", "mailbox", "onboard", [], reading_mode="full")
+    lazy = {item["path"] for item in lean["optional"] if item["state"] == "on_demand"}
+    assert lazy and lazy <= {item["path"] for item in full["required"]}
+    assert not any(item["state"] == "on_demand" for item in full["optional"])
 
 
 def test_every_lazy_entry_says_what_it_covers_and_what_loads_it():

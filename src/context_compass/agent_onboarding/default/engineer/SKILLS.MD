@@ -19,26 +19,12 @@ Skill classes (non-negotiable)
      gates and maintenance procedures, each read in full when its trigger fires.
      The index is at the end of this file.
 
-Why this is called Self-directed and not On-demand (read this before you interpret it)
-- **`On-demand` is a different state and it is reserved.** In this package On-demand
-  means a section states a trigger and you wait for it - `general`'s
-  `llm_full_usage.md` is the model. **Nothing in class C has a trigger.** The label
-  was wrong here, it collided with the parent's definition, and an agent resolving
-  both correctly concluded no trigger had fired and read zero system documents. Full
-  reasoning: `context_compass/SKILLS.MD`, "Format contract for role `SKILLS.MD` files".
-- Self-directed does NOT mean "wait to be told". It means the read happens when somebody
-  needs it, and **you are somebody**. You raise the demand as often as the user does,
-  and more often in practice, because you are the one who notices the gap.
-- There is no permission step. There is no trigger list you must match first. If you
-  need to know something about this system, the document is right there and you go
-  and read the part that answers it.
-- The earlier version of this file put these documents behind a trigger list and, for
-  one of them, an explicit instruction to ask the user whether reading was required.
-  That produced exactly what you would expect: agents that onboarded knowing nothing
-  about the system, stopped mid-task to request authorisation to consult the
-  documentation they were already holding the index for, and reasoned from the names
-  of classes in the meantime. Asking permission to read is not caution. It is a
-  refusal to do the work, dressed as deference.
+Why Self-directed is not On-demand
+- On-demand entries wait for a trigger; class C has none. Self-directed means the
+  read happens when somebody needs it, and **you are somebody**: raise the demand
+  yourself, with no permission step and no trigger list to match first. Labelling
+  these reads On-demand once produced agents that read no system documents at all.
+  Full reasoning: `context_compass/SKILLS.MD`, "Format contract for role `SKILLS.MD` files".
 
 Rules
 - Inherited `general` reads include shared baseline skills and only the
@@ -92,89 +78,19 @@ Baseline system orientation (read every one that exists)
 - `system_docs/src_architecture_index.md`
 - `system_docs/src_components_index.md`
 
-Why these four and not the whole set. An engineer who does not know the shape of the
-system writes plausible code in the wrong place, and no amount of role skill fixes
-that. So the narrative is baseline: `src_architecture.md` is the one document that
-explains what this system IS. Read it.
-
-The two INDEXES are baseline because an index is a map, not a territory. They are
-what let you name a component and go straight to its section instead of hunting for
-it. You onboard holding the maps, then use them to reach the parts of the territory
-your work actually needs - and then the code.
-
-Nothing else is baseline. Everything else under `system_docs/` is Self-directed,
-which means yours to reach for without waiting for anything. See below.
+Why these four: `src_architecture.md` is the one document that explains what this
+system IS, and the two indexes are the maps that take you straight to a component's
+section and its nodes. Everything else under `system_docs/` is Self-directed (below).
 
 The reading order
-This is a PRIORITY ORDER, not a rationing scheme. It tells you what to read first so
-that what you read next is the right thing. It is not an argument for reading less.
-
-1. **`src_architecture.md`** - read it. This is what the system IS.
-2. **`src_components.md`** - before starting work on a topic, read the parts relevant
-   to that topic. Use the index to find them.
-3. **`src_graph.md`** - if you are going to write code, read the wiring for what you
-   are touching. Use the index to find it.
-4. **THE CODE** - if you are changing anything, read the code. Always. No exception.
-
-Steps 1-3 tell you WHICH code. Step 4 tells you what it actually does. Every document
-above step 4 can be out of date; the code cannot. When they disagree, the code is
-right and the document is stale - record that, it is a finding.
-
-**`grep` and AST are guesses.** They tell you a name occurs somewhere. They do not
-tell you what the function does, what it owns, what it locks, what it returns, or
-what happens when it fails. Use them to find where to start reading. Then read, and
-trace the call path. A claim you cannot support from source you have actually read is
-UNKNOWN, however many matches you counted.
-
-**You have capacity - spend it here.** Source files are small next to the documents;
-a class is a few hundred lines and you can read the whole thing. Budget discipline
-exists so that you arrive at the code with room to read it properly, not so that you
-skip it.
-
-Each level hands you the key the next one is looked up by:
-
-```
-  src_architecture.md          WHICH PART of the system - read whole, at onboarding
-        |  gives you a concern, a boundary, a subsystem name
-        v
-  src_components_index.md      WHICH COMPONENT - look up that name
-        |  gives you a section name and a line range
-        v
-  src_components.md  (slice)   WHAT it is, owns, guarantees, and its Key Files
-        |  gives you node names and file paths
-        v
-  src_graph_index.md           WHICH NODES - look up those names
-        |  gives you a section name and a line range
-        v
-  src_graph.md  (slice)        HOW it wires - edges, ownership, lifecycle, callers
-        |  gives you the files that actually matter
-        v
-  THE CODE                     the only thing that is authoritative
-```
-
-Descend it. Do not enter in the middle.
-
-Each step is a **lookup, not a search**, and that is why the order matters. The
-architecture names a subsystem; you look that name up in the components index instead
-of scanning for it. A component names its files and nodes; you look those up in the
-graph index instead of scanning for them. Entering at the graph with no name in hand
-means hunting for something you cannot yet describe - the order exists to stop that,
-not to stop you reading.
-
-At each level you carry down only the branch you are on: one subsystem, one or two
-components, the nodes they name. That is what makes step 4 affordable.
-
-**The documents are guiding tools. The code is the system.**
-When you are making a code change, you read the code. The order above exists to tell
-you *which* code - to turn "somewhere in this repository" into a few files worth
-opening. It does not tell you what those files do today. Documents describe intent at
-the moment somebody wrote them down; the code is what runs.
-
-So never let a slice stand in for reading the implementation you are about to change,
-and never quote a document as evidence for behaviour you have not seen in source. The
-right shape is: **use the documents to find the code, read the code, then change it** -
-and if what you found contradicts the document that sent you there, that contradiction
-is a finding worth recording.
+Read `src_architecture.md` at onboarding. Before work on a topic, slice the relevant
+`src_components.md` sections through its index; before writing code, slice the
+`src_graph.md` wiring for what you touch; then read that code in full. Each level
+hands you the name the next is looked up by - descend it, do not enter in the middle.
+The documents tell you WHICH code; only the code tells you what it does. Where they
+disagree, the code is right and the document is stale - record that as a finding.
+`grep` and AST find names, not behaviour. The full protocol is `context_protocol.md`
+in the lazy index below.
 
 Self-directed system reading - agent-driven or user-driven
 Every system document that is not one of the four above, including any this role
