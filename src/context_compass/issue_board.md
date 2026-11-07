@@ -20,9 +20,15 @@ below. All Issue URLs must belong to the configured `issues_repository`.
 The `claim` value is `primary`, `review`, or `support`; `responsibility` says
 what the agent is doing. `owner` is the accountable human or team, and
 `agent_name` is the Context Compass execution identity. A GitHub assignee is
-not an agent identity. Only the primary claim may edit the Issue body; other
-agents send findings through the configured communication backend for the primary writer to append to
-Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+not an agent identity. Keep one primary writer for full-body replacements or
+overlapping mutable-field edits, with latest-content checks and real peer-collision
+reconciliation. Preserve explicit owner-reserved body/closure custody.
+Supported, authorized append-only comments need no body-writer permission or editorial relay
+and have no comment-count cap. No forced copying of every finding into body Notes is required.
+Detailed attributed evidence may remain in comments or authorized linked records; keep current
+state and handoffs coherent at material transitions. Verify account/audience, tool permissions
+and saved readback; never use the comment path to bypass a denied operation.
+Release or transfer claims explicitly at handoff or closure.
 Mailbox and MCP modes use the same local roster/state and Issue claim ownership.
 
 The board ships with empty user regions. In `local` mode leave them inactive;

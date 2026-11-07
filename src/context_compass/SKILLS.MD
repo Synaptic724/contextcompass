@@ -84,9 +84,10 @@ not only the question to the user; they do not create unregistered roles.
      A missing key means `local`; resolve legacy values through the shared
      `work_tracking_backend.md` skill. Read the selected backend's paths before
      certification; never apply the inactive backend's storage instructions.
-   - **On-demand** skills are conditional. Do NOT read them for certification
-     unless a trigger condition is met. When the trigger is met, those paths
-     become mandatory and MUST be read before proceeding in that scope.
+   - **On-demand** skills form the lazy readset. Do NOT read them for
+     certification unless a trigger condition is met. When the trigger is met,
+     those paths become mandatory and MUST be read in full before proceeding in
+     that scope.
    - **Self-directed** skills are also outside certification, but they carry no
      trigger. Read them on your own initiative whenever the work needs them.
      Waiting for permission there is the failure the state exists to prevent.
@@ -114,6 +115,18 @@ match on the STATE, never on a list of headings:
 | **On-demand** | no | only when the section's stated trigger fires |
 | **Self-directed** | no | at the agent's own initiative, no trigger, no permission |
 
+**Eager and lazy readsets.** A resolved chain's baseline sections are its *eager
+readset*: read in full at onboarding and at recovery. Its On-demand sections are
+its *lazy readset*, written as an index the agent holds from onboarding. Each
+lazy entry is the usual path line followed by two indented sub-items: `Covers:`
+(what the file is for, in one line) and `Trigger:` (the request, state or action
+that loads it). Sub-items never change the entry line itself. When a trigger
+fires, read that whole file before acting in its scope. Self-directed reads
+belong to neither set: they have no trigger and are read when the work needs them.
+`reading.mode` in config chooses how the lazy readset loads: `lean`, the default,
+reads each entry when its trigger fires; `full` also reads every entry at
+onboarding and recovery.
+
 Baseline sections are named for what they hold — `general` uses **Shared baseline skills**,
 `engineer` uses both **Required baseline skills** and **Baseline system
 orientation**. A role may introduce another; it is still baseline.
@@ -123,7 +136,7 @@ required only for the selected backend, after the config has been read. This is
 a conditional baseline, not an On-demand skill and not a new role.
 
 **On-demand and Self-directed are both outside certification, and they are not the
-same thing.** On-demand is gated: the section states a trigger, and reading before
+same thing.** On-demand is gated: each entry states a trigger, and reading before
 it fires teaches a procedure with nothing to apply it to — `general`'s
 `llm_full_usage.md` is the model, useless on an install with no `llm_full.md`.
 Self-directed is the opposite failure being guarded against: the document is

@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/researcher/behavioral_guidelines/researcher_workflow.md`
 - `agent_onboarding/default/researcher/examples/researcher_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires domain-specific expert emulation with source ranking.
-- Task requires period-authenticity or jurisdiction-sensitive details.
-- Task requires fast-turnaround research under strict evidence budget.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/researcher/skills/researcher_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced researcher work.
+  - Trigger: any one of these.
+    - Task requires domain-specific expert emulation with source ranking.
+    - Task requires period-authenticity or jurisdiction-sensitive details.
+    - Task requires fast-turnaround research under strict evidence budget.
+  - Do not proceed in that specialized scope until this file is read.

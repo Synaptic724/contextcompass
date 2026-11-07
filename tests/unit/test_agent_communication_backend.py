@@ -125,7 +125,8 @@ def test_shared_registration_retains_original_roster_and_authorization_semantics
 
 
 def test_custom_instruction_clauses_follow_configured_transport():
-    text = normalized(read(GENERAL + "skills/harness_custom_instructions.md"))
+    text = normalized(read(GENERAL + "skills/harness_custom_instructions.md")
+                      + read(GENERAL + "skills/harness_custom_instructions_setup.md"))
     assert "through its boards and mailbox" not in text
     assert "use Context Compass's boards and mailbox" not in text
     assert "configured agent_communication.backend" in text

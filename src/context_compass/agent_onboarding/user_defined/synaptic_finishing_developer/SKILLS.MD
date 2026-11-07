@@ -22,7 +22,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -46,8 +47,22 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/mocking.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/regression_tests.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/evidence_reporting.md`
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/docstring_finishing_examples.py`
+  - Covers: worked examples of finished public docstrings.
+  - Trigger: before you write or rewrite docstrings for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/comment_finishing_examples.py`
+  - Covers: worked examples of finished comments.
+  - Trigger: before you write or rewrite comments for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py`
+  - Covers: worked unit-test examples.
+  - Trigger: before you write unit tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_component_finishing_examples.py`
+  - Covers: worked component-test examples.
+  - Trigger: before you write component tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_integration_finishing_examples.py`
+  - Covers: worked integration-test examples.
+  - Trigger: before you write integration tests for the first time in a session.

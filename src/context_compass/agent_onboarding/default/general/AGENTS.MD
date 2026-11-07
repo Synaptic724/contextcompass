@@ -5,20 +5,12 @@
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Backend baseline sections apply only to the backend selected by config;
-  shared baseline sections apply in both modes. Do not apply file-ticket
-  storage instructions in plugin mode.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section parent-first, matching on the baseline label rather
+  than a fixed heading list; backend baselines apply only to the selected backend.
+- Read each On-demand (lazy) entry in full once its trigger fires. Read Self-directed
+  material whenever the work needs it; it has no trigger to wait for.
 - You MUST NOT claim a skill was read unless it was actually read.
+- The read states are defined in `context_compass/SKILLS.MD`.
 
 ## Document Intent
 
@@ -211,15 +203,9 @@ As a ritual, after implementing a change:
   `agent_onboarding/default/general/skills/compaction_requirements.md` and read the
   baseline sections of your own resolved `SKILLS.MD` chain. **Do not read another
   role's documents.**
-  - This line previously ordered every role to re-read
-    `agent_onboarding/default/new/skills/first_time_profile_setup.md`. That is a
-    `new`-role document, `new` is entry-only and never a steady-state role, and the
-    path appears in no readset but `new`'s - so the order was both unreachable from
-    the routing manifest and contradicted by `compaction_requirements.md`, which
-    requires non-`new` re-entry to use skills and policy docs.
-  - It applies only when `new` is the active role AND
-    `profiles.onboarding.first_time_enabled` is `true` in
-    `config/context_compass_config.yaml`.
+  - Re-read `agent_onboarding/default/new/skills/first_time_profile_setup.md` only
+    when `new` is the active role AND `profiles.onboarding.first_time_enabled` is
+    `true` in `config/context_compass_config.yaml`.
 
 ## Stop Conditions (Ask Before Proceeding)
 

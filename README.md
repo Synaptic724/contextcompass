@@ -119,9 +119,9 @@ commit, or modify the package before adopting it.
 ### What actually needs Python
 
 Only `tools/` — the scripts that build the manifest, index documents, generate the
-source graph, and upgrade an install. **Python 3.10+, stdlib only, no dependencies
-ever.** An agent that has to `pip install` before it can read a document is an
-agent that cannot read the document on a fresh clone.
+source graph, and upgrade an install. Those tools use **Python 3.10+ and the
+standard library**. The optional token-report tool uses `tiktoken`; reading the
+documents and ordinary installation do not require it.
 
 The release workflow runs the suite on Python 3.10 through 3.14 on Linux and
 Windows. Verify an install any time:
@@ -265,9 +265,18 @@ heading declares which:
 
 | state | required to certify? | when it is read |
 | --- | --- | --- |
-| **baseline** | yes | at onboarding, every time |
-| **On-demand** | no | only when the section's stated trigger fires |
+| **baseline** (eager) | yes | at onboarding and recovery, every time |
+| **On-demand** (lazy) | no | only when the entry's stated trigger fires |
 | **Self-directed** | no | at the agent's initiative — no trigger, no permission |
+
+The eager readset is kept to what every session needs: policy, identity, the
+ticket loop and the active board. Procedures such as upgrades, cleanup, batch
+turn-in, system-document authoring and setup forms sit in a lazy index instead:
+one entry per file, each saying what it covers and which request or action loads
+it. The agent holds the index from onboarding and reads a file in full only when
+its trigger fires. Set `reading.mode: full` in the config to read the lazy entries
+up front as well; the default is `lean`. Run `contextcompass token-report` to see
+what each role reads eagerly and what it can load later.
 
 The third state exists because collapsing it into On-demand produces a specific
 failure: an agent finds no trigger has fired, reads none of the system documents,
@@ -589,6 +598,23 @@ All under `context_compass/tools/`, all stdlib-only, all `--check` before `--app
 | `system_documents/python/graph_walker.py` | state of the graph's authored tier |
 | `system_documents/python/graph_semantics_tickets.py` | turn unauthored areas into tickets |
 | `system_documents/python/migrate_authored_graph.py` | carry a graph out of the retired JSON format |
+
+## See What Onboarding Loads
+
+Want to know where the context goes? The optional token report counts each file
+and compares every registered role, inherited skill chain, ticket backend and
+message transport. It also shows which reads are conditional, which are partial,
+and what the tool cannot determine automatically.
+
+```sh
+python -m pip install "contextcompass[tokens]"
+contextcompass token-report --role engineer --out-dir context_compass_report
+```
+
+The report does not change your settings or tell an agent to skip instructions.
+It measures source text, not total chat usage or billing. See the
+[reporting guide](src/context_compass/tools/TOKEN_REPORT.md) for direct Python
+usage, route comparisons, output formats and privacy limits.
 
 ## Feed The Whole System To A Model
 

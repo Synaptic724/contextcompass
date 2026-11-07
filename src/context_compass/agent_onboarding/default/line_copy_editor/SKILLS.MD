@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/line_copy_editor/behavioral_guidelines/line_copy_editor_workflow.md`
 - `agent_onboarding/default/line_copy_editor/examples/line_copy_editor_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-voice register harmonization.
-- Task requires style conversion for a different target market.
-- Task requires compressed copy edit under strict turnaround.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced line copy editor work.
+  - Trigger: any one of these.
+    - Task requires multi-voice register harmonization.
+    - Task requires style conversion for a different target market.
+    - Task requires compressed copy edit under strict turnaround.
+  - Do not proceed in that specialized scope until this file is read.

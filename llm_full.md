@@ -297,6 +297,7 @@ After any context compaction or handoff, apply the bootstrap before these recove
   `agent_onboarding/default/general/skills/work_tracking_backend.md` and message
   transport with `agent_onboarding/default/general/skills/agent_communication_backend.md`,
   then read `SKILLS.MD`. Count each selector read once in the general baseline.
+  Resolve `reading.mode` from the same file; missing means `lean`.
 - Project rules resolved in the bootstrap above stay resolved; later MUST
   statements restate defaults and do not reinstate an overridden requirement.
   Use relative repo paths only.
@@ -401,6 +402,10 @@ Before any tooling, edits, or execution:
     them, without asking permission.
   - **Do not treat Self-directed as On-demand-with-no-trigger-yet.** That reading
     produces an agent that never opens the document, and it has already happened.
+- Resolve `reading.mode` from `config/context_compass_config.yaml`; missing means
+  `lean`. In `lean`, On-demand entries are the lazy readset: read each one in full
+  when its trigger fires. In `full`, also read every On-demand entry in the
+  resolved chain at onboarding and recovery, as if it were baseline.
 - If first-time onboarding is active and selected role is `new`, complete the
   effective onboarding requirements and the first authorized check-in before setting:
   - `profiles.onboarding.first_time_enabled: false`
@@ -858,8 +863,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.3 |
-| files | 465 |
+| package_version | 2.21.0 |
+| files | 470 |
 
 ## Lane policy
 
@@ -881,7 +886,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 362 | restore | replace |
+| PACKAGE | 367 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -892,21 +897,21 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `4666e7ca0151711cd49a08d6ac11d455916855846510d012b812da24c3b11adb` |
+| `AGENTS.MD` | PACKAGE | `53c2d73d640475ab55bb0ce8c16c6e11701a3e5f56c0a23b04733f1ead918647` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
 | `agent_onboarding/default/continuity_fact_checker/policies/continuity_fact_checker_handoff_policy.md` | PACKAGE | `4d13b91836c1a27623471204baf731c18fc9c135877c0ffde35dd9b7f2715c53` |
 | `agent_onboarding/default/continuity_fact_checker/policies/continuity_fact_checker_quality_policy.md` | PACKAGE | `a015e71de7d00dc8695dbfb3cf7ad13c43a7b9b15ef1a285e570060e5f3d67a5` |
 | `agent_onboarding/default/continuity_fact_checker/README.md` | PACKAGE | `ac048e655aaf4dc7e04a28216b4878f5b3fa8542fcc001dc433e4585a1d0663a` |
-| `agent_onboarding/default/continuity_fact_checker/SKILLS.MD` | PACKAGE | `f59516223a8575982b222392bd33d53c1ff6571891f2c81bc58d8ad1c804b1cb` |
+| `agent_onboarding/default/continuity_fact_checker/SKILLS.MD` | PACKAGE | `13cc6c843193fe134f4620e0a92cbf6458a3d127ce4a5d3fab4b4c860f00714f` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker.md` | PACKAGE | `5d05783c89bb78540957b461eca5ddd119d5827507852dba5c93fe8391e4fcab` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_advanced_context.md` | PACKAGE | `46a0cd3ca1cbfa1f57224fa3580bbe08ddb957a30f99c33730bcf08d2f2ecc9c` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_deliverables.md` | PACKAGE | `faa0a9ba50e604c5d7c790890081a516331153968d271a9c6c37a78048d87d89` |
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_execution.md` | PACKAGE | `e3a8b282a88365a798c931f64cc08f07df8f0a7df9855ba4d48c488edd17e6be` |
 | `agent_onboarding/default/continuity_fact_checker/WORKFLOWS.MD` | PACKAGE | `9d5e6c74c08fe5a32f820ec74a5f06790d0eadffb37fbc17d2ea386bee7cc1a4` |
 | `agent_onboarding/default/continuity_fact_checker/workflows/README.md` | PACKAGE | `00cd0ec7d92738102ad5e3a9396a130e240c607652510085640001b5302a57b4` |
-| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `18bbd6d1ea1249650e0ceb53bb4ce563b46cce2178c7f32f52cc33d65239a05e` |
+| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `16cbd2ed3f421e38cc74b12356aa6747a345224d98045525cea530d2a43e6a73` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md` | PACKAGE | `6024396b89a1d285a8c508ef0a1f718b731d34b14a2c97412c9e06f42d3bae90` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md` | PACKAGE | `a23db689d0a7bba6cc2848d3f63ac052e9bd10a4596a7361a7cb84053de16e13` |
 | `agent_onboarding/default/design_engineer/examples/adr_example.md` | PACKAGE | `0af9273423b5300f917041439a03ab8407894d15e16bb7412b032b9952d70996` |
@@ -916,7 +921,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/design_engineer/policies/design_review_policy.md` | PACKAGE | `5f2909838104b47a4296dd611077cac7a2224c3eeb8f45dea865b676c2dd575a` |
 | `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md` | PACKAGE | `5ff496833cae8ce5b7a8273535ae855a8a24ff5fb313a96931dcc643962f0f4c` |
 | `agent_onboarding/default/design_engineer/README.md` | PACKAGE | `d4a2fc9540810084b70808d8a0175243596cf1d449f9367d0ca065cf5f3c331d` |
-| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `93d6661c77d96d6931065b0ddb748d07f5a6f45353816c9ecf82efa3aec58c27` |
+| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `534118a447ed5b48ccf49b03f2149f8e9e37c6049c6b031ebf1544454786be43` |
 | `agent_onboarding/default/design_engineer/skills/adr_and_decision_hygiene.md` | PACKAGE | `2ae7193b75fcc0f784324c9a4a8870bc7c5636dc561f36436c40813d9cb38fad` |
 | `agent_onboarding/default/design_engineer/skills/api_and_interface_design.md` | PACKAGE | `8ba14c3a10040852b87f9a1023b400ee19275e8c616b2fbf9b667111d54fbf0e` |
 | `agent_onboarding/default/design_engineer/skills/architecture_contexts.md` | PACKAGE | `a2efbe330609582c3fb81303e46ff706b563907919a158800dbd55ec325d3d23` |
@@ -944,7 +949,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/developmental_editor/policies/developmental_editor_handoff_policy.md` | PACKAGE | `32140442c79e7b2a80aea68b5d975adb3248ed01304a529a721ce7f3c99814f9` |
 | `agent_onboarding/default/developmental_editor/policies/developmental_editor_quality_policy.md` | PACKAGE | `b5b2b4ca716b838150d06edd33aba88587e7a44351b0a7c7e3f5c4935c5d6334` |
 | `agent_onboarding/default/developmental_editor/README.md` | PACKAGE | `d9cee87ba47cd96163e5169fb0b6c4b73183b691f14b1d98b807682a5f2190f0` |
-| `agent_onboarding/default/developmental_editor/SKILLS.MD` | PACKAGE | `c653f3cd89cbe6fa8e119311e07a9ceb5601eee7beb41c39f09657889e377983` |
+| `agent_onboarding/default/developmental_editor/SKILLS.MD` | PACKAGE | `5f8f9ed4aa00d40597164b83a9e2624ffdfd500ff82414ade39d994faa7e5bf0` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor.md` | PACKAGE | `5329e9fe05dadb5db0c13abff45a2b7cc5db547e4a9d490c60f8da644111f569` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor_advanced_context.md` | PACKAGE | `d601fe5deca758b594b4e5ab93c60a5038bba0b19db603fc5653e1c0cfd6a7ba` |
 | `agent_onboarding/default/developmental_editor/skills/developmental_editor_deliverables.md` | PACKAGE | `b711d460c49fc13f2444037c7554f4626b4d4b0642776fa6fdf8fb982c27ce4c` |
@@ -957,14 +962,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/draft_writer/policies/draft_writer_handoff_policy.md` | PACKAGE | `8c095c14cbfbea2b1be71d81ca22c5d31d2401b131161ab425be6a8ac10f7f78` |
 | `agent_onboarding/default/draft_writer/policies/draft_writer_quality_policy.md` | PACKAGE | `a2fb5fb650756a8a5ecf251ae8f108247160c87c0d318c87233b186359bb9e49` |
 | `agent_onboarding/default/draft_writer/README.md` | PACKAGE | `b7c2f377db14ae63707e6131bb42d3c91a979b8a0daa4c0ae8287fa6f6793428` |
-| `agent_onboarding/default/draft_writer/SKILLS.MD` | PACKAGE | `00050b916093a965d16f7e86202cf46c421f730a8579d94a8ce04fa77973cfdf` |
+| `agent_onboarding/default/draft_writer/SKILLS.MD` | PACKAGE | `3092791f967e2e86ee2ce44b4e287de82662be97b8513bdc36958fb0dc0eb5b2` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer.md` | PACKAGE | `8a8011fcc82d7f24f59a42f68f4ffc1decd08f0861654a53c6452540b5abc5cc` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_advanced_context.md` | PACKAGE | `6530f0bf57a1837104db096ed647e1d53a500daeb1e6ebbc0825d36d645fef1e` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_deliverables.md` | PACKAGE | `830313b7f9fe616ef09f8ccf89c364732a94082642ad28578fd955a2a9d71066` |
 | `agent_onboarding/default/draft_writer/skills/draft_writer_execution.md` | PACKAGE | `c2c32f82b91b0fb793b29421990bc6d0a4452f444531cd9741c931001e40e0e7` |
 | `agent_onboarding/default/draft_writer/WORKFLOWS.MD` | PACKAGE | `eb488174d9c52d130fac93715da91e8850d29aac9bbd84b1be3ff16a89df6621` |
 | `agent_onboarding/default/draft_writer/workflows/README.md` | PACKAGE | `c26b46d75cafb3bf5ae9d6e71d09490e6f18d58c0313bbf39fc0df85b8fe5801` |
-| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `ad431350f713f0e3a6c084ae4fc71886eca6a985d77b169e369c3f44800485c6` |
+| `agent_onboarding/default/engineer/AGENTS.MD` | PACKAGE | `bdf2743ac29ea81e445ac7a3bbfcd46e15facc64139e6b27ed4dc92df3285372` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md` | PACKAGE | `591262fe58d4d832c678a466dd2692aa905df7711b451be57320a7b10baa9661` |
 | `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md` | PACKAGE | `fa50dfc2d126f742ac0d99717314df1cd496f38c597ddca055296017cc1f7648` |
 | `agent_onboarding/default/engineer/examples/artifact_workflow.md` | PACKAGE | `c879058f7f61aa1d33f16f2276ccf792a6d835b2e5017098e776f2d9f0edf85b` |
@@ -973,7 +978,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md` | PACKAGE | `71b306ab176626ff499afa56b06c8d689adc44ae100f095558b090bd4a07ae76` |
 | `agent_onboarding/default/engineer/policies/engineer_quality_policy.md` | PACKAGE | `fb747be91e0d8eb000791d54b9e4305cc3f08393ee75949a3a329f74fd89588c` |
 | `agent_onboarding/default/engineer/README.md` | PACKAGE | `733cd38fa33408b14f6da0fa78fce0bef964d128f28147080cae9eb192cb51c1` |
-| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `e263d8b3b34bd18892f6de4480c5499cfb02e9936cde4264dafc83a4c1731776` |
+| `agent_onboarding/default/engineer/SKILLS.MD` | PACKAGE | `acfb65bf846bf9df52245738bd73a6d699bf75f0712201847ca179ad418d5800` |
 | `agent_onboarding/default/engineer/skills/context_protocol.md` | PACKAGE | `bdb8bc75935e9d48c429cb0082436a418bef8ab32526fd3ba796a912cd87423f` |
 | `agent_onboarding/default/engineer/skills/documentation_standards.md` | PACKAGE | `bdc4e7076c69789fcb3e701742e1bd4d82128cd1792697df38aa0fd3c3f1b711` |
 | `agent_onboarding/default/engineer/skills/engineer_execution.md` | PACKAGE | `37e08eb3e5067e2a548b71fbb626278bdceed2bf64f1894d9456044599a798c1` |
@@ -986,16 +991,17 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
 | `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `6791c2395ed9764a735bb51b403d2f0d15d13bfd195fa4f5c648d56b3c3c935a` |
 | `agent_onboarding/default/engineer/skills/technical_expertise.md` | PACKAGE | `07f2979c10673b405581017aab541790153b66424a3e75ea0a841a5f832b9adf` |
+| `agent_onboarding/default/engineer/skills/testing_discipline.md` | PACKAGE | `c07c2ecb962d2395527b3946c1bdc669610f6e7535eafa3befcae9d2f2472758` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `f5007245f000c1e36e8d9e07e5f427dace97bc8f93a6fa673ace9dce6d39d0fa` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `ee1344876de3df93ab05a61ea88937cb011660d41a2c4840443fc3202e159629` |
 | `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `f0f2bfa601181aae1d28faa082a35881703b8f383a1455c93853932dda7e78fd` |
 | `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2303e4c9225e988bfb15d9541c979c69a498c54b8971a4fbfabac8bc3afd835b` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2f2f67f661e476b2c53d36431baa081efa4c4aa8b730db97bd6899fdb69b1f18` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
@@ -1004,12 +1010,12 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `8ef7f5975922bd59b438376ee21f0c7ce49fe9e4e9f13ce821d71d837dd02fb5` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `310707dafc126d4778ac0765e5789a29b249414eaff555ab7bc9bddb45208689` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
 | `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `2d1b72abad44a3cbae80a06e61932fdcf3b5d780660b0b943de27106ec683889` |
 | `agent_onboarding/default/general/skills/context_gold.md` | PACKAGE | `1203682dbe6ed0311811b5034e8589a4eb3cf8a71b129ea76984ab89b3f3d0cc` |
-| `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `cfc9f0cf1873720130714e331259b443ec7031f77a83b4db2a129b1be1987cca` |
+| `agent_onboarding/default/general/skills/context_management.md` | PACKAGE | `31358d2607e52b19892970afa7b08cd3835416aa26decc5a377555a2a0f9d0cc` |
 | `agent_onboarding/default/general/skills/context_window_budget.md` | PACKAGE | `d3188124914b8ea1f5d2fb488207ca0720a02e5e61f6f54355a4db4693bf2346` |
 | `agent_onboarding/default/general/skills/execution_contract.md` | PACKAGE | `92b61c0d6c39e3eb49fa89fe972c1774b1f7dbc3ad0e3c6d50ed6a7742e6219a` |
 | `agent_onboarding/default/general/skills/general.md` | PACKAGE | `cb43e243d879bfb30e70d03685449a3f25cbd54b5491e9a45c150b9234c66081` |
@@ -1021,7 +1027,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
-| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `8c1e4f2949e092785ed35117ac5239c619ab64c791a6c2a749a575a95482dc9f` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `9c77040096c25254ea55986068136ee5bfad299788312c3f446879a79b1e10aa` |
+| `agent_onboarding/default/general/skills/harness_custom_instructions_setup.md` | PACKAGE | `6d9d74e42247002f2dcfa68e732b9494b6c45c0701f00acc8136bce4919e2add` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
 | `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
@@ -1029,7 +1036,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
 | `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `f0a7eb63ffe980fcc535284950f8962e170a443ca868492ac9b5ddd217fadb14` |
 | `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `72921b765339dfd1a2fb570e5c72679330414a59562061cdc5ec098ad4962f21` |
-| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `b0634d08a2164981779ba3a3ccdf5f254509eeff624a3c0e6133e9eec0da1d84` |
+| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `dff73047562ca9d3b3d1fd76435107ecc5c6dd178dbb501a43748b48096febd7` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
 | `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `f767c8b27cbd7a77fdac029aaf99193b72b3ebfd39b3d650789941763b1f5210` |
@@ -1041,7 +1048,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
 | `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `a7a87420f0aa08cc7c04d7d320d8855b3837150fbb34d19f2cba35c7f01ef3bd` |
 | `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `0044695e4d44fcf383fe6e12d53b8bbcf4db857370dfca20d58ccd48c0bd3c45` |
-| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `5df69d8d7fb9d8094d7765eacc58772d74113729da5235293968dce86365c23f` |
+| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `db39ab6340aed956f8051e70741e7b438a1da2ee8335c79b8f9bb15078f5e270` |
 | `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
 | `agent_onboarding/default/general/workflows/role_creation.md` | PACKAGE | `192c1e18e583cd19316232f24ac8c56b29783ed942bf8433e0c938860e50320d` |
@@ -1055,7 +1062,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/line_copy_editor/policies/line_copy_editor_handoff_policy.md` | PACKAGE | `07d36aae03afb96dc9f31d7bb9c86078ae0a5d851ec920b6c71ff7de97011aef` |
 | `agent_onboarding/default/line_copy_editor/policies/line_copy_editor_quality_policy.md` | PACKAGE | `530e39a402d77cd28fe0cad3222a132ec334ad71a6c11de273bf357657ca35d9` |
 | `agent_onboarding/default/line_copy_editor/README.md` | PACKAGE | `d92fe03876ecfcc9992bf5930dd312f9e561057c8e5cbf46ab02fa6d9b901223` |
-| `agent_onboarding/default/line_copy_editor/SKILLS.MD` | PACKAGE | `8d7029d87562c15453a579a914184e803553608b680acf1d3bc6dd990ee12066` |
+| `agent_onboarding/default/line_copy_editor/SKILLS.MD` | PACKAGE | `4702ad27fdc85377f867d78b24c93aca8070687306640397464a6fe729ae27c2` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor.md` | PACKAGE | `0d2c789f2ccb0ac18da4ee69586c2bada2f0faa0036377de5a6c52889f91dcc5` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_advanced_context.md` | PACKAGE | `8898681ac7b15ae7eddce5d58e4fcea28387bfebbdcec59f1c45ff91bf04d937` |
 | `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_deliverables.md` | PACKAGE | `5575be4c43db6dd0bfdaa7b41120603882c5e3aa4e8824a52718101ca10ed114` |
@@ -1100,7 +1107,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/proofreader/policies/proofreader_handoff_policy.md` | PACKAGE | `c33a34f5fe9a9e5fc6c260d1d33fc52160c325fb16afcfe3082b38fd3187b9bd` |
 | `agent_onboarding/default/proofreader/policies/proofreader_quality_policy.md` | PACKAGE | `889d78d3c7f0bb0c0bfb7770b88223fcd60736402d823ae39df70e52fdf21611` |
 | `agent_onboarding/default/proofreader/README.md` | PACKAGE | `8536c13cc434cc2020cb139443ce1feb6e577eaa096afb2797b91ee88ac5b5d6` |
-| `agent_onboarding/default/proofreader/SKILLS.MD` | PACKAGE | `bd2e10aba536f9b0b9837e095a4e0196f08b2c4296d9000db01330531c6c7d64` |
+| `agent_onboarding/default/proofreader/SKILLS.MD` | PACKAGE | `f67c0a58b24ca258ed35c5ef10b52dc0b230e5880f5a87d122933527c45d8ec4` |
 | `agent_onboarding/default/proofreader/skills/proofreader.md` | PACKAGE | `5c9550dd315f139ec210bfbe897f4638232916e4a65252f2e9c7fe1b4a90baa9` |
 | `agent_onboarding/default/proofreader/skills/proofreader_advanced_context.md` | PACKAGE | `84d38d325406746bb6e8adf5b174e1278e7001c0f743aaab73e893e39521dc79` |
 | `agent_onboarding/default/proofreader/skills/proofreader_deliverables.md` | PACKAGE | `fd218a085097d7b37090cf1a1ae919bfbc0cd7a374cff541167786eee97f8a2c` |
@@ -1132,7 +1139,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/researcher/policies/researcher_handoff_policy.md` | PACKAGE | `7b90bb737845a9a060f2dbc0150e387729aaed653c4647c80330770471665fd1` |
 | `agent_onboarding/default/researcher/policies/researcher_quality_policy.md` | PACKAGE | `a5ef981441142723c63ce280c8c884c02edd0d07640c8b6e222e937676dedc03` |
 | `agent_onboarding/default/researcher/README.md` | PACKAGE | `5cbb8839916e363aba95b2b5e7c7fef0c9287948cafccbbdec1472150ec3ab92` |
-| `agent_onboarding/default/researcher/SKILLS.MD` | PACKAGE | `540a5f4bd716e0bff33cc1cfbf97e5eceba0702d8c7b1253cfa7543f869a9702` |
+| `agent_onboarding/default/researcher/SKILLS.MD` | PACKAGE | `8dbe708c3a413f3c6ac19ce60669e64913242fce2a7244c9ca8e5347d5642151` |
 | `agent_onboarding/default/researcher/skills/researcher.md` | PACKAGE | `c799a6d9313515eba81264cbe6b7909beb30604a8fb748188e8f30cebb8d56ec` |
 | `agent_onboarding/default/researcher/skills/researcher_advanced_context.md` | PACKAGE | `e7d0e0fea22b975b42982b5e9fd4d5f6c266ab797c3d6e5ef037a08fd256ceb0` |
 | `agent_onboarding/default/researcher/skills/researcher_deliverables.md` | PACKAGE | `b651e2ed12e10a085da387965ae280278c1cf4858224435c5ba9a085ab0fa66b` |
@@ -1165,7 +1172,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/story_designer/policies/story_designer_handoff_policy.md` | PACKAGE | `887139dde12dee54c1d0da3e25facb2ca8081e39b58b4c1b95086c53efccb3e7` |
 | `agent_onboarding/default/story_designer/policies/story_designer_quality_policy.md` | PACKAGE | `56df96d22229c3d2c67db449d09c29e55bbf47dd78e46784c0913ee3e11e81fd` |
 | `agent_onboarding/default/story_designer/README.md` | PACKAGE | `e6921703ee2ea8901ba9f123dd026fdef6bc2eac6299a2f9da1cef1592ee07f7` |
-| `agent_onboarding/default/story_designer/SKILLS.MD` | PACKAGE | `7ba0ecc86e7fa21dd3ad71d7d405f7b1f8dc024a1487208873997ddbf907bd81` |
+| `agent_onboarding/default/story_designer/SKILLS.MD` | PACKAGE | `09f108074102c2901d6d3a34e26949605fc320d3bf15d5c0ff4bc553dae92d2f` |
 | `agent_onboarding/default/story_designer/skills/story_designer.md` | PACKAGE | `c33f01f532c0637ec7dfe00900d1426aabe1afe9b01ab54efe0e680825e8f209` |
 | `agent_onboarding/default/story_designer/skills/story_designer_advanced_context.md` | PACKAGE | `1bb9d65bbbb7eade583d41be5740884005c36e3ca64ccaac1a138616b84ee3b0` |
 | `agent_onboarding/default/story_designer/skills/story_designer_deliverables.md` | PACKAGE | `343b6572d1678e7bf68f9bc40be226f486bd0c94957c5ceca63ec631e4f5e479` |
@@ -1178,7 +1185,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/story_novel_artist/policies/story_novel_artist_handoff_policy.md` | PACKAGE | `450099e3358b0dfb810f9f8e9b4b12c072b0f6b5744120e7e70fe05768169ab7` |
 | `agent_onboarding/default/story_novel_artist/policies/story_novel_artist_quality_policy.md` | PACKAGE | `66d96093d70f692de4e7aef5f24f435097d16e0cc743be0402d9ffcd9bd45ec0` |
 | `agent_onboarding/default/story_novel_artist/README.md` | PACKAGE | `4c71f90c6f69164e9d0daed6f87588e24946b0ca2dd8e9e439d8a1fa82775ee4` |
-| `agent_onboarding/default/story_novel_artist/SKILLS.MD` | PACKAGE | `6dbe6df9c3359a7582e377640f3dddcccd25af8b964e84aee8f19bebdd9a8bc7` |
+| `agent_onboarding/default/story_novel_artist/SKILLS.MD` | PACKAGE | `92f9b1477e76e0bfbe01632752f6d6719f37af98531c96e79e536786b2a882f1` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist.md` | PACKAGE | `e7adc70dad2cf22479f10751287f733e8ca4902f23791a507e4585ab6aaefb6a` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_advanced_context.md` | PACKAGE | `8d74072888a3b9c6ea7fe7c9941c56d0017a2e698204655bef82156e5acc98f9` |
 | `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_deliverables.md` | PACKAGE | `ccfbd0413d71acfccba2585c5337a93033620a2461360f1dae1fc845f4566c04` |
@@ -1202,7 +1209,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py` | INSTANCE | `01d4e6c7f384cfe77cb2b9a5aa91935cbd1545abea4ab74547c2fa480dc03a15` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/policies/synaptic_finishing_developer_policy_overrides.md` | INSTANCE | `0cc76f35aa1b14baf5bdd095e71a9a40a470317a2807e52fa9482891dafbc202` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/profile_overrides.md` | INSTANCE | `a60a7f92681c14d0b7f6effd5e79b3fed43bd939ad22a8c464c3e97125851859` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `64b9f257efa576964200f893b904862043abc7ecb8f68b4ade8980d2e99fa3cf` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `b8e781dfc12a8404a6d1ff343f89cf0914bcdbb1807f0f7f4bb9dc9c61a27107` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/comment_craft.md` | INSTANCE | `854789db17b20c6e43d2020ce9378439e6c70cecf5fada72f3cf4178c1b027ae` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_craft.md` | INSTANCE | `8927e4eb603e40a1fab06fe534f17b3fc0e382164b3756af470b73ae0d26ddb0` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md` | INSTANCE | `908215ca5be1c11d47b4cb3da64de6a8ac1b0125b9f1e45859f05030b714c9ae` |
@@ -1219,7 +1226,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/optimize_pytests_for_repo.md` | INSTANCE | `2dc745940a0a20037c3da22e2b5a7fafa1905f03a48f3ff51e19e3ff0d5f75da` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/polish_repo_documentation.md` | INSTANCE | `101053bc5a36c1e5f4649cabe82d0fff7df3ff4ab4035f006b3dea535cd15eb3` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/README.md` | INSTANCE | `f495bfbc15c5f9275be4bba33d9131147ad733e221814bdc6694717c9c42a7be` |
-| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `22b4be9851361017e71953daf9b1fad61d463372055e7402672f5bae4856181b` |
+| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `c9b409786d372808aff7473176de3dcbd7eecc79ef7eee41f980a12fa59bf2a7` |
 | `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md` | INSTANCE | `d6134d69d3894c4da5dfcc59ffbdc40aa16dcfe6217a64095eb7490dafb0fd85` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/anti_patterns.py` | INSTANCE | `26caf71884cb238e652c44206d4b44da51dd1386df9ac79ca1302db4b1958b5b` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/cleanup_patterns.py` | INSTANCE | `20f77dbd1c6bdafc83d7f9f5a2796c58465714737961a2a9b9b71431ff95ed33` |
@@ -1232,7 +1239,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md` | INSTANCE | `3bbe4757097d6ea33635f0e7fa79b9eeeb4d297f33a219f15b60b0409ea75001` |
 | `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md` | INSTANCE | `d44ff6b228afdb3415787629b4933495c45ec4f8f181a8ad2534efd56d6dd9cf` |
 | `agent_onboarding/user_defined/synaptic_python_developer/README.md` | INSTANCE | `406458063eeb04a28520bcc3da9597090c6f990ddb01a1b868dfc4e59c07be3f` |
-| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `b28af00e1ea9ab01be4de5638b0966cdcbe287952888ef758428911ac68286ab` |
+| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `65a5e0762d1144049841a3f584cb189d8d3bdc36406054c549a7984d9bbc6dc9` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/attribute_aliasing_skill_benchmark.py` | INSTANCE | `b2a6bbaabedd58919ab1c25beca31b09d2c6f76b92bebb51223b5235dbe13b27` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md` | INSTANCE | `22373e3bdcadfa6a4a276db26700cad0d349b401431f05db5cc338c337573bab` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/cleanup_and_disposal.md` | INSTANCE | `b6356e385f446a8c9ac80af752cfc81987df65805ad70e260fee1a5063309362` |
@@ -1260,7 +1267,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
 | `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
-| `config/context_compass_config.yaml` | CONFIG | `955b2038b584c1b74855ab226101ec34e0e49d86e2bd0ba25fb0c1c96e01900d` |
+| `config/context_compass_config.yaml` | CONFIG | `af8cb61ba59a9b5cbf339219226d8919093c6231e4c62e2cf1bce3ffe18ee054` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -1309,13 +1316,13 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/security_review_flow.md` | PACKAGE | `4f4a79abcc9130062637bcd9b6133e59c1d397bab483a8262ec91e72816b1cfb` |
 | `examples/story_designer_task_flow.md` | PACKAGE | `75def243d169840f744772b92088ee5547f7f683f54e7f09c3bf684faa63f864` |
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
-| `issue_board.md` | LIVE | `acfd4d5ce81dd375efd55f19f2104d64af938b3dec538e98c94b5932e25466e1` |
+| `issue_board.md` | LIVE | `573c3ed51ab3691341b590ae172a3a75760a078dd1d7a9e7f234395f21ad828f` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
 | `mailbox_board.md` | LIVE | `03ff6176b1cbdf00fbfe1671b17f0d4efe5be0dfd66bd4234e89fd68672d19d5` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
 | `README.md` | PACKAGE | `55111ca435fc49469ab294dac5c6a41a9a27ace4128340d97bfbb7754ad528cb` |
-| `SKILLS.MD` | PACKAGE | `afff6c19936ac56eb7d6a5d788394c4f8466d7bc3b64dbead5d86248fcb5d276` |
+| `SKILLS.MD` | PACKAGE | `27403c6c170b4c5ef30c7212424a902bee0361553d0fe96950d4311b586d962c` |
 | `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `system_docs/patches/active/README.md` | RESET | `f0d1e1f0716475bb4e14ad38ae0f8fbb2dcd5a4b4c00d3e366bb38d961dc383b` |
@@ -1346,6 +1353,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
+| `tools/reading_routes.py` | PACKAGE | `df61d9b67b55f01d0aacd41f38ddc7a452903f098f48ee4dfbb8d4de38c168fd` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
 | `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
@@ -1354,6 +1362,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
 | `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
 | `tools/ticket_design.py` | PACKAGE | `e7a0688926b60f69028bc2180349797db15328bae31255224e0321c4aa9c4141` |
+| `tools/TOKEN_REPORT.md` | PACKAGE | `4eeda08764043b2b0ad36a952b1053ec8c38bd2db205113dcc3883266dbffdd8` |
+| `tools/token_report.py` | PACKAGE | `7fd5525030b337959e565f94e49635cbf9caa92eb3ee79f5110ee82927683b94` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |
 
@@ -2230,9 +2240,10 @@ not only the question to the user; they do not create unregistered roles.
      A missing key means `local`; resolve legacy values through the shared
      `work_tracking_backend.md` skill. Read the selected backend's paths before
      certification; never apply the inactive backend's storage instructions.
-   - **On-demand** skills are conditional. Do NOT read them for certification
-     unless a trigger condition is met. When the trigger is met, those paths
-     become mandatory and MUST be read before proceeding in that scope.
+   - **On-demand** skills form the lazy readset. Do NOT read them for
+     certification unless a trigger condition is met. When the trigger is met,
+     those paths become mandatory and MUST be read in full before proceeding in
+     that scope.
    - **Self-directed** skills are also outside certification, but they carry no
      trigger. Read them on your own initiative whenever the work needs them.
      Waiting for permission there is the failure the state exists to prevent.
@@ -2260,6 +2271,18 @@ match on the STATE, never on a list of headings:
 | **On-demand** | no | only when the section's stated trigger fires |
 | **Self-directed** | no | at the agent's own initiative, no trigger, no permission |
 
+**Eager and lazy readsets.** A resolved chain's baseline sections are its *eager
+readset*: read in full at onboarding and at recovery. Its On-demand sections are
+its *lazy readset*, written as an index the agent holds from onboarding. Each
+lazy entry is the usual path line followed by two indented sub-items: `Covers:`
+(what the file is for, in one line) and `Trigger:` (the request, state or action
+that loads it). Sub-items never change the entry line itself. When a trigger
+fires, read that whole file before acting in its scope. Self-directed reads
+belong to neither set: they have no trigger and are read when the work needs them.
+`reading.mode` in config chooses how the lazy readset loads: `lean`, the default,
+reads each entry when its trigger fires; `full` also reads every entry at
+onboarding and recovery.
+
 Baseline sections are named for what they hold — `general` uses **Shared baseline skills**,
 `engineer` uses both **Required baseline skills** and **Baseline system
 orientation**. A role may introduce another; it is still baseline.
@@ -2269,7 +2292,7 @@ required only for the selected backend, after the config has been read. This is
 a conditional baseline, not an On-demand skill and not a new role.
 
 **On-demand and Self-directed are both outside certification, and they are not the
-same thing.** On-demand is gated: the section states a trigger, and reading before
+same thing.** On-demand is gated: each entry states a trigger, and reading before
 it fires teaches a procedure with nothing to apply it to — `general`'s
 `llm_full_usage.md` is the model, useless on an install with no `llm_full.md`.
 Self-directed is the opposite failure being guarded against: the document is
@@ -2453,15 +2476,15 @@ Required baseline skills
 - `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md`
 - `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires cross-book canon synchronization.
-- Task requires alternate timeline branch management.
-- Task requires compliance-sensitive factual verification.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced continuity fact checker work.
+  - Trigger: any one of these.
+    - Task requires cross-book canon synchronization.
+    - Task requires alternate timeline branch management.
+    - Task requires compliance-sensitive factual verification.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/continuity_fact_checker/SKILLS.MD ---
 
@@ -2738,16 +2761,8 @@ Rules
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section in the resolved chain, parent-first. Lazy (On-demand)
+  entries load in full when their trigger fires; Self-directed reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 ## 1) Purpose
@@ -2890,7 +2905,7 @@ Unknowns Gate
 # SKILLS.MD - design_engineer
 
 Purpose
-- Define required baseline design-engineer skills for the `design_engineer` role.
+- Define the eager and lazy readsets for the `design_engineer` role.
 - This role is optimized for designing software engineering projects with high-quality handoff.
 
 Inheritance
@@ -2898,8 +2913,9 @@ Inheritance
 
 Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
-  A) **Required baseline skills** (always required for onboarding/certification)
-  B) **On-demand design-context skills** (required only when the active task triggers them)
+  A) **Required baseline skills** (eager: always required for onboarding/certification)
+  B) **On-demand skills (lazy readset index)** - document and patch authoring
+     material, each read in full when its trigger fires.
 - It also INHERITS the parent chain's classes, which include `engineer`'s
   **Baseline system orientation** - `system_docs/system_docs_read_first.md`,
   `src_architecture.md`, `src_architecture_index.md`, `src_components_index.md`.
@@ -2920,14 +2936,6 @@ Required baseline skills
 - `agent_onboarding/default/design_engineer/AGENTS.MD`
 - `agent_onboarding/default/design_engineer/WORKFLOWS.MD`
 - `agent_onboarding/default/design_engineer/skills/architecture_contexts.md`
-- `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
-- `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/src_components_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/tests_architecture_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/tests_components_instructions.md`
 - `agent_onboarding/default/design_engineer/skills/design_engineer_execution.md`
 - `agent_onboarding/default/design_engineer/skills/requirements_to_architecture.md`
 - `agent_onboarding/default/design_engineer/skills/system_design_method.md`
@@ -2941,24 +2949,48 @@ Required baseline skills
 - `agent_onboarding/default/design_engineer/policies/design_quality_policy.md`
 - `agent_onboarding/default/design_engineer/policies/decision_record_policy.md`
 - `agent_onboarding/default/design_engineer/policies/design_review_policy.md`
-- `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md`
 - `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md`
 - `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md`
 - `agent_onboarding/default/design_engineer/examples/design_task_flow.md`
 - `agent_onboarding/default/design_engineer/examples/adr_example.md`
 
-On-demand design-context skills
-Trigger conditions (any one makes these mandatory):
-- The user asks for a full system/software design, architecture plan, or component boundary redesign.
-- The task requires a design that changes an existing public contract, API, schema, or lifecycle boundary.
-- The task requires creating/updating `system_docs/*` or making P0/P1 claims about architecture/components/tests.
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+The `engineer` lazy index applies too: a full system design, an architecture plan, a
+component boundary redesign, a change to a public contract, API, schema or lifecycle
+boundary, or P0/P1 claims about architecture, components or tests load its
+`context_protocol.md`, `system_document_build.md` and patch entries before work in
+that scope, in addition to the entries below.
 
-If triggered:
-- Apply the `engineer` on-demand system-context readset. The inheritance
-  header at the top of this file already puts it in the resolved chain, so
-  the paths are declared in the parent file and are not repeated here. The
-  triggers above are additional to the parent's, not a replacement.
-- Do not proceed with architecture claims or edits until that on-demand readset is satisfied.
+- `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
+  - Covers: the exact build protocol for `system_docs/src_architecture.md`.
+  - Trigger: you create, update or review `src_architecture.md`.
+- `agent_onboarding/default/design_engineer/skills/src_components_instructions.md`
+  - Covers: the exact build protocol for `system_docs/src_components.md`.
+  - Trigger: you create, update or review `src_components.md`.
+- `agent_onboarding/default/design_engineer/skills/tests_architecture_instructions.md`
+  - Covers: the exact build protocol for `system_docs/tests_architecture.md`.
+  - Trigger: you create, update or review `tests_architecture.md`.
+- `agent_onboarding/default/design_engineer/skills/tests_components_instructions.md`
+  - Covers: the exact build protocol for `system_docs/tests_components.md`.
+  - Trigger: you create, update or review `tests_components.md`.
+- `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md`
+  - Covers: scoring the four system documents on whether they say anything useful.
+  - Trigger: you create, update, review or grade any of those four documents.
+- `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
+  - Covers: building and maintaining patch-framework contracts for system-impacting
+    design changes.
+  - Trigger: a design change is system-impacting, or you author or review a patch
+    under `system_docs/patches/`.
+- `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
+  - Covers: the authoring contract for architecture patches.
+  - Trigger: you author or review an architecture patch.
+- `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md`
+  - Covers: the authoring contract for component patches.
+  - Trigger: you author or review a component patch.
+- `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md`
+  - Covers: the conditional authoring contract for code-description patches.
+  - Trigger: you author or review a code-description patch.
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/SKILLS.MD ---
 
@@ -5929,15 +5961,15 @@ Required baseline skills
 - `agent_onboarding/default/developmental_editor/behavioral_guidelines/developmental_editor_workflow.md`
 - `agent_onboarding/default/developmental_editor/examples/developmental_editor_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires triage for heavily fragmented or incomplete manuscripts.
-- Task requires genre-specific structural redesign.
-- Task requires accelerated pre-release structural recovery.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/developmental_editor/skills/developmental_editor_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced developmental editor work.
+  - Trigger: any one of these.
+    - Task requires triage for heavily fragmented or incomplete manuscripts.
+    - Task requires genre-specific structural redesign.
+    - Task requires accelerated pre-release structural recovery.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/developmental_editor/SKILLS.MD ---
 
@@ -6347,15 +6379,15 @@ Required baseline skills
 - `agent_onboarding/default/draft_writer/behavioral_guidelines/draft_writer_workflow.md`
 - `agent_onboarding/default/draft_writer/examples/draft_writer_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-POV orchestration with constrained chapter budgets.
-- Task requires emergency rewrite of structurally broken manuscripts.
-- Task requires adaptation to strict word-count or serialization constraints.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/draft_writer/skills/draft_writer_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced draft writer work.
+  - Trigger: any one of these.
+    - Task requires multi-POV orchestration with constrained chapter budgets.
+    - Task requires emergency rewrite of structurally broken manuscripts.
+    - Task requires adaptation to strict word-count or serialization constraints.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/draft_writer/SKILLS.MD ---
 
@@ -6633,16 +6665,9 @@ Rules
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). For this role that is three sections, not two:
-  **Required baseline skills**, **Baseline system orientation**, and the parent's
-  **Active skills**. Match on the baseline label, not on a fixed list of headings -
-  a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- For this role the eager readset is **Required baseline skills**, **Baseline system
+  orientation** and the parent's baseline sections. Lazy (On-demand) entries load in
+  full when their trigger fires; Self-directed system reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 ## 1) Document Purpose
@@ -6717,23 +6742,10 @@ Before acting on anything **outside the explicitly agreed architectural plan**, 
   standards.
 * Use `agent_onboarding/default/new/README.md` only for first-time `new`
   onboarding setup.
-* System-context documents:
-  - `src_architecture.md` plus `src_architecture_index.md` and
-    `src_components_index.md` are **baseline** - the narrative and the two maps.
-    Read them at onboarding when they exist.
-  - Everything else in `system_docs/` is **Self-directed: agent-driven or
-    user-driven.** You raise the demand yourself, as often as the work needs it.
-    There is no permission step and no trigger list to satisfy first - which is
-    exactly why it is NOT labelled On-demand. On-demand is the trigger-gated state;
-    reading "no trigger fired" off these documents is how an agent ends up never
-    opening them.
-  - Read them **by slice through their index**, keyed on a name you already hold.
-    `src_components.md` and `src_graph.md` are never read whole.
-  - Do NOT force-read system_docs as a box-check when the task does not trigger
-    them, and equally do NOT skip a read because nobody asked for it. Read what
-    the question needs; stop there.
-  - Full policy: `agent_onboarding/default/engineer/SKILLS.MD` and
-    `agent_onboarding/default/engineer/skills/context_protocol.md`.
+* System-context documents follow `agent_onboarding/default/engineer/SKILLS.MD`: the
+  architecture narrative and two indexes are baseline when they exist; everything
+  else in `system_docs/` is Self-directed - read it by slice through its index
+  whenever the question needs it, without asking permission, and stop there.
 
 Do not treat user ideas as gospel. Be curious, thoughtful, and explicit about uncertainties.
 ---
@@ -6903,219 +6915,15 @@ Ask for a missing decision/permission when these actions are outside current aut
 
 ---
 
-## 10) Testing Discipline Unit-First Component-Second Integration-Third
-
-We are building confidence, not just coverage. **All changes must be accompanied by tests** unless explicitly exempted.
-
-### 10.1) What We Value in Tests Ranked
-
-If you take nothing else from this section, take this:
-
-> **A test is valuable if it would fail for a real regression and would *not* fail for a harmless refactor.**
-
-Here is the ranking we use when judging test quality. Higher ranks are strictly preferred.
-
-#### Rank S - System Contract Tests (Highest Value)
-
-These tests prove end-to-end correctness of a *meaningful* contract boundary without re-implementing the system.
-
-**Signals:**
-
-* Exercises real wiring across multiple components (minimal real set).
-* Catches regression in control flow, data flow, and lifecycle behavior.
-* Fails for real breakage, not for refactors.
-
-**Examples:**
-
-* A "root revalidation" flow that uses real blueprints and validates outcomes.
-* A concurrency primitive integration test that proves ordering/invariants.
-
-> Use these sparingly and intentionally. They cost more to maintain.
-
-#### Rank A - Behavioral Unit Contract Tests (High Value)
-
-These are the backbone of the repo: small tests that validate contracts, invariants, and error behavior.
-
-**Signals:**
-
-* Asserts behavior through **public methods** and **documented outputs**.
-* Validates meaningful branches and error paths.
-* Avoids coupling to private fields/implementation details.
-
-**Examples:**
-
-* "Given these inputs, return/raise exactly X."
-* "After cleanup, public methods raise or behave as documented."
-* "Last-write-wins semantics for a registry."
-
-#### Rank B - State Transition Tests (Medium-High Value)
-
-Tests that validate a clear state machine / lifecycle, especially around concurrency and cleanup.
-
-**Signals:**
-
-* Proves valid transitions and prevents illegal transitions.
-* Focuses on lifecycle invariants (cleaned vs active, idempotence, ordering).
-* Uses introspection APIs (`describe()`, snapshots) rather than poking raw private fields.
-
-#### Rank C - Collaboration/Boundary Mock Tests (Medium Value)
-
-These validate that we call collaborators correctly. They're useful when the collaborator is expensive, external, or nondeterministic.
-
-**Signals:**
-
-* Mocks are used at **real boundaries** (I/O, network, filesystem, subprocess, time, OS).
-* Asserts calls that matter (ordering, arguments, exactly-once / at-most-once) *when that is part of the contract*.
-
-**Warning:**
-
-* These become brittle if you over-specify calls.
-
-#### Rank D - Regression Reproduction Tests (Targeted Value)
-
-A test that exists to lock down a specific bug. Great when it's truly a regression guard.
-
-**Signals:**
-
-* Title references the bug symptom.
-* Minimal reproduction.
-* Assertions match the corrected behavior.
-
-#### Rank E - Line-Coverage Fillers (Low Value)
-
-Tests that exist mainly to execute lines but don't assert meaningful behavior.
-
-**Signals:**
-
-* Asserts "it didn't crash" with no contract outcome.
-* Asserts values that are incidental.
-
-> We avoid these unless they are stepping stones toward higher-rank tests.
-
-#### Rank F - Attribute/Existence Checks (Very Low Value)
-
-This is the bottom. These tests almost always waste time and fail for harmless refactors.
-
-**Examples (bad):**
-
-* `assert obj._some_private_field is not None` (unless the field is part of a documented public contract, which is rare)
-* `assert hasattr(obj, "x")` / `assert "x" in obj.__dict__` / `assert isinstance(obj._pending_changes, dict)`
-
-**Why this is bad:**
-
-* Doesn't prove correctness.
-* Over-couples tests to implementation.
-* Encourages "coverage mirage."
-
-**Only acceptable when:**
-
-* The attribute is explicitly part of a public, documented contract (rare), or
-* You are validating cleanup nulling **as part of a lifecycle safety contract** and there is no better public signal.
-
-### 10.2) Rules Unit Tests First Mock and Isolated
-
-The default approach is **mocked / isolated unit tests**.
-
-* **Mock external boundaries** (I/O, filesystem, network, subprocesses, clocks, OS calls, databases, thread scheduling, random sources).
-* Validate **contracts** (inputs/outputs/raises), **invariants**, and **side effects** (including cleanup ordering) at the smallest reasonable unit.
-* Prefer **contract-level assertions** over implementation-detail assertions.
-* Avoid flakiness: tests must run reliably on repeated runs.
-
-#### Contract-level assertion checklist
-
-When writing a unit test, you should be able to answer "yes" to most of these:
-
-* The test asserts an observable outcome (return, raise, snapshot, or state transition).
-* The test would fail if a real regression happened.
-* The test would still pass after a harmless refactor (renaming locals, reordering statements, or changing internal data structures).
-* Mocks are only used at true boundaries.
-* Assertions focus on *behavior* rather than "internal shape".
-
-If not, the test is probably Rank E/F.
-
-### 10.3) Integration Tests Second Only When Needed
-
-Integration tests are required when behavior cannot be proven safely via mocks/unit tests.
-
-Use integration tests when at least one is true:
-
-* Correctness depends on real interactions across multiple components (e.g., concurrency scheduling, orchestration behavior, serializer/codec correctness across layers).
-* Mocking would require re-implementing the system under test or would make the test meaningless.
-* The integration is the contract (e.g., plugin wiring, adapter boundaries, real concurrency primitives).
-
-Rules for integration tests:
-
-* Keep them **scoped**: integrate only the minimal set of real components needed.
-* Make them **explicit**: use clear naming and markers (e.g., `@pytest.mark.integration`) if the repo uses them.
-* Ensure they remain **repeatable** and not environment-dependent unless explicitly documented.
-
-### 10.4) Coverage Target 95 Percent or Higher Non-Negotiable
-
-#### Agent Execution Constraint (Read Carefully)
-
-AI agents **cannot truthfully confirm** repository-wide coverage levels (including the =95% target) unless the **user** runs the test suite and reports the result.
-
-* Agents must **not** claim coverage numbers.
-* If the user asks whether tests or coverage were run, the only valid answer is **"Not run."**
-
-#### Agent Policy: Prefer Test Density Now; Verify Coverage Later
-
-In the agent environment, **coverage measurement is treated as a follow-up step** that the **user** performs. Agents should **default** to producing a strong test suite using the density heuristic, and then **ask the user to verify =95% coverage later**.
-
-**Default Path - Test Density (Preferred for Agent Work):**
-
-Use this path unless the user explicitly provides coverage output.
-
-* **Baseline density:** target **= 10 tests per 100 LOC** for the changed/covered module(s).
-* **Dense / high cyclomatic complexity code:** increase target to **= 20 tests per 100 LOC** when the code shows any of the following:
-
-  * high cyclomatic complexity (many branches/guards)
-  * heavy error-path logic
-  * concurrency / locking / ordering constraints
-  * lifecycle/cleanup state machines
-  * non-trivial invariants (dirty tracking, revalidation, promotion semantics)
-
-These are heuristics - not a license to create filler tests. Every test must still meet the quality criteria below.
-
-**Follow-Up Path - Coverage Verification (User-Run, Later):**
-
-* Target: **= 95% line coverage** for the relevant package/module(s).
-* Requirement: the **user** runs the suite and reports the output.
-* Agent reporting: if the user has not run it, you must say **"Not run."** and you must not guess.
-
-If the user reports coverage below target, agents should add tests by increasing **branch/error/lifecycle** coverage - not by adding filler assertions.
-
-We target **= 95% line coverage** across the library.
-
-* Heuristic: we want at least **10 tests per 100 LOC**, but do not game it. If you have 95 percent or higher coverage but fewer than 10 tests per 100 LOC, that's acceptable.
-* Coverage must not be "gamed" (no meaningless tests whose only purpose is to execute lines).
-
-**Where we focus coverage:**
-
-* Public API contracts
-* Critical branching logic
-* Error paths
-* Lifecycle/cleanup behavior
-* Concurrency-sensitive behavior (as testable)
-
-If a component cannot reasonably hit the coverage target (rare), document the reason and the mitigation (integration coverage, property tests, or explicit exclusion with rationale) **and ask before applying exclusions**.
-
-### 10.5) Truthful Validation Reporting
-
-When reporting validation status:
-
-* Only claim unit/integration/coverage runs if you actually ran them.
-* If not run, say **"Not run."**
-* If recommending commands, be specific and repo-consistent. Do not invent a workflow that contradicts repository docs.
-
-### 10.6) Fixing Broken Base Code While Writing Tests
-
-If you find mistakes while writing tests (bugs, incorrect docstrings, missing cleanup, race conditions):
-
-* Raise them as issues rather than fixing them silently.
-* If you have explicit permission to fix them, follow all rules in this document (docstrings, cleanup, scope control, tests).
-* Do not fix unrelated mistakes outside your declared scope.
-* If the mistakes block your work, explain the situation and ask for guidance.
+## 10) Testing Discipline
+
+* All changes must be accompanied by tests unless explicitly exempted.
+* Never claim tests, lint, type checks or coverage ran unless they did; otherwise say
+  **"Not run."** (section 7.9).
+* The full discipline - test-value ranking, unit-first rules, when integration tests
+  are required, the coverage policy and fixing base code found while testing - is
+  `agent_onboarding/default/engineer/skills/testing_discipline.md`, in the engineer
+  lazy index.
 
 ---
 
@@ -7187,39 +6995,28 @@ Unknowns Gate
 # SKILLS.MD - engineer
 
 Purpose
-- Define required baseline engineering skills for the `engineer` role.
+- Define the eager and lazy readsets for the `engineer` role.
 
 Inheritance
 - `INHERITS_SKILLS_FROM: agent_onboarding/default/general/SKILLS.MD`
 
 Skill classes (non-negotiable)
-- This role defines three classes of skills:
-  A) **Required baseline skills** (always required for onboarding/certification)
-  B) **Baseline system orientation** (required at onboarding when the files exist)
+- This role defines four classes of skills:
+  A) **Required baseline skills** (eager: always required for onboarding/certification)
+  B) **Baseline system orientation** (eager: required at onboarding when the files exist)
   C) **Self-directed system reading** - every other system document. Not baseline,
      not trigger-gated: **agent-driven OR user-driven**, and agent-driven is the
      ordinary case.
+  D) **On-demand skills (lazy readset index)** - the system-document guides, patch
+     gates and maintenance procedures, each read in full when its trigger fires.
+     The index is at the end of this file.
 
-Why this is called Self-directed and not On-demand (read this before you interpret it)
-- **`On-demand` is a different state and it is reserved.** In this package On-demand
-  means a section states a trigger and you wait for it - `general`'s
-  `llm_full_usage.md` is the model. **Nothing in class C has a trigger.** The label
-  was wrong here, it collided with the parent's definition, and an agent resolving
-  both correctly concluded no trigger had fired and read zero system documents. Full
-  reasoning: `context_compass/SKILLS.MD`, "Format contract for role `SKILLS.MD` files".
-- Self-directed does NOT mean "wait to be told". It means the read happens when somebody
-  needs it, and **you are somebody**. You raise the demand as often as the user does,
-  and more often in practice, because you are the one who notices the gap.
-- There is no permission step. There is no trigger list you must match first. If you
-  need to know something about this system, the document is right there and you go
-  and read the part that answers it.
-- The earlier version of this file put these documents behind a trigger list and, for
-  one of them, an explicit instruction to ask the user whether reading was required.
-  That produced exactly what you would expect: agents that onboarded knowing nothing
-  about the system, stopped mid-task to request authorisation to consult the
-  documentation they were already holding the index for, and reasoned from the names
-  of classes in the meantime. Asking permission to read is not caution. It is a
-  refusal to do the work, dressed as deference.
+Why Self-directed is not On-demand
+- On-demand entries wait for a trigger; class C has none. Self-directed means the
+  read happens when somebody needs it, and **you are somebody**: raise the demand
+  yourself, with no permission step and no trigger list to match first. Labelling
+  these reads On-demand once produced agents that read no system documents at all.
+  Full reasoning: `context_compass/SKILLS.MD`, "Format contract for role `SKILLS.MD` files".
 
 Rules
 - Inherited `general` reads include shared baseline skills and only the
@@ -7260,21 +7057,11 @@ Required baseline skills
 - `agent_onboarding/default/engineer/WORKFLOWS.MD`
 - `agent_onboarding/default/engineer/skills/engineer_execution.md`
 - `agent_onboarding/default/engineer/skills/technical_expertise.md`
-- `agent_onboarding/default/engineer/skills/system_orientation.md`
 - `agent_onboarding/default/engineer/skills/documentation_standards.md`
-- `agent_onboarding/default/engineer/skills/context_protocol.md`
-- `agent_onboarding/default/engineer/skills/src_graph_usage.md`
-- `agent_onboarding/default/engineer/skills/src_graph_generation.md`
-- `agent_onboarding/default/engineer/skills/system_document_build.md`
-- `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
-- `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
 - `agent_onboarding/default/engineer/skills/staleness_protocol.md`
 - `agent_onboarding/default/engineer/policies/engineer_quality_policy.md`
-- `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md`
-- `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/engineer_workflow.md`
 - `agent_onboarding/default/engineer/behavioral_guidelines/task_execution_and_validation.md`
-- `agent_onboarding/default/engineer/examples/artifact_workflow.md`
 - `agent_onboarding/default/engineer/examples/eng_task_flow.md`
 
 Baseline system orientation (read every one that exists)
@@ -7283,89 +7070,19 @@ Baseline system orientation (read every one that exists)
 - `system_docs/src_architecture_index.md`
 - `system_docs/src_components_index.md`
 
-Why these four and not the whole set. An engineer who does not know the shape of the
-system writes plausible code in the wrong place, and no amount of role skill fixes
-that. So the narrative is baseline: `src_architecture.md` is the one document that
-explains what this system IS. Read it.
-
-The two INDEXES are baseline because an index is a map, not a territory. They are
-what let you name a component and go straight to its section instead of hunting for
-it. You onboard holding the maps, then use them to reach the parts of the territory
-your work actually needs - and then the code.
-
-Nothing else is baseline. Everything else under `system_docs/` is Self-directed,
-which means yours to reach for without waiting for anything. See below.
+Why these four: `src_architecture.md` is the one document that explains what this
+system IS, and the two indexes are the maps that take you straight to a component's
+section and its nodes. Everything else under `system_docs/` is Self-directed (below).
 
 The reading order
-This is a PRIORITY ORDER, not a rationing scheme. It tells you what to read first so
-that what you read next is the right thing. It is not an argument for reading less.
-
-1. **`src_architecture.md`** - read it. This is what the system IS.
-2. **`src_components.md`** - before starting work on a topic, read the parts relevant
-   to that topic. Use the index to find them.
-3. **`src_graph.md`** - if you are going to write code, read the wiring for what you
-   are touching. Use the index to find it.
-4. **THE CODE** - if you are changing anything, read the code. Always. No exception.
-
-Steps 1-3 tell you WHICH code. Step 4 tells you what it actually does. Every document
-above step 4 can be out of date; the code cannot. When they disagree, the code is
-right and the document is stale - record that, it is a finding.
-
-**`grep` and AST are guesses.** They tell you a name occurs somewhere. They do not
-tell you what the function does, what it owns, what it locks, what it returns, or
-what happens when it fails. Use them to find where to start reading. Then read, and
-trace the call path. A claim you cannot support from source you have actually read is
-UNKNOWN, however many matches you counted.
-
-**You have capacity - spend it here.** Source files are small next to the documents;
-a class is a few hundred lines and you can read the whole thing. Budget discipline
-exists so that you arrive at the code with room to read it properly, not so that you
-skip it.
-
-Each level hands you the key the next one is looked up by:
-
-```
-  src_architecture.md          WHICH PART of the system - read whole, at onboarding
-        |  gives you a concern, a boundary, a subsystem name
-        v
-  src_components_index.md      WHICH COMPONENT - look up that name
-        |  gives you a section name and a line range
-        v
-  src_components.md  (slice)   WHAT it is, owns, guarantees, and its Key Files
-        |  gives you node names and file paths
-        v
-  src_graph_index.md           WHICH NODES - look up those names
-        |  gives you a section name and a line range
-        v
-  src_graph.md  (slice)        HOW it wires - edges, ownership, lifecycle, callers
-        |  gives you the files that actually matter
-        v
-  THE CODE                     the only thing that is authoritative
-```
-
-Descend it. Do not enter in the middle.
-
-Each step is a **lookup, not a search**, and that is why the order matters. The
-architecture names a subsystem; you look that name up in the components index instead
-of scanning for it. A component names its files and nodes; you look those up in the
-graph index instead of scanning for them. Entering at the graph with no name in hand
-means hunting for something you cannot yet describe - the order exists to stop that,
-not to stop you reading.
-
-At each level you carry down only the branch you are on: one subsystem, one or two
-components, the nodes they name. That is what makes step 4 affordable.
-
-**The documents are guiding tools. The code is the system.**
-When you are making a code change, you read the code. The order above exists to tell
-you *which* code - to turn "somewhere in this repository" into a few files worth
-opening. It does not tell you what those files do today. Documents describe intent at
-the moment somebody wrote them down; the code is what runs.
-
-So never let a slice stand in for reading the implementation you are about to change,
-and never quote a document as evidence for behaviour you have not seen in source. The
-right shape is: **use the documents to find the code, read the code, then change it** -
-and if what you found contradicts the document that sent you there, that contradiction
-is a finding worth recording.
+Read `src_architecture.md` at onboarding. Before work on a topic, slice the relevant
+`src_components.md` sections through its index; before writing code, slice the
+`src_graph.md` wiring for what you touch; then read that code in full. Each level
+hands you the name the next is looked up by - descend it, do not enter in the middle.
+The documents tell you WHICH code; only the code tells you what it does. Where they
+disagree, the code is right and the document is stale - record that as a finding.
+`grep` and AST find names, not behaviour. The full protocol is `context_protocol.md`
+in the lazy index below.
 
 Self-directed system reading - agent-driven or user-driven
 Every system document that is not one of the four above, including any this role
@@ -7445,9 +7162,6 @@ Read the tests pair when the work concerns the suite. Do not skip it because nob
 asked, and do not drag it in because you happened to be reading the src pair - they
 describe different things.
 
-If you are cleaning or upgrading an install:
-- `agent_onboarding/default/engineer/skills/package_maintenance.md`
-
 Note on a fresh install
 - **`system_docs/` ships empty.** The package does not seed architecture,
   component, test or graph documents, because a shipped placeholder in a live
@@ -7472,6 +7186,66 @@ Note on the source graph
   DOCUMENT - not to the code it describes. Slice it freely and often; that is what it
   is for. Reading none of it is not the safe reading of this rule, it is the failure
   the rule was written to prevent.
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset. Once a trigger fires, the file is mandatory:
+read the whole file before proceeding in that scope. `design_engineer` adds its own
+triggers for the system-document entries below.
+
+- `agent_onboarding/default/engineer/skills/context_protocol.md`
+  - Covers: navigating the system documents to the code worth opening.
+  - Trigger: before you read or slice `src_architecture.md`, `src_components.md`,
+    `src_graph.md` or their indexes. At onboarding this fires whenever
+    `system_docs/src_architecture.md` exists.
+- `agent_onboarding/default/engineer/skills/src_graph_usage.md`
+  - Covers: reading the generated source graph through its index.
+  - Trigger: before you read `src_graph_index.md` or slice `src_graph.md`.
+- `agent_onboarding/default/engineer/skills/system_document_build.md`
+  - Covers: the authoring format for `src_architecture.md` and `src_components.md`,
+    and how their indexes are built.
+  - Trigger: you are asked to create or update those documents or their indexes,
+    or your change requires updating them.
+- `agent_onboarding/default/engineer/skills/src_graph_generation.md`
+  - Covers: building and maintaining the generated source graph with the
+    extraction tools.
+  - Trigger: you are asked to generate, regenerate or refresh the source graph, or
+    your change requires refreshing it.
+- `agent_onboarding/default/engineer/policies/ctx_autonomy_rubric.md`
+  - Covers: ranking context quality across file, directory, component and
+    architecture layers.
+  - Trigger: you create or refresh any layer of system context.
+- `agent_onboarding/default/engineer/policies/ctx_autonomy_policy.md`
+  - Covers: applying that ranking to engineer context work.
+  - Trigger: the same as `ctx_autonomy_rubric.md`.
+- `agent_onboarding/default/engineer/skills/patch_framework_gating.md`
+  - Covers: the patch gates for system-impacting changes.
+  - Trigger: the task changes architecture or component boundaries, lifecycle
+    behavior, policy or gating behavior, or cross-component contracts, or it
+    requires updating `src_architecture.md`, `src_components.md` or `src_graph.md`.
+- `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md`
+  - Covers: consuming architecture, component and code-description patches during
+    implementation.
+  - Trigger: `patch_framework_gating.md` applies to the task, or the task points at
+    a patch under `system_docs/patches/active/`.
+- `agent_onboarding/default/engineer/skills/testing_discipline.md`
+  - Covers: test-value ranking, unit-first rules, when integration tests are required,
+    the coverage policy, and fixing base code found while testing.
+  - Trigger: before you write, change or review tests, or report test or coverage
+    results.
+- `agent_onboarding/default/engineer/skills/system_orientation.md`
+  - Covers: explaining this repository's workflow and documents to the user.
+  - Trigger: the user asks how the system works or how to interact with it, or
+    wants a walkthrough before work begins.
+- `agent_onboarding/default/engineer/examples/artifact_workflow.md`
+  - Covers: a worked example of scratch capture and an artifact moving through a
+    ticket.
+  - Trigger: before you create or link an artifact for the first time in a session.
+- `agent_onboarding/default/engineer/skills/package_maintenance.md`
+  - Covers: cleaning an install back to shipping state, upgrading one, and
+    preparing the package for distribution.
+  - Trigger: you are preparing the package for distribution, one project's content
+    has ended up inside another install, or a newer Context Compass version needs
+    rolling into a repository.
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/SKILLS.MD ---
 
@@ -9776,6 +9550,232 @@ References
 
 --- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/technical_expertise.md ---
 
+--- START OF FILE: context_compass/agent_onboarding/default/engineer/skills/testing_discipline.md ---
+
+# testing_discipline
+
+Purpose
+- The engineer testing discipline: what makes a test valuable, how to choose unit,
+  component and integration tests, the coverage policy, and truthful reporting.
+- Lazy: read it in full before you write, change or review tests, or report test or
+  coverage results. `engineer/AGENTS.MD` keeps the always-on testing rules.
+
+## Unit first, component second, integration third
+
+We are building confidence, not just coverage. **All changes must be accompanied by tests** unless explicitly exempted.
+
+### 1) What We Value in Tests Ranked
+
+If you take nothing else from this section, take this:
+
+> **A test is valuable if it would fail for a real regression and would *not* fail for a harmless refactor.**
+
+Here is the ranking we use when judging test quality. Higher ranks are strictly preferred.
+
+#### Rank S - System Contract Tests (Highest Value)
+
+These tests prove end-to-end correctness of a *meaningful* contract boundary without re-implementing the system.
+
+**Signals:**
+
+* Exercises real wiring across multiple components (minimal real set).
+* Catches regression in control flow, data flow, and lifecycle behavior.
+* Fails for real breakage, not for refactors.
+
+**Examples:**
+
+* A "root revalidation" flow that uses real blueprints and validates outcomes.
+* A concurrency primitive integration test that proves ordering/invariants.
+
+> Use these sparingly and intentionally. They cost more to maintain.
+
+#### Rank A - Behavioral Unit Contract Tests (High Value)
+
+These are the backbone of the repo: small tests that validate contracts, invariants, and error behavior.
+
+**Signals:**
+
+* Asserts behavior through **public methods** and **documented outputs**.
+* Validates meaningful branches and error paths.
+* Avoids coupling to private fields/implementation details.
+
+**Examples:**
+
+* "Given these inputs, return/raise exactly X."
+* "After cleanup, public methods raise or behave as documented."
+* "Last-write-wins semantics for a registry."
+
+#### Rank B - State Transition Tests (Medium-High Value)
+
+Tests that validate a clear state machine / lifecycle, especially around concurrency and cleanup.
+
+**Signals:**
+
+* Proves valid transitions and prevents illegal transitions.
+* Focuses on lifecycle invariants (cleaned vs active, idempotence, ordering).
+* Uses introspection APIs (`describe()`, snapshots) rather than poking raw private fields.
+
+#### Rank C - Collaboration/Boundary Mock Tests (Medium Value)
+
+These validate that we call collaborators correctly. They're useful when the collaborator is expensive, external, or nondeterministic.
+
+**Signals:**
+
+* Mocks are used at **real boundaries** (I/O, network, filesystem, subprocess, time, OS).
+* Asserts calls that matter (ordering, arguments, exactly-once / at-most-once) *when that is part of the contract*.
+
+**Warning:**
+
+* These become brittle if you over-specify calls.
+
+#### Rank D - Regression Reproduction Tests (Targeted Value)
+
+A test that exists to lock down a specific bug. Great when it's truly a regression guard.
+
+**Signals:**
+
+* Title references the bug symptom.
+* Minimal reproduction.
+* Assertions match the corrected behavior.
+
+#### Rank E - Line-Coverage Fillers (Low Value)
+
+Tests that exist mainly to execute lines but don't assert meaningful behavior.
+
+**Signals:**
+
+* Asserts "it didn't crash" with no contract outcome.
+* Asserts values that are incidental.
+
+> We avoid these unless they are stepping stones toward higher-rank tests.
+
+#### Rank F - Attribute/Existence Checks (Very Low Value)
+
+This is the bottom. These tests almost always waste time and fail for harmless refactors.
+
+**Examples (bad):**
+
+* `assert obj._some_private_field is not None` (unless the field is part of a documented public contract, which is rare)
+* `assert hasattr(obj, "x")` / `assert "x" in obj.__dict__` / `assert isinstance(obj._pending_changes, dict)`
+
+**Why this is bad:**
+
+* Doesn't prove correctness.
+* Over-couples tests to implementation.
+* Encourages "coverage mirage."
+
+**Only acceptable when:**
+
+* The attribute is explicitly part of a public, documented contract (rare), or
+* You are validating cleanup nulling **as part of a lifecycle safety contract** and there is no better public signal.
+
+### 2) Rules Unit Tests First Mock and Isolated
+
+The default approach is **mocked / isolated unit tests**.
+
+* **Mock external boundaries** (I/O, filesystem, network, subprocesses, clocks, OS calls, databases, thread scheduling, random sources).
+* Validate **contracts** (inputs/outputs/raises), **invariants**, and **side effects** (including cleanup ordering) at the smallest reasonable unit.
+* Prefer **contract-level assertions** over implementation-detail assertions.
+* Avoid flakiness: tests must run reliably on repeated runs.
+
+#### Contract-level assertion checklist
+
+When writing a unit test, you should be able to answer "yes" to most of these:
+
+* The test asserts an observable outcome (return, raise, snapshot, or state transition).
+* The test would fail if a real regression happened.
+* The test would still pass after a harmless refactor (renaming locals, reordering statements, or changing internal data structures).
+* Mocks are only used at true boundaries.
+* Assertions focus on *behavior* rather than "internal shape".
+
+If not, the test is probably Rank E/F.
+
+### 3) Integration Tests Second Only When Needed
+
+Integration tests are required when behavior cannot be proven safely via mocks/unit tests.
+
+Use integration tests when at least one is true:
+
+* Correctness depends on real interactions across multiple components (e.g., concurrency scheduling, orchestration behavior, serializer/codec correctness across layers).
+* Mocking would require re-implementing the system under test or would make the test meaningless.
+* The integration is the contract (e.g., plugin wiring, adapter boundaries, real concurrency primitives).
+
+Rules for integration tests:
+
+* Keep them **scoped**: integrate only the minimal set of real components needed.
+* Make them **explicit**: use clear naming and markers (e.g., `@pytest.mark.integration`) if the repo uses them.
+* Ensure they remain **repeatable** and not environment-dependent unless explicitly documented.
+
+### 4) Coverage Target 95 Percent or Higher Non-Negotiable
+
+#### Agent Execution Constraint (Read Carefully)
+
+AI agents **cannot truthfully confirm** repository-wide coverage levels (including the =95% target) unless the **user** runs the test suite and reports the result.
+
+* Agents must **not** claim coverage numbers.
+* If the user asks whether tests or coverage were run, the only valid answer is **"Not run."**
+
+#### Agent Policy: Prefer Test Density Now; Verify Coverage Later
+
+In the agent environment, **coverage measurement is treated as a follow-up step** that the **user** performs. Agents should **default** to producing a strong test suite using the density heuristic, and then **ask the user to verify =95% coverage later**.
+
+**Default Path - Test Density (Preferred for Agent Work):**
+
+Use this path unless the user explicitly provides coverage output.
+
+* **Baseline density:** target **= 10 tests per 100 LOC** for the changed/covered module(s).
+* **Dense / high cyclomatic complexity code:** increase target to **= 20 tests per 100 LOC** when the code shows any of the following:
+
+  * high cyclomatic complexity (many branches/guards)
+  * heavy error-path logic
+  * concurrency / locking / ordering constraints
+  * lifecycle/cleanup state machines
+  * non-trivial invariants (dirty tracking, revalidation, promotion semantics)
+
+These are heuristics - not a license to create filler tests. Every test must still meet the quality criteria below.
+
+**Follow-Up Path - Coverage Verification (User-Run, Later):**
+
+* Target: **= 95% line coverage** for the relevant package/module(s).
+* Requirement: the **user** runs the suite and reports the output.
+* Agent reporting: if the user has not run it, you must say **"Not run."** and you must not guess.
+
+If the user reports coverage below target, agents should add tests by increasing **branch/error/lifecycle** coverage - not by adding filler assertions.
+
+We target **= 95% line coverage** across the library.
+
+* Heuristic: we want at least **10 tests per 100 LOC**, but do not game it. If you have 95 percent or higher coverage but fewer than 10 tests per 100 LOC, that's acceptable.
+* Coverage must not be "gamed" (no meaningless tests whose only purpose is to execute lines).
+
+**Where we focus coverage:**
+
+* Public API contracts
+* Critical branching logic
+* Error paths
+* Lifecycle/cleanup behavior
+* Concurrency-sensitive behavior (as testable)
+
+If a component cannot reasonably hit the coverage target (rare), document the reason and the mitigation (integration coverage, property tests, or explicit exclusion with rationale) **and ask before applying exclusions**.
+
+### 5) Truthful Validation Reporting
+
+When reporting validation status:
+
+* Only claim unit/integration/coverage runs if you actually ran them.
+* If not run, say **"Not run."**
+* If recommending commands, be specific and repo-consistent. Do not invent a workflow that contradicts repository docs.
+
+### 6) Fixing Broken Base Code While Writing Tests
+
+If you find mistakes while writing tests (bugs, incorrect docstrings, missing cleanup, race conditions):
+
+* Raise them as issues rather than fixing them silently.
+* If you have explicit permission to fix them, follow all rules in this document (docstrings, cleanup, scope control, tests).
+* Do not fix unrelated mistakes outside your declared scope.
+* If the mistakes block your work, explain the situation and ask for guidance.
+
+--- END OF FILE: context_compass/agent_onboarding/default/engineer/skills/testing_discipline.md ---
+
 --- START OF FILE: context_compass/agent_onboarding/default/engineer/workflows/README.md ---
 
 # engineer workflows
@@ -9799,20 +9799,12 @@ Rules
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Backend baseline sections apply only to the backend selected by config;
-  shared baseline sections apply in both modes. Do not apply file-ticket
-  storage instructions in plugin mode.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section parent-first, matching on the baseline label rather
+  than a fixed heading list; backend baselines apply only to the selected backend.
+- Read each On-demand (lazy) entry in full once its trigger fires. Read Self-directed
+  material whenever the work needs it; it has no trigger to wait for.
 - You MUST NOT claim a skill was read unless it was actually read.
+- The read states are defined in `context_compass/SKILLS.MD`.
 
 ## Document Intent
 
@@ -10005,15 +9997,9 @@ As a ritual, after implementing a change:
   `agent_onboarding/default/general/skills/compaction_requirements.md` and read the
   baseline sections of your own resolved `SKILLS.MD` chain. **Do not read another
   role's documents.**
-  - This line previously ordered every role to re-read
-    `agent_onboarding/default/new/skills/first_time_profile_setup.md`. That is a
-    `new`-role document, `new` is entry-only and never a steady-state role, and the
-    path appears in no readset but `new`'s - so the order was both unreachable from
-    the routing manifest and contradicted by `compaction_requirements.md`, which
-    requires non-`new` re-entry to use skills and policy docs.
-  - It applies only when `new` is the active role AND
-    `profiles.onboarding.first_time_enabled` is `true` in
-    `config/context_compass_config.yaml`.
+  - Re-read `agent_onboarding/default/new/skills/first_time_profile_setup.md` only
+    when `new` is the active role AND `profiles.onboarding.first_time_enabled` is
+    `true` in `config/context_compass_config.yaml`.
 
 ## Stop Conditions (Ask Before Proceeding)
 
@@ -10149,7 +10135,7 @@ Unknowns Gate
 # SKILLS.MD - general
 
 Purpose
-- Define active baseline skills for the `general` role.
+- Define the eager and lazy readsets for the `general` role.
 
 Inheritance
 - `INHERITS_SKILLS_FROM: none`
@@ -10166,6 +10152,14 @@ Activation rule
   `agent_communication_backend.md`; an invalid selection blocks communication
   work. Ticket and communication selectors are independent.
 
+Readsets
+- Eager: the baseline sections below - shared, plus the selected ticket and
+  communication baselines. Read them in full at onboarding and at recovery.
+- Lazy: the On-demand index at the end of this file. Each entry says what the
+  file covers and which trigger loads it. You hold the index from onboarding;
+  when a trigger fires, read that whole file before acting in its scope. An
+  index line is a pointer, not the procedure.
+
 Shared baseline skills
 - `agent_onboarding/default/general/AGENTS.MD`
 - `agent_onboarding/default/general/skills/general.md`
@@ -10179,7 +10173,6 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/career_selection.md`
 - `agent_onboarding/default/general/skills/mrp_policy.md`
 - `agent_onboarding/default/general/skills/configuration_standards.md`
-- `agent_onboarding/default/general/skills/package_upgrade.md`
 - `agent_onboarding/default/general/skills/context_gold.md`
 - `agent_onboarding/default/general/skills/security_and_secrets.md`
 - `agent_onboarding/default/general/skills/repo_topology.md`
@@ -10198,15 +10191,8 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/ticket_microcycle.md`
 - `agent_onboarding/default/general/skills/role_local_workflows.md`
 - `agent_onboarding/default/general/WORKFLOWS.MD`
-- `agent_onboarding/default/general/workflows/cleanup_context_compass.md`
-- `agent_onboarding/default/general/workflows/start_context_compass_work.md`
-- `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md`
-- `agent_onboarding/default/general/workflows/sync_attention_board.md`
 - `agent_onboarding/default/general/skills/context_compaction.md`
 - `attention_board.md`
-- `artifact_board.md`
-- `agent_onboarding/default/general/skills/context_management.md`
-- `context_management/context_board.md`
 
 - `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md`
 - `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md`
@@ -10214,7 +10200,6 @@ Shared baseline skills
 Local backend baseline
 Read these paths when `work_tracking.backend` resolves to `local`.
 - `agent_onboarding/default/general/skills/ticketing_skill_contract.md`
-- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
 - `agent_onboarding/default/general/skills/workflow.md`
 - `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md`
 
@@ -10236,46 +10221,76 @@ Read this path only when `agent_communication.backend` resolves to
 
 Every shared-state instruction stays baseline in both transports.
 
-Note on the board paths in that list. `attention_board.md`,
-`artifact_board.md`, `context_management/context_board.md`, and, in plugin mode,
-`issue_board.md` are baseline reads,
-but they are **live mutable state, not policy**. You open them to learn what is
-happening right now, not to learn a rule. They therefore get no attestation proof
-line - they are covered by the one-line `RESUMING` field instead. See
-`agent_onboarding/default/general/skills/compaction_requirements.md`. Do not invent
-a rule to quote from a routing table.
+Note on the board paths. `attention_board.md` and, in plugin mode,
+`issue_board.md` are eager reads, but they are **live mutable state, not
+policy**. You open them to learn what is happening right now, not to learn a
+rule. They get no attestation proof line - the one-line `RESUMING` field covers
+them. See `agent_onboarding/default/general/skills/compaction_requirements.md`.
+Do not invent a rule to quote from a routing table. `artifact_board.md` and
+`context_management/context_board.md` are in the lazy index below; open them
+when an artifact or a context pack is in play.
 
-On-demand skills
-Read only when the trigger is met. Not part of the baseline, and claiming one
-was read without meeting its trigger is a false attestation.
+On-demand skills (lazy readset index)
+These files are not in the eager readset. Claiming one was read without its
+trigger firing is a false attestation; once its trigger fires, it is mandatory,
+and you read the whole file before proceeding in that scope. On-demand is the
+trigger-gated state. It is not the Self-directed state `engineer` uses for its
+system documents, which has no trigger; the states are defined in
+`context_compass/SKILLS.MD`.
 
-**This applies to sections labelled `On-demand`, which is the trigger-gated state.
-It is not a rule about everything outside baseline.** A `Self-directed` section is
-also outside baseline but has no trigger and needs no permission - waiting for one
-there is the failure, not the discipline. `engineer` carries such a section for its
-system documents. Three states, defined in `context_compass/SKILLS.MD`.
-
-- `agent_onboarding/default/general/skills/llm_full_usage.md`
-  - Trigger: `llm_full.md` exists at the repository root and you are about to
-    read from it, or you have been asked to regenerate it.
-  - Why it is on-demand: most installs have no `llm_full.md` - it is a view of
-    the package produced for whole-system review, not something the package
-    ships. Reading the skill when the file is absent teaches a procedure with
-    nothing to apply it to.
-  - Why it is not optional once triggered: the document is ~27,000 lines. The
-    skill exists to stop you reading it whole when a 450-line index would have
-    told you the exact range.
-
+- `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md`
+  - Covers: the full attention-board sync when a local ticket closes.
+  - Trigger: local backend, before you move a ticket to a `completed/` folder.
+- `agent_onboarding/default/general/workflows/start_context_compass_work.md`
+  - Covers: starting a new lane - objective, ticket shape, backend and board route.
+  - Trigger: the user explicitly asks to start a new Context Compass lane.
+- `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md`
+  - Covers: closing a user-selected set of tickets.
+  - Trigger: the user explicitly asks to turn in one or more tickets.
+- `agent_onboarding/default/general/workflows/cleanup_context_compass.md`
+  - Covers: cleaning up work state (closing tickets, syncing boards). Not a
+    package reset.
+  - Trigger: the user explicitly asks to clean up Context Compass work state.
+- `agent_onboarding/default/general/workflows/sync_attention_board.md`
+  - Covers: rebuilding or repairing `attention_board.md` from current ticket truth.
+  - Trigger: the user explicitly asks to rebuild or repair `attention_board.md`.
+- `artifact_board.md`
+  - Covers: the registry of artifacts linked to tickets and their dispositions.
+  - Trigger: the active ticket lists artifacts, or you create, link, retain or
+    clean up an artifact.
+- `agent_onboarding/default/general/skills/context_management.md`
+  - Covers: reusable context packs and how tickets reference them.
+  - Trigger: a ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, or the user asks
+    for a reusable context pack.
+- `context_management/context_board.md`
+  - Covers: the index of context packs and their `Context ID` values.
+  - Trigger: the same as `context_management.md`.
+- `agent_onboarding/default/general/skills/harness_custom_instructions_setup.md`
+  - Covers: the custom-instruction setup form, instruction clauses, and the
+    apply-and-verify steps.
+  - Trigger: the custom-instruction check classifies this harness ABSENT, or the
+    user asks to set up or change these instructions.
+- `agent_onboarding/default/general/skills/package_upgrade.md`
+  - Covers: upgrading or repairing a `context_compass/` install without losing
+    project work.
+  - Trigger: the user asks to upgrade, repair or check this install, or you are
+    reviewing an upgrade plan.
+- `agent_onboarding/default/general/skills/ticket_design.md`
+  - Covers: ticket templates, optional Agile metadata and named attribution.
+  - Trigger: creating a new ticket, using a custom ticket template, or reading or
+    writing a ticket that contains `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
+  - Read the selected full template and canonical `templates/ticket_contract.json`.
+    Do not apply this design to historical records or change an agent's role.
 - `agent_onboarding/default/general/skills/github/migration.md`
+  - Covers: moving existing file tickets to GitHub Issues.
   - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
   - Keep local mode active until a reviewed dry run, complete remote verification,
     and explicit owner approval of the destination and content.
-
-- `agent_onboarding/default/general/skills/ticket_design.md`
-  - Trigger: creating a new ticket, using a custom ticket template, or reading/writing
-    a ticket containing `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
-  - Read the selected full template and canonical `templates/ticket_contract.json`.
-    Do not apply this design to historical records or change an agent's role.
+- `agent_onboarding/default/general/skills/llm_full_usage.md`
+  - Covers: reading or regenerating the `llm_full.md` whole-package review dump
+    through its index.
+  - Trigger: `llm_full.md` exists at the repository root and you are about to read
+    from it, or you have been asked to regenerate it.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/SKILLS.MD ---
 
@@ -10292,6 +10307,8 @@ Inheritance
 Activation rule
 - Workflows are optional macro behaviors.
 - Workflows are user-generated and user-approved only.
+- Every workflow here is lazy: when the user selects one, read its whole file
+  before acting. The On-demand index in `general/SKILLS.MD` gives each trigger.
 - When a workflow is selected for work, treat the parent-first role chain as
   the workflow lookup order.
 - The active workflows below apply in both backends. Resolve
@@ -11309,8 +11326,14 @@ or new-agent creation belongs in this protocol.
 - Full-body replacements and overlapping mutable fields retain latest-content/revision and
   writer coordination. Supported append-only comments need no body-writer permission; verify
   their saved readback. No full-policy reread is added per ordinary comment.
-- Keep one writer per ticket file or Issue body replacement. Leave shared-board updates
-  to the designated coordinator where applicable.
+- Keep one writer per ticket file or Issue body replacement. Preserve explicit
+  owner-reserved body/closure custody and platform denials.
+- Message transport does not assign board custody. Under an owner-selected worker-owned policy,
+  workers maintain and routinely repair their own assigned board, claim and route entries
+  directly, without a coordinator gate. Distinct coordination authority requires explicit
+  applicable owner delegation; do not assume it overrides worker ownership.
+  Resolve unknown ownership, real peer claim collisions or interfering writes before the
+  affected action; unrelated authorized work may continue.
 - If contact selectors are ambiguous, tool access fails, or pause state is
   unclear, stop and ask the owner. No silent transport fallback.
 
@@ -11748,8 +11771,8 @@ Purpose
 - Define the context-management system for reusable reread packs.
 - Make context-heavy tickets able to point at one derived context document
   instead of embedding long read lists inline.
-- Keep the skill itself baseline-readable in the general role while keeping
-  ticket-level use optional.
+- Keep the skill in the general lazy index: it loads when a ticket opts in or
+  the user asks for a context pack, and ticket-level use stays optional.
 
 Canonical surfaces
 - Board:
@@ -13251,7 +13274,9 @@ Record such a skipped check honestly, not as evidence of PRESENT or ABSENT statu
    project replacement resolved in the Project Instructions Bootstrap replaces
    this offer within its stated scope; effective onboarding authorization then
    proceeds without this form, and the remaining reads, attestation, and
-   approval requirements still apply. If the user declines or chooses
+   approval requirements still apply. The form, the instruction clauses and
+   the apply-and-verify steps are in `harness_custom_instructions_setup.md`;
+   read it in full before offering the form. If the user declines or chooses
    manual setup, respect that choice through re-onboarding in the same session.
    After effective onboarding authorization, keep that outcome under mailbox `## Notes`, associated
    with the session identity from `agent_session_state.md`.
@@ -13294,9 +13319,16 @@ shipped instruction block.
 
 - Resolve `CLAUDE_CONFIG_DIR` when set; otherwise use `~/.claude`.
 - Inspect its `CLAUDE.md` and relevant user-level rules/imports. A project
-  `CLAUDE.md` is a different scope and does not prove personal setup is present.
-- Claude Code loads `CLAUDE.md`; do not assume it automatically loads a file
-  merely because another harness calls that file `AGENTS.md`.
+  `CLAUDE.md` or `AGENTS.md` is a different scope and does not prove personal
+  setup is present.
+- Claude Code (v2.1.277 or later) reads a repository's `AGENTS.md` as project
+  instructions. By default it does so only when no `CLAUDE.md` or
+  `CLAUDE.local.md` exists in the working directory or above; its Project
+  instructions setting can load both or `CLAUDE.md` only. The personal
+  `~/.claude/CLAUDE.md` loads alongside either.
+- A root `AGENTS.md` that points to `context_compass/AGENTS.MD` therefore
+  already reaches Claude Code. Do not add a project `CLAUDE.md` just to repeat
+  that pointer: under the default setting, it stops `AGENTS.md` from loading.
 - Use `/memory` or the current version's `/context` display to inspect loaded
   instructions. Append only to a user-owned source with approval, then verify
   loading in a fresh session. Do not modify organization-managed instructions.
@@ -13321,6 +13353,35 @@ is unavailable, explain where the user can place the proposed text themselves.
 Check the active host: a local personal file need not exist in a remote or hosted
 session. Inspect only relevant instruction/configuration fields, not credentials
 or unrelated application data.
+
+## Sources
+
+- [Codex instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+- [Codex personalization](https://learn.chatgpt.com/docs/reference/settings#personalization)
+- [Claude Code instruction files](https://code.claude.com/docs/en/memory)
+- [Claude Code configuration directory](https://code.claude.com/docs/en/claude-directory)
+- [Gemini CLI context files](https://geminicli.com/docs/cli/gemini-md/)
+- [Gemini CLI configuration](https://geminicli.com/docs/reference/configuration/)
+
+## References
+
+- `AGENTS.MD`
+- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `config/context_compass_config.yaml`
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions_setup.md ---
+
+# Harness Custom Instructions: Setup
+
+## Purpose
+
+The lazy half of `harness_custom_instructions.md`. Read this file in full when
+that skill's check classifies the current harness ABSENT, or when the user asks
+to set up or change their Context Compass custom instructions. The check, the
+per-harness paths and the PRESENT, ABSENT and UNKNOWN rules stay in
+`harness_custom_instructions.md`.
 
 ## Setup form (ABSENT only)
 
@@ -13437,22 +13498,13 @@ a global preference overrides a stricter governing rule.
 - Installation and package upgrades must never edit global harness files on
   their own. The form is an agent-guided, user-approved setup step.
 
-## Sources
-
-- [Codex instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
-- [Codex personalization](https://learn.chatgpt.com/docs/reference/settings#personalization)
-- [Claude Code instruction files](https://code.claude.com/docs/en/memory)
-- [Claude Code configuration directory](https://code.claude.com/docs/en/claude-directory)
-- [Gemini CLI context files](https://geminicli.com/docs/cli/gemini-md/)
-- [Gemini CLI configuration](https://geminicli.com/docs/reference/configuration/)
-
 ## References
 
-- `AGENTS.MD`
-- `agent_onboarding/default/general/skills/mailbox_protocol.md`
+- `agent_onboarding/default/general/skills/harness_custom_instructions.md`
+- `agent_onboarding/default/general/skills/agent_session_state.md`
 - `config/context_compass_config.yaml`
 
---- END OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions.md ---
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/harness_custom_instructions_setup.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/llm_full_usage.md ---
 
@@ -14057,7 +14109,9 @@ Rules
   - activation rule
   - active workflow paths or `none`
   - optional on-demand workflow paths or `none`
-- Active workflows for the selected backend are baseline-readable for that role.
+- Active workflows are available to select in both backends. The role's
+  `SKILLS.MD` decides whether each one is eager (baseline) or lazy
+  (On-demand); `general` indexes its active workflows lazily, with triggers.
 - On-demand workflows are discoverable but should not be read until:
   - the user explicitly asks to use them, or
   - the current task explicitly triggers them.
@@ -16116,15 +16170,15 @@ Required baseline skills
 - `agent_onboarding/default/line_copy_editor/behavioral_guidelines/line_copy_editor_workflow.md`
 - `agent_onboarding/default/line_copy_editor/examples/line_copy_editor_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-voice register harmonization.
-- Task requires style conversion for a different target market.
-- Task requires compressed copy edit under strict turnaround.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/line_copy_editor/skills/line_copy_editor_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced line copy editor work.
+  - Trigger: any one of these.
+    - Task requires multi-voice register harmonization.
+    - Task requires style conversion for a different target market.
+    - Task requires compressed copy edit under strict turnaround.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/line_copy_editor/SKILLS.MD ---
 
@@ -17929,15 +17983,15 @@ Required baseline skills
 - `agent_onboarding/default/proofreader/behavioral_guidelines/proofreader_workflow.md`
 - `agent_onboarding/default/proofreader/examples/proofreader_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-format proofing (print, epub, web).
-- Task requires house-style migration for publication target.
-- Task requires emergency release lock under strict deadline.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/proofreader/skills/proofreader_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced proofreader work.
+  - Trigger: any one of these.
+    - Task requires multi-format proofing (print, epub, web).
+    - Task requires house-style migration for publication target.
+    - Task requires emergency release lock under strict deadline.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/proofreader/SKILLS.MD ---
 
@@ -18924,15 +18978,15 @@ Required baseline skills
 - `agent_onboarding/default/researcher/behavioral_guidelines/researcher_workflow.md`
 - `agent_onboarding/default/researcher/examples/researcher_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires domain-specific expert emulation with source ranking.
-- Task requires period-authenticity or jurisdiction-sensitive details.
-- Task requires fast-turnaround research under strict evidence budget.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/researcher/skills/researcher_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced researcher work.
+  - Trigger: any one of these.
+    - Task requires domain-specific expert emulation with source ranking.
+    - Task requires period-authenticity or jurisdiction-sensitive details.
+    - Task requires fast-turnaround research under strict evidence budget.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/researcher/SKILLS.MD ---
 
@@ -19918,15 +19972,15 @@ Required baseline skills
 - `agent_onboarding/default/story_designer/behavioral_guidelines/story_designer_workflow.md`
 - `agent_onboarding/default/story_designer/examples/story_designer_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-book or series architecture.
-- Task requires cross-genre adaptation of the same premise.
-- Task requires retrospective architecture salvage of an existing manuscript.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/story_designer/skills/story_designer_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced story designer work.
+  - Trigger: any one of these.
+    - Task requires multi-book or series architecture.
+    - Task requires cross-genre adaptation of the same premise.
+    - Task requires retrospective architecture salvage of an existing manuscript.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/story_designer/SKILLS.MD ---
 
@@ -20349,15 +20403,15 @@ Required baseline skills
 - `agent_onboarding/default/story_novel_artist/behavioral_guidelines/story_novel_artist_workflow.md`
 - `agent_onboarding/default/story_novel_artist/examples/story_novel_artist_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires style transfer across books in a series.
-- Task requires publishing-channel-specific art packaging variants.
-- Task requires model/provider migration without losing visual canon.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/story_novel_artist/skills/story_novel_artist_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced story novel artist work.
+  - Trigger: any one of these.
+    - Task requires style transfer across books in a series.
+    - Task requires publishing-channel-specific art packaging variants.
+    - Task requires model/provider migration without losing visual canon.
+  - Do not proceed in that specialized scope until this file is read.
 
 --- END OF FILE: context_compass/agent_onboarding/default/story_novel_artist/SKILLS.MD ---
 
@@ -20992,7 +21046,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -21016,11 +21071,25 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/mocking.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/regression_tests.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/evidence_reporting.md`
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/docstring_finishing_examples.py`
+  - Covers: worked examples of finished public docstrings.
+  - Trigger: before you write or rewrite docstrings for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/comment_finishing_examples.py`
+  - Covers: worked examples of finished comments.
+  - Trigger: before you write or rewrite comments for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py`
+  - Covers: worked unit-test examples.
+  - Trigger: before you write unit tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_component_finishing_examples.py`
+  - Covers: worked component-test examples.
+  - Trigger: before you write component tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_integration_finishing_examples.py`
+  - Covers: worked integration-test examples.
+  - Trigger: before you write integration tests for the first time in a session.
 
 --- END OF FILE: context_compass/agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD ---
 
@@ -22655,16 +22724,8 @@ meaningful file at a time with system-aware docstrings and comments.
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section in the resolved chain, parent-first. Lazy (On-demand)
+  entries load in full when their trigger fires; Self-directed reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 No policy negotiation
@@ -22692,25 +22753,12 @@ This overlay applies only when the selected role resolves to
 These directives are migrated from repository-root `AGENTS.MD` and are treated
 as top-priority bootstrap enforcement rules.
 
-## 4) Prime Directive: Documentation-First Edits
-
-Whenever you add or modify code:
-
-- Every class must have a rich docstring.
-- Every method/function must have a rich docstring.
-- Comments must be preserved and improved when they are unclear or
-  insufficient.
-- Treat docstrings and comments as part of the API; they must remain accurate.
-
 ## 5) Non-Negotiables
 
-### 5.1) Preserve Documentation and Comments
-
-- Never delete or strip docstrings.
-- Never delete comments. If a comment is wrong, stale, or misleading, update it
-  rather than removing it.
-- Only rewrite docstrings/comments for code you touched unless an untouched
-  doc/comment is provably wrong or dangerously misleading.
+Inherited unchanged from `engineer/AGENTS.MD` and not repeated here: documentation-first
+edits (6), preserving docs and comments (7.1), rich docstrings (7.2), reviewability (7.5),
+method size (7.8) and the public API guardrail (7.10). The sections below are this
+overlay's deltas.
 
 ### 5.2) `__init__.py` Policy (No Export Wiring)
 
@@ -22720,32 +22768,6 @@ Whenever you add or modify code:
 - Keep `__init__.py` files empty unless package discovery requires the file to
   exist.
 
-### 5.3) Rich Docstrings Required (No Fluff)
-
-This is not optional. For all public classes and public methods, write
-docstrings that include real contracts, not vibes.
-
-Docstring style: follow the repo's existing style (Google / NumPy / reST). If
-the repo has a pattern, match it exactly.
-
-Minimum content for public API:
-
-- Purpose: what it does and why it exists.
-- Contract: invariants / guarantees / side effects.
-- Parameters: meaning and constraints.
-- Returns: what is returned (or `None`).
-- Raises: what can be raised, and under what conditions.
-- Threading / Concurrency: locks, thread-safety, reentrancy, ordering (when
-  relevant).
-- Lifecycle / Cleanup: ownership, idempotence, teardown ordering (when
-  relevant).
-- Examples: only when it materially clarifies usage; keep short.
-- Typing: always add type hints to signatures, and document complex types in
-  the docstring when needed for clarity.
-
-No fluff rule: do not write marketing copy or filler sentences. If a docstring
-is "rich," it contains precise guarantees.
-
 ### 5.4) Documentation and Convention Precedence
 
 - Before making edits, read and follow existing repository conventions:
@@ -22753,14 +22775,6 @@ is "rich," it contains precise guarantees.
 - Do not invent new conventions if the repo already has a pattern.
 - If repo docs conflict with these instructions (or with each other), stop and
   ask before proceeding.
-
-### 5.5) Reviewability and Change Hygiene
-
-- Keep changes reviewable.
-- Avoid touching large numbers of files in one change unless explicitly
-  requested.
-- When a large change is required, group it by a clear boundary (module/dir)
-  and apply a consistent rule.
 
 ### 5.6) Module Scope: Constants and Pure Helpers Only
 
@@ -22858,24 +22872,6 @@ Cleanup teardown contract:
   needs a retained tombstone field for callers, tests, or diagnostics.
 - If a field is kept as `None` instead of deleted, that must be intentional
   and documented.
-
-### 5.12) Method Size Discipline
-
-- Prefer methods/functions around 50-60 LOC max (counting code only; exclude
-  docstrings, signatures, and blank lines).
-- Split long methods into smaller, testable helpers with clear contracts.
-- Do not fragment code if it reduces clarity; prioritize readable, cohesive
-  units.
-
-### 5.13) Public API Guardrail
-
-- Do not change public API shape or semantics unless explicitly requested.
-- If a public change is unavoidable, prefer:
-  - compatibility adapters/shims, and/or
-  - explicit deprecation paths with documentation.
-- Interfaces may be exposed in public APIs when they mirror the concrete
-  runtime classes. If an interface is exposed, the runtime object must be the
-  concrete implementation and the interface must stay in lockstep with it.
 
 ### 5.14) TYPE_CHECKING-First Injected Collaborator Typing
 
@@ -23099,7 +23095,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -23108,17 +23105,10 @@ Skill classes (non-negotiable)
 Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD`
 - `agent_onboarding/user_defined/synaptic_python_developer/WORKFLOWS.MD`
-- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/synaptic_skill_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/docstrings.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/comments.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/typing.md`
@@ -23129,8 +23119,35 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/error_model.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/module_scope.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/refactor_limits.md`
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+
+- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
+  - Covers: this role's guided onboarding workflow.
+  - Trigger: the user explicitly asks to run `synaptic_python_developer_onboarding`.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
+  - Covers: this role's pytest discipline: test ranking, unit-first rules, coverage and density targets.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
+  - Covers: unit-test conventions for this role.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
+  - Covers: when and how to write integration tests.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
+  - Covers: mocking at real boundaries only.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
+  - Covers: symptom-named regression tests with minimal reproductions.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
+  - Covers: how to report validation evidence truthfully.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
+  - Covers: measured rules for aliasing attributes on hot paths.
+  - Trigger: performance work on a measured hot path, or adding or removing attribute aliases in hot code.
 
 --- END OF FILE: context_compass/agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD ---
 
@@ -25205,6 +25222,11 @@ documentation_format:
     allow_inline_single_path_under_hard_cap: true
 
 reading:
+  # Which readset an agent loads at onboarding and recovery. Missing means lean.
+  # lean - the eager (baseline) readset; each lazy (On-demand) entry is read in
+  #        full when its trigger fires.
+  # full - the eager readset plus every lazy entry in the resolved role chain.
+  mode: lean
   viewer_tool_read_limit: 500 # Maximum lines per view/read operation
   read_loc_max: 500 # Maximum LOC per manual chunked read operation
 
@@ -27578,9 +27600,15 @@ below. All Issue URLs must belong to the configured `issues_repository`.
 The `claim` value is `primary`, `review`, or `support`; `responsibility` says
 what the agent is doing. `owner` is the accountable human or team, and
 `agent_name` is the Context Compass execution identity. A GitHub assignee is
-not an agent identity. Only the primary claim may edit the Issue body; other
-agents send findings through the configured communication backend for the primary writer to append to
-Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+not an agent identity. Keep one primary writer for full-body replacements or
+overlapping mutable-field edits, with latest-content checks and real peer-collision
+reconciliation. Preserve explicit owner-reserved body/closure custody.
+Supported, authorized append-only comments need no body-writer permission or editorial relay
+and have no comment-count cap. No forced copying of every finding into body Notes is required.
+Detailed attributed evidence may remain in comments or authorized linked records; keep current
+state and handoffs coherent at material transitions. Verify account/audience, tool permissions
+and saved readback; never use the comment path to bypass a denied operation.
+Release or transfer claims explicitly at handoff or closure.
 Mailbox and MCP modes use the same local roster/state and Issue claim ownership.
 
 The board ships with empty user regions. In `local` mode leave them inactive;
@@ -29067,6 +29095,135 @@ When completed, move to `context_compass/tickets/tasks/completed/` and rename to
 
 --- END OF FILE: context_compass/tickets/tasks/completed/.gitkeep ---
 
+--- START OF FILE: context_compass/tools/TOKEN_REPORT.md ---
+
+# See What Your Agent Loads
+
+A short file is not always cheap. An artifact board can have a few hundred lines
+and still contain more tokens than a long architecture document. This tool counts
+the actual text and shows how your role and routing choices change the reading map.
+
+It does not shorten anything, change your settings, or tell the agent to skip instructions.
+Running a report is optional, not another onboarding step.
+
+## Install The Optional Counter
+
+For a pip-installed Context Compass:
+
+```sh
+python -m pip install "contextcompass[tokens]"
+```
+
+For a copied `context_compass/` folder, install `tiktoken` in the Python environment
+you use to run the script. The tool never installs packages automatically. On its
+first use, tiktoken may download its public vocabulary. Your project text is counted
+locally, not sent to a model or token-counting API.
+
+## Make A Report
+
+From a repository with an installed `context_compass/` folder:
+
+```sh
+contextcompass token-report --role engineer --out-dir context_compass_report
+```
+
+Or run the Python tool directly:
+
+```sh
+python context_compass/tools/token_report.py --root context_compass --role engineer --out-dir context_compass_report
+```
+
+`--role` selects the route to explain in the report. It does not select or change
+an agent's role: you still ask the agent to onboard as the role you want.
+
+Without `--role`, the tool assumes no role and shows the full comparison instead.
+Without `--out-dir`, it prints Markdown without writing report files.
+For large projects, prefer `--out-dir` so the full inventory does not flood a chat or terminal.
+
+## Compare Your Choices
+
+The report includes every registered role from `SKILLS.MD`, its inherited parents,
+both ticket backends, both message transports, and onboarding versus recovery.
+The selected detail view uses your current YAML settings unless you explicitly
+choose alternatives for the report:
+
+```sh
+contextcompass token-report --role engineer --ticket-backend github_codex_plugin --communication-backend codex_mcp --event reonboard --out-dir context_compass_report
+```
+
+These flags do not edit YAML or enable a connector. They let you compare declared
+reading routes before making a separate configuration decision.
+
+`--reading-mode lean|full` does the same for `reading.mode`. In `lean`, the default,
+each role reads its eager readset and loads lazy (On-demand) entries when their
+trigger fires; in `full`, it also reads every lazy entry at onboarding and recovery:
+
+```sh
+contextcompass token-report --role engineer --reading-mode full --out-dir context_compass_report
+```
+
+## What The Numbers Mean
+
+- **Known tokens:** one copy of the declared full reads plus any precisely identified
+  partial text, with shared paths counted once per route.
+- **Lazy tokens:** the full size of the lazy files a route can load by trigger. `lean`
+  reads them only when needed; `full` moves them into the known total.
+- **Session-specific text:** extra material whose size depends on the agent/session.
+  The mailbox roster is measurable; relevant Notes and addressed messages are not
+  assumed to mean the whole mailbox. A trailing `+` means this extra cost is unresolved.
+- **Full-file reference size:** the size of a file containing a required read. It
+  is not automatically the amount the agent should read. MCP attention-board costs
+  exclude the Message Alerts section.
+- **Conditional and self-directed paths:** shown separately, not added to the
+  baseline. Their full sizes do not establish the cost of a topic-specific slice.
+- **UNKNOWN:** a path was missing, unreadable, binary, too large, excluded, or its
+  declaration could not be resolved. It is not silently counted as zero.
+
+The encoding is explicit: `o200k_base` by default. Use `--encoding` to select another
+tiktoken encoding. The report does not claim that a model alias uses that encoding.
+These are source-text counts, not cumulative chat usage, billing, cached-input or
+reasoning/output measurements.
+
+## Files And Privacy
+
+The output contains:
+
+- `report.md`: route comparisons, the selected inherited paths, optional choices,
+  ranked source sizes and diagnostics.
+- `report.json`: the complete per-route map, reasons, source declaration lines,
+  hashes and inventory metadata.
+- `files.csv`: every inventoried path with its full-file size and measurement status.
+
+CSV protects formula-like filenames when opened in a spreadsheet; JSON retains exact path values.
+
+Keep reports local when their filenames or paths describe private work. The tool
+does not publish them or register them on your boards. Agents should associate any
+retained report with the ticket that needed it under the project's existing rules.
+
+The scan stays inside the selected Context Compass root. It excludes environment,
+cache, Git and harness directories, known credential filenames and generated output
+directories. Individual excluded files remain visible as unmeasured. Files above
+10 MiB are visible but not tokenized; change `--max-file-bytes` if needed, or use `0`
+for no per-file limit. Large scans can still take time and memory.
+
+Select an empty output directory, or reuse one already created by this generator.
+Reporting refuses to overwrite an unrelated directory or replace the input root.
+
+## Reading Rules Remain The Authority
+
+This is a report of the existing registry and declared skill lists, not a new
+onboarding engine. It validates inheritance and documented backend choices but
+does not interpret arbitrary natural-language overrides in `special_instructions/`.
+Those files are included and their possible effect is explicitly disclosed. Global
+harness instructions and task-specific code reads are outside the default scope.
+
+Missing system-orientation documents are skipped only where the manifest says to
+read them when they exist. Other missing baseline paths are reported as unresolved.
+When declarations are unsupported, the report retains diagnostics instead of
+guessing an effective route or pretending the agent is certified.
+
+--- END OF FILE: context_compass/tools/TOKEN_REPORT.md ---
+
 --- START OF FILE: context_compass/tools/build_llm_full.py ---
 
 #!/usr/bin/env python3
@@ -30524,6 +30681,299 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 --- END OF FILE: context_compass/tools/package_manifest.py ---
+
+--- START OF FILE: context_compass/tools/reading_routes.py ---
+
+"""Read the existing role dialect for reporting, not for agent authorization."""
+
+from __future__ import annotations
+
+import pathlib
+import re
+import json
+
+from ticket_backend import backend_from_yaml, BackendConfigError
+
+
+class RouteError(ValueError):
+    """A declaration cannot safely establish a reading route."""
+
+
+GENERAL = "agent_onboarding/default/general/"
+ENTRY = (
+    "AGENTS.MD", "SKILLS.MD", "config/context_compass_config.yaml",
+    GENERAL + "skills/execution_contract.md",
+    GENERAL + "skills/work_tracking_backend.md",
+    GENERAL + "skills/agent_communication_backend.md",
+    GENERAL + "skills/agent_session_state.md",
+    GENERAL + "skills/harness_custom_instructions.md",
+)
+TICKETS = ("local", "github_codex_plugin")
+COMMUNICATIONS = ("mailbox", "codex_mcp")
+EVENTS = ("onboard", "reonboard")
+READING_MODES = ("lean", "full")
+CONDITIONS = {
+    "local backend": ("ticket", "local"),
+    "github codex plugin": ("ticket", "github_codex_plugin"),
+    "mailbox communication": ("communication", "mailbox"),
+    "codex mcp communication": ("communication", "codex_mcp"),
+}
+
+
+def relative_path(root: pathlib.Path, value: str) -> str:
+    value = value.replace("\\", "/")
+    if (pathlib.PureWindowsPath(value).drive or value.startswith("/")
+            or any(char in value for char in "*?[]")):
+        raise RouteError(f"Use a literal Context Compass-relative path: {value}")
+    target = (root / value).resolve()
+    if not target.is_relative_to(root.resolve()):
+        raise RouteError(f"Path leaves the selected Context Compass root: {value}")
+    return target.relative_to(root.resolve()).as_posix()
+
+
+def read_text(root: pathlib.Path, path: str) -> str:
+    target = root / relative_path(root, path)
+    if target.stat().st_size > 2 * 1024 * 1024:
+        raise RouteError(f"Routing declaration exceeds the 2 MiB safety limit: {path}")
+    return target.read_text(encoding="utf-8-sig")
+
+
+def registry(root: pathlib.Path) -> dict:
+    text = read_text(root, "SKILLS.MD")
+    section = re.search(r"(?ms)^## Role registry\s*\n(.*?)(?=^## |\Z)", text)
+    if not section:
+        raise RouteError("SKILLS.MD has no Role registry section")
+    result, paths = {}, set()
+    first_line = text[:section.start(1)].count("\n") + 1
+    for number, line in enumerate(section[1].splitlines(), first_line):
+        if not re.match(r"^\|\s*`[^`]+`\s*\|", line):
+            continue
+        cells = [cell.strip().strip("`") for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 6:
+            raise RouteError("Expected the six-column role registry contract")
+        name, path, parent, user_defined, selectable, readme = cells
+        path = relative_path(root, path)
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", name) or name.casefold() in {x.casefold() for x in result}:
+            raise RouteError(f"Invalid or duplicate registered role: {name}")
+        if path.casefold() in paths:
+            raise RouteError(f"Roles share an ambiguous skills entrypoint: {path}")
+        if any(value not in ("yes", "no") for value in (user_defined, selectable, readme)):
+            raise RouteError(f"Invalid registry flags for {name}")
+        paths.add(path.casefold())
+        result[name] = {"path": path, "parent": None if parent == "-" else parent,
+                        "reads_readme": readme == "yes", "user_defined": user_defined == "yes",
+                        "selectable_after_onboarding": selectable == "yes", "line": number}
+    if not result:
+        raise RouteError("The role registry is empty")
+    return result
+
+
+def heading(line: str):
+    if not line or line.startswith(("-", " ", "|", "```")) or "`" in line:
+        return None
+    label = re.sub(r"^[# ]+", "", line).strip().strip("*").rstrip(":")
+    explicit = line.startswith("#") or line.startswith("**") and line.endswith("**")
+    if not explicit and any(mark in label for mark in ".,;"):
+        return None
+    lower = label.lower()
+    state = None
+    if lower.startswith("on-demand"):
+        state = "on_demand"
+    elif lower.startswith("self-directed"):
+        state = "self_directed"
+    elif len(label) < 120 and ("baseline" in lower or lower == "active skills"):
+        state = "baseline"
+    if state is None:
+        return None
+    condition = next((value for prefix, value in CONDITIONS.items() if lower.startswith(prefix)), None)
+    if_exists = state == "baseline" and bool(re.search(
+        r"\b(?:that exists|if present|when present|if available|when available)\b", lower))
+    if state == "baseline" and condition is None and re.search(r"\b(backend|communication)\b", lower):
+        raise RouteError(f"Unsupported conditional baseline: {label}")
+    if state == "baseline" and condition is None and not if_exists and re.search(r"\b(if|when|unless)\b", lower):
+        raise RouteError(f"Unsupported conditional baseline: {label}")
+    return {"label": label, "state": state, "condition": condition,
+            "if_exists": if_exists}
+
+
+def manifest(root: pathlib.Path, path: str) -> dict:
+    text = read_text(root, path)
+    parents = re.findall(r"(?m)^- `INHERITS_SKILLS_FROM: ([^`]+)`\s*$", text)
+    if len(parents) != 1:
+        raise RouteError(f"Expected one inheritance header in {path}")
+    entries, sections, current = [], [], None
+    lines, fenced = text.splitlines(), False
+    for number, line in enumerate(lines, 1):
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        boundary = (number == 1 or not lines[number - 2].strip() or line.startswith("#")
+                    or line.startswith("**") and line.endswith("**")
+                    or number < len(lines) and lines[number].startswith("- `"))
+        new = heading(line) if boundary else None
+        if new:
+            current = dict(new, line=number, paths=[])
+            sections.append(current)
+            continue
+        if current and current["state"] == "self_directed" and line.startswith("Every system document"):
+            entries.append({"path": "system_docs/", "recursive": True, "source": path,
+                            "line": number, "state": "self_directed", "section": current["label"],
+                            "condition": None, "if_exists": True})
+        if line.startswith("## "):
+            current = None
+        match = re.match(r"^- `([^`]+)`(?:\s.*)?$", line)
+        if not match or match[1].startswith("INHERITS_SKILLS_FROM:"):
+            continue
+        value = match[1]
+        if "/" not in value and "." not in value:
+            continue
+        if current is None:
+            raise RouteError(f"Unclassified skill entry at {path}:{number}: {value}")
+        entry = {"path": relative_path(root, value), "source": path, "line": number,
+                 "state": current["state"], "section": current["label"],
+                 "condition": current["condition"], "if_exists": current["if_exists"]}
+        entries.append(entry)
+        current["paths"].append(entry["path"])
+    return {"parent": None if parents[0] == "none" else relative_path(root, parents[0]),
+            "entries": entries, "sections": sections}
+
+
+def chain(root: pathlib.Path, roles: dict, name: str) -> tuple[list[str], dict]:
+    order, manifests, visiting = [], {}, set()
+
+    def visit(role):
+        if role not in roles:
+            raise RouteError(f"Unregistered parent role: {role}")
+        if role in visiting:
+            raise RouteError(f"Role inheritance cycle at {role}")
+        visiting.add(role)
+        row = roles[role]
+        value = manifest(root, row["path"])
+        parent = row["parent"]
+        expected = roles[parent]["path"] if parent in roles else None
+        if parent and parent not in roles or value["parent"] != expected:
+            raise RouteError(f"Registry and inheritance header disagree for {role}")
+        if parent:
+            visit(parent)
+        visiting.remove(role)
+        manifests[role] = value
+        order.append(role)
+
+    visit(name)
+    return order, manifests
+
+
+def configured_backends(root: pathlib.Path) -> tuple[str, str]:
+    text = read_text(root, "config/context_compass_config.yaml")
+    try:
+        ticket = backend_from_yaml(text)
+    except BackendConfigError as exc:
+        raise RouteError(f"Cannot resolve configured backends: {exc}") from exc
+    lines = text.splitlines()
+    start = next((i for i, line in enumerate(lines) if re.match(
+        r"^(?:agent_communication|'agent_communication'|\"agent_communication\"):", line)), None)
+    if start is None:
+        return ticket, "mailbox"
+    if not re.fullmatch(r"(?:agent_communication|'agent_communication'|\"agent_communication\"):\s*(?:#.*)?", lines[start]):
+        raise RouteError("agent_communication must use a literal block mapping")
+    end = next((i for i in range(start + 1, len(lines))
+                if lines[i].strip() and not lines[i][0].isspace() and not lines[i].startswith("#")), len(lines))
+    block = [line for line in lines[start + 1:end] if line.strip() and not line.lstrip().startswith("#")]
+    if any("\t" in line[:len(line) - len(line.lstrip())] or line.lstrip().startswith("<<:") for line in block):
+        raise RouteError("Unsupported communication mapping indentation or YAML merge")
+    indent = min((len(line) - len(line.lstrip()) for line in block), default=0)
+    selectors = []
+    for line in block:
+        if len(line) - len(line.lstrip()) == indent:
+            match = re.fullmatch(r"\s*(?:backend|'backend'|\"backend\"):\s*(.*?)\s*", line)
+            if match:
+                selectors.append(re.split(r"\s+#", match[1], maxsplit=1)[0].strip())
+    if len(selectors) > 1:
+        raise RouteError("Duplicate agent_communication.backend selector")
+    value = selectors[0] if selectors else "mailbox"
+    if value.startswith('"'):
+        try:
+            value = json.loads(value)
+        except ValueError as exc:
+            raise RouteError("Communication backend must be a literal string") from exc
+    elif value.startswith("'") and value.endswith("'"):
+        value = value[1:-1].replace("''", "'")
+    if value not in COMMUNICATIONS:
+        raise RouteError("Select mailbox or codex_mcp explicitly")
+    return ticket, value
+
+
+def configured_reading_mode(root: pathlib.Path) -> str:
+    """Return `reading.mode` from config: `lean` (also when absent) or `full`."""
+    lines = read_text(root, "config/context_compass_config.yaml").splitlines()
+    start = next((i for i, line in enumerate(lines)
+                  if re.match(r"^(?:reading|'reading'|\"reading\"):", line)), None)
+    if start is None:
+        return "lean"
+    if not re.fullmatch(r"(?:reading|'reading'|\"reading\"):\s*(?:#.*)?", lines[start]):
+        raise RouteError("reading must use a literal block mapping")
+    end = next((i for i in range(start + 1, len(lines))
+                if lines[i].strip() and not lines[i][0].isspace() and not lines[i].startswith("#")), len(lines))
+    block = [line for line in lines[start + 1:end] if line.strip() and not line.lstrip().startswith("#")]
+    indent = min((len(line) - len(line.lstrip()) for line in block), default=0)
+    values = []
+    for line in block:
+        match = re.fullmatch(r"\s*(?:mode|'mode'|\"mode\"):\s*(.*?)\s*", line)
+        if match and len(line) - len(line.lstrip()) == indent:
+            values.append(re.split(r"\s+#", match[1], maxsplit=1)[0].strip().strip("'\""))
+    if len(values) > 1:
+        raise RouteError("Duplicate reading.mode selector")
+    value = values[0] if values else "lean"
+    if value not in READING_MODES:
+        raise RouteError("Select reading.mode lean or full explicitly")
+    return value
+
+
+def requirements(root, roles, name, ticket, communication, event, special_paths, resolved=None,
+                 reading_mode="lean"):
+    if reading_mode not in READING_MODES:
+        raise RouteError(f"Unsupported reading mode: {reading_mode}")
+    order, manifests = resolved or chain(root, roles, name)
+    entry_text = read_text(root, "AGENTS.MD")
+    def locate(label):
+        return next((i for i, line in enumerate(entry_text.splitlines(), 1) if line.startswith(label)), None)
+    required = [{"path": path, "reason": "Runtime entrypoint", "source": "AGENTS.MD",
+                 "line": locate("## Onboarding Gate"), "state": "baseline", "if_exists": False} for path in ENTRY]
+    if event == "reonboard":
+        required.append({"path": GENERAL + "skills/compaction_requirements.md",
+                         "reason": "Recovery entrypoint", "source": "AGENTS.MD", "line": locate("## Compaction Directive"),
+                         "state": "baseline", "if_exists": False})
+    required += [{"path": path, "reason": "Project special instructions", "source": "AGENTS.MD",
+                  "line": locate("## Project Instructions Bootstrap"), "state": "baseline", "if_exists": False} for path in special_paths]
+    required.append({"path": "mailbox_board.md", "reason": "Shared session state; relevant Notes/messages remain session-specific",
+                     "source": GENERAL + "skills/agent_session_state.md", "line": 9,
+                     "state": "baseline", "if_exists": False})
+    optional, sections = [], []
+    for role in order:
+        row, value = roles[role], manifests[role]
+        required.append({"path": row["path"], "reason": f"Role manifest: {role}",
+                         "source": "SKILLS.MD", "line": row["line"], "state": "baseline", "if_exists": False})
+        if row["reads_readme"]:
+            required.append({"path": str(pathlib.PurePosixPath(row["path"]).parent / "README.md"),
+                             "reason": f"Registry README policy: {role}", "source": "SKILLS.MD",
+                             "line": row["line"], "state": "baseline", "if_exists": False})
+        sections += [dict(section, source=row["path"]) for section in value["sections"]
+                     if section["state"] != "baseline"]
+        for entry in value["entries"]:
+            condition = entry.get("condition")
+            if condition and {"ticket": ticket, "communication": communication}[condition[0]] != condition[1]:
+                continue
+            entry = dict(entry, reason=f"{role}: {entry['section']}")
+            eager = entry["state"] == "baseline" or (reading_mode == "full" and entry["state"] == "on_demand")
+            if eager and entry["state"] == "on_demand":
+                entry["reason"] += " (reading.mode full)"
+            (required if eager else optional).append(entry)
+    return {"role_chain": order, "required": required, "optional": optional,
+            "optional_sections": sections}
+
+--- END OF FILE: context_compass/tools/reading_routes.py ---
 
 --- START OF FILE: context_compass/tools/system_documents/index_document.py ---
 
@@ -33937,6 +34387,374 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 --- END OF FILE: context_compass/tools/ticket_design.py ---
+
+--- START OF FILE: context_compass/tools/token_report.py ---
+
+#!/usr/bin/env python3
+"""Inventory Context Compass text and explain the cost of its declared reading routes."""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import datetime
+import hashlib
+import importlib.metadata
+import itertools
+import json
+import os
+import pathlib
+import re
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+_bytecode_setting = sys.dont_write_bytecode
+sys.dont_write_bytecode = True
+try:
+    from reading_routes import (  # noqa: E402
+        RouteError, TICKETS, COMMUNICATIONS, EVENTS, READING_MODES, registry, chain,
+        configured_backends, configured_reading_mode, relative_path, requirements,
+    )
+finally:
+    sys.dont_write_bytecode = _bytecode_setting
+
+GENERATOR = "contextcompass.token_report.v1"
+SKIP_DIRS = {".git", ".venv", "venv", "__pycache__", "node_modules", ".codex", ".agents"}
+SENSITIVE_NAMES = {"auth.json", "credentials", "credentials.json", "id_rsa", "id_ed25519",
+                   "secrets.json", "secrets.yml", "secrets.yaml"}
+
+
+def generated_directory(path):
+    marker = path / "report.json"
+    if marker.is_symlink() or not marker.is_file():
+        return False
+    try:
+        with marker.open("rb") as stream:
+            head = stream.read(256).decode("utf-8")
+        return bool(re.match(r'\s*\{\s*"generator"\s*:\s*"' + re.escape(GENERATOR) + '"', head))
+    except (OSError, UnicodeError):
+        return False
+
+
+def tokenizer(name):
+    try:
+        import tiktoken
+    except ImportError as exc:
+        raise RouteError("Token reporting needs the optional tokenizer: pip install 'contextcompass[tokens]' "
+                         "(or install tiktoken for a copied payload). Nothing was installed automatically.") from exc
+    try:
+        encoding = tiktoken.get_encoding(name)
+    except Exception as exc:
+        raise RouteError(f"Cannot load encoding {name!r}: {exc}. The public vocabulary may need caching first.") from exc
+    return lambda text: len(encoding.encode_ordinary(text)), importlib.metadata.version("tiktoken")
+
+
+def section(text, heading):
+    match = re.search(rf"(?m)^## {re.escape(heading)}[ \t]*\r?$", text)
+    if not match:
+        return None
+    end = re.search(r"(?m)^## ", text[match.end():])
+    stop = match.end() + end.start() if end else len(text)
+    return text[match.start():stop], match.start(), stop
+
+
+class Inventory:
+    def __init__(self, root, counter, max_bytes, output=None):
+        self.root, self.counter, self.max_bytes = root.resolve(), counter, max_bytes
+        self.files, self.warnings, self.scopes = {}, [], {}
+        self.board_text = {}
+        for directory, dirs, names in os.walk(self.root, followlinks=False,
+                                               onerror=lambda exc: self.warnings.append(str(exc))):
+            for name in list(dirs):
+                path = pathlib.Path(directory) / name
+                linked = path.is_symlink() or getattr(path, "is_junction", lambda: False)()
+                if (name.casefold() in SKIP_DIRS or linked or output and path.resolve() == output.resolve()
+                        or generated_directory(path)):
+                    dirs.remove(name)
+                    self.warnings.append(f"Excluded directory: {path.relative_to(self.root).as_posix()}")
+            for name in sorted(names):
+                path = pathlib.Path(directory) / name
+                key = path.relative_to(self.root).as_posix()
+                row = {"path": key, "tokens": None, "status": "pending"}
+                self.files[key] = row
+                try:
+                    if path.is_symlink():
+                        row["status"] = "excluded_link"
+                        continue
+                    row["bytes"] = path.stat().st_size
+                    if (name.casefold().startswith(".env") or name.casefold() in SENSITIVE_NAMES or
+                            path.suffix.lower() in (".key", ".pem", ".p12", ".pfx", ".pyc", ".pyo")):
+                        row["status"] = "excluded_sensitive_or_cache"
+                        continue
+                    if max_bytes and row["bytes"] > max_bytes:
+                        row["status"] = "over_size_limit"
+                        continue
+                    before = path.stat()
+                    raw = path.read_bytes()
+                    row["sha256"] = hashlib.sha256(raw).hexdigest()
+                    if b"\0" in raw:
+                        row["status"] = "binary"
+                        continue
+                    text = raw.decode("utf-8")
+                    after = path.stat()
+                    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+                        row["status"] = "changed_during_read"
+                        continue
+                    row.update(tokens=counter(text), lines=len(text.splitlines()),
+                               characters=len(text), status="measured")
+                    if key in ("mailbox_board.md", "attention_board.md"):
+                        self.board_text[key] = text
+                except UnicodeError:
+                    row["status"] = "non_utf8"
+                except OSError as exc:
+                    row.update(status="unreadable", error=str(exc))
+
+    def get(self, path):
+        key = relative_path(self.root, path)
+        if key not in self.files:
+            self.files[key] = {"path": key, "tokens": None,
+                               "status": "directory_reference" if (self.root / key).is_dir() else "missing"}
+        return self.files[key]
+
+    def scope(self, path, communication):
+        key = (path, communication)
+        if key in self.scopes:
+            return self.scopes[key]
+        row = self.get(path)
+        scope = {"known_tokens": row["tokens"], "scope": "full_file", "unresolved": None}
+        if row["status"] == "measured" and path == "mailbox_board.md":
+            roster = section(self.board_text[path], "Checked-In Agents")
+            scope = {"known_tokens": self.counter(roster[0]) if roster else None,
+                     "scope": "roster_plus_session_specific_text",
+                     "unresolved": "Relevant session Notes" + (" and addressed Messages" if communication == "mailbox" else "")}
+        elif row["status"] == "measured" and path == "attention_board.md" and communication == "codex_mcp":
+            text = self.board_text[path]
+            alerts = section(text, "Message Alerts")
+            projected = text[:alerts[1]] + text[alerts[2]:] if alerts else text
+            scope.update(known_tokens=self.counter(projected), scope="excluding_message_alerts")
+        self.scopes[key] = scope
+        return scope
+
+
+def calculate_route(inventory, declarations, communication):
+    paths = {}
+    for entry in declarations["required"]:
+        row = inventory.get(entry["path"])
+        if entry["if_exists"] and row["status"] == "missing":
+            continue
+        value = paths.setdefault(row["path"], dict(path=row["path"], status=row["status"],
+            full_file_tokens=row["tokens"], reasons=[], **inventory.scope(row["path"], communication)))
+        value["reasons"].append({"reason": entry["reason"], "source": entry["source"], "line": entry["line"]})
+    optional = []
+    optional_keys = set()
+    for entry in declarations["optional"]:
+        candidates = ([p for p in list(inventory.files) if p.startswith(entry["path"]) and p not in paths]
+                      if entry.get("recursive") else [entry["path"]])
+        for path in candidates:
+            row = inventory.get(path)
+            key = (row["path"], entry["state"])
+            if key not in optional_keys:
+                optional_keys.add(key)
+                optional.append(dict(entry, path=row["path"], tokens=row["tokens"], status=row["status"]))
+    lazy = {row["path"]: row["tokens"] or 0 for row in optional
+            if row["state"] == "on_demand" and row["path"] not in paths}
+    return {"role_chain": declarations["role_chain"], "paths": list(paths.values()),
+            "known_tokens": sum(p["known_tokens"] or 0 for p in paths.values()),
+            "lazy_tokens": sum(lazy.values()),
+            "full_file_reference_tokens": sum(p["full_file_tokens"] or 0 for p in paths.values()),
+            "unmeasured_paths": [p["path"] for p in paths.values() if p["known_tokens"] is None],
+            "session_specific_paths": [p["path"] for p in paths.values() if p["unresolved"]],
+            "optional_paths": optional, "optional_sections": declarations["optional_sections"]}
+
+
+def build_report(root, counter, encoding="o200k_base", version="injected", role=None,
+                 ticket=None, communication=None, event="onboard", max_bytes=10 * 1024 * 1024, output=None,
+                 reading_mode=None):
+    root = root.resolve()
+    if not (root / "AGENTS.MD").is_file():
+        raise RouteError("Select an existing Context Compass root containing AGENTS.MD")
+    roles = registry(root)
+    if role and role not in roles:
+        raise RouteError(f"Unregistered role: {role}")
+    configured_ticket, configured_communication = configured_backends(root)
+    configured_mode = configured_reading_mode(root)
+    ticket, communication = ticket or configured_ticket, communication or configured_communication
+    mode = reading_mode or configured_mode
+    if ticket not in TICKETS or communication not in COMMUNICATIONS or event not in EVENTS:
+        raise RouteError("Unsupported ticket, communication or entry-event selection")
+    if mode not in READING_MODES:
+        raise RouteError("Unsupported reading mode selection")
+    inventory = Inventory(root, counter, max_bytes, output)
+    specials = sorted(p for p, row in inventory.files.items()
+                      if p.startswith("special_instructions/") and pathlib.PurePosixPath(p).suffix.lower() == ".md")
+    routes = []
+    for name in roles:
+        try:
+            resolved, error = chain(root, roles, name), None
+        except (RouteError, OSError, UnicodeError) as exc:
+            resolved, error = None, str(exc)
+        for tickets, transport, entry_event in itertools.product(TICKETS, COMMUNICATIONS, EVENTS):
+            route = {"id": f"{name}/{tickets}/{transport}/{entry_event}", "role": name,
+                     "ticket_backend": tickets, "communication_backend": transport, "event": entry_event,
+                     "reading_mode": mode}
+            if error:
+                route.update(status="unresolved", error=error, known_tokens=None)
+            else:
+                try:
+                    declared = requirements(root, roles, name, tickets, transport, entry_event, specials,
+                                            resolved, mode)
+                    route.update(calculate_route(inventory, declared, transport), status="resolved_declarations")
+                except (RouteError, OSError, UnicodeError) as exc:
+                    route.update(status="unresolved", error=str(exc), known_tokens=None)
+            routes.append(route)
+    selected = f"{role}/{ticket}/{communication}/{event}" if role else None
+    for row in inventory.files.values():
+        row.update(baseline_route_count=0, optional_route_count=0, read_states=set())
+    for route in routes:
+        for key, count_field in (("paths", "baseline_route_count"), ("optional_paths", "optional_route_count")):
+            for entry in route.get(key, []):
+                row = inventory.files[entry["path"]]
+                row[count_field] += 1
+                row["read_states"].add("baseline" if key == "paths" else entry["state"])
+    for row in inventory.files.values():
+        row["read_states"] = sorted(row["read_states"]) or ["not_declared_in_routes"]
+    return {"generator": GENERATOR, "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "encoding": encoding, "tokenizer_version": version, "root": str(root),
+            "selected_route": selected, "configured_backends": {"ticket": configured_ticket, "communication": configured_communication},
+            "reading_mode": {"selected": mode, "configured": configured_mode},
+            "roles": roles, "routes": routes, "files": sorted(inventory.files.values(), key=lambda r: r["path"]),
+            "warnings": inventory.warnings,
+            "limits": ["Source text for the explicit encoding, not model-specific request, billing or cumulative usage.",
+                       "Declared routes only: prose project overrides and additional runtime/task reads require human interpretation.",
+                       "Mailbox relevant Notes/messages are session-specific; known totals are lower bounds, not full mailbox charges.",
+                       "Optional full-file sizes are not mandatory reads or exact costs of topic-specific slices.",
+                       "Only this Context Compass root is scanned; global harness instructions are outside scope.",
+                       "Backend cost comparisons do not verify connector access, account permissions or configuration readiness.",
+                       "Files are individual snapshots; concurrent changes can invalidate comparisons."]}
+
+
+def markdown(report):
+    measured = [row for row in report["files"] if row["status"] == "measured"]
+    out = ["# Context Compass Token Report", "", f"Generated: {report['generated_at']}", "",
+           f"Tokenizer: tiktoken {report['tokenizer_version']}; explicit encoding: `{report['encoding']}`.",
+           f"Inventory: {len(report['files'])} paths; {len(measured)} measured; {len(report['roles'])} registered roles.",
+           f"Reading mode: `{report['reading_mode']['selected']}` (configured: `{report['reading_mode']['configured']}`). "
+           "`lean` reads lazy entries when their trigger fires; `full` reads them at onboarding and recovery.", "",
+           "This is a map of declared reading choices, not a change to agent instructions.", "",
+           "## How To Read This Report", ""]
+    out += ["- " + value for value in report["limits"]]
+    out += ["", "## Registered Roles", "",
+            "These flags come from the existing registry, not from token size. Entry-only roles are not steady-state alternatives.", "",
+            "| Role | Parent | Steady-state selection | User-defined | Role README |",
+            "| --- | --- | --- | --- | --- |"]
+    for name, role in report["roles"].items():
+        out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
+    out += ["", "## All Route Choices", "",
+            "Each role is expanded across both ticket backends, both communication modes and onboarding/recovery.",
+            "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.",
+            "Lazy tokens are the full files this route can load by trigger; `full` mode adds them up front.", "",
+            "| Role | Ticket backend | Messages | Entry | Known tokens | Lazy tokens | Unmeasured paths | Session-specific paths |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: |"]
+    for route in report["routes"]:
+        if route["status"] == "unresolved":
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | UNKNOWN | - | declaration error | - |")
+        else:
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | {route['known_tokens']:,}+ | {route['lazy_tokens']:,} | {len(route['unmeasured_paths'])} | {len(route['session_specific_paths'])} |")
+    out += ["", "## Selected Route And Inherited Paths", ""]
+    selected = next((r for r in report["routes"] if r["id"] == report["selected_route"]), None)
+    if selected and selected["status"] != "unresolved":
+        out += [f"`{selected['id']}`", "", "Inheritance: " + " -> ".join(selected["role_chain"]), "",
+                "| Path | Known tokens | Full-file reference size | Read scope | Why included |",
+                "| --- | ---: | ---: | --- | --- |"]
+        for row in selected["paths"]:
+            why = "; ".join(dict.fromkeys(x["reason"] for x in row["reasons"]))
+            out.append(f"| `{row['path']}` | {row['known_tokens'] if row['known_tokens'] is not None else 'UNKNOWN'} | {row['full_file_tokens'] if row['full_file_tokens'] is not None else 'UNKNOWN'} | {row['scope']} | {why} |")
+        out += ["", "### Conditional And Self-Directed Choices", "",
+                "These are not added to the baseline. Their listed sizes refer to full files; actual triggers/slices are a separate choice.", "",
+                "| Path | State | Full-file tokens | Declaration |", "| --- | --- | ---: | --- |"]
+        for row in selected["optional_paths"]:
+            out.append(f"| `{row['path']}` | {row['state']} | {row['tokens'] if row['tokens'] is not None else 'UNKNOWN'} | `{row['source']}:{row['line']}` |")
+        for value in selected["optional_sections"]:
+            if not value["paths"]:
+                out.append(f"\n- `{value['source']}:{value['line']}` declares **{value['label']}** without explicit paths; read its stated conditions rather than assuming zero extra work.")
+    elif selected:
+        out.append("Selected route is unresolved: " + selected["error"])
+    else:
+        out.append("No role was assumed. Use `--role <registered-name>` for an inherited per-path explanation; all route choices are shown above.")
+    out += ["", "## Every Path By Source Size", "",
+            "This inventory includes tools, examples, inactive roles and user state. Its total is NOT one onboarding readset.", "",
+            "| Path | Full-file tokens | Lines | Read states | Baseline routes | Status |", "| --- | ---: | ---: | --- | ---: | --- |"]
+    for row in sorted(report["files"], key=lambda r: (-(r.get("tokens") or 0), r["path"])):
+        out.append(f"| `{row['path']}` | {row['tokens'] if row['tokens'] is not None else 'UNKNOWN'} | {row.get('lines', '-')} | {', '.join(row['read_states'])} | {row['baseline_route_count']} | {row['status']} |")
+    errors = sorted({r["error"] for r in report["routes"] if r["status"] == "unresolved"})
+    out += ["", "## Diagnostics", ""]
+    out += ["- " + value for value in errors + report["warnings"]] or ["- No declaration or scan errors."]
+    out += ["", "JSON contains the full per-route path/reason maps, including source declaration lines. CSV contains every inventory path.",
+            "Keep generated reports local when they include private path metadata."]
+    return "\n".join(out) + "\n"
+
+
+def write_report(report, output):
+    output = output.resolve()
+    root = pathlib.Path(report["root"])
+    if output == root or root.is_relative_to(output):
+        raise RouteError("Report output must not replace the input root or one of its ancestors")
+    for name in ("report.json", "report.md", "files.csv"):
+        if (output / name).is_symlink():
+            raise RouteError("Report destinations must not be symbolic links")
+    if output.exists() and any(output.iterdir()):
+        if not generated_directory(output):
+            raise RouteError("Select an empty output directory or one already owned by this report generator")
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (output / "report.md").write_text(markdown(report), encoding="utf-8")
+    with (output / "files.csv").open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, ["path", "tokens", "lines", "bytes", "status", "sha256", "baseline_route_count", "optional_route_count", "read_states"], extrasaction="ignore")
+        writer.writeheader()
+        for row in report["files"]:
+            record = dict(row, read_states=";".join(row["read_states"]))
+            if record["path"].startswith(("=", "+", "-", "@", "\t", "\r")):
+                record["path"] = "'" + record["path"]
+            writer.writerow(record)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=pathlib.Path, required=True)
+    parser.add_argument("--role", help="registered role for the detailed explanation; no role is assumed")
+    parser.add_argument("--ticket-backend", choices=TICKETS)
+    parser.add_argument("--communication-backend", choices=COMMUNICATIONS)
+    parser.add_argument("--event", choices=EVENTS, default="onboard")
+    parser.add_argument("--reading-mode", choices=READING_MODES,
+                        help="lean loads lazy entries by trigger; full reads them up front; default: config")
+    parser.add_argument("--encoding", default="o200k_base")
+    parser.add_argument("--max-file-bytes", type=int, default=10 * 1024 * 1024,
+                        help="larger files stay visible as unmeasured; 0 means unlimited")
+    parser.add_argument("--out-dir", type=pathlib.Path, help="write Markdown, JSON and CSV; otherwise print Markdown")
+    args = parser.parse_args(argv)
+    try:
+        if args.max_file_bytes < 0:
+            raise RouteError("--max-file-bytes cannot be negative")
+        count, version = tokenizer(args.encoding)
+        report = build_report(args.root, count, args.encoding, version, args.role,
+                              args.ticket_backend, args.communication_backend, args.event,
+                              args.max_file_bytes, args.out_dir, reading_mode=args.reading_mode)
+        if args.out_dir:
+            write_report(report, args.out_dir)
+            print(f"REPORT: {args.out_dir.resolve() / 'report.md'}")
+            print(f"  {len(report['files'])} paths; {len(report['routes'])} route choices; encoding {args.encoding}")
+        else:
+            print(markdown(report), end="")
+        return int(any(r["status"] == "unresolved" for r in report["routes"]))
+    except (RouteError, OSError, UnicodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+--- END OF FILE: context_compass/tools/token_report.py ---
 
 --- START OF FILE: context_compass/tools/update_context_compass.py ---
 

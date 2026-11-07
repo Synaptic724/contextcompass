@@ -18,10 +18,12 @@ classifiers = [
     "Topic :: Software Development :: Documentation",
 ]
 
-# The payload is Markdown and stdlib-only Python. An agent that has to install
-# something before it can read a document is an agent that cannot read the
-# document on a fresh clone.
+# Reading the payload and ordinary CLI commands need no dependencies. Token
+# reporting is an optional tool; it must not become an onboarding prerequisite.
 dependencies = []
+
+[project.optional-dependencies]
+tokens = ["tiktoken>=0.12,<1"]
 
 [project.urls]
 Homepage = "https://github.com/Synaptic724/context_compass"
@@ -31,7 +33,7 @@ Repository = "https://github.com/Synaptic724/context_compass"
 contextcompass = "contextcompass_cli.__main__:main"
 
 [dependency-groups]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "tiktoken>=0.12,<1"]
 
 [build-system]
 requires = ["hatchling"]

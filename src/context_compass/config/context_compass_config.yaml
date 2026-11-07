@@ -133,6 +133,11 @@ documentation_format:
     allow_inline_single_path_under_hard_cap: true
 
 reading:
+  # Which readset an agent loads at onboarding and recovery. Missing means lean.
+  # lean - the eager (baseline) readset; each lazy (On-demand) entry is read in
+  #        full when its trigger fires.
+  # full - the eager readset plus every lazy entry in the resolved role chain.
+  mode: lean
   viewer_tool_read_limit: 500 # Maximum lines per view/read operation
   read_loc_max: 500 # Maximum LOC per manual chunked read operation
 

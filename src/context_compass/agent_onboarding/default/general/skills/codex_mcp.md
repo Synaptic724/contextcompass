@@ -71,7 +71,13 @@ or new-agent creation belongs in this protocol.
 - Full-body replacements and overlapping mutable fields retain latest-content/revision and
   writer coordination. Supported append-only comments need no body-writer permission; verify
   their saved readback. No full-policy reread is added per ordinary comment.
-- Keep one writer per ticket file or Issue body replacement. Leave shared-board updates
-  to the designated coordinator where applicable.
+- Keep one writer per ticket file or Issue body replacement. Preserve explicit
+  owner-reserved body/closure custody and platform denials.
+- Message transport does not assign board custody. Under an owner-selected worker-owned policy,
+  workers maintain and routinely repair their own assigned board, claim and route entries
+  directly, without a coordinator gate. Distinct coordination authority requires explicit
+  applicable owner delegation; do not assume it overrides worker ownership.
+  Resolve unknown ownership, real peer claim collisions or interfering writes before the
+  affected action; unrelated authorized work may continue.
 - If contact selectors are ambiguous, tool access fails, or pause state is
   unclear, stop and ask the owner. No silent transport fallback.

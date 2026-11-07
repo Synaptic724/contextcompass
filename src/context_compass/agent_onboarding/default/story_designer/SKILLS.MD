@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/story_designer/behavioral_guidelines/story_designer_workflow.md`
 - `agent_onboarding/default/story_designer/examples/story_designer_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-book or series architecture.
-- Task requires cross-genre adaptation of the same premise.
-- Task requires retrospective architecture salvage of an existing manuscript.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/story_designer/skills/story_designer_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced story designer work.
+  - Trigger: any one of these.
+    - Task requires multi-book or series architecture.
+    - Task requires cross-genre adaptation of the same premise.
+    - Task requires retrospective architecture salvage of an existing manuscript.
+  - Do not proceed in that specialized scope until this file is read.

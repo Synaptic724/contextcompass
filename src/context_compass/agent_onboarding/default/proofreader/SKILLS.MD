@@ -33,12 +33,12 @@ Required baseline skills
 - `agent_onboarding/default/proofreader/behavioral_guidelines/proofreader_workflow.md`
 - `agent_onboarding/default/proofreader/examples/proofreader_task_flow.md`
 
-On-demand role-context skills
-Trigger conditions (any one makes these mandatory):
-- Task requires multi-format proofing (print, epub, web).
-- Task requires house-style migration for publication target.
-- Task requires emergency release lock under strict deadline.
+On-demand role-context skills (lazy readset index)
 
-If triggered:
 - `agent_onboarding/default/proofreader/skills/proofreader_advanced_context.md`
-- Do not proceed in this specialized scope until the on-demand read is satisfied.
+  - Covers: the extra requirements for advanced proofreader work.
+  - Trigger: any one of these.
+    - Task requires multi-format proofing (print, epub, web).
+    - Task requires house-style migration for publication target.
+    - Task requires emergency release lock under strict deadline.
+  - Do not proceed in that specialized scope until this file is read.

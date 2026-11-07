@@ -2,8 +2,9 @@
 
 ## Set Up Locally
 
-The shipped tools use the standard library and support Python 3.10 and newer.
-Development uses pytest, declared in the `dev` dependency group. From the root:
+Base tools use the standard library and support Python 3.10 and newer. Optional
+token reporting uses tiktoken. Development includes pytest and that tokenizer
+in the `dev` dependency group so real counting tests run. From the root:
 
 ```sh
 uv sync --group dev
@@ -47,6 +48,7 @@ These are entry points, not separate release gates:
 | Graph extraction and authored-data preservation | `tests/integration/test_authoring_lifecycle.py`, `tests/integration/test_graph_pipeline.py`, `tests/unit/test_graph_units.py` |
 | Graph-generated tickets | `tests/integration/test_semantics_tickets.py` |
 | Document indexes and review dumps | `tests/integration/test_index_lifecycle.py`, `tests/integration/test_llm_full.py`, `tests/unit/test_index_units.py` |
+| Token counts and reading-route reports | `tests/unit/test_token_report.py`, `tests/integration/test_token_report_cli.py` |
 | Previously reported failures | `tests/regression/test_known_failures.py` |
 
 For example:
