@@ -20,7 +20,7 @@ _bytecode_setting = sys.dont_write_bytecode
 sys.dont_write_bytecode = True
 try:
     from reading_routes import (  # noqa: E402
-        RouteError, TICKETS, COMMUNICATIONS, EVENTS, READING_MODES, registry, chain,
+        RouteError, TICKETS, COMMUNICATIONS, CHAT_TRANSPORTS, EVENTS, READING_MODES, registry, chain,
         configured_backends, configured_reading_mode, relative_path, requirements,
     )
 finally:
@@ -135,7 +135,7 @@ class Inventory:
             scope = {"known_tokens": self.counter(roster[0]) if roster else None,
                      "scope": "roster_plus_session_specific_text",
                      "unresolved": "Relevant session Notes" + (" and addressed Messages" if communication == "mailbox" else "")}
-        elif row["status"] == "measured" and path == "attention_board.md" and communication == "codex_mcp":
+        elif row["status"] == "measured" and path == "attention_board.md" and communication in CHAT_TRANSPORTS:
             text = self.board_text[path]
             alerts = section(text, "Message Alerts")
             projected = text[:alerts[1]] + text[alerts[2]:] if alerts else text
@@ -258,7 +258,7 @@ def markdown(report):
     for name, role in report["roles"].items():
         out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
     out += ["", "## All Route Choices", "",
-            "Each role is expanded across every ticket backend, both communication modes and onboarding/recovery.",
+            "Each role is expanded across every ticket backend, every communication mode and onboarding/recovery.",
             "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.",
             "Lazy tokens are the full files this route can load by trigger; `full` mode adds them up front.", "",
             "| Role | Ticket backend | Messages | Entry | Known tokens | Lazy tokens | Unmeasured paths | Session-specific paths |",

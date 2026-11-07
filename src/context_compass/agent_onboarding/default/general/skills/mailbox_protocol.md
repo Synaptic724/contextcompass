@@ -1,9 +1,10 @@
 # Mailbox Protocol
 
 This skill applies only when `agent_communication.backend` resolves to
-`mailbox` (the default when absent). In `codex_mcp` mode skip the checking,
-sending, and receiving sections below and use `codex_mcp.md` for transport.
-Maintain shared presence and setup outcomes in both modes through
+`mailbox` (the default when absent). In `codex_mcp` or
+`claude_internal_communication` mode skip the checking, sending, and receiving
+sections below and use that transport's skill.
+Maintain shared presence and setup outcomes in every mode through
 `agent_session_state.md`; existing board columns and schemas are unchanged.
 
 Canonical board: `context_compass/mailbox_board.md`.

@@ -101,7 +101,7 @@ def test_distinct_findings_can_use_multiple_comments_without_body_copy(relative)
 
 @pytest.mark.parametrize("relative", [
     "skills/github/workflow.md", "skills/github/codex_plugin.md",
-    "skills/ticket_design.md", "skills/codex_mcp.md",
+    "skills/ticket_design.md", "skills/codex_mcp.md", "skills/claude_internal_communication.md",
 ])
 def test_busy_body_writer_does_not_own_independent_append_only_comments(relative):
     text = normalized(GENERAL / relative)

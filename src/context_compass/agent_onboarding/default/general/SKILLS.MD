@@ -100,7 +100,12 @@ Read this path only when `agent_communication.backend` resolves to
 `codex_mcp`.
 - `agent_onboarding/default/general/skills/codex_mcp.md`
 
-Every shared-state instruction stays baseline in both transports.
+Claude internal communication baseline
+Read this path only when `agent_communication.backend` resolves to
+`claude_internal_communication`: teams of Claude agents only.
+- `agent_onboarding/default/general/skills/claude_internal_communication.md`
+
+Every shared-state instruction stays baseline in every transport.
 
 Note on the board paths. With local boards, `attention_board.md` and, in plugin
 mode, `issue_board.md` are eager reads, but they are **live mutable state, not

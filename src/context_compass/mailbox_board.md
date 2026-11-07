@@ -50,8 +50,9 @@ Purpose
 - Shared state: `agent_onboarding/default/general/skills/agent_session_state.md`.
 - Unused in `github_issues` mode: agent issues hold the roster, setup notes and
   messages (`agent_onboarding/default/general/skills/github/issues_backend.md`).
-- Message transport: `agent_communication.backend` in the config selects mailbox or codex_mcp.
-  MCP agents read only Checked-In Agents and relevant Notes; they skip
+- Message transport: `agent_communication.backend` in the config selects mailbox,
+  codex_mcp or claude_internal_communication. Agents on codex_mcp or
+  claude_internal_communication read only Checked-In Agents and relevant Notes; they skip
   the messaging rules below and the Messages region. Existing messages remain untouched.
 
 Shared state rules

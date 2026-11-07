@@ -32,13 +32,14 @@ def readsets():
             ("github_codex_plugin", "GitHub Codex plugin baseline"),
             ("mailbox", "Mailbox communication baseline"),
             ("codex_mcp", "Codex MCP communication baseline"),
+            ("claude_internal_communication", "Claude internal communication baseline"),
         )
     }
 
 
 @pytest.mark.parametrize("role", sorted(registered_roles()))
 @pytest.mark.parametrize("ticket_backend", ["local", "github_codex_plugin"])
-@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp"])
+@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp", "claude_internal_communication"])
 def test_every_role_resolves_independent_ticket_and_message_baselines(role, ticket_backend, communication):
     rows, sets = registered_roles(), readsets()
     active, seen, current = set(), set(), role
@@ -60,8 +61,8 @@ def test_every_role_resolves_independent_ticket_and_message_baselines(role, tick
         assert "agent_session_state.md" in gate
     else:
         assert sets[communication] <= active
-        inactive = "mailbox" if communication == "codex_mcp" else "codex_mcp"
-        assert not sets[inactive] & active
+        for inactive in {"mailbox", "codex_mcp", "claude_internal_communication"} - {communication}:
+            assert not sets[inactive] & active
         inactive_ticket = "local" if ticket_backend == "github_codex_plugin" else "github_codex_plugin"
         assert not sets[inactive_ticket] & active
         assert GENERAL + "skills/agent_session_state.md" in active
@@ -81,6 +82,8 @@ def test_default_and_message_only_boundary():
     sets = readsets()
     assert sets["mailbox"] == {GENERAL + "skills/mailbox_protocol.md"}
     assert sets["codex_mcp"] == {GENERAL + "skills/codex_mcp.md"}
+    assert sets["claude_internal_communication"] == {GENERAL + "skills/claude_internal_communication.md"}
+    assert not sets["claude_internal_communication"] & sets["shared"]
     assert not sets["mailbox"] & sets["shared"]
     assert not sets["codex_mcp"] & sets["shared"]
 
@@ -164,7 +167,7 @@ def test_mcp_does_not_disable_non_message_attention_flags():
     board = normalized(read("attention_board.md"))
     mcp = normalized(read(GENERAL + "skills/codex_mcp.md"))
     assert "Non-mailbox blockers and cross-agent flags" in board
-    assert "remain active in both modes" in board
+    assert "remain active in every mode" in board
     assert "skipping mailbox notices does not deactivate" in mcp
 
 
@@ -186,7 +189,7 @@ def test_transport_changes_preserve_every_original_user_region(path, tmp_path):
 
 
 @pytest.mark.parametrize("ticket_backend", ["local", "github_codex_plugin"])
-@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp"])
+@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp", "claude_internal_communication"])
 def test_upgrade_never_changes_selected_modes(ticket_backend, communication):
     current = (
         f"work_tracking:\n  backend: {ticket_backend}\n"

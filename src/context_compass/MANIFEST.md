@@ -6,8 +6,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.22.0 |
-| files | 473 |
+| package_version | 2.23.0 |
+| files | 474 |
 
 ## Lane policy
 
@@ -29,7 +29,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 370 | restore | replace |
+| PACKAGE | 371 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -40,7 +40,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `64c4f38eba916947e3002dc0b9c58128c9e750858f237853513200673d619bbc` |
+| `AGENTS.MD` | PACKAGE | `e82b92b6bb169ebadf037910a2653c1bad790d284708c4a92b50acc1213f489d` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -144,15 +144,16 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `76834b5b7b9a9bf3b93409a7fcb0159771fe2c35f0eae7e81ff75b9995b11a2c` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `1b283f059f4a1784feec0f9acf002d8b6b30cf430be21e09b6057b038bb491c5` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `af6164dcd8c09effb65803fd98044198ab1a22f24a1ea8dd3ff0c486292ae55d` |
-| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `7bf5e48960c5cb60c3a662178e18411dd4caff768126c0ac2a34792214917f47` |
+| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `411032994c66f1e44e375927c68b4bcc6a06db06b83bd471849684c3ae0784be` |
 | `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `0e313f6c053b697f7c6bf32ef613ece738a62b806791ba03e521788a1e89f620` |
 | `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `88cb4d3009615f01818c58ea317d2c0b6a1a8f859608321bb891ac97c63741a3` |
-| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `6218a72e2a8cda87ff55f1a64318026a2a5ce121535c3eecea1456bba20a32de` |
+| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `37eb66c74e63f5f0a24a4e9c4c08bfaec881ae6aa40fead098c4d1ffe98f1c1f` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
+| `agent_onboarding/default/general/skills/claude_internal_communication.md` | PACKAGE | `8314b253d87309f79d4ef312abb0f643b6b954ae997a386dd7514cdae6015c15` |
 | `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `310707dafc126d4778ac0765e5789a29b249414eaff555ab7bc9bddb45208689` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
@@ -165,17 +166,17 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
 | `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
-| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `bcf91fa4c0805be49ad88b83b4c041af707e3b7ff164f44dbc1d9b09a8f6d883` |
+| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `bd2521fae14507e6b88d05ed485673fd7057b3e1818cee66cc5b7302c0f404fe` |
 | `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `849d10f66e97470eac7bca1f91f4f59244a76b16dd8dc96bb4d1df9487422a1f` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
 | `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `d8a0aff05862ebc20393fd41519f6d430da2965f1b4eb7c368c9d67cb929decb` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
-| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
+| `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `79288e6d7570e468cf1acaca5b8c5e4c2d4c3413b15bd30f57ffb05d1ca2067a` |
 | `agent_onboarding/default/general/skills/harness_custom_instructions.md` | PACKAGE | `9c77040096c25254ea55986068136ee5bfad299788312c3f446879a79b1e10aa` |
 | `agent_onboarding/default/general/skills/harness_custom_instructions_setup.md` | PACKAGE | `6d9d74e42247002f2dcfa68e732b9494b6c45c0701f00acc8136bce4919e2add` |
 | `agent_onboarding/default/general/skills/llm_full_usage.md` | PACKAGE | `00cf47f3eda35e3a3ab3506d7eba5ef31e35384c5902425c9d6286502c84273c` |
-| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `fb2eafebbdbfa578df0b5b83a253eca43a63426fbfdece09d08e2c96b9465b76` |
+| `agent_onboarding/default/general/skills/mailbox_protocol.md` | PACKAGE | `406089bb9b28e38d83546f674011736a3c4a46f992b2e9b1273921a3f8373500` |
 | `agent_onboarding/default/general/skills/memory_management.md` | PACKAGE | `4ab1a61f18aef3db56e730cfdabbd6dbc2b714b9c484ca8cacd822a46e362e44` |
 | `agent_onboarding/default/general/skills/mrp_policy.md` | PACKAGE | `edce5c8dc9ffaeaf6f47cb61fc56757280e47f62459d533537c8f242dc163174` |
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
@@ -411,8 +412,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `artifacts/IMPORTANT_CONSIDERATION.md` | RESET | `593c5f85859354065042e4e09368459f869eecc49dd94b651ed82c0ca761ac2d` |
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
 | `artifact_board.md` | LIVE | `2bd952194e3f41b1faa59690b534e285094024a51de75f731ee17a0d9b54b78e` |
-| `attention_board.md` | LIVE | `5883800b6a08395ddd8123bff743507696b943e8324a1ce05322ff14029c63c4` |
-| `config/context_compass_config.yaml` | CONFIG | `f03bc1eff61e7d3dde66d3c2778dfaf94bd233b8a64820e268027863c32f4cea` |
+| `attention_board.md` | LIVE | `3515d7673595d2da92c529f0d458e4c79f0471c4cd9212c10f592fb9e93ec777` |
+| `config/context_compass_config.yaml` | CONFIG | `0fab70accdf4c553168b9b52fa92badd97066a775f1bbbf519f2fdf0b6c863db` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
@@ -463,10 +464,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
 | `issue_board.md` | LIVE | `573c3ed51ab3691341b590ae172a3a75760a078dd1d7a9e7f234395f21ad828f` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
-| `mailbox_board.md` | LIVE | `5a33851b336473bd3fffb681d024374e343f96097c0399a730146ee763a3492b` |
+| `mailbox_board.md` | LIVE | `ac920f1d82d01795c4e3c2f2f6560e07e9cb6beaec4e5cb214611dfc46b1849c` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
-| `README.md` | PACKAGE | `703b50959f1f471202cc1166fa57315d5486e0efb179fa13041f6755853c33b0` |
+| `README.md` | PACKAGE | `82ee7d838aac95d6cd780fdf9d01249425d49fb76c3184429e30aecd5b61f73c` |
 | `SKILLS.MD` | PACKAGE | `f31babaa57eaf7e2979a5e3c5060f049abcf6f1a59fed2487bcdb5d21f0571cc` |
 | `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
@@ -499,7 +500,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
-| `tools/reading_routes.py` | PACKAGE | `e7c49b0315e07b89380ac9b2efa3d5e076b6445d4e0d3666a8d5bfd8b7d50733` |
+| `tools/reading_routes.py` | PACKAGE | `c6a222cef4ca1903c131180c30c4e0999a6f9a5ca98c44ea5d9253fa42ea62e1` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
 | `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
@@ -508,7 +509,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
 | `tools/ticket_backend.py` | PACKAGE | `db7ee553cdd57fe2e99c4f9dc4d4cae2074edf87056c80106a006761412c207f` |
 | `tools/ticket_design.py` | PACKAGE | `314a1fffeec0a8bd826f2a6fa662dfa7e54e35f8b3401e3666f59e165cd203dd` |
-| `tools/TOKEN_REPORT.md` | PACKAGE | `75f5a9eea29dc592f8635981a218dfc5617c0bbc7e94d0d8f250643b9a120ed7` |
-| `tools/token_report.py` | PACKAGE | `bd2f0069f1a381e8acffea744d5ab67462a0c9973e9bf140e1e35630edc73e1c` |
+| `tools/TOKEN_REPORT.md` | PACKAGE | `3b2dd0311c1a73227aff0248bcd117476d285fc44372c64cd8ff44d74cc8accb` |
+| `tools/token_report.py` | PACKAGE | `22db43a82a8f5636c34c7a40e0d60dc3a86bfc491b08a2883eae678dc9d0da07` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |

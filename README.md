@@ -318,7 +318,8 @@ messages between named agents — handoff, notice, question, ack — so directed
 communication does not turn the routing board into noise.
 
 If your agents have Codex MCP messaging tools, you can use those for handoffs
-instead. The switch changes how messages travel, not where your work is kept.
+instead, and a team made only of Claude agents can use Claude Code's built-in
+agent messaging. The switch changes how messages travel, not where your work is kept.
 Registration, counters, tickets and the boards keep their existing jobs.
 
 ## Roles
@@ -472,7 +473,7 @@ alone. Notable keys:
 | --- | --- |
 | `system_of_record.enforce` | when `true`, agents may not use harness task lists, plans or session memory to track work. This package is the only tracking surface. |
 | `work_tracking.backend` | `local` reads ticket folders; `github_codex_plugin` uses the connected GitHub plugin's Issues; `github_issues` keeps tickets and every board in GitHub Issues |
-| `agent_communication.backend` | `mailbox` sends file messages; `codex_mcp` uses available chat tools while keeping board/session state local |
+| `agent_communication.backend` | `mailbox` sends file messages; `codex_mcp` uses available chat tools; `claude_internal_communication` uses Claude Code's built-in agent messaging (Claude agents only); both chat transports keep board/session state local |
 | `workflow.ticket_microcycle.*` | strict or relaxed loop, note score floor, expansion gate |
 | `workflow.note_behavior.*` | append-only notes, required evidence ranges, per-ticket focus |
 | `artifacts.*` | store root, disposition defaults, ticket-link requirements |
@@ -553,9 +554,22 @@ MCP messaging skill instead of mailbox messaging instructions and use the chat
 tools for authorized handoffs and replies. The setting does not install an MCP
 server or grant permission to contact agents.
 
+For a team made only of Claude agents, choose:
+
+```yaml
+agent_communication:
+  backend: claude_internal_communication
+```
+
+Agents then message each other through Claude Code's built-in agent messaging
+(`ListAgents` and `SendMessage`), which needs Claude Code 2.1.224 or later
+(2.1.234 or later on native Windows). Sessions on other machines or in the cloud
+also need Remote Control. A team that includes Codex or another harness should
+keep `mailbox`.
+
 The existing mailbox board still holds registration and setup outcomes.
-MCP agents read just those state sections, not stored messages or
-message alerts. Existing messages and all other boards stay intact.
+Agents on either chat transport read just those state sections, not stored
+messages or message alerts. Existing messages and all other boards stay intact.
 
 ## Upgrading An Existing Install
 

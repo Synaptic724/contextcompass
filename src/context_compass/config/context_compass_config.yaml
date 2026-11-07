@@ -63,7 +63,7 @@ work_tracking:
 # Roster and setup outcomes stay on the local mailbox board, or on agent issues
 # in github_issues mode.
 agent_communication:
-  backend: mailbox # mailbox | codex_mcp; absent means mailbox
+  backend: mailbox # mailbox | codex_mcp | claude_internal_communication (Claude agents only); absent means mailbox
 
 # Guidance and templates for NEW tickets. This does not select an agent role
 # or rewrite existing tickets. Optional metadata belongs to the chosen design.
