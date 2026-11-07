@@ -1,9 +1,10 @@
 # Choose where your tickets live
 
-Context Compass supports two settings in `config/context_compass_config.yaml`.
+Context Compass supports three settings in `config/context_compass_config.yaml`.
 `local` uses the existing Epic/Story/Task folders. `github_codex_plugin` uses
-GitHub Issues through the connected GitHub plugin. Both keep your ticket format,
-Notes, evidence, acceptance rules, and recovery process.
+GitHub Issues through the connected GitHub plugin. `github_issues` keeps tickets
+and every board in GitHub Issues. All three keep your ticket format, Notes,
+evidence, acceptance rules, and recovery process.
 
 ## Local tickets
 
@@ -58,6 +59,25 @@ skills and ticket source. YAML selects a workflow; it does not connect a plugin
 or grant write permission by itself. The agent can verify read access first;
 the first requested write must also succeed and be verified.
 
+## Tickets and every board in GitHub Issues
+
+```yaml
+work_tracking:
+  backend: github_issues
+  github_issues:
+    repository: YOUR_OWNER/YOUR_REPO
+```
+
+Tickets, focus, claims, the agent roster, messages, artifact entries and context
+packs all live in that repository's Issues, so agents on different machines see
+the same state without a shared checkout. Every record has one writer or is
+append-only, so agents never overwrite each other: see
+[`issues_backend.md`](issues_backend.md). A pinned header issue explains the
+rules inside the repository; [`issues_setup.md`](issues_setup.md) creates it.
+Agents use whatever GitHub tools they have, and an agent without access to the
+repository stops and asks its owner. Use a private repository: everything in a
+public one is public.
+
 ## Existing installs and migrations
 
 Changing the setting does not move your tickets. Review [`migration.md`](migration.md)
@@ -66,7 +86,8 @@ until the complete content and route mapping have been verified.
 
 Older `backend: files` settings resolve to `local`. The earlier `backend: github`
 selected a CLI/Project draft, so it requires an explicit change to
-`github_codex_plugin` and the matching settings block; it is not silently converted.
+`github_codex_plugin` or `github_issues` and the matching settings block; it is
+not silently converted.
 Upgrade tools preserve your existing config values.
 Older plugin configurations must add `connection_nickname` explicitly; an
 upgrade cannot infer which connected account you intend to use.

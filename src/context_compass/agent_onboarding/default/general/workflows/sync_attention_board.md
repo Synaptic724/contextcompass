@@ -41,6 +41,8 @@ lanes. Plugin mode fetches Issue bodies/state for current routes and claims in
 missing. An unrelated open Issue is not automatically active Context Compass
 work. Confirm scope/identity for unmatched candidates, and never infer an agent
 claim from a GitHub assignee. Preserve protected regions and unrelated alerts.
+`github_issues` has no board file: repair each held ticket's `## Route` section
+and its `cc-active` label instead.
 
 ## Phase Sequence
 1. Intake

@@ -48,6 +48,8 @@ Purpose
 - Mailbox-mode message passing (point-to-point handoffs, notices, questions, acks).
 - Companion to `attention_board.md` (which stays routing/broadcast-only).
 - Shared state: `agent_onboarding/default/general/skills/agent_session_state.md`.
+- Unused in `github_issues` mode: agent issues hold the roster, setup notes and
+  messages (`agent_onboarding/default/general/skills/github/issues_backend.md`).
 - Message transport: `agent_communication.backend` in the config selects mailbox or codex_mcp.
   MCP agents read only Checked-In Agents and relevant Notes; they skip
   the messaging rules below and the Messages region. Existing messages remain untouched.

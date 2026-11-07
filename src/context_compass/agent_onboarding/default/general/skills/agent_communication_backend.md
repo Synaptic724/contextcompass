@@ -8,7 +8,7 @@ communication work.
 
 | YAML value | message transport | required general readset |
 | --- | --- | --- |
-| `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts | shared + mailbox message baseline |
+| `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts; in `github_issues` mode, `message` events on the recipient's agent issue | shared + mailbox message baseline (with local boards) |
 | `codex_mcp` | available message-only MCP thread tools | shared + MCP message baseline |
 
 An absent `agent_communication` block or absent `backend` key means `mailbox`.
@@ -19,7 +19,7 @@ plugins, or folder contents.
 ## Independence from ticket backend
 
 `agent_communication.backend` and `work_tracking.backend` are independent
-selectors. All four combinations are supported. Ticket selection never implies
+selectors. Every combination is supported. Ticket selection never implies
 a transport, and transport selection never implies a ticket backend. Resolve
 both before work. Missing communication selection defaults to `mailbox`;
 missing ticket selection defaults to `local` per `work_tracking_backend.md`.
@@ -32,6 +32,11 @@ Both transports use the same shared agent-session state store defined in
 occurs when switching transports. In `codex_mcp` mode read those state
 sections narrowly and never read mailbox message instructions, `## Messages`,
 or `attention_board.md` message alerts for communication.
+
+In `github_issues` mode the store is each agent's own agent issue, and `mailbox`
+messages are events on the recipient's agent issue, as
+`github/issues_backend.md` describes. That mode reads no local mailbox file and
+not the local mailbox protocol.
 
 ## No fallback
 

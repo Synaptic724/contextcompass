@@ -10,7 +10,7 @@ from reading_routes import configured_reading_mode, manifest, registry, requirem
 pytestmark = pytest.mark.unit
 
 GENERAL = "agent_onboarding/default/general/"
-TICKETS = ("local", "github_codex_plugin")
+TICKETS = ("local", "github_codex_plugin", "github_issues")
 COMMUNICATIONS = ("mailbox", "codex_mcp")
 
 

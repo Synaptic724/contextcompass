@@ -119,10 +119,15 @@ holds state about the work that lives outside this repository.
   connection; each Issue body
   holds its template, Status, `## Notes` and current resume view; supported Issue comments
   may hold attributed findings directly without copying every finding into the body.
-  A Project URL is optional. In both modes,
+  A Project URL is optional. In both of these modes,
   `attention_board.md`, `artifact_board.md` + `artifacts/`,
   `context_management/`, and `mailbox_board.md` remain local. Plugin mode also
-  uses local `issue_board.md` for agent claims. Read the backend-specific general
+  uses local `issue_board.md` for agent claims. In `github_issues` mode, tickets
+  and every board live in GitHub Issues in the configured repository: wherever
+  this file names a board, use the GitHub record that
+  `agent_onboarding/default/general/skills/github/issues_backend.md` maps it to,
+  with whatever GitHub tools you have. Without access to that repository, stop
+  and raise it to your owner. Read the backend-specific general
   skills before work. Resolve older config values using
   `agent_onboarding/default/general/skills/work_tracking_backend.md`.
   If config, tools, or access are invalid, stop; never silently switch backends
@@ -350,7 +355,7 @@ Before any tooling, edits, or execution:
   `execution_contract.md` in the same uninterrupted session.
 - Read `config/context_compass_config.yaml`.
 - Read `agent_onboarding/default/general/skills/work_tracking_backend.md` and
-  resolve `local` or `github_codex_plugin` before reading ticket state. Count
+  resolve `local`, `github_codex_plugin` or `github_issues` before reading ticket state. Count
   this read once if the role's general baseline also lists it.
 - Read `agent_onboarding/default/general/skills/agent_communication_backend.md`
   and resolve `mailbox` or `codex_mcp` independently. Read the shared
@@ -863,8 +868,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.21.0 |
-| files | 470 |
+| package_version | 2.22.0 |
+| files | 473 |
 
 ## Lane policy
 
@@ -886,7 +891,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 367 | restore | replace |
+| PACKAGE | 370 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -897,7 +902,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | path | class | sha256 |
 | --- | --- | --- |
 | `.gitattributes` | PACKAGE | `9ff348d31ff5f0941a76321a0ef45d47acb5bd218c3febffd3885f453ea325ef` |
-| `AGENTS.MD` | PACKAGE | `53c2d73d640475ab55bb0ce8c16c6e11701a3e5f56c0a23b04733f1ead918647` |
+| `AGENTS.MD` | PACKAGE | `64c4f38eba916947e3002dc0b9c58128c9e750858f237853513200673d619bbc` |
 | `agent_onboarding/default/continuity_fact_checker/AGENTS.MD` | PACKAGE | `3928c7c3959d7c75e0b3752cce505119060bed73b4ad565923d4801cfa703557` |
 | `agent_onboarding/default/continuity_fact_checker/behavioral_guidelines/continuity_fact_checker_workflow.md` | PACKAGE | `ace3e5e300fda18719730e05bdb0ca15d8afdc32289e1a13a7c8bd3d91470753` |
 | `agent_onboarding/default/continuity_fact_checker/examples/continuity_fact_checker_task_flow.md` | PACKAGE | `97303ea953c81565410b611848b42b4ec84f73d6351ae2754111c7bd2dd4e4aa` |
@@ -985,7 +990,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/package_maintenance.md` | PACKAGE | `c4a4c6ae98ee9dc01aaf3b2d225530f2d9b5c37a6bb276f80a9c289a6188855a` |
 | `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md` | PACKAGE | `ef21a63c7d632ab30ed07777c664a8221ca8ef02566212e85f68bdf683fd349d` |
 | `agent_onboarding/default/engineer/skills/patch_framework_gating.md` | PACKAGE | `087ba842ecd75fe29bb66d75366882f688f2cb3f2e3596a5f24a397d9414fc5a` |
-| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `dd8c63ec3eac198546d589172e4eef5bd15e93d171b29d712c5a8037646a46f6` |
+| `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `d1cea78b0ad7ffa50141661dca4deb695ae27c12b491d9c5797fc9c0ba980d9b` |
 | `agent_onboarding/default/engineer/skills/src_graph_usage.md` | PACKAGE | `52a7015595450ba1022f2cc3baae4c6e2dffdf161da60528de0b39f1064440c6` |
 | `agent_onboarding/default/engineer/skills/staleness_protocol.md` | PACKAGE | `f9a4ffd6221f01d03e2d659238f76aafcf7e4b8813d3b9ac5ba0577f932e3f86` |
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
@@ -994,20 +999,20 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/testing_discipline.md` | PACKAGE | `c07c2ecb962d2395527b3946c1bdc669610f6e7535eafa3befcae9d2f2472758` |
 | `agent_onboarding/default/engineer/WORKFLOWS.MD` | PACKAGE | `2804d7032d8a718304193ad9fc237e75537e3f778360703b34a3f0383d5c2599` |
 | `agent_onboarding/default/engineer/workflows/README.md` | PACKAGE | `b242a08fc1ff33ca4c63e300bfd89ebf72088169aa9b9afaed731bc5d14ec1b5` |
-| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `ee1344876de3df93ab05a61ea88937cb011660d41a2c4840443fc3202e159629` |
+| `agent_onboarding/default/general/AGENTS.MD` | PACKAGE | `c98ed1c14ffe298001b06f91a8cfcab7be76535fe5434fe03516e6f697df155c` |
 | `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md` | PACKAGE | `f0f2bfa601181aae1d28faa082a35881703b8f383a1455c93853932dda7e78fd` |
-| `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `f44f530b09b8bb2dce40891aee43ca7e0d0b07bcfc61f68e8e96c05aba71b5e9` |
+| `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md` | PACKAGE | `e229422eefed4339a16a230e0919f6f6df399f510103f5b561c760c0d7faeac5` |
 | `agent_onboarding/default/general/behavioral_guidelines/README.md` | PACKAGE | `4fc03023bb404a1cc141e818855797aece8c67ddd07ea3324fd042cf0ec71629` |
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `2f2f67f661e476b2c53d36431baa081efa4c4aa8b730db97bd6899fdb69b1f18` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `76834b5b7b9a9bf3b93409a7fcb0159771fe2c35f0eae7e81ff75b9995b11a2c` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
-| `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `caceb81ace03dc804c38934d11fe7e324e47505c3006894344f1949da1f7bf7e` |
-| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `cbe8c2dffd6e9e9915f1601463e2bf8fb5805fbbf279ede5ea189e91393d3429` |
+| `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `af6164dcd8c09effb65803fd98044198ab1a22f24a1ea8dd3ff0c486292ae55d` |
+| `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `7bf5e48960c5cb60c3a662178e18411dd4caff768126c0ac2a34792214917f47` |
 | `agent_onboarding/default/general/skills/agent_identity.md` | PACKAGE | `0e313f6c053b697f7c6bf32ef613ece738a62b806791ba03e521788a1e89f620` |
 | `agent_onboarding/default/general/skills/agent_lifecycle.md` | PACKAGE | `88cb4d3009615f01818c58ea317d2c0b6a1a8f859608321bb891ac97c63741a3` |
-| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
+| `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `6218a72e2a8cda87ff55f1a64318026a2a5ce121535c3eecea1456bba20a32de` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
 | `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `310707dafc126d4778ac0765e5789a29b249414eaff555ab7bc9bddb45208689` |
@@ -1022,8 +1027,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
 | `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
+| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `bcf91fa4c0805be49ad88b83b4c041af707e3b7ff164f44dbc1d9b09a8f6d883` |
+| `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `849d10f66e97470eac7bca1f91f4f59244a76b16dd8dc96bb4d1df9487422a1f` |
 | `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
-| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `a288aeb73a1ad3d3fcb91c6b0d33d59cac1dc2f7d9deac42fc6d5efe43571e07` |
+| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `d8a0aff05862ebc20393fd41519f6d430da2965f1b4eb7c368c9d67cb929decb` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `d47844b15c86afa4034b1fe559e250574eb7d0220f090886b063d64ca728ca67` |
@@ -1036,10 +1043,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/package_upgrade.md` | PACKAGE | `8ae971532ae9f2207fe20787de7a76a217a8153515a7eef059168de6600f25ae` |
 | `agent_onboarding/default/general/skills/reactive_documentation.md` | PACKAGE | `f0a7eb63ffe980fcc535284950f8962e170a443ca868492ac9b5ddd217fadb14` |
 | `agent_onboarding/default/general/skills/repo_topology.md` | PACKAGE | `72921b765339dfd1a2fb570e5c72679330414a59562061cdc5ec098ad4962f21` |
-| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `dff73047562ca9d3b3d1fd76435107ecc5c6dd178dbb501a43748b48096febd7` |
+| `agent_onboarding/default/general/skills/role_local_workflows.md` | PACKAGE | `16522921503b15518dbf98e4525b18f73bbaf01ed355aa3905a94287aa8dff8b` |
 | `agent_onboarding/default/general/skills/security_and_secrets.md` | PACKAGE | `bd58e29bce07c500a3678ba6571c7955d61309a9ea53f909e8ec9527a98c0cbd` |
 | `agent_onboarding/default/general/skills/self_certification.md` | PACKAGE | `f52b2d367fdbca0f6eb687be935235ba2e7566b6ebfa9fb6bb1f54995ba31aab` |
-| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `f767c8b27cbd7a77fdac029aaf99193b72b3ebfd39b3d650789941763b1f5210` |
+| `agent_onboarding/default/general/skills/ticketing.md` | PACKAGE | `0c71c385160d4dfaea42f040d8489a5f206745647c7c1b5b24ebab0c4f3daef5` |
 | `agent_onboarding/default/general/skills/ticketing_skill_contract.md` | PACKAGE | `86154f6068b36af47999b50300a7760c628dfb1ea670a1bd8b78e774b20e309b` |
 | `agent_onboarding/default/general/skills/ticket_closure_attention_sync.md` | PACKAGE | `001ebf4aa2c927421c94beb93eb84d4d07878d3d1ab121c66b6a4671268d6937` |
 | `agent_onboarding/default/general/skills/ticket_design.md` | PACKAGE | `7a42efda34866fe68d604ef35b71e478b2153ea1e34013d9421b30ad8ac8e902` |
@@ -1047,14 +1054,14 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/unknowns_gate_reference.md` | PACKAGE | `d68cb2ded95de832d0ebb2f32fbcdae01168a783d5f9fe75047ef2ec84af8d12` |
 | `agent_onboarding/default/general/skills/user_approved_certification.md` | PACKAGE | `6aeac190ac39f22120937b1e4d0cb6384a02a2f800cea3eaf4224ea056bba37c` |
 | `agent_onboarding/default/general/skills/workflow.md` | PACKAGE | `a7a87420f0aa08cc7c04d7d320d8855b3837150fbb34d19f2cba35c7f01ef3bd` |
-| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `0044695e4d44fcf383fe6e12d53b8bbcf4db857370dfca20d58ccd48c0bd3c45` |
-| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `db39ab6340aed956f8051e70741e7b438a1da2ee8335c79b8f9bb15078f5e270` |
-| `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `284c857fd829d9f183d9e555676ddcea87609bdf91db22a6ebb2ab14b15f402b` |
+| `agent_onboarding/default/general/skills/work_tracking_backend.md` | PACKAGE | `47ca379b39448820517ab759a68538d9e98d71c399788b95d184face2c730d6b` |
+| `agent_onboarding/default/general/WORKFLOWS.MD` | PACKAGE | `1cce68ea14af07258e75114472df88dd2929147d0dcf4eadf730f359e5e845d8` |
+| `agent_onboarding/default/general/workflows/cleanup_context_compass.md` | PACKAGE | `24b5c62a7db215002aedbd19a4b1e85574ce14c8d816dfc12b9f31e56913ffdd` |
 | `agent_onboarding/default/general/workflows/README.md` | PACKAGE | `9376b5753db22c7b4264a17229b74cef6e684aa647aae8546b589ce367d10c35` |
 | `agent_onboarding/default/general/workflows/role_creation.md` | PACKAGE | `192c1e18e583cd19316232f24ac8c56b29783ed942bf8433e0c938860e50320d` |
-| `agent_onboarding/default/general/workflows/start_context_compass_work.md` | PACKAGE | `95e4e02ebbcaec99f23eaf50fad330c4994b29be2f65d56dd0e49222ecbf14ef` |
-| `agent_onboarding/default/general/workflows/sync_attention_board.md` | PACKAGE | `62b3d7eb7814235286045de137229e2d304ec5755d8389d49441a51545407dd7` |
-| `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md` | PACKAGE | `01ef409a19833fb638a1f233c4e59dc2f8fbdf1b47558bd7653ebaa7ca223ee1` |
+| `agent_onboarding/default/general/workflows/start_context_compass_work.md` | PACKAGE | `c22bea377c0e79490d609bff515806886cbae8807bc0980beb7be70ccc6ca996` |
+| `agent_onboarding/default/general/workflows/sync_attention_board.md` | PACKAGE | `125be0f1cd13333d5a7dd32e69b9587f83d2ce1b0b2416ba78c0acf962b3fb30` |
+| `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md` | PACKAGE | `9142a5ebf571fcb569745a8dac123a817d9571f45d34d87f0ecf88e7c6ca0ff2` |
 | `agent_onboarding/default/general/workflows/workflow_creation.md` | PACKAGE | `7b88bd11af158f2b5b1cce9fa478d9b1f6c2e6f0149ff29828382407c5d794e2` |
 | `agent_onboarding/default/line_copy_editor/AGENTS.MD` | PACKAGE | `68a1d949148b9e9f5ad0fb82cde7a544c3d7fd72e48b3a23255518649d23cef4` |
 | `agent_onboarding/default/line_copy_editor/behavioral_guidelines/line_copy_editor_workflow.md` | PACKAGE | `4797c0425e5735864eb98b9a2880b6030234d21e5e84cf414526b6c762cf70f9` |
@@ -1079,7 +1086,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/new/skills/new.md` | PACKAGE | `3385f44aa662d550cd7f85bc8f84bff78e215a331c2ac127c91de07529290102` |
 | `agent_onboarding/default/new/skills/onboarding_completion_and_next_step.md` | PACKAGE | `0df5c6512d6fe9ea29e64e6306073c8d6f91b0de78081530b357067727b86b2f` |
 | `agent_onboarding/default/new/skills/profile_model_explained.md` | PACKAGE | `c0d439820758542e9480f45bf63659bb06141e6bfc6cba4efb1dfb6969d4fbd0` |
-| `agent_onboarding/default/new/skills/system_overview_for_user.md` | PACKAGE | `5e25c3ca2d104b04547f8bd116ee7d2f68646c4568b7c48f669fd14bcf7190d9` |
+| `agent_onboarding/default/new/skills/system_overview_for_user.md` | PACKAGE | `bc8fd6313240756bcdab16a3db774c5b332858b6e9ebb7519c631de3f3b9679f` |
 | `agent_onboarding/default/new/WORKFLOWS.MD` | PACKAGE | `eaaea4c4ef26383b5deb1d0e08d46d69d6ebf7ef40a21cd9f55ca3a334635867` |
 | `agent_onboarding/default/new/workflows/README.md` | PACKAGE | `f5d91e5558aecc918c7f04d5f476169d60eb33c3c81e73e267c8b30b4fbf72a9` |
 | `agent_onboarding/default/platform_engineer/AGENTS.MD` | PACKAGE | `5b60d3d8016594f3c10b7994529d4f45c2cc82142a65fcbd37761ce9c1231e03` |
@@ -1265,13 +1272,13 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md` | INSTANCE | `2a51e65f76b9215740d4f44a0fd882b9d69f74e9ea3ce0df59269fc67cb2a027` |
 | `artifacts/IMPORTANT_CONSIDERATION.md` | RESET | `593c5f85859354065042e4e09368459f869eecc49dd94b651ed82c0ca761ac2d` |
 | `artifacts/README.md` | RESET | `196e2022e5d708af65d39b7e434c792f5c1374d5eb8b542f4d18ee534bbb4ad3` |
-| `artifact_board.md` | LIVE | `45fa4083b4bb7a25f25cbbcf0e7304fd15d98a8ae7a7a8e492ccd0cd3a3edc93` |
-| `attention_board.md` | LIVE | `3148067306419a7f802960fe2704acafee1c4683bed9f1d7baf775574db79bdc` |
-| `config/context_compass_config.yaml` | CONFIG | `af8cb61ba59a9b5cbf339219226d8919093c6231e4c62e2cf1bce3ffe18ee054` |
+| `artifact_board.md` | LIVE | `2bd952194e3f41b1faa59690b534e285094024a51de75f731ee17a0d9b54b78e` |
+| `attention_board.md` | LIVE | `5883800b6a08395ddd8123bff743507696b943e8324a1ce05322ff14029c63c4` |
+| `config/context_compass_config.yaml` | CONFIG | `f03bc1eff61e7d3dde66d3c2778dfaf94bd233b8a64820e268027863c32f4cea` |
 | `CONTEXT_COMPACTION.md` | PACKAGE | `439b20cebd57305a0de0cad051364525ab0e6139ca11e815ddd04ea36fd2747a` |
 | `context_management/artifacts/.gitkeep` | RESET | `01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b` |
 | `context_management/context_artifact_template.md` | RESET | `9a57525f3160d21612da41c4f371d6ba4f50cf681b0e9009e266c67458187b9e` |
-| `context_management/context_board.md` | RESET | `8d554f10be975061d13b52d1d456891acdbf55dcac1df4fb253c95c3a0d39f7c` |
+| `context_management/context_board.md` | RESET | `78cd678528cbbdc4c11327e9d2583a0ec8fa76bf95c395cb483bc4b0573670ce` |
 | `context_management/README.md` | RESET | `aa88b6d8ad4d022ab532b2e08875ccc5cfe14f4c7fce8b0b12a4e6d1296623bc` |
 | `examples/adr_example.md` | PACKAGE | `89d3a4d6f7a3d209e94901e90851821f588883fc80b4bc6702a314a64415378c` |
 | `examples/artifact_workflow.md` | PACKAGE | `3010841abbe7b9bfcfacc9b4c280173231436b81275ffa0e1927be8545fa3ef6` |
@@ -1318,11 +1325,11 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
 | `issue_board.md` | LIVE | `573c3ed51ab3691341b590ae172a3a75760a078dd1d7a9e7f234395f21ad828f` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
-| `mailbox_board.md` | LIVE | `03ff6176b1cbdf00fbfe1671b17f0d4efe5be0dfd66bd4234e89fd68672d19d5` |
+| `mailbox_board.md` | LIVE | `5a33851b336473bd3fffb681d024374e343f96097c0399a730146ee763a3492b` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
 | `PROFILE_CLASS_CREATION_GUIDE.md` | PACKAGE | `d1fe634a3cf3b2acd6cc4c35cb937fc1a9af18e9c1f66f6cf40e122b3473ec0a` |
-| `README.md` | PACKAGE | `55111ca435fc49469ab294dac5c6a41a9a27ace4128340d97bfbb7754ad528cb` |
-| `SKILLS.MD` | PACKAGE | `27403c6c170b4c5ef30c7212424a902bee0361553d0fe96950d4311b586d962c` |
+| `README.md` | PACKAGE | `703b50959f1f471202cc1166fa57315d5486e0efb179fa13041f6755853c33b0` |
+| `SKILLS.MD` | PACKAGE | `f31babaa57eaf7e2979a5e3c5060f049abcf6f1a59fed2487bcdb5d21f0571cc` |
 | `special_instructions/README.md` | RESET | `b343bf29795d4dc9903fd92f7e9ce8821c9f270cb400b50394f29d534f091f50` |
 | `system_docs/.gitkeep` | RESET | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
 | `system_docs/patches/active/README.md` | RESET | `f0d1e1f0716475bb4e14ad38ae0f8fbb2dcd5a4b4c00d3e366bb38d961dc383b` |
@@ -1331,6 +1338,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `system_docs/patches/active/_template_patch_id/component_patch_TEMPLATE_COMPONENT.md` | RESET | `fedc2095f94e5be8f11bed1fae34faee05730d78c435819e907970356ecebd1c` |
 | `system_docs/system_docs_read_first.md` | RESET | `792b745c1eb7947c135f188ee2a055408bff9e0a39f7ff4432f25468b32cc61b` |
 | `templates/epic_template.md` | PACKAGE | `560344360d3579b90dda1f6a26dea5c6d375316f1f7d1fb6f726dab0d21f6708` |
+| `templates/github_issues_header.md` | PACKAGE | `3681d43642e6540da1771fa21744aea8b2908c09694e3614081191ec0750fd77` |
 | `templates/story_template.md` | PACKAGE | `f9ef141e45be40f671b4a4b3ec703ef968a794d4695e6c438fcd7b75efbd786a` |
 | `templates/task_template.md` | PACKAGE | `bc10fe7364dc2ee16403905e94f05b6e1315e4d6a61235aa3b5d64dadfddc71c` |
 | `templates/ticket_contract.json` | PACKAGE | `e7e530971f481c17f09a94c5af1bb1da98a6c0d572242d735ccf093a32918300` |
@@ -1353,17 +1361,17 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
-| `tools/reading_routes.py` | PACKAGE | `df61d9b67b55f01d0aacd41f38ddc7a452903f098f48ee4dfbb8d4de38c168fd` |
+| `tools/reading_routes.py` | PACKAGE | `e7c49b0315e07b89380ac9b2efa3d5e076b6445d4e0d3666a8d5bfd8b7d50733` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
 | `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
-| `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `d509c818d216178465843d71398ad28a46b46119a744c0987487c83bc49382e3` |
+| `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `486fc5659d1c24a7c38237eddd4f1dc454b1d86e0596667f44205da500fa7afa` |
 | `tools/system_documents/python/graph_walker.py` | PACKAGE | `be0aa367a5f9bd66bb5adddba7dde4294abb44a9926dd981d20ab6500e6d7a02` |
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
-| `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
-| `tools/ticket_design.py` | PACKAGE | `e7a0688926b60f69028bc2180349797db15328bae31255224e0321c4aa9c4141` |
-| `tools/TOKEN_REPORT.md` | PACKAGE | `4eeda08764043b2b0ad36a952b1053ec8c38bd2db205113dcc3883266dbffdd8` |
-| `tools/token_report.py` | PACKAGE | `7fd5525030b337959e565f94e49635cbf9caa92eb3ee79f5110ee82927683b94` |
+| `tools/ticket_backend.py` | PACKAGE | `db7ee553cdd57fe2e99c4f9dc4d4cae2074edf87056c80106a006761412c207f` |
+| `tools/ticket_design.py` | PACKAGE | `314a1fffeec0a8bd826f2a6fa662dfa7e54e35f8b3401e3666f59e165cd203dd` |
+| `tools/TOKEN_REPORT.md` | PACKAGE | `75f5a9eea29dc592f8635981a218dfc5617c0bbc7e94d0d8f250643b9a120ed7` |
+| `tools/token_report.py` | PACKAGE | `bd2f0069f1a381e8acffea744d5ab67462a0c9973e9bf140e1e35630edc73e1c` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |
 
@@ -1956,7 +1964,11 @@ reference lives in `examples/` instead and this directory stays yours.
 ## Optional GitHub Work Tracking
 
 Local Epic/Story/Task files remain the default. An opt-in setting in
-`config/context_compass_config.yaml` chooses `local` or `github_codex_plugin`.
+`config/context_compass_config.yaml` chooses `local`, `github_codex_plugin` or
+`github_issues`. `github_issues` keeps tickets and every board (focus, claims,
+roster, messages, artifacts and context packs) in GitHub Issues in one
+repository, with one writer per record; it needs only a `repository` setting
+and an agent with access to it.
 Plugin mode requires a Codex `connection_nickname` and target `issues_repository`.
 The agent resolves that exact nickname before calling the plugin, rather than
 choosing a GitHub account implicitly. Plugin mode uses Issues for tickets, with Status
@@ -2236,7 +2248,9 @@ not only the question to the user; they do not create unregistered roles.
      may add another. Match on the baseline label, never on a fixed list of
      headings; a section you fail to recognise is still mandatory.
    - `Local backend baseline` applies to `local`; `GitHub Codex plugin baseline`
-     applies to `github_codex_plugin` in `work_tracking.backend`.
+     applies to `github_codex_plugin`; `GitHub Issues backend baseline` applies
+     to `github_issues` in `work_tracking.backend`. `Local boards baseline`
+     applies to every backend except `github_issues`.
      A missing key means `local`; resolve legacy values through the shared
      `work_tracking_backend.md` skill. Read the selected backend's paths before
      certification; never apply the inactive backend's storage instructions.
@@ -8571,9 +8585,10 @@ copy is in version control.
 ## Turning the backlog into work - ON DEMAND
 
 Resolve the ticket backend first. The `--create` command below writes local
-ticket files and applies only to `local`. With `github_codex_plugin`, use the
-dry-run findings to compose the existing Epic/Story/Task bodies through the
-plugin instead; keep local ticket folders inactive for that work.
+ticket files and applies only to `local`. With `github_codex_plugin` or
+`github_issues`, use the dry-run findings to compose the existing
+Epic/Story/Task bodies as Issues instead; keep local ticket folders inactive
+for that work.
 
 The helper reads `config/context_compass_config.yaml` beside the selected ticket
 lane. It refuses `--create` in plugin mode and previews only the graph census,
@@ -9915,7 +9930,8 @@ As a ritual, after implementing a change:
 
 * Before starting any planned work beyond answering questions, search/reuse or create a structured
   Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
-  lanes; plugin mode uses an Issue body in the configured repository.
+  lanes; both Issue modes (`github_codex_plugin`, `github_issues`) use an Issue body
+  in the configured repository.
 * Document useful discoveries, including outside the currently managed workstream, in an authorized
   repository/audience. Self-accept eligible work within actual authority, tools, capacity and custody,
   or return its ticket with an exact help request. Ticket creation does not grant new access.
@@ -9975,7 +9991,8 @@ As a ritual, after implementing a change:
   Missing authority or an unmet gate is a concrete blocker, not inferred approval.
 * Record delegated acceptance or reserved-owner disposition, then complete the selected backend:
   move local tickets to matching completed folders, or verify the Issue body
-  has `Status: done`, completion summary, and reason, then close through the plugin.
+  has `Status: done`, completion summary, and reason, then close the Issue (through the
+  plugin in plugin mode).
 * Record each meaningful changed finding once at appropriate task/story/epic depth. Keep concise claim,
   impact, material limits and next action inline with exact retrievable supporting links; do not copy
   full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body
@@ -10142,11 +10159,13 @@ Inheritance
 
 Activation rule
 - Read every shared baseline path, exactly one ticket backend baseline below,
-  and exactly one communication baseline below.
+  the Local boards baseline unless the backend is `github_issues`, and the
+  selected communication baseline below.
 - Resolve `work_tracking.backend` from `config/context_compass_config.yaml`
   before these reads. Missing means `local`; `github_codex_plugin` requires an
-  Issue repository and connected GitHub plugin. Resolve legacy values using
-  `work_tracking_backend.md`; an invalid selection blocks work.
+  Issue repository and connected GitHub plugin; `github_issues` requires an
+  Issue repository and keeps every board in GitHub Issues. Resolve legacy values
+  using `work_tracking_backend.md`; an invalid selection blocks work.
 - Resolve `agent_communication.backend` from the same config before messaging
   reads. Missing means `mailbox`. Resolve using
   `agent_communication_backend.md`; an invalid selection blocks communication
@@ -10192,7 +10211,6 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/role_local_workflows.md`
 - `agent_onboarding/default/general/WORKFLOWS.MD`
 - `agent_onboarding/default/general/skills/context_compaction.md`
-- `attention_board.md`
 
 - `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md`
 - `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md`
@@ -10209,9 +10227,21 @@ Read these paths only when `work_tracking.backend` is `github_codex_plugin`.
 - `agent_onboarding/default/general/skills/github/workflow.md`
 - `issue_board.md`
 
+GitHub Issues backend baseline
+Read this path only when `work_tracking.backend` is `github_issues`. Tickets and
+every board live in GitHub Issues; it replaces the local board reads.
+- `agent_onboarding/default/general/skills/github/issues_backend.md`
+
+Local boards baseline
+Read this path when the ticket backend keeps its boards in local files: `local`
+or `github_codex_plugin`.
+- `attention_board.md`
+
 Mailbox communication baseline
 Read this path only when `agent_communication.backend` resolves to `mailbox`
-(the default when absent).
+(the default when absent) and the boards are local files. In `github_issues`
+mode, mailbox messages are events on agent issues, described in
+`github/issues_backend.md`.
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 
 Codex MCP communication baseline
@@ -10221,14 +10251,15 @@ Read this path only when `agent_communication.backend` resolves to
 
 Every shared-state instruction stays baseline in both transports.
 
-Note on the board paths. `attention_board.md` and, in plugin mode,
-`issue_board.md` are eager reads, but they are **live mutable state, not
+Note on the board paths. With local boards, `attention_board.md` and, in plugin
+mode, `issue_board.md` are eager reads, but they are **live mutable state, not
 policy**. You open them to learn what is happening right now, not to learn a
 rule. They get no attestation proof line - the one-line `RESUMING` field covers
 them. See `agent_onboarding/default/general/skills/compaction_requirements.md`.
 Do not invent a rule to quote from a routing table. `artifact_board.md` and
 `context_management/context_board.md` are in the lazy index below; open them
-when an artifact or a context pack is in play.
+when an artifact or a context pack is in play. In `github_issues` mode every
+board is a GitHub record instead, as `github/issues_backend.md` maps them.
 
 On-demand skills (lazy readset index)
 These files are not in the eager readset. Claiming one was read without its
@@ -10256,15 +10287,15 @@ system documents, which has no trigger; the states are defined in
   - Trigger: the user explicitly asks to rebuild or repair `attention_board.md`.
 - `artifact_board.md`
   - Covers: the registry of artifacts linked to tickets and their dispositions.
-  - Trigger: the active ticket lists artifacts, or you create, link, retain or
-    clean up an artifact.
+  - Trigger: with local boards, the active ticket lists artifacts, or you create,
+    link, retain or clean up an artifact.
 - `agent_onboarding/default/general/skills/context_management.md`
   - Covers: reusable context packs and how tickets reference them.
   - Trigger: a ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, or the user asks
     for a reusable context pack.
 - `context_management/context_board.md`
   - Covers: the index of context packs and their `Context ID` values.
-  - Trigger: the same as `context_management.md`.
+  - Trigger: the same as `context_management.md`, with local boards.
 - `agent_onboarding/default/general/skills/harness_custom_instructions_setup.md`
   - Covers: the custom-instruction setup form, instruction clauses, and the
     apply-and-verify steps.
@@ -10281,6 +10312,13 @@ system documents, which has no trigger; the states are defined in
     writing a ticket that contains `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
   - Read the selected full template and canonical `templates/ticket_contract.json`.
     Do not apply this design to historical records or change an agent's role.
+- `agent_onboarding/default/general/skills/github/issues_setup.md`
+  - Covers: labels, the header issue, creating an agent issue, and moving a
+    project from local boards to `github_issues`.
+  - Trigger: in `github_issues` mode, the repository has no `cc-header` issue, a
+    `cc-` label is missing, the header's version is older than this install's,
+    you have no agent issue at check-in, or the owner asks to move off local
+    boards.
 - `agent_onboarding/default/general/skills/github/migration.md`
   - Covers: moving existing file tickets to GitHub Issues.
   - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
@@ -10311,13 +10349,13 @@ Activation rule
   before acting. The On-demand index in `general/SKILLS.MD` gives each trigger.
 - When a workflow is selected for work, treat the parent-first role chain as
   the workflow lookup order.
-- The active workflows below apply in both backends. Resolve
+- The active workflows below apply in every backend. Resolve
   `work_tracking.backend` before their actions and use the corresponding
   ticket reads, writes, closure, and responsibility rules. Each macro preserves
   its existing scope and selection gates.
-- The on-demand role/workflow creation paths remain available in both modes.
+- The on-demand role/workflow creation paths remain available in every backend.
 
-Active workflows (both backends)
+Active workflows (every backend)
 - `agent_onboarding/default/general/workflows/cleanup_context_compass.md`
 - `agent_onboarding/default/general/workflows/start_context_compass_work.md`
 - `agent_onboarding/default/general/workflows/turn_in_selected_tickets.md`
@@ -10419,7 +10457,8 @@ Checklist (short form)
 6) Post-cert work execution
    - Use ticket folders when `work_tracking.backend` resolves to `local`; use
      the configured plugin to fetch Issue bodies and local `issue_board.md`
-     when it is `github_codex_plugin`.
+     when it is `github_codex_plugin`; use GitHub Issues for tickets and every
+     board when it is `github_issues`.
    - Route from `attention_board.md` and resume from linked ticket notes.
    - Orient from `system_docs/src_architecture.md` plus the architecture and
      component indexes, then descend: index -> slice -> the code. Slice
@@ -10807,6 +10846,7 @@ Required columns
 - `exit_signal`: explicit condition that indicates the row should route/switch.
 - `ticket`: local mode uses a context-compass-relative ticket path (no
   `context_compass/` prefix); `github_codex_plugin` uses the canonical Issue URL.
+  `github_issues` keeps these fields in the ticket's own `## Route` section.
 - `updated_at`: ISO-8601 UTC (`YYYY-MM-DDTHH:MM:SSZ`).
 - `reread`: `REQUIRED` | `HELPFUL`.
 
@@ -10899,7 +10939,7 @@ communication work.
 
 | YAML value | message transport | required general readset |
 | --- | --- | --- |
-| `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts | shared + mailbox message baseline |
+| `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts; in `github_issues` mode, `message` events on the recipient's agent issue | shared + mailbox message baseline (with local boards) |
 | `codex_mcp` | available message-only MCP thread tools | shared + MCP message baseline |
 
 An absent `agent_communication` block or absent `backend` key means `mailbox`.
@@ -10910,7 +10950,7 @@ plugins, or folder contents.
 ## Independence from ticket backend
 
 `agent_communication.backend` and `work_tracking.backend` are independent
-selectors. All four combinations are supported. Ticket selection never implies
+selectors. Every combination is supported. Ticket selection never implies
 a transport, and transport selection never implies a ticket backend. Resolve
 both before work. Missing communication selection defaults to `mailbox`;
 missing ticket selection defaults to `local` per `work_tracking_backend.md`.
@@ -10923,6 +10963,11 @@ Both transports use the same shared agent-session state store defined in
 occurs when switching transports. In `codex_mcp` mode read those state
 sections narrowly and never read mailbox message instructions, `## Messages`,
 or `attention_board.md` message alerts for communication.
+
+In `github_issues` mode the store is each agent's own agent issue, and `mailbox`
+messages are events on the recipient's agent issue, as
+`github/issues_backend.md` describes. That mode reads no local mailbox file and
+not the local mailbox protocol.
 
 ## No fallback
 
@@ -11056,6 +11101,10 @@ Use `mailbox_board.md` inside its USER-DEFINED region:
 - `## Checked-In Agents` roster rows for session presence.
 - `## Notes` associated with the session key for harness setup outcomes per
   `harness_custom_instructions.md`.
+
+In `github_issues` mode the store is your own agent issue instead: its body holds
+your roster entry and setup notes, as `github/issues_backend.md` describes. The
+duties below are unchanged; read "row" as that body.
 
 ## Session identity
 
@@ -12234,10 +12283,11 @@ References
 
 # Choose where your tickets live
 
-Context Compass supports two settings in `config/context_compass_config.yaml`.
+Context Compass supports three settings in `config/context_compass_config.yaml`.
 `local` uses the existing Epic/Story/Task folders. `github_codex_plugin` uses
-GitHub Issues through the connected GitHub plugin. Both keep your ticket format,
-Notes, evidence, acceptance rules, and recovery process.
+GitHub Issues through the connected GitHub plugin. `github_issues` keeps tickets
+and every board in GitHub Issues. All three keep your ticket format, Notes,
+evidence, acceptance rules, and recovery process.
 
 ## Local tickets
 
@@ -12292,6 +12342,25 @@ skills and ticket source. YAML selects a workflow; it does not connect a plugin
 or grant write permission by itself. The agent can verify read access first;
 the first requested write must also succeed and be verified.
 
+## Tickets and every board in GitHub Issues
+
+```yaml
+work_tracking:
+  backend: github_issues
+  github_issues:
+    repository: YOUR_OWNER/YOUR_REPO
+```
+
+Tickets, focus, claims, the agent roster, messages, artifact entries and context
+packs all live in that repository's Issues, so agents on different machines see
+the same state without a shared checkout. Every record has one writer or is
+append-only, so agents never overwrite each other: see
+[`issues_backend.md`](issues_backend.md). A pinned header issue explains the
+rules inside the repository; [`issues_setup.md`](issues_setup.md) creates it.
+Agents use whatever GitHub tools they have, and an agent without access to the
+repository stops and asks its owner. Use a private repository: everything in a
+public one is public.
+
 ## Existing installs and migrations
 
 Changing the setting does not move your tickets. Review [`migration.md`](migration.md)
@@ -12300,7 +12369,8 @@ until the complete content and route mapping have been verified.
 
 Older `backend: files` settings resolve to `local`. The earlier `backend: github`
 selected a CLI/Project draft, so it requires an explicit change to
-`github_codex_plugin` and the matching settings block; it is not silently converted.
+`github_codex_plugin` or `github_issues` and the matching settings block; it is
+not silently converted.
 Upgrade tools preserve your existing config values.
 Older plugin configurations must add `connection_nickname` explicitly; an
 upgrade cannot infer which connected account you intend to use.
@@ -12841,6 +12911,263 @@ not solicit or handle a personal access token in chat, shell arguments, source,
 YAML, work notes, or logs.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/commands.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/issues_backend.md ---
+
+# GitHub Issues backend
+
+This skill applies only when `work_tracking.backend: github_issues`. Tickets and
+every board live in GitHub Issues in the repository named by
+`work_tracking.github_issues.repository`. This file describes the mechanics. Use
+the GitHub tools your harness provides; it names no tool.
+
+## Access
+
+You need read and write access to that repository's issues, comments and
+labels. If you lack it, or GitHub denies an operation, stop and raise the gap to
+your owner. Never switch to local boards, another account, another repository or
+another backend to work around it. Keep the repository private: everything
+posted to a public repository is public.
+
+## Records
+
+| Record | What it holds | Who writes it |
+| --- | --- | --- |
+| Header issue | one per repository, label `cc-header`, pinned when possible: how these boards work, plus the owner's notes | its holder at setup or upgrade; the owner edits the notes |
+| Ticket issue | one Epic, Story or Task, label `cc-epic`, `cc-story` or `cc-task`: the ticket template plus a `## Route` section | the ticket's holder |
+| Agent issue | one per agent, titled `Agent: <AGENT_NAME>`, label `cc-agent`: that agent's presence and setup notes | that agent |
+| Agent card | one comment per agent per issue | that agent |
+| Event | one comment per claim, release, message or other event | anyone; never edited |
+
+Accounts may be shared, so GitHub's author field does not identify an agent.
+The name in a record's marker does. Edit only the card and agent issue that
+carry your name, and only the bodies you hold.
+
+```text
+<!-- cc-card: <AGENT_NAME> -->
+**Card: <AGENT_NAME>** | role: primary, review or support | updated <ISO-8601 UTC>
+STEP: <what you are doing now>
+FINDINGS: <results not yet promoted, with evidence links>
+NEXT: <one concrete action>
+
+<!-- cc-event: <type> <AGENT_NAME> -->
+**<type>** by <AGENT_NAME> | <ISO-8601 UTC>
+<the fields the type needs>
+```
+
+Event types: `claim` (ROLE), `release` and `break` (CLAIM: the claim's comment
+URL, REASON), `message` and `ack` (the message fields under Presence),
+`artifact` (PATH, TYPE, DISPOSITION), `stale`, `collision` and `duplicate`
+(REASON and the affected link).
+
+## Writing without collisions
+
+GitHub has no write lock. A body, title or open/closed state is replaced whole on
+every save: the last save wins, with no merge and no error. Comments are separate
+records, so posting one never collides with anyone. So every record has one
+writer or is append-only.
+
+- **Events** are appended and never edited. Correct one with a new event.
+- **Your card** holds your current state on that issue. Edit it in place and
+  find it again by its marker. Before it reaches GitHub's 65,536-character limit,
+  start a new card that links the old one.
+- **A body** is saved only by its holder. Read the body and its last-edited time.
+  Just before saving, check that time again. After saving, read the edit history
+  and confirm no other edit landed between your read and your save. If one did,
+  restore the lost text from history, save again and post `collision`. The
+  issue's updated time also moves when comments arrive, so it cannot detect body
+  edits.
+- **Title and open/closed state** are changed only by the holder.
+- **Labels and assignees** change one at a time, never by setting the whole
+  list. Read them back: GitHub drops label changes from accounts without push
+  access without an error.
+- **Volume.** GitHub limits content writes to about 80 a minute and 500 an hour
+  per account, shared by every agent using it. Post events and card updates for
+  state changes, not for every step.
+
+## Claims
+
+A claim is the write lock for a ticket.
+
+1. To take a ticket, post `claim` with `ROLE: primary`, then re-read the issue's
+   comments.
+2. You hold the ticket only if yours is the earliest `primary` claim that no later
+   `release` or `break` names. If you are not first, post `release` for your
+   claim and do not act as holder. Claim again after the holder releases.
+3. `review` and `support` claims say what you are doing. Any number may be open,
+   and none grants the body.
+4. Release before a handoff. Closing the issue releases every claim on it.
+5. Post `break` against a claim, with the reason, only when its holder's agent
+   issue is closed or stale, or the owner tells you to. Then claim normally.
+
+The holder is the ticket's only body writer. An assignee or label showing the
+holder is a display hint, never the source of truth.
+
+## Promotion
+
+The holder copies what matters from cards and events into the body: findings
+into `## Notes`, decisions and dispositions into their sections. Promotion adds;
+it never rewrites another agent's text. After promoting, the holder ends the body
+with `<!-- cc-promoted-through: <comment URL> -->`. Readers take the body plus
+every comment after that stamp.
+
+## The boards in this mode
+
+Wherever Context Compass names a local board, use its GitHub form:
+
+| Local board | In `github_issues` mode |
+| --- | --- |
+| `attention_board.md` active row and its details | the ticket's `## Route` section, with label `cc-active` while the route is active |
+| Attention board view | open issues labelled `cc-active` |
+| Recently closed anchors | recently closed ticket issues |
+| Message alerts | none: unacknowledged `message` events on the recipient's agent issue are the alert |
+| `issue_board.md` claims | `claim`, `release` and `break` events on each ticket |
+| `mailbox_board.md` Checked-In Agents | open agent issues and their bodies |
+| `mailbox_board.md` Messages | `message` events on the recipient's agent issue |
+| `mailbox_board.md` Notes | the agent issue body |
+| `artifact_board.md` | the ticket's Artifact Links section; dispositions apply at closure |
+| `context_management/context_board.md` | the ticket's Context Management section and its `Context ID` values |
+| Board Notes regions | the header issue's owner-notes region |
+
+```text
+## Route
+- status: ready, in_progress, blocked or review
+- mode: <mode>
+- next: <one concrete action>
+- outcome: <what done looks like>
+- exit_signal: <what ends or switches this route>
+- blocker: none or <the blocker>
+- resume_hierarchy: <parent-first Issue URLs ending at this ticket>
+- updated_at: <ISO-8601 UTC>
+```
+
+Artifact files, context packs, system documents and special instructions stay in
+the repository, and tickets link them. Gates keep their meaning: "an active
+attention row routing to the ticket" is an active `## Route` with `cc-active` on
+a ticket you hold.
+
+## Presence
+
+Session identity, authorization, presence values and timestamps follow
+`agent_session_state.md`. Only the store differs: your agent issue.
+
+- **Check in** as your first authorized action. Use your open
+  `Agent: <AGENT_NAME>` issue, reopen your closed one, or create it as
+  `github/issues_setup.md` describes. Set agent name, owner, session key,
+  `checked_in_at`, `last_checked` and presence `active` in its body.
+- **Stay current.** Update `last_checked` whenever you read your messages, and at
+  each state check under `codex_mcp`.
+- **Messages** (`mailbox` transport). A `message` event on the recipient's agent
+  issue carries TO, FROM, DATETIME, TYPE (HANDOFF, NOTICE, QUESTION or ACK),
+  CLAIM, EVIDENCE and ACK_REQUESTED. To consume one, copy actionable content into
+  your active ticket, post `ack` naming the message, and move your agent issue's
+  promotion stamp past it. Under `codex_mcp`, messages use MCP threads and only
+  presence lives here.
+- **Check out** when your session ends: release your claims, set each of your
+  cards' STEP to `checked out`, set presence `departed` and close your agent
+  issue.
+- **Stale agents.** An open agent issue whose `last_checked` is more than a day
+  old is stale. During your own check-in you may post `stale` on it, close it and
+  `break` its claims with that reason.
+
+## Tickets
+
+The shared ticket rules apply: templates, Status, Notes, the microcycle and
+closure. The ticket body is canonical and its Status drives routing; GitHub's
+open/closed state follows it. Close only after `Status: done`, the completion
+summary and the artifact dispositions are saved and verified; then remove
+`cc-active` and close. Keep parent and child links explicit in each body; native
+sub-issues and dependencies may mirror them.
+
+Rules written for plugin mode about Issue tickets apply here unchanged: the body
+holds the template, Status and Notes, a full-body update keeps every earlier
+note, and closure is verified before and after. Use your GitHub tools where they
+say the plugin, and claim events where they say `issue_board.md`.
+
+## Recovery
+
+After compaction or handoff, re-read the header issue, your agent issue and its
+unacknowledged messages, every ticket you hold (its body plus the comments after
+its stamp) and the `cc-active` view. Resume from your held ticket's `## Route`.
+
+## Setup
+
+If the repository has no `cc-header` issue, a label above is missing, or the
+header issue's version is older than this install's, follow
+`github/issues_setup.md` before other work.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/issues_backend.md ---
+
+--- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/issues_setup.md ---
+
+# GitHub Issues setup
+
+This skill sets up a repository for `work_tracking.backend: github_issues`,
+refreshes the header issue after an upgrade, creates an agent issue and moves a
+project off local boards. `github/issues_backend.md` defines the records and
+write rules used here; follow it throughout.
+
+## Labels
+
+Create each missing label, one at a time: `cc-header`, `cc-agent`, `cc-epic`,
+`cc-story`, `cc-task` and `cc-active`. If GitHub refuses, raise it to your owner.
+
+## Header issue
+
+1. Look for an open issue labelled `cc-header`. If there is none, create one
+   titled `Context Compass: how this repository works` from
+   `templates/github_issues_header.md`. Replace `<VERSION>` with this install's
+   Context Compass version and `<REPOSITORY>` with the configured repository, then
+   add the `cc-header` label. Pin it if your access allows; pinning is optional.
+2. If agents create headers at the same time, the lowest-numbered open
+   `cc-header` issue is the header. Close each other one after posting
+   `duplicate` with a link to the header.
+3. After an upgrade, refresh it: claim the header issue, replace everything
+   outside the owner-notes region with the new template, keep the owner-notes
+   region exactly as it was, update the version line, run the body check and
+   release.
+
+## Agent issue
+
+At your first check-in, create `Agent: <AGENT_NAME>` with the `cc-agent` label if
+no issue carries your name. Reopen a closed one rather than creating another. If
+two open agent issues carry your name, use the lowest-numbered one and close the
+other after posting `duplicate`.
+
+```text
+<!-- cc-agent: <AGENT_NAME> -->
+# Agent: <AGENT_NAME>
+- owner: <owner>
+- session_key: <session key>
+- checked_in_at: <ISO-8601 UTC>
+- last_checked: <ISO-8601 UTC>
+- presence: active
+
+## Setup notes
+<custom-instruction setup outcomes and standing handoff notes>
+
+<!-- cc-promoted-through: none -->
+```
+
+## Moving from local boards
+
+Only when the owner asks, and only after the tickets are Issues
+(`github/migration.md` covers moving ticket files):
+
+1. Choose a quiet point. Every agent consumes its messages, finishes or hands
+   off its claimed work, and checks out of the local boards.
+2. Create the labels and the header issue. Copy the board Notes regions into the
+   header's owner-notes region.
+3. For each active row on `attention_board.md`, write the ticket's `## Route`
+   section and add `cc-active`.
+4. Copy each open artifact and context entry into its ticket's Artifact Links and
+   Context Management sections.
+5. Show the owner the result. Set `work_tracking.backend: github_issues` only after
+   the owner approves it, and then agents check in on GitHub and claim their
+   tickets afresh.
+6. Leave the local board files as they are. In this mode nothing reads them.
+
+--- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/issues_setup.md ---
 
 --- START OF FILE: context_compass/agent_onboarding/default/general/skills/github/migration.md ---
 
@@ -14109,7 +14436,7 @@ Rules
   - activation rule
   - active workflow paths or `none`
   - optional on-demand workflow paths or `none`
-- Active workflows are available to select in both backends. The role's
+- Active workflows are available to select in every backend. The role's
   `SKILLS.MD` decides whether each one is eager (baseline) or lazy
   (On-demand); `general` indexes its active workflows lazily, with triggers.
 - On-demand workflows are discoverable but should not be read until:
@@ -14611,9 +14938,10 @@ Workflow rules
 10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
-   - In plugin mode, record accepted metadata and its derived Status for an Agile
-     design, or `Status: done` for a non-Agile design. Record the transition reason,
-     verify the body, close the Issue, and verify state through the plugin.
+   - In either Issue mode, record accepted metadata and its derived Status for an
+     Agile design, or `Status: done` for a non-Agile design. Record the transition
+     reason, verify the body, close the Issue, and verify state (through the plugin
+     in plugin mode).
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -14686,8 +15014,9 @@ Notes format requirement
   replace required in-body state, decisions, evidence or unresolved limits.
 - Unchanged checks/ACKs do not require a substantive finding Note; required state/routing/evidence
   updates still apply. This does not relax configured timing or note-quality gates.
-- In plugin mode, `## Notes` remains in the Issue body. A full-body update must
-  preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
+- In either Issue mode, `## Notes` remains in the Issue body. A full-body update must
+  preserve every previous note and unrelated section; follow `github/codex_plugin.md`
+  in plugin mode or `github/issues_backend.md` in `github_issues` mode.
 - Current body state, scope, decisions and handoff must be reconciled at material transitions
   and closure, with concise attributed links rather than copied reports. Optional metadata's
   state-event references still resolve to concise body Notes; those Notes may link detailed
@@ -14974,8 +15303,9 @@ after compaction or handoff. Resolve exactly one backend before ticket work.
 
 | YAML value | canonical ticket record | required general readset |
 | --- | --- | --- |
-| `local` | Markdown files in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/` | shared + Local backend baseline |
-| `github_codex_plugin` | Issue bodies in the configured GitHub repository | shared + GitHub Codex plugin baseline |
+| `local` | Markdown files in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/` | shared + Local backend baseline + Local boards baseline |
+| `github_codex_plugin` | Issue bodies in the configured GitHub repository | shared + GitHub Codex plugin baseline + Local boards baseline |
+| `github_issues` | Issue bodies in the configured GitHub repository; every board is in GitHub Issues too | shared + GitHub Issues backend baseline |
 
 An absent `work_tracking` block or absent `backend` key means `local`. A blank
 value, unknown value, or contradictory configuration blocks ticket work. Do not
@@ -15019,20 +15349,32 @@ report the failed operation. Do not switch to local tickets, `gh`, or direct
 HTTP as an implicit fallback. CLI helpers under `github/` are optional standalone
 tools and are not part of this backend's onboarding or authentication.
 
+## GitHub Issues
+
+Require `work_tracking.github_issues.repository` in `owner/repo` form. Tickets
+and every board live in that repository's Issues, as
+`github/issues_backend.md` describes: ticket issues with a `## Route` section,
+one agent issue per agent, a header issue, cards and append-only event comments.
+Use whatever GitHub tools your harness provides; access to that repository is a
+precondition. If it is missing or denied, stop and raise it to your owner. Do
+not fall back to local tickets or local boards.
+
 ## Independent communication selector
 
 Resolve `agent_communication.backend` separately using
-`agent_communication_backend.md`. Ticket and communication selectors combine
-independently; all four combinations are supported. Default mailbox transport
-remains compatible with both ticket backends.
+`agent_communication_backend.md`. Every ticket backend combines with either
+transport. In `github_issues` mode, `mailbox` messages are events on the
+recipient's agent issue instead of rows in `mailbox_board.md`.
 
 ## Shared state and changing backends
 
-`system_of_record.enforce` is independent of backend selection. Both backends
-use local attention, artifact, context-management, and mailbox boards. System
-docs, special instructions, artifacts, context packs, and agent identities stay
-local. Plugin mode additionally uses `issue_board.md` for local agent claims.
-Boards hold references and responsibility; they do not duplicate ticket Notes.
+`system_of_record.enforce` is independent of backend selection. `local` and
+`github_codex_plugin` use local attention, artifact, context-management, and
+mailbox boards; plugin mode additionally uses `issue_board.md` for local agent
+claims. `github_issues` keeps all of these in GitHub Issues and reads none of the
+local board files. In every mode, system docs, special instructions, artifact
+files and context packs stay in the repository. Boards hold references and
+responsibility; they do not duplicate ticket Notes.
 
 Changing YAML does not migrate tickets. An agent must stop if the existing active
 route uses the other backend; follow `github/migration.md` when the owner requests
@@ -15043,8 +15385,9 @@ mapping and full content verification. Keep one editable record for each ticket.
 
 `files` is a legacy alias for `local`, so older local installs keep working.
 The earlier `github` value selected a CLI/Project workflow and is not an alias
-for `github_codex_plugin`. Stop and ask the owner to select the new explicit
-value before acting; do not change an existing transport automatically.
+for `github_codex_plugin` or `github_issues`. Stop and ask the owner to select
+the new explicit value before acting; do not change an existing transport
+automatically.
 
 Upgrade tools preserve existing `work_tracking` blocks. To opt into the plugin
 from an older config, explicitly set `backend: github_codex_plugin` and create
@@ -15473,12 +15816,14 @@ Provide one explicit cleanup workflow for Context Compass work state:
 
 ## Backend Routing
 Resolve YAML before collecting candidates. Preserve the same `my assets` versus
-`everything` choice and explicit ticket selection in both modes. `everything`
+`everything` choice and explicit ticket selection in every backend. `everything`
 means all current active board candidates; `all` means that reviewed set, not
 every Issue in the remote repository. In plugin mode, fetch candidate bodies,
 verify `issue_board.md` claims, and preserve Notes while closing selected Issues
-through the plugin. GitHub assignees do not replace the `agent_name` scope filter.
-Local mode uses the inherited local closure skill. Both modes retain acceptance,
+through the plugin. In `github_issues`, read claims from each ticket's events and
+close selected Issues with your GitHub tools, removing `cc-active`. GitHub
+assignees do not replace the `agent_name` scope filter.
+Local mode uses the inherited local closure skill. Every backend retains acceptance,
 artifact disposition, and attention detail/anchor synchronization gates.
 
 ## Preconditions / Gates
@@ -15695,8 +16040,10 @@ Start a new Context Compass lane in a structured way:
 Resolve YAML before ticket work. In `local`, create the existing template files
 and use relative paths. In `github_codex_plugin`, create template bodies through
 the plugin in the configured repository, link parents/children by Issue URL,
-and add the primary claims to `issue_board.md`. The shared patch/artifact gates
-and lane-shape decisions apply in both modes. Use the selected backend's already
+and add the primary claims to `issue_board.md`. In `github_issues`, create the
+Issues with your GitHub tools, write each ticket's `## Route` and post your
+`claim` on it. The shared patch/artifact gates and lane-shape decisions apply
+in every backend. Use the selected backend's already
 read general workflow; do not create a parallel local ticket for an Issue.
 
 ## Phase Sequence
@@ -15811,6 +16158,8 @@ lanes. Plugin mode fetches Issue bodies/state for current routes and claims in
 missing. An unrelated open Issue is not automatically active Context Compass
 work. Confirm scope/identity for unmatched candidates, and never infer an agent
 claim from a GitHub assignee. Preserve protected regions and unrelated alerts.
+`github_issues` has no board file: repair each held ticket's `## Route` section
+and its `cc-active` label instead.
 
 ## Phase Sequence
 1. Intake
@@ -15919,7 +16268,8 @@ Resolve YAML and fetch/read the candidate tickets before asking for selection.
 `all` means the displayed candidate set, never every Issue in the repository.
 Local closure uses the inherited local closure skill. Plugin closure preserves
 the Issue body and Notes, records completion, verifies the body, closes through
-the plugin, and releases the local claim. Use the selected backend's workflow
+the plugin, and releases the local claim. `github_issues` closure does the same
+through your GitHub tools, then removes `cc-active`. Use the selected backend's workflow
 and keep its acceptance gate and board/artifact sync rules.
 
 ## Phase Sequence
@@ -17219,6 +17569,7 @@ Core system anchors
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - `tickets/` for `local`, or configured GitHub Issue bodies for `github_codex_plugin`
+  and `github_issues` (which also keeps every board in GitHub Issues)
 - `issue_board.md` for plugin-mode agent claims
 - `attention_board.md`
 - `artifact_board.md`
@@ -24834,6 +25185,8 @@ Purpose
 - Canonical index of active artifact associations.
 - Track artifact lifecycle decisions that support ticket execution.
 - Keep `attention_board.md` ticket-only and free of artifact pointers.
+- Unused in `github_issues` mode: each ticket's Artifact Links section holds its
+  artifacts.
 
 Scope rules
 - `attention_board.md` routes tickets only; do not add artifact paths there.
@@ -25010,6 +25363,8 @@ Purpose
 - Active-work routing board.
 - Attention-only summary for fast re-entry.
 - Canonical detail lives in linked tickets.
+- Unused in `github_issues` mode: each ticket issue carries its own `## Route`
+  (`agent_onboarding/default/general/skills/github/issues_backend.md`).
 
 Attention details rule
 - Keep this board compact and operational.
@@ -25137,16 +25492,20 @@ system_of_record:
   enforce: true
 
 # This chooses where Epic/Story/Task tickets live. It does not change the
-# system-of-record mandate or move system docs, mailbox, or agent coordination.
+# system-of-record mandate or move system docs. Only github_issues also moves the
+# boards (attention, claims, mailbox, artifacts, context packs) into GitHub Issues.
 work_tracking:
-  backend: local # local | github_codex_plugin; absent means local
+  backend: local # local | github_codex_plugin | github_issues; absent means local
   github_codex_plugin:
     connection_nickname: "" # Codex connection nickname; required only for plugin operations
     issues_repository: "" # owner/repo; required only for github_codex_plugin
     project_url: "" # optional context link; Issue body Status remains authoritative
+  github_issues:
+    repository: "" # owner/repo holding tickets and every board; keep it private; required only for github_issues
 
 # This selects agent-to-agent message transport, not ticket storage or state.
-# Roster and setup outcomes remain on the existing local board.
+# Roster and setup outcomes stay on the local mailbox board, or on agent issues
+# in github_issues mode.
 agent_communication:
   backend: mailbox # mailbox | codex_mcp; absent means mailbox
 
@@ -25319,6 +25678,8 @@ Purpose
 - Canonical index of active context-management associations.
 - Track reusable reread packs linked to tickets.
 - Keep `attention_board.md` ticket-only and free of context-artifact paths.
+- Unused in `github_issues` mode: each ticket's Context Management section holds
+  its context packs.
 
 Scope rules
 - `attention_board.md` routes tickets only; do not add context artifact paths
@@ -27685,6 +28046,8 @@ Purpose
 - Mailbox-mode message passing (point-to-point handoffs, notices, questions, acks).
 - Companion to `attention_board.md` (which stays routing/broadcast-only).
 - Shared state: `agent_onboarding/default/general/skills/agent_session_state.md`.
+- Unused in `github_issues` mode: agent issues hold the roster, setup notes and
+  messages (`agent_onboarding/default/general/skills/github/issues_backend.md`).
 - Message transport: `agent_communication.backend` in the config selects mailbox or codex_mcp.
   MCP agents read only Checked-In Agents and relevant Notes; they skip
   the messaging rules below and the Messages region. Existing messages remain untouched.
@@ -28247,6 +28610,56 @@ what editing the rest of the template would cost you.
 -->
 
 --- END OF FILE: context_compass/templates/epic_template.md ---
+
+--- START OF FILE: context_compass/templates/github_issues_header.md ---
+
+<!-- cc-header-version: <VERSION> -->
+# Context Compass: how this repository works
+
+Context Compass agents coordinate in GitHub Issues in `<REPOSITORY>`
+(`work_tracking.backend: github_issues`). Every agent reads this issue first.
+
+<!-- BEGIN MANAGED: header -->
+## Where things are
+
+| What | Where |
+| --- | --- |
+| Tickets | issues labelled `cc-epic`, `cc-story` or `cc-task` |
+| Current focus | open issues labelled `cc-active`, and each ticket's `## Route` section |
+| Who holds a ticket | `claim`, `release` and `break` comments on the ticket |
+| Agents | open issues labelled `cc-agent` |
+| Messages | `message` comments on the recipient's agent issue |
+| Artifacts and context packs | each ticket's Artifact Links and Context Management sections |
+| Closed work | closed ticket issues |
+
+## Rules every agent follows
+
+- Posting a comment never overwrites anyone. Event comments are never edited.
+- Each agent keeps one card comment per issue, marked with its own name, and edits
+  only that card.
+- Only a ticket's holder saves its body, title or state, and it checks the edit
+  history after every save.
+- The holder is the earliest `primary` claim that has not been released or broken.
+- The holder copies what matters from cards and events into the body, and stamps
+  the last comment it included.
+- Labels are added and removed one at a time.
+- Agents check out when they finish: they release their claims and close their
+  agent issue. An agent silent for more than a day is stale, and another agent may
+  check it out.
+
+The full rules ship with Context Compass in
+`context_compass/agent_onboarding/default/general/skills/github/issues_backend.md`.
+<!-- END MANAGED: header -->
+
+## Owner notes
+
+Standing instructions for every agent in this repository. Agents keep this
+section exactly as the owner writes it.
+
+<!-- BEGIN USER-DEFINED: notes -->
+<!-- END USER-DEFINED: notes -->
+
+--- END OF FILE: context_compass/templates/github_issues_header.md ---
 
 --- START OF FILE: context_compass/templates/story_template.md ---
 
@@ -29143,7 +29556,7 @@ For large projects, prefer `--out-dir` so the full inventory does not flood a ch
 ## Compare Your Choices
 
 The report includes every registered role from `SKILLS.MD`, its inherited parents,
-both ticket backends, both message transports, and onboarding versus recovery.
+every ticket backend, both message transports, and onboarding versus recovery.
 The selected detail view uses your current YAML settings unless you explicitly
 choose alternatives for the report:
 
@@ -30692,7 +31105,7 @@ import pathlib
 import re
 import json
 
-from ticket_backend import backend_from_yaml, BackendConfigError
+from ticket_backend import BACKENDS, backend_from_yaml, BackendConfigError
 
 
 class RouteError(ValueError):
@@ -30708,16 +31121,26 @@ ENTRY = (
     GENERAL + "skills/agent_session_state.md",
     GENERAL + "skills/harness_custom_instructions.md",
 )
-TICKETS = ("local", "github_codex_plugin")
+TICKETS = BACKENDS
 COMMUNICATIONS = ("mailbox", "codex_mcp")
 EVENTS = ("onboard", "reonboard")
 READING_MODES = ("lean", "full")
+# Each heading prefix maps to every (dimension, value) pair that must hold.
+# `boards` is derived from the ticket backend: only github_issues keeps the
+# boards on GitHub; every other backend uses the local board files.
 CONDITIONS = {
-    "local backend": ("ticket", "local"),
-    "github codex plugin": ("ticket", "github_codex_plugin"),
-    "mailbox communication": ("communication", "mailbox"),
-    "codex mcp communication": ("communication", "codex_mcp"),
+    "local backend": (("ticket", "local"),),
+    "github codex plugin": (("ticket", "github_codex_plugin"),),
+    "github issues backend": (("ticket", "github_issues"),),
+    "local boards": (("boards", "local"),),
+    "mailbox communication": (("communication", "mailbox"), ("boards", "local")),
+    "codex mcp communication": (("communication", "codex_mcp"),),
 }
+
+
+def boards_for(ticket: str) -> str:
+    """Where the boards live for a ticket backend: `github` or `local`."""
+    return "github" if ticket == "github_issues" else "local"
 
 
 def relative_path(root: pathlib.Path, value: str) -> str:
@@ -30947,9 +31370,12 @@ def requirements(root, roles, name, ticket, communication, event, special_paths,
                          "state": "baseline", "if_exists": False})
     required += [{"path": path, "reason": "Project special instructions", "source": "AGENTS.MD",
                   "line": locate("## Project Instructions Bootstrap"), "state": "baseline", "if_exists": False} for path in special_paths]
-    required.append({"path": "mailbox_board.md", "reason": "Shared session state; relevant Notes/messages remain session-specific",
-                     "source": GENERAL + "skills/agent_session_state.md", "line": 9,
-                     "state": "baseline", "if_exists": False})
+    boards = boards_for(ticket)
+    if boards == "local":
+        required.append({"path": "mailbox_board.md", "reason": "Shared session state; relevant Notes/messages remain session-specific",
+                         "source": GENERAL + "skills/agent_session_state.md", "line": 9,
+                         "state": "baseline", "if_exists": False})
+    selected = {"ticket": ticket, "communication": communication, "boards": boards}
     optional, sections = [], []
     for role in order:
         row, value = roles[role], manifests[role]
@@ -30963,7 +31389,7 @@ def requirements(root, roles, name, ticket, communication, event, special_paths,
                      if section["state"] != "baseline"]
         for entry in value["entries"]:
             condition = entry.get("condition")
-            if condition and {"ticket": ticket, "communication": communication}[condition[0]] != condition[1]:
+            if condition and any(selected[dimension] != value for dimension, value in condition):
                 continue
             entry = dict(entry, reason=f"{role}: {entry['section']}")
             eager = entry["state"] == "baseline" or (reading_mode == "full" and entry["state"] == "on_demand")
@@ -32662,8 +33088,9 @@ something hostile. Nothing here runs as part of extraction or assembly; this is 
 separate command, dry-run by default, and it asks before writing.
 
 The install's `config/context_compass_config.yaml`, beside the `tickets/` lane,
-selects the backend. Local `--create` is refused for github_codex_plugin. Its
-dry run reports the graph census only and never reads inactive local tickets.
+selects the backend. Local `--create` is refused for both Issue backends
+(github_codex_plugin and github_issues). Their dry run reports the graph census
+only and never reads inactive local tickets.
 
 AGGREGATED AT THE PACKAGE, WHICH IS THE WHOLE DESIGN CONSTRAINT
 
@@ -32709,7 +33136,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from graph_walker import census, load, confirm  # noqa: E402
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
-from ticket_backend import BackendConfigError, read_backend  # noqa: E402
+from ticket_backend import BackendConfigError, ISSUE_BACKENDS, read_backend  # noqa: E402
 
 STORY_MARKER = "GRAPH-SEM"
 EPIC_SLUG = "author-graph-semantics"
@@ -32983,9 +33410,9 @@ def main() -> int:
     except BackendConfigError as exc:
         print(f"ERROR: {config_path}: {exc}")
         return 2
-    if args.create and backend == "github_codex_plugin":
-        print("REFUSED: github_codex_plugin uses Issues; local --create is disabled.")
-        print("Use the dry-run census and compose tickets through the connected plugin.")
+    if args.create and backend in ISSUE_BACKENDS:
+        print(f"REFUSED: {backend} uses Issues; local --create is disabled.")
+        print("Use the dry-run census and compose the tickets as GitHub Issues.")
         return 1
 
     if not args.descriptors.is_dir():
@@ -33020,8 +33447,8 @@ def main() -> int:
     needing = {p: v for p, v in by_pkg.items()
                if len(v["UNSEMANTIC"]) + len(v["SEMANTICS_STALE"]) >= args.min_nodes}
 
-    if backend == "github_codex_plugin":
-        print("  backend: github_codex_plugin")
+    if backend in ISSUE_BACKENDS:
+        print(f"  backend: {backend}")
         print("  DRY RUN: graph census only; local ticket history is inactive.")
         for package, states in sorted(needing.items()):
             print(f"    {package}: {len(states['UNSEMANTIC'])} unsemantic, "
@@ -33764,6 +34191,10 @@ class BackendConfigError(ValueError):
     """The helper cannot establish the configured ticket backend safely."""
 
 
+BACKENDS = ("local", "github_codex_plugin", "github_issues")
+ISSUE_BACKENDS = ("github_codex_plugin", "github_issues")  # tickets live in GitHub Issues
+
+
 _KEY = r"(?:[A-Za-z_][A-Za-z0-9_-]*|\"[A-Za-z_][A-Za-z0-9_-]*\"|'[A-Za-z_][A-Za-z0-9_-]*'|<<)"
 _HEAD = re.compile(rf"^({_KEY}):(?:[ \t]+(.*)|$)")
 
@@ -33780,7 +34211,7 @@ def _head(body: str) -> tuple[str, str]:
 
 
 def backend_from_yaml(text: str) -> str:
-    """Resolve local/plugin, refusing unsupported or contradictory selectors."""
+    """Resolve a supported backend, refusing unsupported or contradictory selectors."""
     records = []
     started = finished = False
     for raw in text.lstrip("\ufeff").splitlines():
@@ -33850,8 +34281,9 @@ def backend_from_yaml(text: str) -> str:
         scalar = scalar[1:-1].replace("''", "'")
     if scalar == "files":
         return "local"
-    if scalar not in ("local", "github_codex_plugin"):
-        raise BackendConfigError("Select local or github_codex_plugin explicitly; legacy github is ambiguous.")
+    if scalar not in BACKENDS:
+        raise BackendConfigError(
+            "Select local, github_codex_plugin or github_issues explicitly; legacy github is ambiguous.")
     return scalar
 
 
@@ -33882,7 +34314,7 @@ import pathlib
 import re
 import sys
 
-from ticket_backend import read_backend
+from ticket_backend import BACKENDS, read_backend
 
 
 class ContractError(ValueError):
@@ -34337,14 +34769,17 @@ def native_projection(root: pathlib.Path, text: str, kind: str, observed_state: 
 
 def bundle(root: pathlib.Path, kind: str, backend: str) -> str:
     root = root.resolve()
-    if backend not in ("local", "github_codex_plugin"):
+    if backend not in BACKENDS:
         raise ContractError("Select an explicit supported host backend.")
     sources = [root / "templates/ticket_contract.json", template_path(root, kind)]
     general = root / "agent_onboarding/default/general/skills"
     sources += [general / "ticket_design.md", general / "agent_identity.md",
                 general / "execution_contract.md", general / "ticketing.md"]
-    sources += ([general / "github/workflow.md", general / "github/codex_plugin.md"]
-                if backend == "github_codex_plugin" else [general / "ticketing_skill_contract.md"])
+    sources += {
+        "local": [general / "ticketing_skill_contract.md"],
+        "github_codex_plugin": [general / "github/workflow.md", general / "github/codex_plugin.md"],
+        "github_issues": [general / "github/issues_backend.md"],
+    }[backend]
     binding = {"binding_version": 1, "backend": backend, "minimum_note_score": settings(root)[1],
                "design_instructions": design_instructions(root)}
     parts = ["# Source-Derived Ticket Contract\n\nNot an onboarding receipt or publication grant.\n",
@@ -34365,7 +34800,7 @@ def main() -> int:
     check.add_argument("--ticket", required=True, type=pathlib.Path)
     delivery = sub.add_parser("bundle")
     delivery.add_argument("--kind", required=True, choices=("epic", "story", "task"))
-    delivery.add_argument("--backend", choices=("local", "github_codex_plugin"))
+    delivery.add_argument("--backend", choices=BACKENDS)
     delivery.add_argument("--out", required=True, type=pathlib.Path)
     args = parser.parse_args()
     try:
@@ -34650,7 +35085,7 @@ def markdown(report):
     for name, role in report["roles"].items():
         out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
     out += ["", "## All Route Choices", "",
-            "Each role is expanded across both ticket backends, both communication modes and onboarding/recovery.",
+            "Each role is expanded across every ticket backend, both communication modes and onboarding/recovery.",
             "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.",
             "Lazy tokens are the full files this route can load by trigger; `full` mode adds them up front.", "",
             "| Role | Ticket backend | Messages | Entry | Known tokens | Lazy tokens | Unmeasured paths | Session-specific paths |",

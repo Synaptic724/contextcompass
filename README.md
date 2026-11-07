@@ -471,7 +471,7 @@ alone. Notable keys:
 | key | effect |
 | --- | --- |
 | `system_of_record.enforce` | when `true`, agents may not use harness task lists, plans or session memory to track work. This package is the only tracking surface. |
-| `work_tracking.backend` | `local` reads ticket folders; `github_codex_plugin` uses the connected GitHub plugin's Issues |
+| `work_tracking.backend` | `local` reads ticket folders; `github_codex_plugin` uses the connected GitHub plugin's Issues; `github_issues` keeps tickets and every board in GitHub Issues |
 | `agent_communication.backend` | `mailbox` sends file messages; `codex_mcp` uses available chat tools while keeping board/session state local |
 | `workflow.ticket_microcycle.*` | strict or relaxed loop, note score floor, expansion gate |
 | `workflow.note_behavior.*` | append-only notes, required evidence ranges, per-ticket focus |
@@ -515,6 +515,23 @@ use, independently of the target repository owner. The agent verifies the
 selected profile and stops if the nickname is missing or ambiguous; it does
 not fall back to another account. Connection IDs and credentials stay out of
 the config. Existing plugin configs must add this setting explicitly.
+
+To keep tickets **and every board** in GitHub Issues, so agents on different
+machines share focus, claims, roster, messages, artifacts and context packs
+without a shared checkout, choose:
+
+```yaml
+work_tracking:
+  backend: github_issues
+  github_issues:
+    repository: YOUR_OWNER/YOUR_REPO
+```
+
+Every record has one writer or is append-only: only a ticket's holder edits its
+body, each agent edits only its own comment card, and claims, messages and other
+events are comments that are never edited. A pinned header issue explains the
+rules inside the repository. Agents use whatever GitHub tools they have; an agent
+without access stops and asks its owner. Use a private repository.
 
 The YAML choices, plugin capabilities, and existing-config migration are in
 [the GitHub setup guide](src/context_compass/agent_onboarding/default/general/skills/github/README.md).

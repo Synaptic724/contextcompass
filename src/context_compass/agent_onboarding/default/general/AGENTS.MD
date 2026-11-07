@@ -121,7 +121,8 @@ As a ritual, after implementing a change:
 
 * Before starting any planned work beyond answering questions, search/reuse or create a structured
   Epic/Story/Task ticket in the selected backend. Local mode uses the `tickets/`
-  lanes; plugin mode uses an Issue body in the configured repository.
+  lanes; both Issue modes (`github_codex_plugin`, `github_issues`) use an Issue body
+  in the configured repository.
 * Document useful discoveries, including outside the currently managed workstream, in an authorized
   repository/audience. Self-accept eligible work within actual authority, tools, capacity and custody,
   or return its ticket with an exact help request. Ticket creation does not grant new access.
@@ -181,7 +182,8 @@ As a ritual, after implementing a change:
   Missing authority or an unmet gate is a concrete blocker, not inferred approval.
 * Record delegated acceptance or reserved-owner disposition, then complete the selected backend:
   move local tickets to matching completed folders, or verify the Issue body
-  has `Status: done`, completion summary, and reason, then close through the plugin.
+  has `Status: done`, completion summary, and reason, then close the Issue (through the
+  plugin in plugin mode).
 * Record each meaningful changed finding once at appropriate task/story/epic depth. Keep concise claim,
   impact, material limits and next action inline with exact retrievable supporting links; do not copy
   full linked reports or create substantive Notes for unchanged checks/ACKs. Preserve required in-body

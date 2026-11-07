@@ -29,6 +29,7 @@ Required columns
 - `exit_signal`: explicit condition that indicates the row should route/switch.
 - `ticket`: local mode uses a context-compass-relative ticket path (no
   `context_compass/` prefix); `github_codex_plugin` uses the canonical Issue URL.
+  `github_issues` keeps these fields in the ticket's own `## Route` section.
 - `updated_at`: ISO-8601 UTC (`YYYY-MM-DDTHH:MM:SSZ`).
 - `reread`: `REQUIRED` | `HELPFUL`.
 

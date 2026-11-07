@@ -34,6 +34,7 @@ Core system anchors
 - `config/context_compass_config.yaml`
 - `SKILLS.MD`
 - `tickets/` for `local`, or configured GitHub Issue bodies for `github_codex_plugin`
+  and `github_issues` (which also keeps every board in GitHub Issues)
 - `issue_board.md` for plugin-mode agent claims
 - `attention_board.md`
 - `artifact_board.md`

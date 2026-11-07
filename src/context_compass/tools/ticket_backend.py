@@ -17,6 +17,10 @@ class BackendConfigError(ValueError):
     """The helper cannot establish the configured ticket backend safely."""
 
 
+BACKENDS = ("local", "github_codex_plugin", "github_issues")
+ISSUE_BACKENDS = ("github_codex_plugin", "github_issues")  # tickets live in GitHub Issues
+
+
 _KEY = r"(?:[A-Za-z_][A-Za-z0-9_-]*|\"[A-Za-z_][A-Za-z0-9_-]*\"|'[A-Za-z_][A-Za-z0-9_-]*'|<<)"
 _HEAD = re.compile(rf"^({_KEY}):(?:[ \t]+(.*)|$)")
 
@@ -33,7 +37,7 @@ def _head(body: str) -> tuple[str, str]:
 
 
 def backend_from_yaml(text: str) -> str:
-    """Resolve local/plugin, refusing unsupported or contradictory selectors."""
+    """Resolve a supported backend, refusing unsupported or contradictory selectors."""
     records = []
     started = finished = False
     for raw in text.lstrip("\ufeff").splitlines():
@@ -103,8 +107,9 @@ def backend_from_yaml(text: str) -> str:
         scalar = scalar[1:-1].replace("''", "'")
     if scalar == "files":
         return "local"
-    if scalar not in ("local", "github_codex_plugin"):
-        raise BackendConfigError("Select local or github_codex_plugin explicitly; legacy github is ambiguous.")
+    if scalar not in BACKENDS:
+        raise BackendConfigError(
+            "Select local, github_codex_plugin or github_issues explicitly; legacy github is ambiguous.")
     return scalar
 
 

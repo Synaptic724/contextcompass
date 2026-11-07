@@ -11,7 +11,7 @@ import pathlib
 import re
 import sys
 
-from ticket_backend import read_backend
+from ticket_backend import BACKENDS, read_backend
 
 
 class ContractError(ValueError):
@@ -466,14 +466,17 @@ def native_projection(root: pathlib.Path, text: str, kind: str, observed_state: 
 
 def bundle(root: pathlib.Path, kind: str, backend: str) -> str:
     root = root.resolve()
-    if backend not in ("local", "github_codex_plugin"):
+    if backend not in BACKENDS:
         raise ContractError("Select an explicit supported host backend.")
     sources = [root / "templates/ticket_contract.json", template_path(root, kind)]
     general = root / "agent_onboarding/default/general/skills"
     sources += [general / "ticket_design.md", general / "agent_identity.md",
                 general / "execution_contract.md", general / "ticketing.md"]
-    sources += ([general / "github/workflow.md", general / "github/codex_plugin.md"]
-                if backend == "github_codex_plugin" else [general / "ticketing_skill_contract.md"])
+    sources += {
+        "local": [general / "ticketing_skill_contract.md"],
+        "github_codex_plugin": [general / "github/workflow.md", general / "github/codex_plugin.md"],
+        "github_issues": [general / "github/issues_backend.md"],
+    }[backend]
     binding = {"binding_version": 1, "backend": backend, "minimum_note_score": settings(root)[1],
                "design_instructions": design_instructions(root)}
     parts = ["# Source-Derived Ticket Contract\n\nNot an onboarding receipt or publication grant.\n",
@@ -494,7 +497,7 @@ def main() -> int:
     check.add_argument("--ticket", required=True, type=pathlib.Path)
     delivery = sub.add_parser("bundle")
     delivery.add_argument("--kind", required=True, choices=("epic", "story", "task"))
-    delivery.add_argument("--backend", choices=("local", "github_codex_plugin"))
+    delivery.add_argument("--backend", choices=BACKENDS)
     delivery.add_argument("--out", required=True, type=pathlib.Path)
     args = parser.parse_args()
     try:

@@ -80,7 +80,9 @@ not only the question to the user; they do not create unregistered roles.
      may add another. Match on the baseline label, never on a fixed list of
      headings; a section you fail to recognise is still mandatory.
    - `Local backend baseline` applies to `local`; `GitHub Codex plugin baseline`
-     applies to `github_codex_plugin` in `work_tracking.backend`.
+     applies to `github_codex_plugin`; `GitHub Issues backend baseline` applies
+     to `github_issues` in `work_tracking.backend`. `Local boards baseline`
+     applies to every backend except `github_issues`.
      A missing key means `local`; resolve legacy values through the shared
      `work_tracking_backend.md` skill. Read the selected backend's paths before
      certification; never apply the inactive backend's storage instructions.

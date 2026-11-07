@@ -11,8 +11,9 @@ something hostile. Nothing here runs as part of extraction or assembly; this is 
 separate command, dry-run by default, and it asks before writing.
 
 The install's `config/context_compass_config.yaml`, beside the `tickets/` lane,
-selects the backend. Local `--create` is refused for github_codex_plugin. Its
-dry run reports the graph census only and never reads inactive local tickets.
+selects the backend. Local `--create` is refused for both Issue backends
+(github_codex_plugin and github_issues). Their dry run reports the graph census
+only and never reads inactive local tickets.
 
 AGGREGATED AT THE PACKAGE, WHICH IS THE WHOLE DESIGN CONSTRAINT
 
@@ -58,7 +59,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from graph_walker import census, load, confirm  # noqa: E402
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
-from ticket_backend import BackendConfigError, read_backend  # noqa: E402
+from ticket_backend import BackendConfigError, ISSUE_BACKENDS, read_backend  # noqa: E402
 
 STORY_MARKER = "GRAPH-SEM"
 EPIC_SLUG = "author-graph-semantics"
@@ -332,9 +333,9 @@ def main() -> int:
     except BackendConfigError as exc:
         print(f"ERROR: {config_path}: {exc}")
         return 2
-    if args.create and backend == "github_codex_plugin":
-        print("REFUSED: github_codex_plugin uses Issues; local --create is disabled.")
-        print("Use the dry-run census and compose tickets through the connected plugin.")
+    if args.create and backend in ISSUE_BACKENDS:
+        print(f"REFUSED: {backend} uses Issues; local --create is disabled.")
+        print("Use the dry-run census and compose the tickets as GitHub Issues.")
         return 1
 
     if not args.descriptors.is_dir():
@@ -369,8 +370,8 @@ def main() -> int:
     needing = {p: v for p, v in by_pkg.items()
                if len(v["UNSEMANTIC"]) + len(v["SEMANTICS_STALE"]) >= args.min_nodes}
 
-    if backend == "github_codex_plugin":
-        print("  backend: github_codex_plugin")
+    if backend in ISSUE_BACKENDS:
+        print(f"  backend: {backend}")
         print("  DRY RUN: graph census only; local ticket history is inactive.")
         for package, states in sorted(needing.items()):
             print(f"    {package}: {len(states['UNSEMANTIC'])} unsemantic, "

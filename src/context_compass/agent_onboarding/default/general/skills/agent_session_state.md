@@ -14,6 +14,10 @@ Use `mailbox_board.md` inside its USER-DEFINED region:
 - `## Notes` associated with the session key for harness setup outcomes per
   `harness_custom_instructions.md`.
 
+In `github_issues` mode the store is your own agent issue instead: its body holds
+your roster entry and setup notes, as `github/issues_backend.md` describes. The
+duties below are unchanged; read "row" as that body.
+
 ## Session identity
 
 Prefer an exposed native session ID for the session key. If none is

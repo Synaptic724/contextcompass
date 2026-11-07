@@ -22,7 +22,7 @@ Rules
   - activation rule
   - active workflow paths or `none`
   - optional on-demand workflow paths or `none`
-- Active workflows are available to select in both backends. The role's
+- Active workflows are available to select in every backend. The role's
   `SKILLS.MD` decides whether each one is eager (baseline) or lazy
   (On-demand); `general` indexes its active workflows lazily, with triggers.
 - On-demand workflows are discoverable but should not be read until:

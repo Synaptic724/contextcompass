@@ -181,6 +181,21 @@ class TestTicketBackend:
         after = {p.relative_to(lane): p.read_bytes() for p in lane.rglob("*") if p.is_file()}
         assert after == before
 
+    def test_github_issues_backend_refuses_local_create_and_previews_only(self, scanned):
+        _, desc, lane = scanned
+        write(lane.parent / "config/context_compass_config.yaml",
+              "work_tracking:\n  backend: github_issues\n")
+        write(lane / "epics/keep.md", "# Keep\n\nAuthored decision and Notes.\n")
+        before = {p.relative_to(lane): p.read_bytes() for p in lane.rglob("*") if p.is_file()}
+        res = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane, "--create", "--yes")
+        assert res.returncode == 1
+        assert "REFUSED: github_issues uses Issues" in res.stdout
+        preview = run_tool(TICKETS, "--descriptors", desc, "--tickets", lane)
+        assert preview.returncode == 0
+        assert "backend: github_issues" in preview.stdout and "DRY RUN" in preview.stdout
+        after = {p.relative_to(lane): p.read_bytes() for p in lane.rglob("*") if p.is_file()}
+        assert after == before
+
     def test_plugin_preview_ignores_local_archive_ids(self, scanned):
         _, desc, lane = scanned
         write(lane.parent / "config/context_compass_config.yaml",
