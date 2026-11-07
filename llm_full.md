@@ -1209,7 +1209,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py` | INSTANCE | `01d4e6c7f384cfe77cb2b9a5aa91935cbd1545abea4ab74547c2fa480dc03a15` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/policies/synaptic_finishing_developer_policy_overrides.md` | INSTANCE | `0cc76f35aa1b14baf5bdd095e71a9a40a470317a2807e52fa9482891dafbc202` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/profile_overrides.md` | INSTANCE | `a60a7f92681c14d0b7f6effd5e79b3fed43bd939ad22a8c464c3e97125851859` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `64b9f257efa576964200f893b904862043abc7ecb8f68b4ade8980d2e99fa3cf` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `b8e781dfc12a8404a6d1ff343f89cf0914bcdbb1807f0f7f4bb9dc9c61a27107` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/comment_craft.md` | INSTANCE | `854789db17b20c6e43d2020ce9378439e6c70cecf5fada72f3cf4178c1b027ae` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_craft.md` | INSTANCE | `8927e4eb603e40a1fab06fe534f17b3fc0e382164b3756af470b73ae0d26ddb0` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md` | INSTANCE | `908215ca5be1c11d47b4cb3da64de6a8ac1b0125b9f1e45859f05030b714c9ae` |
@@ -1226,7 +1226,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/optimize_pytests_for_repo.md` | INSTANCE | `2dc745940a0a20037c3da22e2b5a7fafa1905f03a48f3ff51e19e3ff0d5f75da` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/polish_repo_documentation.md` | INSTANCE | `101053bc5a36c1e5f4649cabe82d0fff7df3ff4ab4035f006b3dea535cd15eb3` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/README.md` | INSTANCE | `f495bfbc15c5f9275be4bba33d9131147ad733e221814bdc6694717c9c42a7be` |
-| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `22b4be9851361017e71953daf9b1fad61d463372055e7402672f5bae4856181b` |
+| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `c9b409786d372808aff7473176de3dcbd7eecc79ef7eee41f980a12fa59bf2a7` |
 | `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md` | INSTANCE | `d6134d69d3894c4da5dfcc59ffbdc40aa16dcfe6217a64095eb7490dafb0fd85` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/anti_patterns.py` | INSTANCE | `26caf71884cb238e652c44206d4b44da51dd1386df9ac79ca1302db4b1958b5b` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/cleanup_patterns.py` | INSTANCE | `20f77dbd1c6bdafc83d7f9f5a2796c58465714737961a2a9b9b71431ff95ed33` |
@@ -1239,7 +1239,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md` | INSTANCE | `3bbe4757097d6ea33635f0e7fa79b9eeeb4d297f33a219f15b60b0409ea75001` |
 | `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md` | INSTANCE | `d44ff6b228afdb3415787629b4933495c45ec4f8f181a8ad2534efd56d6dd9cf` |
 | `agent_onboarding/user_defined/synaptic_python_developer/README.md` | INSTANCE | `406458063eeb04a28520bcc3da9597090c6f990ddb01a1b868dfc4e59c07be3f` |
-| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `b28af00e1ea9ab01be4de5638b0966cdcbe287952888ef758428911ac68286ab` |
+| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `65a5e0762d1144049841a3f584cb189d8d3bdc36406054c549a7984d9bbc6dc9` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/attribute_aliasing_skill_benchmark.py` | INSTANCE | `b2a6bbaabedd58919ab1c25beca31b09d2c6f76b92bebb51223b5235dbe13b27` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md` | INSTANCE | `22373e3bdcadfa6a4a276db26700cad0d349b401431f05db5cc338c337573bab` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/cleanup_and_disposal.md` | INSTANCE | `b6356e385f446a8c9ac80af752cfc81987df65805ad70e260fee1a5063309362` |
@@ -21046,7 +21046,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -21070,11 +21071,25 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/mocking.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/regression_tests.md`
 - `agent_onboarding/user_defined/synaptic_finishing_developer/skills/testing/evidence_reporting.md`
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/docstring_finishing_examples.py`
+  - Covers: worked examples of finished public docstrings.
+  - Trigger: before you write or rewrite docstrings for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/comment_finishing_examples.py`
+  - Covers: worked examples of finished comments.
+  - Trigger: before you write or rewrite comments for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py`
+  - Covers: worked unit-test examples.
+  - Trigger: before you write unit tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_component_finishing_examples.py`
+  - Covers: worked component-test examples.
+  - Trigger: before you write component tests for the first time in a session.
 - `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_integration_finishing_examples.py`
+  - Covers: worked integration-test examples.
+  - Trigger: before you write integration tests for the first time in a session.
 
 --- END OF FILE: context_compass/agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD ---
 
@@ -22709,16 +22724,8 @@ meaningful file at a time with system-aware docstrings and comments.
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section in the resolved chain, parent-first. Lazy (On-demand)
+  entries load in full when their trigger fires; Self-directed reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 No policy negotiation
@@ -22746,25 +22753,12 @@ This overlay applies only when the selected role resolves to
 These directives are migrated from repository-root `AGENTS.MD` and are treated
 as top-priority bootstrap enforcement rules.
 
-## 4) Prime Directive: Documentation-First Edits
-
-Whenever you add or modify code:
-
-- Every class must have a rich docstring.
-- Every method/function must have a rich docstring.
-- Comments must be preserved and improved when they are unclear or
-  insufficient.
-- Treat docstrings and comments as part of the API; they must remain accurate.
-
 ## 5) Non-Negotiables
 
-### 5.1) Preserve Documentation and Comments
-
-- Never delete or strip docstrings.
-- Never delete comments. If a comment is wrong, stale, or misleading, update it
-  rather than removing it.
-- Only rewrite docstrings/comments for code you touched unless an untouched
-  doc/comment is provably wrong or dangerously misleading.
+Inherited unchanged from `engineer/AGENTS.MD` and not repeated here: documentation-first
+edits (6), preserving docs and comments (7.1), rich docstrings (7.2), reviewability (7.5),
+method size (7.8) and the public API guardrail (7.10). The sections below are this
+overlay's deltas.
 
 ### 5.2) `__init__.py` Policy (No Export Wiring)
 
@@ -22774,32 +22768,6 @@ Whenever you add or modify code:
 - Keep `__init__.py` files empty unless package discovery requires the file to
   exist.
 
-### 5.3) Rich Docstrings Required (No Fluff)
-
-This is not optional. For all public classes and public methods, write
-docstrings that include real contracts, not vibes.
-
-Docstring style: follow the repo's existing style (Google / NumPy / reST). If
-the repo has a pattern, match it exactly.
-
-Minimum content for public API:
-
-- Purpose: what it does and why it exists.
-- Contract: invariants / guarantees / side effects.
-- Parameters: meaning and constraints.
-- Returns: what is returned (or `None`).
-- Raises: what can be raised, and under what conditions.
-- Threading / Concurrency: locks, thread-safety, reentrancy, ordering (when
-  relevant).
-- Lifecycle / Cleanup: ownership, idempotence, teardown ordering (when
-  relevant).
-- Examples: only when it materially clarifies usage; keep short.
-- Typing: always add type hints to signatures, and document complex types in
-  the docstring when needed for clarity.
-
-No fluff rule: do not write marketing copy or filler sentences. If a docstring
-is "rich," it contains precise guarantees.
-
 ### 5.4) Documentation and Convention Precedence
 
 - Before making edits, read and follow existing repository conventions:
@@ -22807,14 +22775,6 @@ is "rich," it contains precise guarantees.
 - Do not invent new conventions if the repo already has a pattern.
 - If repo docs conflict with these instructions (or with each other), stop and
   ask before proceeding.
-
-### 5.5) Reviewability and Change Hygiene
-
-- Keep changes reviewable.
-- Avoid touching large numbers of files in one change unless explicitly
-  requested.
-- When a large change is required, group it by a clear boundary (module/dir)
-  and apply a consistent rule.
 
 ### 5.6) Module Scope: Constants and Pure Helpers Only
 
@@ -22912,24 +22872,6 @@ Cleanup teardown contract:
   needs a retained tombstone field for callers, tests, or diagnostics.
 - If a field is kept as `None` instead of deleted, that must be intentional
   and documented.
-
-### 5.12) Method Size Discipline
-
-- Prefer methods/functions around 50-60 LOC max (counting code only; exclude
-  docstrings, signatures, and blank lines).
-- Split long methods into smaller, testable helpers with clear contracts.
-- Do not fragment code if it reduces clarity; prioritize readable, cohesive
-  units.
-
-### 5.13) Public API Guardrail
-
-- Do not change public API shape or semantics unless explicitly requested.
-- If a public change is unavoidable, prefer:
-  - compatibility adapters/shims, and/or
-  - explicit deprecation paths with documentation.
-- Interfaces may be exposed in public APIs when they mirror the concrete
-  runtime classes. If an interface is exposed, the runtime object must be the
-  concrete implementation and the interface must stay in lockstep with it.
 
 ### 5.14) TYPE_CHECKING-First Injected Collaborator Typing
 
@@ -23153,7 +23095,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -23162,17 +23105,10 @@ Skill classes (non-negotiable)
 Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD`
 - `agent_onboarding/user_defined/synaptic_python_developer/WORKFLOWS.MD`
-- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/synaptic_skill_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/docstrings.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/comments.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/typing.md`
@@ -23183,8 +23119,35 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/error_model.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/module_scope.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/refactor_limits.md`
+
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+
+- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
+  - Covers: this role's guided onboarding workflow.
+  - Trigger: the user explicitly asks to run `synaptic_python_developer_onboarding`.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
+  - Covers: this role's pytest discipline: test ranking, unit-first rules, coverage and density targets.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
+  - Covers: unit-test conventions for this role.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
+  - Covers: when and how to write integration tests.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
+  - Covers: mocking at real boundaries only.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
+  - Covers: symptom-named regression tests with minimal reproductions.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
+  - Covers: how to report validation evidence truthfully.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
+  - Covers: measured rules for aliasing attributes on hot paths.
+  - Trigger: performance work on a measured hot path, or adding or removing attribute aliases in hot code.
 
 --- END OF FILE: context_compass/agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD ---
 

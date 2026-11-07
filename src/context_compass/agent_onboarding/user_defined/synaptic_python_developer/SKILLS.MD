@@ -24,7 +24,8 @@ Skill classes (non-negotiable)
   backend baseline selected by YAML.
 - **This file lists what the role adds, not the whole readset.** Read every section
   any file in the resolved chain marks as baseline.
-- This role declares no **On-demand** and no **Self-directed** section of its own.
+- This role adds an **On-demand skills (lazy readset index)** section and no
+  **Self-directed** section of its own.
   It still inherits `engineer`'s Self-directed system reading - `src_components.md`
   and `src_graph.md`, sliced through their indexes at your own initiative, with no
   trigger to wait for. The three read states are defined in
@@ -33,17 +34,10 @@ Skill classes (non-negotiable)
 Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD`
 - `agent_onboarding/user_defined/synaptic_python_developer/WORKFLOWS.MD`
-- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/synaptic_skill_overrides.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/docstrings.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/comments.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/typing.md`
@@ -54,7 +48,32 @@ Active skills
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/error_model.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/module_scope.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md`
-- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
 - `agent_onboarding/user_defined/synaptic_python_developer/skills/python/refactor_limits.md`
 
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
 
+- `agent_onboarding/user_defined/synaptic_python_developer/workflows/synaptic_python_developer_onboarding.md`
+  - Covers: this role's guided onboarding workflow.
+  - Trigger: the user explicitly asks to run `synaptic_python_developer_onboarding`.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/testing_overview.md`
+  - Covers: this role's pytest discipline: test ranking, unit-first rules, coverage and density targets.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_unit.md`
+  - Covers: unit-test conventions for this role.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/pytest_integration.md`
+  - Covers: when and how to write integration tests.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/mocking.md`
+  - Covers: mocking at real boundaries only.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/regression_tests.md`
+  - Covers: symptom-named regression tests with minimal reproductions.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/testing/evidence_reporting.md`
+  - Covers: how to report validation evidence truthfully.
+  - Trigger: before you write, change or review tests, or report test or coverage results.
+- `agent_onboarding/user_defined/synaptic_python_developer/skills/python/hot_path_attribute_aliasing.md`
+  - Covers: measured rules for aliasing attributes on hot paths.
+  - Trigger: performance work on a measured hot path, or adding or removing attribute aliases in hot code.

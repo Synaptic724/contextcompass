@@ -5,16 +5,8 @@
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section in the resolved chain, parent-first. Lazy (On-demand)
+  entries load in full when their trigger fires; Self-directed reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 No policy negotiation
@@ -42,25 +34,12 @@ This overlay applies only when the selected role resolves to
 These directives are migrated from repository-root `AGENTS.MD` and are treated
 as top-priority bootstrap enforcement rules.
 
-## 4) Prime Directive: Documentation-First Edits
-
-Whenever you add or modify code:
-
-- Every class must have a rich docstring.
-- Every method/function must have a rich docstring.
-- Comments must be preserved and improved when they are unclear or
-  insufficient.
-- Treat docstrings and comments as part of the API; they must remain accurate.
-
 ## 5) Non-Negotiables
 
-### 5.1) Preserve Documentation and Comments
-
-- Never delete or strip docstrings.
-- Never delete comments. If a comment is wrong, stale, or misleading, update it
-  rather than removing it.
-- Only rewrite docstrings/comments for code you touched unless an untouched
-  doc/comment is provably wrong or dangerously misleading.
+Inherited unchanged from `engineer/AGENTS.MD` and not repeated here: documentation-first
+edits (6), preserving docs and comments (7.1), rich docstrings (7.2), reviewability (7.5),
+method size (7.8) and the public API guardrail (7.10). The sections below are this
+overlay's deltas.
 
 ### 5.2) `__init__.py` Policy (No Export Wiring)
 
@@ -70,32 +49,6 @@ Whenever you add or modify code:
 - Keep `__init__.py` files empty unless package discovery requires the file to
   exist.
 
-### 5.3) Rich Docstrings Required (No Fluff)
-
-This is not optional. For all public classes and public methods, write
-docstrings that include real contracts, not vibes.
-
-Docstring style: follow the repo's existing style (Google / NumPy / reST). If
-the repo has a pattern, match it exactly.
-
-Minimum content for public API:
-
-- Purpose: what it does and why it exists.
-- Contract: invariants / guarantees / side effects.
-- Parameters: meaning and constraints.
-- Returns: what is returned (or `None`).
-- Raises: what can be raised, and under what conditions.
-- Threading / Concurrency: locks, thread-safety, reentrancy, ordering (when
-  relevant).
-- Lifecycle / Cleanup: ownership, idempotence, teardown ordering (when
-  relevant).
-- Examples: only when it materially clarifies usage; keep short.
-- Typing: always add type hints to signatures, and document complex types in
-  the docstring when needed for clarity.
-
-No fluff rule: do not write marketing copy or filler sentences. If a docstring
-is "rich," it contains precise guarantees.
-
 ### 5.4) Documentation and Convention Precedence
 
 - Before making edits, read and follow existing repository conventions:
@@ -103,14 +56,6 @@ is "rich," it contains precise guarantees.
 - Do not invent new conventions if the repo already has a pattern.
 - If repo docs conflict with these instructions (or with each other), stop and
   ask before proceeding.
-
-### 5.5) Reviewability and Change Hygiene
-
-- Keep changes reviewable.
-- Avoid touching large numbers of files in one change unless explicitly
-  requested.
-- When a large change is required, group it by a clear boundary (module/dir)
-  and apply a consistent rule.
 
 ### 5.6) Module Scope: Constants and Pure Helpers Only
 
@@ -208,24 +153,6 @@ Cleanup teardown contract:
   needs a retained tombstone field for callers, tests, or diagnostics.
 - If a field is kept as `None` instead of deleted, that must be intentional
   and documented.
-
-### 5.12) Method Size Discipline
-
-- Prefer methods/functions around 50-60 LOC max (counting code only; exclude
-  docstrings, signatures, and blank lines).
-- Split long methods into smaller, testable helpers with clear contracts.
-- Do not fragment code if it reduces clarity; prioritize readable, cohesive
-  units.
-
-### 5.13) Public API Guardrail
-
-- Do not change public API shape or semantics unless explicitly requested.
-- If a public change is unavoidable, prefer:
-  - compatibility adapters/shims, and/or
-  - explicit deprecation paths with documentation.
-- Interfaces may be exposed in public APIs when they mirror the concrete
-  runtime classes. If an interface is exposed, the runtime object must be the
-  concrete implementation and the interface must stay in lockstep with it.
 
 ### 5.14) TYPE_CHECKING-First Injected Collaborator Typing
 

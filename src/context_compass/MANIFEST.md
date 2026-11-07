@@ -352,7 +352,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/examples/python/pytest_unit_finishing_examples.py` | INSTANCE | `01d4e6c7f384cfe77cb2b9a5aa91935cbd1545abea4ab74547c2fa480dc03a15` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/policies/synaptic_finishing_developer_policy_overrides.md` | INSTANCE | `0cc76f35aa1b14baf5bdd095e71a9a40a470317a2807e52fa9482891dafbc202` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/profile_overrides.md` | INSTANCE | `a60a7f92681c14d0b7f6effd5e79b3fed43bd939ad22a8c464c3e97125851859` |
-| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `64b9f257efa576964200f893b904862043abc7ecb8f68b4ade8980d2e99fa3cf` |
+| `agent_onboarding/user_defined/synaptic_finishing_developer/SKILLS.MD` | INSTANCE | `b8e781dfc12a8404a6d1ff343f89cf0914bcdbb1807f0f7f4bb9dc9c61a27107` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/comment_craft.md` | INSTANCE | `854789db17b20c6e43d2020ce9378439e6c70cecf5fada72f3cf4178c1b027ae` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_craft.md` | INSTANCE | `8927e4eb603e40a1fab06fe534f17b3fc0e382164b3756af470b73ae0d26ddb0` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/skills/documentation/docstring_test_alignment.md` | INSTANCE | `908215ca5be1c11d47b4cb3da64de6a8ac1b0125b9f1e45859f05030b714c9ae` |
@@ -369,7 +369,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/optimize_pytests_for_repo.md` | INSTANCE | `2dc745940a0a20037c3da22e2b5a7fafa1905f03a48f3ff51e19e3ff0d5f75da` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/polish_repo_documentation.md` | INSTANCE | `101053bc5a36c1e5f4649cabe82d0fff7df3ff4ab4035f006b3dea535cd15eb3` |
 | `agent_onboarding/user_defined/synaptic_finishing_developer/workflows/README.md` | INSTANCE | `f495bfbc15c5f9275be4bba33d9131147ad733e221814bdc6694717c9c42a7be` |
-| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `22b4be9851361017e71953daf9b1fad61d463372055e7402672f5bae4856181b` |
+| `agent_onboarding/user_defined/synaptic_python_developer/AGENTS.MD` | INSTANCE | `c9b409786d372808aff7473176de3dcbd7eecc79ef7eee41f980a12fa59bf2a7` |
 | `agent_onboarding/user_defined/synaptic_python_developer/behavioral_guidelines/synaptic_behavior_overrides.md` | INSTANCE | `d6134d69d3894c4da5dfcc59ffbdc40aa16dcfe6217a64095eb7490dafb0fd85` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/anti_patterns.py` | INSTANCE | `26caf71884cb238e652c44206d4b44da51dd1386df9ac79ca1302db4b1958b5b` |
 | `agent_onboarding/user_defined/synaptic_python_developer/examples/python/cleanup_patterns.py` | INSTANCE | `20f77dbd1c6bdafc83d7f9f5a2796c58465714737961a2a9b9b71431ff95ed33` |
@@ -382,7 +382,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/user_defined/synaptic_python_developer/policies/synaptic_policy_overrides.md` | INSTANCE | `3bbe4757097d6ea33635f0e7fa79b9eeeb4d297f33a219f15b60b0409ea75001` |
 | `agent_onboarding/user_defined/synaptic_python_developer/profile_overrides.md` | INSTANCE | `d44ff6b228afdb3415787629b4933495c45ec4f8f181a8ad2534efd56d6dd9cf` |
 | `agent_onboarding/user_defined/synaptic_python_developer/README.md` | INSTANCE | `406458063eeb04a28520bcc3da9597090c6f990ddb01a1b868dfc4e59c07be3f` |
-| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `b28af00e1ea9ab01be4de5638b0966cdcbe287952888ef758428911ac68286ab` |
+| `agent_onboarding/user_defined/synaptic_python_developer/SKILLS.MD` | INSTANCE | `65a5e0762d1144049841a3f584cb189d8d3bdc36406054c549a7984d9bbc6dc9` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/attribute_aliasing_skill_benchmark.py` | INSTANCE | `b2a6bbaabedd58919ab1c25beca31b09d2c6f76b92bebb51223b5235dbe13b27` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/banned_patterns.md` | INSTANCE | `22373e3bdcadfa6a4a276db26700cad0d349b401431f05db5cc338c337573bab` |
 | `agent_onboarding/user_defined/synaptic_python_developer/skills/python/cleanup_and_disposal.md` | INSTANCE | `b6356e385f446a8c9ac80af752cfc81987df65805ad70e260fee1a5063309362` |

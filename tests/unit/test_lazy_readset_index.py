@@ -146,6 +146,25 @@ def test_engineer_loads_system_doc_guides_and_procedures_lazily():
     assert GENERAL + "skills/ticketing.md" in eager
 
 
+def test_user_defined_examples_and_testing_skills_load_lazily():
+    python = "agent_onboarding/user_defined/synaptic_python_developer/"
+    eager, lazy = eager_and_lazy("synaptic_python_developer", "local", "mailbox")
+    moved = {python + path for path in (
+        "workflows/synaptic_python_developer_onboarding.md", "skills/testing/testing_overview.md",
+        "skills/testing/pytest_unit.md", "skills/testing/mocking.md",
+        "skills/python/hot_path_attribute_aliasing.md")}
+    assert moved <= lazy and not moved & eager
+    assert python + "skills/python/banned_patterns.md" in eager
+    agents = (PKG_ROOT / (python + "AGENTS.MD")).read_text(encoding="utf-8")
+    assert "### 5.12) Method Size Discipline" not in agents
+    assert 'report exactly `"Not run."`' in agents
+    finishing = "agent_onboarding/user_defined/synaptic_finishing_developer/"
+    eager, lazy = eager_and_lazy("synaptic_finishing_developer", "local", "mailbox")
+    example = finishing + "examples/python/docstring_finishing_examples.py"
+    assert example in lazy and example not in eager
+    assert finishing + "skills/documentation/docstring_craft.md" in eager
+
+
 def test_engineer_testing_discipline_is_lazy_but_its_honesty_rules_stay_eager():
     engineer = "agent_onboarding/default/engineer/"
     eager, lazy = eager_and_lazy("engineer", "local", "mailbox")
