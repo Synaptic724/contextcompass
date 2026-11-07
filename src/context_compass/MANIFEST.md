@@ -6,8 +6,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.3 |
-| files | 465 |
+| package_version | 2.20.0 |
+| files | 468 |
 
 ## Lane policy
 
@@ -29,7 +29,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 362 | restore | replace |
+| PACKAGE | 365 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -152,7 +152,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `8ef7f5975922bd59b438376ee21f0c7ce49fe9e4e9f13ce821d71d837dd02fb5` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `310707dafc126d4778ac0765e5789a29b249414eaff555ab7bc9bddb45208689` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
 | `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `2d1b72abad44a3cbae80a06e61932fdcf3b5d780660b0b943de27106ec683889` |
@@ -457,7 +457,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/security_review_flow.md` | PACKAGE | `4f4a79abcc9130062637bcd9b6133e59c1d397bab483a8262ec91e72816b1cfb` |
 | `examples/story_designer_task_flow.md` | PACKAGE | `75def243d169840f744772b92088ee5547f7f683f54e7f09c3bf684faa63f864` |
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
-| `issue_board.md` | LIVE | `acfd4d5ce81dd375efd55f19f2104d64af938b3dec538e98c94b5932e25466e1` |
+| `issue_board.md` | LIVE | `573c3ed51ab3691341b590ae172a3a75760a078dd1d7a9e7f234395f21ad828f` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
 | `mailbox_board.md` | LIVE | `03ff6176b1cbdf00fbfe1671b17f0d4efe5be0dfd66bd4234e89fd68672d19d5` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
@@ -494,6 +494,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
+| `tools/reading_routes.py` | PACKAGE | `72a5a4b51a140e9ca4c14e8ea5ae9f35d0f2629becacb0eae69f6ddea8c001cf` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
 | `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
@@ -502,5 +503,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
 | `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
 | `tools/ticket_design.py` | PACKAGE | `e7a0688926b60f69028bc2180349797db15328bae31255224e0321c4aa9c4141` |
+| `tools/TOKEN_REPORT.md` | PACKAGE | `4227c3f705a429fddaf8fd9f59917cadc867c16f233fc6235d6683c36ae341ca` |
+| `tools/token_report.py` | PACKAGE | `b81fe87962d4100f2731f6122b9467dc61b2e9412702dc0adc5d864628e4a524` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |

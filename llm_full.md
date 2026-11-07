@@ -858,8 +858,8 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.19.3 |
-| files | 465 |
+| package_version | 2.20.0 |
+| files | 468 |
 
 ## Lane policy
 
@@ -881,7 +881,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 
 | class | files | cleanup | update |
 | --- | --- | --- | --- |
-| PACKAGE | 362 | restore | replace |
+| PACKAGE | 365 | restore | replace |
 | RESET | 26 | keep listed, remove unlisted | leave alone |
 | INSTANCE | 72 | never touched | never touched |
 | LIVE | 4 | reset managed block | swap managed block |
@@ -1004,7 +1004,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/agent_session_state.md` | PACKAGE | `3124dbfdadb14cdf55a42790a16aafe7b926f6078cf3490e2b83affc50b68046` |
 | `agent_onboarding/default/general/skills/agent_stance.md` | PACKAGE | `6d259f4e79ff30b12af0914319b85206e13a273f4b741db2760f1a4447f48344` |
 | `agent_onboarding/default/general/skills/career_selection.md` | PACKAGE | `f6848776d7fdf1082f0b3da66cf781f0bede746b181c8006214106d718c153fe` |
-| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `8ef7f5975922bd59b438376ee21f0c7ce49fe9e4e9f13ce821d71d837dd02fb5` |
+| `agent_onboarding/default/general/skills/codex_mcp.md` | PACKAGE | `310707dafc126d4778ac0765e5789a29b249414eaff555ab7bc9bddb45208689` |
 | `agent_onboarding/default/general/skills/compaction_requirements.md` | PACKAGE | `ec65f1f98b0292b154e57ce1e379b950143320420701945631228853c2108506` |
 | `agent_onboarding/default/general/skills/configuration_standards.md` | PACKAGE | `abf610ca6633c14d309fe088dd1e6da793d7a8c8c2afd72b5a66c26a826b1276` |
 | `agent_onboarding/default/general/skills/context_compaction.md` | PACKAGE | `2d1b72abad44a3cbae80a06e61932fdcf3b5d780660b0b943de27106ec683889` |
@@ -1309,7 +1309,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `examples/security_review_flow.md` | PACKAGE | `4f4a79abcc9130062637bcd9b6133e59c1d397bab483a8262ec91e72816b1cfb` |
 | `examples/story_designer_task_flow.md` | PACKAGE | `75def243d169840f744772b92088ee5547f7f683f54e7f09c3bf684faa63f864` |
 | `examples/story_novel_artist_task_flow.md` | PACKAGE | `7c1d156952c223002f13573f81765e543a284ce97ba4f8cfeb0cdc20fb10ccd1` |
-| `issue_board.md` | LIVE | `acfd4d5ce81dd375efd55f19f2104d64af938b3dec538e98c94b5932e25466e1` |
+| `issue_board.md` | LIVE | `573c3ed51ab3691341b590ae172a3a75760a078dd1d7a9e7f234395f21ad828f` |
 | `LICENSE` | PACKAGE | `88c41276167ae0f03b2f0dc743040a783b52d4374e75269bce3c3a9c0b5b0b33` |
 | `mailbox_board.md` | LIVE | `03ff6176b1cbdf00fbfe1671b17f0d4efe5be0dfd66bd4234e89fd68672d19d5` |
 | `NOTICE` | PACKAGE | `8f903e125dc5d0d04da8a086f3501255a4aa7c7430c7b826ba6a5f9a7e0c696a` |
@@ -1346,6 +1346,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/cleanup_context_compass.py` | PACKAGE | `40e0fad8112c3b16438fb9f3f1d36b1f60b7a42c8b7cc22cf3e9acacc9a38c3d` |
 | `tools/migrate_boards.py` | PACKAGE | `14ff0166908e20fc6768fcb42e77ec81048ff34afecedc93fb729bb9487f06fa` |
 | `tools/package_manifest.py` | PACKAGE | `a4ba22ba590cddaad60b546a631c534c53c686d0d2c0b200d08b45c4583033b0` |
+| `tools/reading_routes.py` | PACKAGE | `72a5a4b51a140e9ca4c14e8ea5ae9f35d0f2629becacb0eae69f6ddea8c001cf` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
 | `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
@@ -1354,6 +1355,8 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
 | `tools/ticket_backend.py` | PACKAGE | `0551f05b82bdf110c90e21bd2785ccd41e483bb39fe6243bd23cad766a73cbd6` |
 | `tools/ticket_design.py` | PACKAGE | `e7a0688926b60f69028bc2180349797db15328bae31255224e0321c4aa9c4141` |
+| `tools/TOKEN_REPORT.md` | PACKAGE | `4227c3f705a429fddaf8fd9f59917cadc867c16f233fc6235d6683c36ae341ca` |
+| `tools/token_report.py` | PACKAGE | `b81fe87962d4100f2731f6122b9467dc61b2e9412702dc0adc5d864628e4a524` |
 | `tools/update_context_compass.py` | PACKAGE | `7fc607d29d47498b7ae682ea24d978b8540da35a44129410745b92904239caba` |
 | `user_defined/README.md` | INSTANCE | `f58639058dabcaafed2f3b589ca12b7eb94ddd45dd356a807b39f2304b90ab33` |
 
@@ -11309,8 +11312,14 @@ or new-agent creation belongs in this protocol.
 - Full-body replacements and overlapping mutable fields retain latest-content/revision and
   writer coordination. Supported append-only comments need no body-writer permission; verify
   their saved readback. No full-policy reread is added per ordinary comment.
-- Keep one writer per ticket file or Issue body replacement. Leave shared-board updates
-  to the designated coordinator where applicable.
+- Keep one writer per ticket file or Issue body replacement. Preserve explicit
+  owner-reserved body/closure custody and platform denials.
+- Message transport does not assign board custody. Under an owner-selected worker-owned policy,
+  workers maintain and routinely repair their own assigned board, claim and route entries
+  directly, without a coordinator gate. Distinct coordination authority requires explicit
+  applicable owner delegation; do not assume it overrides worker ownership.
+  Resolve unknown ownership, real peer claim collisions or interfering writes before the
+  affected action; unrelated authorized work may continue.
 - If contact selectors are ambiguous, tool access fails, or pause state is
   unclear, stop and ask the owner. No silent transport fallback.
 
@@ -27578,9 +27587,15 @@ below. All Issue URLs must belong to the configured `issues_repository`.
 The `claim` value is `primary`, `review`, or `support`; `responsibility` says
 what the agent is doing. `owner` is the accountable human or team, and
 `agent_name` is the Context Compass execution identity. A GitHub assignee is
-not an agent identity. Only the primary claim may edit the Issue body; other
-agents send findings through the configured communication backend for the primary writer to append to
-Issue-body Notes. Release or transfer claims explicitly at handoff or closure.
+not an agent identity. Keep one primary writer for full-body replacements or
+overlapping mutable-field edits, with latest-content checks and real peer-collision
+reconciliation. Preserve explicit owner-reserved body/closure custody.
+Supported, authorized append-only comments need no body-writer permission or editorial relay
+and have no comment-count cap. No forced copying of every finding into body Notes is required.
+Detailed attributed evidence may remain in comments or authorized linked records; keep current
+state and handoffs coherent at material transitions. Verify account/audience, tool permissions
+and saved readback; never use the comment path to bypass a denied operation.
+Release or transfer claims explicitly at handoff or closure.
 Mailbox and MCP modes use the same local roster/state and Issue claim ownership.
 
 The board ships with empty user regions. In `local` mode leave them inactive;
@@ -29067,6 +29082,125 @@ When completed, move to `context_compass/tickets/tasks/completed/` and rename to
 
 --- END OF FILE: context_compass/tickets/tasks/completed/.gitkeep ---
 
+--- START OF FILE: context_compass/tools/TOKEN_REPORT.md ---
+
+# See What Your Agent Loads
+
+A short file is not always cheap. An artifact board can have a few hundred lines
+and still contain more tokens than a long architecture document. This tool counts
+the actual text and shows how your role and routing choices change the reading map.
+
+It does not shorten anything, change your settings, or tell the agent to skip instructions.
+Running a report is optional, not another onboarding step.
+
+## Install The Optional Counter
+
+For a pip-installed Context Compass:
+
+```sh
+python -m pip install "contextcompass[tokens]"
+```
+
+For a copied `context_compass/` folder, install `tiktoken` in the Python environment
+you use to run the script. The tool never installs packages automatically. On its
+first use, tiktoken may download its public vocabulary. Your project text is counted
+locally, not sent to a model or token-counting API.
+
+## Make A Report
+
+From a repository with an installed `context_compass/` folder:
+
+```sh
+contextcompass token-report --role engineer --out-dir context_compass_report
+```
+
+Or run the Python tool directly:
+
+```sh
+python context_compass/tools/token_report.py --root context_compass --role engineer --out-dir context_compass_report
+```
+
+`--role` selects the route to explain in the report. It does not select or change
+an agent's role: you still ask the agent to onboard as the role you want.
+
+Without `--role`, the tool assumes no role and shows the full comparison instead.
+Without `--out-dir`, it prints Markdown without writing report files.
+For large projects, prefer `--out-dir` so the full inventory does not flood a chat or terminal.
+
+## Compare Your Choices
+
+The report includes every registered role from `SKILLS.MD`, its inherited parents,
+both ticket backends, both message transports, and onboarding versus recovery.
+The selected detail view uses your current YAML settings unless you explicitly
+choose alternatives for the report:
+
+```sh
+contextcompass token-report --role engineer --ticket-backend github_codex_plugin --communication-backend codex_mcp --event reonboard --out-dir context_compass_report
+```
+
+These flags do not edit YAML or enable a connector. They let you compare declared
+reading routes before making a separate configuration decision.
+
+## What The Numbers Mean
+
+- **Known tokens:** one copy of the declared full reads plus any precisely identified
+  partial text, with shared paths counted once per route.
+- **Session-specific text:** extra material whose size depends on the agent/session.
+  The mailbox roster is measurable; relevant Notes and addressed messages are not
+  assumed to mean the whole mailbox. A trailing `+` means this extra cost is unresolved.
+- **Full-file reference size:** the size of a file containing a required read. It
+  is not automatically the amount the agent should read. MCP attention-board costs
+  exclude the Message Alerts section.
+- **Conditional and self-directed paths:** shown separately, not added to the
+  baseline. Their full sizes do not establish the cost of a topic-specific slice.
+- **UNKNOWN:** a path was missing, unreadable, binary, too large, excluded, or its
+  declaration could not be resolved. It is not silently counted as zero.
+
+The encoding is explicit: `o200k_base` by default. Use `--encoding` to select another
+tiktoken encoding. The report does not claim that a model alias uses that encoding.
+These are source-text counts, not cumulative chat usage, billing, cached-input or
+reasoning/output measurements.
+
+## Files And Privacy
+
+The output contains:
+
+- `report.md`: route comparisons, the selected inherited paths, optional choices,
+  ranked source sizes and diagnostics.
+- `report.json`: the complete per-route map, reasons, source declaration lines,
+  hashes and inventory metadata.
+- `files.csv`: every inventoried path with its full-file size and measurement status.
+
+CSV protects formula-like filenames when opened in a spreadsheet; JSON retains exact path values.
+
+Keep reports local when their filenames or paths describe private work. The tool
+does not publish them or register them on your boards. Agents should associate any
+retained report with the ticket that needed it under the project's existing rules.
+
+The scan stays inside the selected Context Compass root. It excludes environment,
+cache, Git and harness directories, known credential filenames and generated output
+directories. Individual excluded files remain visible as unmeasured. Files above
+10 MiB are visible but not tokenized; change `--max-file-bytes` if needed, or use `0`
+for no per-file limit. Large scans can still take time and memory.
+
+Select an empty output directory, or reuse one already created by this generator.
+Reporting refuses to overwrite an unrelated directory or replace the input root.
+
+## Reading Rules Remain The Authority
+
+This is a report of the existing registry and declared skill lists, not a new
+onboarding engine. It validates inheritance and documented backend choices but
+does not interpret arbitrary natural-language overrides in `special_instructions/`.
+Those files are included and their possible effect is explicitly disclosed. Global
+harness instructions and task-specific code reads are outside the default scope.
+
+Missing system-orientation documents are skipped only where the manifest says to
+read them when they exist. Other missing baseline paths are reported as unresolved.
+When declarations are unsupported, the report retains diagnostics instead of
+guessing an effective route or pretending the agent is certified.
+
+--- END OF FILE: context_compass/tools/TOKEN_REPORT.md ---
+
 --- START OF FILE: context_compass/tools/build_llm_full.py ---
 
 #!/usr/bin/env python3
@@ -30524,6 +30658,266 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 --- END OF FILE: context_compass/tools/package_manifest.py ---
+
+--- START OF FILE: context_compass/tools/reading_routes.py ---
+
+"""Read the existing role dialect for reporting, not for agent authorization."""
+
+from __future__ import annotations
+
+import pathlib
+import re
+import json
+
+from ticket_backend import backend_from_yaml, BackendConfigError
+
+
+class RouteError(ValueError):
+    """A declaration cannot safely establish a reading route."""
+
+
+GENERAL = "agent_onboarding/default/general/"
+ENTRY = (
+    "AGENTS.MD", "SKILLS.MD", "config/context_compass_config.yaml",
+    GENERAL + "skills/execution_contract.md",
+    GENERAL + "skills/work_tracking_backend.md",
+    GENERAL + "skills/agent_communication_backend.md",
+    GENERAL + "skills/agent_session_state.md",
+    GENERAL + "skills/harness_custom_instructions.md",
+)
+TICKETS = ("local", "github_codex_plugin")
+COMMUNICATIONS = ("mailbox", "codex_mcp")
+EVENTS = ("onboard", "reonboard")
+CONDITIONS = {
+    "local backend": ("ticket", "local"),
+    "github codex plugin": ("ticket", "github_codex_plugin"),
+    "mailbox communication": ("communication", "mailbox"),
+    "codex mcp communication": ("communication", "codex_mcp"),
+}
+
+
+def relative_path(root: pathlib.Path, value: str) -> str:
+    value = value.replace("\\", "/")
+    if (pathlib.PureWindowsPath(value).drive or value.startswith("/")
+            or any(char in value for char in "*?[]")):
+        raise RouteError(f"Use a literal Context Compass-relative path: {value}")
+    target = (root / value).resolve()
+    if not target.is_relative_to(root.resolve()):
+        raise RouteError(f"Path leaves the selected Context Compass root: {value}")
+    return target.relative_to(root.resolve()).as_posix()
+
+
+def read_text(root: pathlib.Path, path: str) -> str:
+    target = root / relative_path(root, path)
+    if target.stat().st_size > 2 * 1024 * 1024:
+        raise RouteError(f"Routing declaration exceeds the 2 MiB safety limit: {path}")
+    return target.read_text(encoding="utf-8-sig")
+
+
+def registry(root: pathlib.Path) -> dict:
+    text = read_text(root, "SKILLS.MD")
+    section = re.search(r"(?ms)^## Role registry\s*\n(.*?)(?=^## |\Z)", text)
+    if not section:
+        raise RouteError("SKILLS.MD has no Role registry section")
+    result, paths = {}, set()
+    first_line = text[:section.start(1)].count("\n") + 1
+    for number, line in enumerate(section[1].splitlines(), first_line):
+        if not re.match(r"^\|\s*`[^`]+`\s*\|", line):
+            continue
+        cells = [cell.strip().strip("`") for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 6:
+            raise RouteError("Expected the six-column role registry contract")
+        name, path, parent, user_defined, selectable, readme = cells
+        path = relative_path(root, path)
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", name) or name.casefold() in {x.casefold() for x in result}:
+            raise RouteError(f"Invalid or duplicate registered role: {name}")
+        if path.casefold() in paths:
+            raise RouteError(f"Roles share an ambiguous skills entrypoint: {path}")
+        if any(value not in ("yes", "no") for value in (user_defined, selectable, readme)):
+            raise RouteError(f"Invalid registry flags for {name}")
+        paths.add(path.casefold())
+        result[name] = {"path": path, "parent": None if parent == "-" else parent,
+                        "reads_readme": readme == "yes", "user_defined": user_defined == "yes",
+                        "selectable_after_onboarding": selectable == "yes", "line": number}
+    if not result:
+        raise RouteError("The role registry is empty")
+    return result
+
+
+def heading(line: str):
+    if not line or line.startswith(("-", " ", "|", "```")) or "`" in line:
+        return None
+    label = re.sub(r"^[# ]+", "", line).strip().strip("*").rstrip(":")
+    explicit = line.startswith("#") or line.startswith("**") and line.endswith("**")
+    if not explicit and any(mark in label for mark in ".,;"):
+        return None
+    lower = label.lower()
+    state = None
+    if lower.startswith("on-demand"):
+        state = "on_demand"
+    elif lower.startswith("self-directed"):
+        state = "self_directed"
+    elif len(label) < 120 and ("baseline" in lower or lower == "active skills"):
+        state = "baseline"
+    if state is None:
+        return None
+    condition = next((value for prefix, value in CONDITIONS.items() if lower.startswith(prefix)), None)
+    if_exists = state == "baseline" and bool(re.search(
+        r"\b(?:that exists|if present|when present|if available|when available)\b", lower))
+    if state == "baseline" and condition is None and re.search(r"\b(backend|communication)\b", lower):
+        raise RouteError(f"Unsupported conditional baseline: {label}")
+    if state == "baseline" and condition is None and not if_exists and re.search(r"\b(if|when|unless)\b", lower):
+        raise RouteError(f"Unsupported conditional baseline: {label}")
+    return {"label": label, "state": state, "condition": condition,
+            "if_exists": if_exists}
+
+
+def manifest(root: pathlib.Path, path: str) -> dict:
+    text = read_text(root, path)
+    parents = re.findall(r"(?m)^- `INHERITS_SKILLS_FROM: ([^`]+)`\s*$", text)
+    if len(parents) != 1:
+        raise RouteError(f"Expected one inheritance header in {path}")
+    entries, sections, current = [], [], None
+    lines, fenced = text.splitlines(), False
+    for number, line in enumerate(lines, 1):
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        boundary = (number == 1 or not lines[number - 2].strip() or line.startswith("#")
+                    or line.startswith("**") and line.endswith("**")
+                    or number < len(lines) and lines[number].startswith("- `"))
+        new = heading(line) if boundary else None
+        if new:
+            current = dict(new, line=number, paths=[])
+            sections.append(current)
+            continue
+        if current and current["state"] == "self_directed" and line.startswith("Every system document"):
+            entries.append({"path": "system_docs/", "recursive": True, "source": path,
+                            "line": number, "state": "self_directed", "section": current["label"],
+                            "condition": None, "if_exists": True})
+        if line.startswith("## "):
+            current = None
+        match = re.match(r"^- `([^`]+)`(?:\s.*)?$", line)
+        if not match or match[1].startswith("INHERITS_SKILLS_FROM:"):
+            continue
+        value = match[1]
+        if "/" not in value and "." not in value:
+            continue
+        if current is None:
+            raise RouteError(f"Unclassified skill entry at {path}:{number}: {value}")
+        entry = {"path": relative_path(root, value), "source": path, "line": number,
+                 "state": current["state"], "section": current["label"],
+                 "condition": current["condition"], "if_exists": current["if_exists"]}
+        entries.append(entry)
+        current["paths"].append(entry["path"])
+    return {"parent": None if parents[0] == "none" else relative_path(root, parents[0]),
+            "entries": entries, "sections": sections}
+
+
+def chain(root: pathlib.Path, roles: dict, name: str) -> tuple[list[str], dict]:
+    order, manifests, visiting = [], {}, set()
+
+    def visit(role):
+        if role not in roles:
+            raise RouteError(f"Unregistered parent role: {role}")
+        if role in visiting:
+            raise RouteError(f"Role inheritance cycle at {role}")
+        visiting.add(role)
+        row = roles[role]
+        value = manifest(root, row["path"])
+        parent = row["parent"]
+        expected = roles[parent]["path"] if parent in roles else None
+        if parent and parent not in roles or value["parent"] != expected:
+            raise RouteError(f"Registry and inheritance header disagree for {role}")
+        if parent:
+            visit(parent)
+        visiting.remove(role)
+        manifests[role] = value
+        order.append(role)
+
+    visit(name)
+    return order, manifests
+
+
+def configured_backends(root: pathlib.Path) -> tuple[str, str]:
+    text = read_text(root, "config/context_compass_config.yaml")
+    try:
+        ticket = backend_from_yaml(text)
+    except BackendConfigError as exc:
+        raise RouteError(f"Cannot resolve configured backends: {exc}") from exc
+    lines = text.splitlines()
+    start = next((i for i, line in enumerate(lines) if re.match(
+        r"^(?:agent_communication|'agent_communication'|\"agent_communication\"):", line)), None)
+    if start is None:
+        return ticket, "mailbox"
+    if not re.fullmatch(r"(?:agent_communication|'agent_communication'|\"agent_communication\"):\s*(?:#.*)?", lines[start]):
+        raise RouteError("agent_communication must use a literal block mapping")
+    end = next((i for i in range(start + 1, len(lines))
+                if lines[i].strip() and not lines[i][0].isspace() and not lines[i].startswith("#")), len(lines))
+    block = [line for line in lines[start + 1:end] if line.strip() and not line.lstrip().startswith("#")]
+    if any("\t" in line[:len(line) - len(line.lstrip())] or line.lstrip().startswith("<<:") for line in block):
+        raise RouteError("Unsupported communication mapping indentation or YAML merge")
+    indent = min((len(line) - len(line.lstrip()) for line in block), default=0)
+    selectors = []
+    for line in block:
+        if len(line) - len(line.lstrip()) == indent:
+            match = re.fullmatch(r"\s*(?:backend|'backend'|\"backend\"):\s*(.*?)\s*", line)
+            if match:
+                selectors.append(re.split(r"\s+#", match[1], maxsplit=1)[0].strip())
+    if len(selectors) > 1:
+        raise RouteError("Duplicate agent_communication.backend selector")
+    value = selectors[0] if selectors else "mailbox"
+    if value.startswith('"'):
+        try:
+            value = json.loads(value)
+        except ValueError as exc:
+            raise RouteError("Communication backend must be a literal string") from exc
+    elif value.startswith("'") and value.endswith("'"):
+        value = value[1:-1].replace("''", "'")
+    if value not in COMMUNICATIONS:
+        raise RouteError("Select mailbox or codex_mcp explicitly")
+    return ticket, value
+
+
+def requirements(root, roles, name, ticket, communication, event, special_paths, resolved=None):
+    order, manifests = resolved or chain(root, roles, name)
+    entry_text = read_text(root, "AGENTS.MD")
+    def locate(label):
+        return next((i for i, line in enumerate(entry_text.splitlines(), 1) if line.startswith(label)), None)
+    required = [{"path": path, "reason": "Runtime entrypoint", "source": "AGENTS.MD",
+                 "line": locate("## Onboarding Gate"), "state": "baseline", "if_exists": False} for path in ENTRY]
+    if event == "reonboard":
+        required.append({"path": GENERAL + "skills/compaction_requirements.md",
+                         "reason": "Recovery entrypoint", "source": "AGENTS.MD", "line": locate("## Compaction Directive"),
+                         "state": "baseline", "if_exists": False})
+    required += [{"path": path, "reason": "Project special instructions", "source": "AGENTS.MD",
+                  "line": locate("## Project Instructions Bootstrap"), "state": "baseline", "if_exists": False} for path in special_paths]
+    required.append({"path": "mailbox_board.md", "reason": "Shared session state; relevant Notes/messages remain session-specific",
+                     "source": GENERAL + "skills/agent_session_state.md", "line": 9,
+                     "state": "baseline", "if_exists": False})
+    optional, sections = [], []
+    for role in order:
+        row, value = roles[role], manifests[role]
+        required.append({"path": row["path"], "reason": f"Role manifest: {role}",
+                         "source": "SKILLS.MD", "line": row["line"], "state": "baseline", "if_exists": False})
+        if row["reads_readme"]:
+            required.append({"path": str(pathlib.PurePosixPath(row["path"]).parent / "README.md"),
+                             "reason": f"Registry README policy: {role}", "source": "SKILLS.MD",
+                             "line": row["line"], "state": "baseline", "if_exists": False})
+        sections += [dict(section, source=row["path"]) for section in value["sections"]
+                     if section["state"] != "baseline"]
+        for entry in value["entries"]:
+            condition = entry.get("condition")
+            if condition and {"ticket": ticket, "communication": communication}[condition[0]] != condition[1]:
+                continue
+            entry = dict(entry, reason=f"{role}: {entry['section']}")
+            (required if entry["state"] == "baseline" else optional).append(entry)
+    return {"role_chain": order, "required": required, "optional": optional,
+            "optional_sections": sections}
+
+--- END OF FILE: context_compass/tools/reading_routes.py ---
 
 --- START OF FILE: context_compass/tools/system_documents/index_document.py ---
 
@@ -33937,6 +34331,358 @@ if __name__ == "__main__":
     raise SystemExit(main())
 
 --- END OF FILE: context_compass/tools/ticket_design.py ---
+
+--- START OF FILE: context_compass/tools/token_report.py ---
+
+#!/usr/bin/env python3
+"""Inventory Context Compass text and explain the cost of its declared reading routes."""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import datetime
+import hashlib
+import importlib.metadata
+import itertools
+import json
+import os
+import pathlib
+import re
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+_bytecode_setting = sys.dont_write_bytecode
+sys.dont_write_bytecode = True
+try:
+    from reading_routes import (  # noqa: E402
+        RouteError, TICKETS, COMMUNICATIONS, EVENTS, registry, chain,
+        configured_backends, relative_path, requirements,
+    )
+finally:
+    sys.dont_write_bytecode = _bytecode_setting
+
+GENERATOR = "contextcompass.token_report.v1"
+SKIP_DIRS = {".git", ".venv", "venv", "__pycache__", "node_modules", ".codex", ".agents"}
+SENSITIVE_NAMES = {"auth.json", "credentials", "credentials.json", "id_rsa", "id_ed25519",
+                   "secrets.json", "secrets.yml", "secrets.yaml"}
+
+
+def generated_directory(path):
+    marker = path / "report.json"
+    if marker.is_symlink() or not marker.is_file():
+        return False
+    try:
+        with marker.open("rb") as stream:
+            head = stream.read(256).decode("utf-8")
+        return bool(re.match(r'\s*\{\s*"generator"\s*:\s*"' + re.escape(GENERATOR) + '"', head))
+    except (OSError, UnicodeError):
+        return False
+
+
+def tokenizer(name):
+    try:
+        import tiktoken
+    except ImportError as exc:
+        raise RouteError("Token reporting needs the optional tokenizer: pip install 'contextcompass[tokens]' "
+                         "(or install tiktoken for a copied payload). Nothing was installed automatically.") from exc
+    try:
+        encoding = tiktoken.get_encoding(name)
+    except Exception as exc:
+        raise RouteError(f"Cannot load encoding {name!r}: {exc}. The public vocabulary may need caching first.") from exc
+    return lambda text: len(encoding.encode_ordinary(text)), importlib.metadata.version("tiktoken")
+
+
+def section(text, heading):
+    match = re.search(rf"(?m)^## {re.escape(heading)}[ \t]*\r?$", text)
+    if not match:
+        return None
+    end = re.search(r"(?m)^## ", text[match.end():])
+    stop = match.end() + end.start() if end else len(text)
+    return text[match.start():stop], match.start(), stop
+
+
+class Inventory:
+    def __init__(self, root, counter, max_bytes, output=None):
+        self.root, self.counter, self.max_bytes = root.resolve(), counter, max_bytes
+        self.files, self.warnings, self.scopes = {}, [], {}
+        self.board_text = {}
+        for directory, dirs, names in os.walk(self.root, followlinks=False,
+                                               onerror=lambda exc: self.warnings.append(str(exc))):
+            for name in list(dirs):
+                path = pathlib.Path(directory) / name
+                linked = path.is_symlink() or getattr(path, "is_junction", lambda: False)()
+                if (name.casefold() in SKIP_DIRS or linked or output and path.resolve() == output.resolve()
+                        or generated_directory(path)):
+                    dirs.remove(name)
+                    self.warnings.append(f"Excluded directory: {path.relative_to(self.root).as_posix()}")
+            for name in sorted(names):
+                path = pathlib.Path(directory) / name
+                key = path.relative_to(self.root).as_posix()
+                row = {"path": key, "tokens": None, "status": "pending"}
+                self.files[key] = row
+                try:
+                    if path.is_symlink():
+                        row["status"] = "excluded_link"
+                        continue
+                    row["bytes"] = path.stat().st_size
+                    if (name.casefold().startswith(".env") or name.casefold() in SENSITIVE_NAMES or
+                            path.suffix.lower() in (".key", ".pem", ".p12", ".pfx", ".pyc", ".pyo")):
+                        row["status"] = "excluded_sensitive_or_cache"
+                        continue
+                    if max_bytes and row["bytes"] > max_bytes:
+                        row["status"] = "over_size_limit"
+                        continue
+                    before = path.stat()
+                    raw = path.read_bytes()
+                    row["sha256"] = hashlib.sha256(raw).hexdigest()
+                    if b"\0" in raw:
+                        row["status"] = "binary"
+                        continue
+                    text = raw.decode("utf-8")
+                    after = path.stat()
+                    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+                        row["status"] = "changed_during_read"
+                        continue
+                    row.update(tokens=counter(text), lines=len(text.splitlines()),
+                               characters=len(text), status="measured")
+                    if key in ("mailbox_board.md", "attention_board.md"):
+                        self.board_text[key] = text
+                except UnicodeError:
+                    row["status"] = "non_utf8"
+                except OSError as exc:
+                    row.update(status="unreadable", error=str(exc))
+
+    def get(self, path):
+        key = relative_path(self.root, path)
+        if key not in self.files:
+            self.files[key] = {"path": key, "tokens": None,
+                               "status": "directory_reference" if (self.root / key).is_dir() else "missing"}
+        return self.files[key]
+
+    def scope(self, path, communication):
+        key = (path, communication)
+        if key in self.scopes:
+            return self.scopes[key]
+        row = self.get(path)
+        scope = {"known_tokens": row["tokens"], "scope": "full_file", "unresolved": None}
+        if row["status"] == "measured" and path == "mailbox_board.md":
+            roster = section(self.board_text[path], "Checked-In Agents")
+            scope = {"known_tokens": self.counter(roster[0]) if roster else None,
+                     "scope": "roster_plus_session_specific_text",
+                     "unresolved": "Relevant session Notes" + (" and addressed Messages" if communication == "mailbox" else "")}
+        elif row["status"] == "measured" and path == "attention_board.md" and communication == "codex_mcp":
+            text = self.board_text[path]
+            alerts = section(text, "Message Alerts")
+            projected = text[:alerts[1]] + text[alerts[2]:] if alerts else text
+            scope.update(known_tokens=self.counter(projected), scope="excluding_message_alerts")
+        self.scopes[key] = scope
+        return scope
+
+
+def calculate_route(inventory, declarations, communication):
+    paths = {}
+    for entry in declarations["required"]:
+        row = inventory.get(entry["path"])
+        if entry["if_exists"] and row["status"] == "missing":
+            continue
+        value = paths.setdefault(row["path"], dict(path=row["path"], status=row["status"],
+            full_file_tokens=row["tokens"], reasons=[], **inventory.scope(row["path"], communication)))
+        value["reasons"].append({"reason": entry["reason"], "source": entry["source"], "line": entry["line"]})
+    optional = []
+    optional_keys = set()
+    for entry in declarations["optional"]:
+        candidates = ([p for p in list(inventory.files) if p.startswith(entry["path"]) and p not in paths]
+                      if entry.get("recursive") else [entry["path"]])
+        for path in candidates:
+            row = inventory.get(path)
+            key = (row["path"], entry["state"])
+            if key not in optional_keys:
+                optional_keys.add(key)
+                optional.append(dict(entry, path=row["path"], tokens=row["tokens"], status=row["status"]))
+    return {"role_chain": declarations["role_chain"], "paths": list(paths.values()),
+            "known_tokens": sum(p["known_tokens"] or 0 for p in paths.values()),
+            "full_file_reference_tokens": sum(p["full_file_tokens"] or 0 for p in paths.values()),
+            "unmeasured_paths": [p["path"] for p in paths.values() if p["known_tokens"] is None],
+            "session_specific_paths": [p["path"] for p in paths.values() if p["unresolved"]],
+            "optional_paths": optional, "optional_sections": declarations["optional_sections"]}
+
+
+def build_report(root, counter, encoding="o200k_base", version="injected", role=None,
+                 ticket=None, communication=None, event="onboard", max_bytes=10 * 1024 * 1024, output=None):
+    root = root.resolve()
+    if not (root / "AGENTS.MD").is_file():
+        raise RouteError("Select an existing Context Compass root containing AGENTS.MD")
+    roles = registry(root)
+    if role and role not in roles:
+        raise RouteError(f"Unregistered role: {role}")
+    configured_ticket, configured_communication = configured_backends(root)
+    ticket, communication = ticket or configured_ticket, communication or configured_communication
+    if ticket not in TICKETS or communication not in COMMUNICATIONS or event not in EVENTS:
+        raise RouteError("Unsupported ticket, communication or entry-event selection")
+    inventory = Inventory(root, counter, max_bytes, output)
+    specials = sorted(p for p, row in inventory.files.items()
+                      if p.startswith("special_instructions/") and pathlib.PurePosixPath(p).suffix.lower() == ".md")
+    routes = []
+    for name in roles:
+        try:
+            resolved, error = chain(root, roles, name), None
+        except (RouteError, OSError, UnicodeError) as exc:
+            resolved, error = None, str(exc)
+        for tickets, transport, entry_event in itertools.product(TICKETS, COMMUNICATIONS, EVENTS):
+            route = {"id": f"{name}/{tickets}/{transport}/{entry_event}", "role": name,
+                     "ticket_backend": tickets, "communication_backend": transport, "event": entry_event}
+            if error:
+                route.update(status="unresolved", error=error, known_tokens=None)
+            else:
+                try:
+                    declared = requirements(root, roles, name, tickets, transport, entry_event, specials, resolved)
+                    route.update(calculate_route(inventory, declared, transport), status="resolved_declarations")
+                except (RouteError, OSError, UnicodeError) as exc:
+                    route.update(status="unresolved", error=str(exc), known_tokens=None)
+            routes.append(route)
+    selected = f"{role}/{ticket}/{communication}/{event}" if role else None
+    for row in inventory.files.values():
+        row.update(baseline_route_count=0, optional_route_count=0, read_states=set())
+    for route in routes:
+        for key, count_field in (("paths", "baseline_route_count"), ("optional_paths", "optional_route_count")):
+            for entry in route.get(key, []):
+                row = inventory.files[entry["path"]]
+                row[count_field] += 1
+                row["read_states"].add("baseline" if key == "paths" else entry["state"])
+    for row in inventory.files.values():
+        row["read_states"] = sorted(row["read_states"]) or ["not_declared_in_routes"]
+    return {"generator": GENERATOR, "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "encoding": encoding, "tokenizer_version": version, "root": str(root),
+            "selected_route": selected, "configured_backends": {"ticket": configured_ticket, "communication": configured_communication},
+            "roles": roles, "routes": routes, "files": sorted(inventory.files.values(), key=lambda r: r["path"]),
+            "warnings": inventory.warnings,
+            "limits": ["Source text for the explicit encoding, not model-specific request, billing or cumulative usage.",
+                       "Declared routes only: prose project overrides and additional runtime/task reads require human interpretation.",
+                       "Mailbox relevant Notes/messages are session-specific; known totals are lower bounds, not full mailbox charges.",
+                       "Optional full-file sizes are not mandatory reads or exact costs of topic-specific slices.",
+                       "Only this Context Compass root is scanned; global harness instructions are outside scope.",
+                       "Backend cost comparisons do not verify connector access, account permissions or configuration readiness.",
+                       "Files are individual snapshots; concurrent changes can invalidate comparisons."]}
+
+
+def markdown(report):
+    measured = [row for row in report["files"] if row["status"] == "measured"]
+    out = ["# Context Compass Token Report", "", f"Generated: {report['generated_at']}", "",
+           f"Tokenizer: tiktoken {report['tokenizer_version']}; explicit encoding: `{report['encoding']}`.",
+           f"Inventory: {len(report['files'])} paths; {len(measured)} measured; {len(report['roles'])} registered roles.", "",
+           "This is a map of declared reading choices, not a change to agent instructions.", "",
+           "## How To Read This Report", ""]
+    out += ["- " + value for value in report["limits"]]
+    out += ["", "## Registered Roles", "",
+            "These flags come from the existing registry, not from token size. Entry-only roles are not steady-state alternatives.", "",
+            "| Role | Parent | Steady-state selection | User-defined | Role README |",
+            "| --- | --- | --- | --- | --- |"]
+    for name, role in report["roles"].items():
+        out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
+    out += ["", "## All Route Choices", "",
+            "Each role is expanded across both ticket backends, both communication modes and onboarding/recovery.",
+            "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.", "",
+            "| Role | Ticket backend | Messages | Entry | Known tokens | Unmeasured paths | Session-specific paths |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: |"]
+    for route in report["routes"]:
+        if route["status"] == "unresolved":
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | UNKNOWN | declaration error | - |")
+        else:
+            out.append(f"| {route['role']} | {route['ticket_backend']} | {route['communication_backend']} | {route['event']} | {route['known_tokens']:,}+ | {len(route['unmeasured_paths'])} | {len(route['session_specific_paths'])} |")
+    out += ["", "## Selected Route And Inherited Paths", ""]
+    selected = next((r for r in report["routes"] if r["id"] == report["selected_route"]), None)
+    if selected and selected["status"] != "unresolved":
+        out += [f"`{selected['id']}`", "", "Inheritance: " + " -> ".join(selected["role_chain"]), "",
+                "| Path | Known tokens | Full-file reference size | Read scope | Why included |",
+                "| --- | ---: | ---: | --- | --- |"]
+        for row in selected["paths"]:
+            why = "; ".join(dict.fromkeys(x["reason"] for x in row["reasons"]))
+            out.append(f"| `{row['path']}` | {row['known_tokens'] if row['known_tokens'] is not None else 'UNKNOWN'} | {row['full_file_tokens'] if row['full_file_tokens'] is not None else 'UNKNOWN'} | {row['scope']} | {why} |")
+        out += ["", "### Conditional And Self-Directed Choices", "",
+                "These are not added to the baseline. Their listed sizes refer to full files; actual triggers/slices are a separate choice.", "",
+                "| Path | State | Full-file tokens | Declaration |", "| --- | --- | ---: | --- |"]
+        for row in selected["optional_paths"]:
+            out.append(f"| `{row['path']}` | {row['state']} | {row['tokens'] if row['tokens'] is not None else 'UNKNOWN'} | `{row['source']}:{row['line']}` |")
+        for value in selected["optional_sections"]:
+            if not value["paths"]:
+                out.append(f"\n- `{value['source']}:{value['line']}` declares **{value['label']}** without explicit paths; read its stated conditions rather than assuming zero extra work.")
+    elif selected:
+        out.append("Selected route is unresolved: " + selected["error"])
+    else:
+        out.append("No role was assumed. Use `--role <registered-name>` for an inherited per-path explanation; all route choices are shown above.")
+    out += ["", "## Every Path By Source Size", "",
+            "This inventory includes tools, examples, inactive roles and user state. Its total is NOT one onboarding readset.", "",
+            "| Path | Full-file tokens | Lines | Read states | Baseline routes | Status |", "| --- | ---: | ---: | --- | ---: | --- |"]
+    for row in sorted(report["files"], key=lambda r: (-(r.get("tokens") or 0), r["path"])):
+        out.append(f"| `{row['path']}` | {row['tokens'] if row['tokens'] is not None else 'UNKNOWN'} | {row.get('lines', '-')} | {', '.join(row['read_states'])} | {row['baseline_route_count']} | {row['status']} |")
+    errors = sorted({r["error"] for r in report["routes"] if r["status"] == "unresolved"})
+    out += ["", "## Diagnostics", ""]
+    out += ["- " + value for value in errors + report["warnings"]] or ["- No declaration or scan errors."]
+    out += ["", "JSON contains the full per-route path/reason maps, including source declaration lines. CSV contains every inventory path.",
+            "Keep generated reports local when they include private path metadata."]
+    return "\n".join(out) + "\n"
+
+
+def write_report(report, output):
+    output = output.resolve()
+    root = pathlib.Path(report["root"])
+    if output == root or root.is_relative_to(output):
+        raise RouteError("Report output must not replace the input root or one of its ancestors")
+    for name in ("report.json", "report.md", "files.csv"):
+        if (output / name).is_symlink():
+            raise RouteError("Report destinations must not be symbolic links")
+    if output.exists() and any(output.iterdir()):
+        if not generated_directory(output):
+            raise RouteError("Select an empty output directory or one already owned by this report generator")
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (output / "report.md").write_text(markdown(report), encoding="utf-8")
+    with (output / "files.csv").open("w", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, ["path", "tokens", "lines", "bytes", "status", "sha256", "baseline_route_count", "optional_route_count", "read_states"], extrasaction="ignore")
+        writer.writeheader()
+        for row in report["files"]:
+            record = dict(row, read_states=";".join(row["read_states"]))
+            if record["path"].startswith(("=", "+", "-", "@", "\t", "\r")):
+                record["path"] = "'" + record["path"]
+            writer.writerow(record)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=pathlib.Path, required=True)
+    parser.add_argument("--role", help="registered role for the detailed explanation; no role is assumed")
+    parser.add_argument("--ticket-backend", choices=TICKETS)
+    parser.add_argument("--communication-backend", choices=COMMUNICATIONS)
+    parser.add_argument("--event", choices=EVENTS, default="onboard")
+    parser.add_argument("--encoding", default="o200k_base")
+    parser.add_argument("--max-file-bytes", type=int, default=10 * 1024 * 1024,
+                        help="larger files stay visible as unmeasured; 0 means unlimited")
+    parser.add_argument("--out-dir", type=pathlib.Path, help="write Markdown, JSON and CSV; otherwise print Markdown")
+    args = parser.parse_args(argv)
+    try:
+        if args.max_file_bytes < 0:
+            raise RouteError("--max-file-bytes cannot be negative")
+        count, version = tokenizer(args.encoding)
+        report = build_report(args.root, count, args.encoding, version, args.role,
+                              args.ticket_backend, args.communication_backend, args.event,
+                              args.max_file_bytes, args.out_dir)
+        if args.out_dir:
+            write_report(report, args.out_dir)
+            print(f"REPORT: {args.out_dir.resolve() / 'report.md'}")
+            print(f"  {len(report['files'])} paths; {len(report['routes'])} route choices; encoding {args.encoding}")
+        else:
+            print(markdown(report), end="")
+        return int(any(r["status"] == "unresolved" for r in report["routes"]))
+    except (RouteError, OSError, UnicodeError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+--- END OF FILE: context_compass/tools/token_report.py ---
 
 --- START OF FILE: context_compass/tools/update_context_compass.py ---
 

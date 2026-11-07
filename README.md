@@ -119,9 +119,9 @@ commit, or modify the package before adopting it.
 ### What actually needs Python
 
 Only `tools/` — the scripts that build the manifest, index documents, generate the
-source graph, and upgrade an install. **Python 3.10+, stdlib only, no dependencies
-ever.** An agent that has to `pip install` before it can read a document is an
-agent that cannot read the document on a fresh clone.
+source graph, and upgrade an install. Those tools use **Python 3.10+ and the
+standard library**. The optional token-report tool uses `tiktoken`; reading the
+documents and ordinary installation do not require it.
 
 The release workflow runs the suite on Python 3.10 through 3.14 on Linux and
 Windows. Verify an install any time:
@@ -589,6 +589,23 @@ All under `context_compass/tools/`, all stdlib-only, all `--check` before `--app
 | `system_documents/python/graph_walker.py` | state of the graph's authored tier |
 | `system_documents/python/graph_semantics_tickets.py` | turn unauthored areas into tickets |
 | `system_documents/python/migrate_authored_graph.py` | carry a graph out of the retired JSON format |
+
+## See What Onboarding Loads
+
+Want to know where the context goes? The optional token report counts each file
+and compares every registered role, inherited skill chain, ticket backend and
+message transport. It also shows which reads are conditional, which are partial,
+and what the tool cannot determine automatically.
+
+```sh
+python -m pip install "contextcompass[tokens]"
+contextcompass token-report --role engineer --out-dir context_compass_report
+```
+
+The report does not change your settings or tell an agent to skip instructions.
+It measures source text, not total chat usage or billing. See the
+[reporting guide](src/context_compass/tools/TOKEN_REPORT.md) for direct Python
+usage, route comparisons, output formats and privacy limits.
 
 ## Feed The Whole System To A Model
 

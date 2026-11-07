@@ -6,6 +6,7 @@
     contextcompass upgrade --apply      do it
     contextcompass migrate-boards ...   one-time board migration
     contextcompass version              installed and on-disk versions
+    contextcompass token-report ...     explain file and reading-route token sizes
 
 WHY A CLI AT ALL
 
@@ -135,6 +136,16 @@ def cmd_version(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_token_report(args: argparse.Namespace) -> int:
+    argv = ["--root", str(args.install.resolve()), "--encoding", args.encoding,
+            "--event", args.event, "--max-file-bytes", str(args.max_file_bytes)]
+    for name in ("role", "ticket_backend", "communication_backend", "out_dir"):
+        value = getattr(args, name)
+        if value is not None:
+            argv.extend(["--" + name.replace("_", "-"), str(value)])
+    return _run_tool(TOOLS / "token_report.py", argv)
+
+
 def default_install() -> pathlib.Path:
     """`./context_compass` if it exists, else `.` - so both layouts just work."""
     here = pathlib.Path.cwd()
@@ -183,6 +194,17 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("version", help="show installed and on-disk versions")
     p.add_argument("--install", type=pathlib.Path, default=None)
     p.set_defaults(func=cmd_version)
+
+    p = sub.add_parser("token-report", help="report source tokens for every role and reading route")
+    p.add_argument("--install", type=pathlib.Path, default=None)
+    p.add_argument("--role", help="registered role for a detailed path explanation")
+    p.add_argument("--ticket-backend", choices=("local", "github_codex_plugin"))
+    p.add_argument("--communication-backend", choices=("mailbox", "codex_mcp"))
+    p.add_argument("--event", choices=("onboard", "reonboard"), default="onboard")
+    p.add_argument("--encoding", default="o200k_base")
+    p.add_argument("--max-file-bytes", type=int, default=10 * 1024 * 1024)
+    p.add_argument("--out-dir", type=pathlib.Path, help="write report.md, report.json and files.csv")
+    p.set_defaults(func=cmd_token_report)
     return ap
 
 
