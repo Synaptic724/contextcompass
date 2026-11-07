@@ -10,6 +10,7 @@ communication work.
 | --- | --- | --- |
 | `mailbox` | addressed entries in `mailbox_board.md` plus `attention_board.md` alerts; in `github_issues` mode, `message` events on the recipient's agent issue | shared + mailbox message baseline (with local boards) |
 | `codex_mcp` | available message-only MCP thread tools | shared + MCP message baseline |
+| `claude_internal_communication` | Claude Code's built-in agent messaging between Claude Code sessions; for teams of Claude agents only | shared + Claude internal message baseline |
 
 An absent `agent_communication` block or absent `backend` key means `mailbox`.
 A blank value, unknown value, or contradictory configuration blocks
@@ -24,14 +25,19 @@ a transport, and transport selection never implies a ticket backend. Resolve
 both before work. Missing communication selection defaults to `mailbox`;
 missing ticket selection defaults to `local` per `work_tracking_backend.md`.
 
-## Shared state in both modes
+## Shared state in every mode
 
-Both transports use the same shared agent-session state store defined in
+Every transport uses the same shared agent-session state store defined in
 `agent_session_state.md`. Registration and setup outcomes remain in existing
 `mailbox_board.md` sections. No migration or deletion
-occurs when switching transports. In `codex_mcp` mode read those state
-sections narrowly and never read mailbox message instructions, `## Messages`,
-or `attention_board.md` message alerts for communication.
+occurs when switching transports. In a chat transport (`codex_mcp` or
+`claude_internal_communication`) read those state sections narrowly and never
+read mailbox message instructions, `## Messages`, or `attention_board.md`
+message alerts for communication.
+
+`claude_internal_communication` is for teams of Claude agents only. If any agent
+you must message is not a Claude Code session, the owner selects `mailbox`, or
+`codex_mcp` for Codex, instead.
 
 In `github_issues` mode the store is each agent's own agent issue, and `mailbox`
 messages are events on the recipient's agent issue, as
@@ -43,7 +49,7 @@ not the local mailbox protocol.
 If the selected transport, required tools, or contact authority fails, stop
 and report the failed operation. Do not switch transports silently, do not
 use harness-native tracking as a substitute, and do not use CLI authentication
-as a substitute for the selected path. Selecting `codex_mcp` does not grant
+as a substitute for the selected path. Selecting a chat transport does not grant
 contact authority or permission to create agents.
 
 ## Older configuration

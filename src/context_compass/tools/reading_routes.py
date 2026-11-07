@@ -23,7 +23,9 @@ ENTRY = (
     GENERAL + "skills/harness_custom_instructions.md",
 )
 TICKETS = BACKENDS
-COMMUNICATIONS = ("mailbox", "codex_mcp")
+COMMUNICATIONS = ("mailbox", "codex_mcp", "claude_internal_communication")
+# Chat transports carry messages only; registration and setup state stay on the boards.
+CHAT_TRANSPORTS = ("codex_mcp", "claude_internal_communication")
 EVENTS = ("onboard", "reonboard")
 READING_MODES = ("lean", "full")
 # Each heading prefix maps to every (dimension, value) pair that must hold.
@@ -36,6 +38,7 @@ CONDITIONS = {
     "local boards": (("boards", "local"),),
     "mailbox communication": (("communication", "mailbox"), ("boards", "local")),
     "codex mcp communication": (("communication", "codex_mcp"),),
+    "claude internal communication": (("communication", "claude_internal_communication"),),
 }
 
 
@@ -225,7 +228,7 @@ def configured_backends(root: pathlib.Path) -> tuple[str, str]:
     elif value.startswith("'") and value.endswith("'"):
         value = value[1:-1].replace("''", "'")
     if value not in COMMUNICATIONS:
-        raise RouteError("Select mailbox or codex_mcp explicitly")
+        raise RouteError("Select mailbox, codex_mcp or claude_internal_communication explicitly")
     return ticket, value
 
 

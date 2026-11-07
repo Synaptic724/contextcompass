@@ -133,9 +133,12 @@ and the exact Issue destination.
 
 ## Optional MCP Messaging
 
-`agent_communication.backend` selects `mailbox` or `codex_mcp` independently of
-ticket storage. Missing means `mailbox`, preserving existing installations.
-With `codex_mcp`, agents read the MCP skill instead of mailbox message features.
+`agent_communication.backend` selects `mailbox`, `codex_mcp` or
+`claude_internal_communication` independently of ticket storage. Missing means
+`mailbox`, preserving existing installations. With `codex_mcp`, agents read the
+MCP skill instead of mailbox message features. With
+`claude_internal_communication`, a team made only of Claude agents messages through
+Claude Code's built-in agent messaging instead.
 Existing registration and setup outcomes stay in the mailbox
 board's state sections; other boards and their ownership rules do not change.
 Stored messages and alerts are left untouched. Available tools and human

@@ -28,8 +28,9 @@ def test_issue_board_allows_independent_comments_without_body_custody():
     assert "for the primary writer to append" not in text
 
 
-def test_mcp_transport_does_not_assign_worker_owned_boards_to_a_coordinator():
-    text = normalized(PKG_ROOT / "agent_onboarding/default/general/skills/codex_mcp.md")
+@pytest.mark.parametrize("skill", ["codex_mcp.md", "claude_internal_communication.md"])
+def test_chat_transports_do_not_assign_worker_owned_boards_to_a_coordinator(skill):
+    text = normalized(PKG_ROOT / "agent_onboarding/default/general/skills" / skill)
     for phrase in (
         "transport does not assign board custody", "owner-selected worker-owned policy",
         "their own assigned board, claim and route entries", "routinely repair",

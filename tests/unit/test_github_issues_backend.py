@@ -60,7 +60,7 @@ def test_github_issues_reads_no_local_board_and_loads_its_baseline(role, event):
 
 
 @pytest.mark.parametrize("ticket", ["local", "github_codex_plugin"])
-@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp"])
+@pytest.mark.parametrize("communication", ["mailbox", "codex_mcp", "claude_internal_communication"])
 def test_local_board_backends_still_read_their_boards(ticket, communication):
     _, eager, _ = route("engineer", ticket, communication)
     assert {"attention_board.md", "mailbox_board.md"} <= eager

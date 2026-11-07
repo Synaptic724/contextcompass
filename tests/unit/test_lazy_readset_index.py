@@ -11,7 +11,7 @@ pytestmark = pytest.mark.unit
 
 GENERAL = "agent_onboarding/default/general/"
 TICKETS = ("local", "github_codex_plugin", "github_issues")
-COMMUNICATIONS = ("mailbox", "codex_mcp")
+COMMUNICATIONS = ("mailbox", "codex_mcp", "claude_internal_communication")
 
 
 def lazy_entries():

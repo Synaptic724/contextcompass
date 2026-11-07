@@ -27,7 +27,7 @@ def test_standalone_report_counts_real_tokens_and_every_route(tmp_path):
     result = run_tool(TOOLS / "token_report.py", "--root", PKG_ROOT, "--role", "engineer", "--out-dir", out)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads((out / "report.json").read_text())
-    assert len(report["routes"]) == len(report["roles"]) * 3 * 2 * 2  # backends x transports x events
+    assert len(report["routes"]) == len(report["roles"]) * 3 * 3 * 2  # backends x transports x events
     assert all(row["status"] == "resolved_declarations" for row in report["routes"])
     row = next(row for row in report["files"] if row["path"] == "AGENTS.MD")
     expected = len(tiktoken.get_encoding("o200k_base").encode_ordinary((PKG_ROOT / "AGENTS.MD").read_bytes().decode("utf-8")))
@@ -67,6 +67,22 @@ def test_cli_reports_the_github_issues_route_without_local_boards(tmp_path):
     assert any(path.endswith("github/issues_backend.md") for path in paths)
     assert not paths & {"attention_board.md", "mailbox_board.md", "issue_board.md"}
     assert not any(path.endswith("mailbox_protocol.md") for path in paths)
+
+
+def test_cli_reports_the_claude_internal_communication_route(tmp_path):
+    env = dict(os.environ, PYTHONPATH=str(REPO_ROOT / "src"), PYTHONDONTWRITEBYTECODE="1")
+    out = tmp_path / "claude_report"
+    result = subprocess.run([sys.executable, "-m", "contextcompass_cli", "token-report",
+        "--install", str(PKG_ROOT), "--role", "engineer", "--ticket-backend", "local",
+        "--communication-backend", "claude_internal_communication", "--out-dir", str(out)],
+        cwd=tmp_path, env=env, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads((out / "report.json").read_text())
+    assert report["selected_route"] == "engineer/local/claude_internal_communication/onboard"
+    selected = next(r for r in report["routes"] if r["id"] == report["selected_route"])
+    paths = {r["path"] for r in selected["paths"]}
+    assert any(path.endswith("skills/claude_internal_communication.md") for path in paths)
+    assert not any(path.endswith(("mailbox_protocol.md", "codex_mcp.md")) for path in paths)
 
 
 def test_cli_reading_mode_full_reads_lazy_entries_up_front(tmp_path):

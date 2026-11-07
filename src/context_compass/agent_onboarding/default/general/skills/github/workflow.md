@@ -68,7 +68,8 @@ Parent owners synthesize child outcomes and remaining work; child completion doe
   Keep one primary writer for conflicting body/field edits and coordinate reviewer/support work.
   Independent append-only comments do not acquire that body claim or require its permission.
   Coordination transport follows `agent_communication.backend`; in `codex_mcp`
-  mode skip mailbox messages and alerts while preserving shared state per
+  or `claude_internal_communication` mode skip mailbox messages and alerts while
+  preserving shared state per
   `agent_session_state.md`.
   GitHub usernames and assignees are separate from Context Compass agent names.
 - `attention_board.md` holds current focus. The `ticket` cell is the Issue URL;

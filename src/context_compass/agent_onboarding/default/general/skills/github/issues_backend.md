@@ -140,13 +140,14 @@ Session identity, authorization, presence values and timestamps follow
   `github/issues_setup.md` describes. Set agent name, owner, session key,
   `checked_in_at`, `last_checked` and presence `active` in its body.
 - **Stay current.** Update `last_checked` whenever you read your messages, and at
-  each state check under `codex_mcp`.
+  each state check under a chat transport (`codex_mcp` or
+  `claude_internal_communication`).
 - **Messages** (`mailbox` transport). A `message` event on the recipient's agent
   issue carries TO, FROM, DATETIME, TYPE (HANDOFF, NOTICE, QUESTION or ACK),
   CLAIM, EVIDENCE and ACK_REQUESTED. To consume one, copy actionable content into
   your active ticket, post `ack` naming the message, and move your agent issue's
-  promotion stamp past it. Under `codex_mcp`, messages use MCP threads and only
-  presence lives here.
+  promotion stamp past it. Under a chat transport, messages travel through that
+  transport and only presence lives here.
 - **Check out** when your session ends: release your claims, set each of your
   cards' STEP to `checked out`, set presence `departed` and close your agent
   issue.

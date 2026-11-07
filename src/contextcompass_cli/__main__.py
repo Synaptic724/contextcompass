@@ -199,7 +199,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--install", type=pathlib.Path, default=None)
     p.add_argument("--role", help="registered role for a detailed path explanation")
     p.add_argument("--ticket-backend", choices=("local", "github_codex_plugin", "github_issues"))
-    p.add_argument("--communication-backend", choices=("mailbox", "codex_mcp"))
+    p.add_argument("--communication-backend",
+                   choices=("mailbox", "codex_mcp", "claude_internal_communication"))
     p.add_argument("--event", choices=("onboard", "reonboard"), default="onboard")
     p.add_argument("--reading-mode", choices=("lean", "full"),
                    help="lean loads lazy entries by trigger; full reads them up front; default: config")

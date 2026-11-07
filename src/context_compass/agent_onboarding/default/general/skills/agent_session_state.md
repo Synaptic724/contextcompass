@@ -35,8 +35,9 @@ hold references and responsibility; detailed history lives in tickets.
   `| <agent_name> | <owner> | <checked_in_at> | <last_checked> | active |`
 - `checked_in_at` is set when you first check in for the session.
 - `last_checked` updates every time you read the message section in mailbox
-  mode; that refresh behavior is retained. In `codex_mcp` mode update it on
-  each narrow state check-in pass.
+  mode; that refresh behavior is retained. In `codex_mcp` or
+  `claude_internal_communication` mode update it on each narrow state
+  check-in pass.
 - When your session ends deliberately, set presence to `departed`. Stale
   marking applies only to `active` rows older than one day and may be set by
   any agent during its own check-in.
@@ -52,9 +53,9 @@ There is no pre-authorization write exception with or without a waiver.
 First authorized actions, in order, include writing the check-in row,
 then consuming only the sections allowed by the selected transport.
 
-## Narrow reads in codex_mcp mode
+## Narrow reads in chat transports
 
-In `codex_mcp` mode, read only `## Checked-In Agents`
+In `codex_mcp` or `claude_internal_communication` mode, read only `## Checked-In Agents`
 and relevant session `## Notes` above. Never read
 mailbox message instructions, `## Messages`, or `attention_board.md`
 message alerts for communication. Existing user-region names and table columns
@@ -82,4 +83,5 @@ Read only the protocol selected by `agent_communication.backend`.
 - `agent_onboarding/default/general/skills/harness_custom_instructions.md`
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 - `agent_onboarding/default/general/skills/codex_mcp.md`
+- `agent_onboarding/default/general/skills/claude_internal_communication.md`
 - `mailbox_board.md`
