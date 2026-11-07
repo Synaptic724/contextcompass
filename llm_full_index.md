@@ -13,10 +13,10 @@ Line numbers are 1-based and inclusive on both ends, matching
 | --- | --- |
 | document | `llm_full.md` |
 | index_version | 1.0.0 |
-| generated_at | 2026-11-07T10:10:03Z |
+| generated_at | 2026-11-07T10:23:25Z |
 | line_count | 35336 |
 | line_ending | lf |
-| content_sha256 | `b54e478533a7fc4f36e9263f52859e2f9f30e1acf7e3dd0794b3538a95c3eec0` |
+| content_sha256 | `46bc6df072084b97a3d91d2335c56a7e965cf2ec189bf867f3fa5d7352964e1a` |
 | files | 470 |
 
 Recompute `line_count` and `content_sha256` before slicing. On any

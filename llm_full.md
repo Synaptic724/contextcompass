@@ -863,7 +863,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.20.0 |
+| package_version | 2.21.0 |
 | files | 469 |
 
 ## Lane policy
