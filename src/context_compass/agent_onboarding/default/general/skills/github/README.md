@@ -80,8 +80,9 @@ public one is public.
 
 ## Existing installs and migrations
 
-Changing the setting does not move your tickets. Review [`migration.md`](migration.md)
-for a local-to-Issue move before switching an active project. Keep the old files
+Changing the setting does not move your tickets. Before switching an active
+project, review [`migration.md`](migration.md): it moves local tickets into
+either Issue mode, and plugin-mode tickets to `github_issues`. Keep the old files
 until the complete content and route mapping have been verified.
 
 Older `backend: files` settings resolve to `local`. The earlier `backend: github`

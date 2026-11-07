@@ -50,17 +50,22 @@ other after posting `duplicate`.
 ## Moving from local boards
 
 Only when the owner asks, and only after the tickets are Issues
-(`github/migration.md` covers moving ticket files):
+(`github/migration.md` covers local ticket files and plugin-mode Issues):
 
 1. Choose a quiet point. Every agent consumes its messages, finishes or hands
    off its claimed work, and checks out of the local boards.
-2. Create the labels and the header issue. Copy the board Notes regions into the
-   header's owner-notes region.
+2. Create the labels and the header issue. Every ticket Issue carries `cc-epic`,
+   `cc-story` or `cc-task`. Copy the board Notes regions that hold notes into the
+   header's owner-notes region; skip empty regions and bare headings.
 3. For each active row on `attention_board.md`, write the ticket's `## Route`
-   section and add `cc-active`.
+   section and add `cc-active`. Its `resume_hierarchy` lists Issue URLs, not
+   file paths.
 4. Copy each open artifact and context entry into its ticket's Artifact Links and
-   Context Management sections.
+   Context Management sections, unless the section already lists it.
 5. Show the owner the result. Set `work_tracking.backend: github_issues` only after
    the owner approves it, and then agents check in on GitHub and claim their
-   tickets afresh.
-6. Leave the local board files as they are. In this mode nothing reads them.
+   tickets afresh. Each agent carries its own setup notes from
+   `mailbox_board.md` into its agent issue.
+6. Leave the local board files in place, and add one line to each board's Notes:
+   the date, that it moved to GitHub Issues, and the header issue's link. In this
+   mode nothing reads them.

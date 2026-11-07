@@ -45,6 +45,42 @@ Issue-body/Notes export into the matching local template paths before selecting
 `local`. Preserve the verified Issue links and review every route at cutover;
 changing the backend value by itself is not a reverse migration.
 
+## Moving local tickets into github_issues
+
+The same rules hold: the owner requests the move and reviews the destination and
+the proposed Issues, `work_tracking.backend` changes last, and nothing is created
+twice. Use the GitHub tools you have; `github_issues` needs no plugin connection.
+Keep the repository private; a public one is the owner's explicit decision,
+recorded in the header issue's owner notes.
+
+1. Inventory the open tickets: every Epic, Story and Task outside `completed/`
+   and `archive/`. Completed tickets stay as files unless the owner asks for them.
+2. Preview each Issue: its title is the ticket's heading, its body is the ticket
+   file unchanged, and its label is `cc-epic`, `cc-story` or `cc-task`. List the
+   parent links, bodies over 65,536 characters, IDs that already appear in the
+   repository, and private content.
+3. After the owner approves, create parents before children. Search for each ID
+   first and reuse an Issue that carries it. A body over 65,536 characters is
+   created short, with its ID, and filled by one edit (`issues_backend.md`, Size).
+   Record each ID-to-URL pair as it is created, so an interrupted run resumes
+   without duplicates.
+4. Where one migrated ticket names another by ID or file path, add the other's
+   Issue number after the name, for example `STORY-2026-01-02-example (#12)`.
+   Leave evidence pointers such as `path:12-34` unchanged.
+5. Verify every Issue against its file: every line present in order, the label,
+   the title and the open state.
+6. Move the boards as `issues_setup.md` describes ("Moving from local boards").
+7. Once the owner approves the switch, set the backend, then move each migrated
+   file into its lane's `archive/` folder with a first line linking its Issue. The
+   file stays as read-only history; the Issue is the live record.
+
+## Moving from github_codex_plugin to github_issues
+
+The tickets are already Issues. Set `work_tracking.github_issues.repository` to
+the plugin's `issues_repository`, add `cc-epic`, `cc-story` or `cc-task` to each
+open ticket Issue and to the recently closed ones the attention board names, then
+move the boards as `issues_setup.md` describes. Ticket bodies stay as they are.
+
 ## Earlier GitHub CLI configuration
 
 If the earlier `backend: github` workflow already created Issues, keep those

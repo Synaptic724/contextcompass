@@ -135,3 +135,14 @@ class TestShaBytes:
         """Back-compat: every manifest already written must stay valid."""
         import hashlib
         assert up.sha_bytes(b"a\nb\n") == hashlib.sha256(b"a\nb\n").hexdigest()
+
+
+def test_upgrade_guide_explains_the_case_only_skills_rename():
+    """Git on a case-insensitive disk keeps an old SKILLS.md after the upgrade writes SKILLS.MD."""
+    from conftest import PKG_ROOT
+    assert "SKILLS.MD" in {path.name for path in PKG_ROOT.iterdir()}  # the shipped case
+    readme = (PKG_ROOT.parents[1] / "README.md").read_text(encoding="utf-8")
+    section = readme.split("### Case-only renames on Windows and macOS", 1)[1].split("\n## ", 1)[0]
+    assert "core.ignorecase" in section
+    assert "git ls-files context_compass/SKILLS.MD" in section
+    assert "git mv --force context_compass/SKILLS.md context_compass/SKILLS.MD" in section

@@ -6,7 +6,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.23.0 |
+| package_version | 2.23.1 |
 | files | 474 |
 
 ## Lane policy
@@ -144,7 +144,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `1b283f059f4a1784feec0f9acf002d8b6b30cf430be21e09b6057b038bb491c5` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `52016bcddb1d3b500d16d0e06c49ab637c2c76106c2c9529d2ee89f79cf78a55` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `af6164dcd8c09effb65803fd98044198ab1a22f24a1ea8dd3ff0c486292ae55d` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `411032994c66f1e44e375927c68b4bcc6a06db06b83bd471849684c3ae0784be` |
@@ -166,10 +166,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
 | `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
-| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `bd2521fae14507e6b88d05ed485673fd7057b3e1818cee66cc5b7302c0f404fe` |
-| `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `849d10f66e97470eac7bca1f91f4f59244a76b16dd8dc96bb4d1df9487422a1f` |
-| `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
-| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `d8a0aff05862ebc20393fd41519f6d430da2965f1b4eb7c368c9d67cb929decb` |
+| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `305198590a9444a067953bdb0e7c45b84d1f6b49398cacda7a2e45b2e1745f6b` |
+| `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `d2cfdd386e610b0e0a26cd25d1b4e79193b4b7784a314a3261eb387d44548fc9` |
+| `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `c17c0e5fd15c2d80f3e4674214a7162d8c642082ea7f61c1e235e857eac6683b` |
+| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `912d7bc9e1827f3c27f7b30309996a7dee9592b71325d081526fbd10c9d99c6e` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `79288e6d7570e468cf1acaca5b8c5e4c2d4c3413b15bd30f57ffb05d1ca2067a` |

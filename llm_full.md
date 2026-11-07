@@ -873,7 +873,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.23.0 |
+| package_version | 2.23.1 |
 | files | 474 |
 
 ## Lane policy
@@ -1011,7 +1011,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/behavioral_guidelines/work_intake_and_execution.md` | PACKAGE | `84b91a3e414e2c1d528be970604b8a950e16943e4ade7896efac7bca7ff3572b` |
 | `agent_onboarding/default/general/policies/policy_skills.md` | PACKAGE | `8bb02cbf1157ae9ad578fb4f000daf5a24d7276a05d3a945259d838b2e00f4d0` |
 | `agent_onboarding/default/general/README.md` | PACKAGE | `405ecd65632a0b05cf4d251f76c8ff135fdfb12fe6d460d6ea4d5082efda1cdc` |
-| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `1b283f059f4a1784feec0f9acf002d8b6b30cf430be21e09b6057b038bb491c5` |
+| `agent_onboarding/default/general/SKILLS.MD` | PACKAGE | `52016bcddb1d3b500d16d0e06c49ab637c2c76106c2c9529d2ee89f79cf78a55` |
 | `agent_onboarding/default/general/skills/active_documentation.md` | PACKAGE | `e982fe2bacd1d4c403e423435bba7ef93afd91f3db3b01f19a1e5fab9edef060` |
 | `agent_onboarding/default/general/skills/active_pointerboard.md` | PACKAGE | `af6164dcd8c09effb65803fd98044198ab1a22f24a1ea8dd3ff0c486292ae55d` |
 | `agent_onboarding/default/general/skills/agent_communication_backend.md` | PACKAGE | `411032994c66f1e44e375927c68b4bcc6a06db06b83bd471849684c3ae0784be` |
@@ -1033,10 +1033,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/general/skills/github/check_setup.py` | PACKAGE | `5180b19d6ff25dfb23a5d8361a916fc361f95d68b28e7acc2031b280fe67a1b3` |
 | `agent_onboarding/default/general/skills/github/codex_plugin.md` | PACKAGE | `ce35d7a89d5b57eb02ac5b9328d2f727d654a93e42e7df63756c6c51091bee84` |
 | `agent_onboarding/default/general/skills/github/commands.md` | PACKAGE | `f966014768ffe94334ed009013463cf986cf1180b8c859671040e55cb60417fd` |
-| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `bd2521fae14507e6b88d05ed485673fd7057b3e1818cee66cc5b7302c0f404fe` |
-| `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `849d10f66e97470eac7bca1f91f4f59244a76b16dd8dc96bb4d1df9487422a1f` |
-| `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `1f3eb34fd97e70adefdcf4fef7442eca72b598cfc19733781a633a3273c11c0a` |
-| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `d8a0aff05862ebc20393fd41519f6d430da2965f1b4eb7c368c9d67cb929decb` |
+| `agent_onboarding/default/general/skills/github/issues_backend.md` | PACKAGE | `305198590a9444a067953bdb0e7c45b84d1f6b49398cacda7a2e45b2e1745f6b` |
+| `agent_onboarding/default/general/skills/github/issues_setup.md` | PACKAGE | `d2cfdd386e610b0e0a26cd25d1b4e79193b4b7784a314a3261eb387d44548fc9` |
+| `agent_onboarding/default/general/skills/github/migration.md` | PACKAGE | `c17c0e5fd15c2d80f3e4674214a7162d8c642082ea7f61c1e235e857eac6683b` |
+| `agent_onboarding/default/general/skills/github/README.md` | PACKAGE | `912d7bc9e1827f3c27f7b30309996a7dee9592b71325d081526fbd10c9d99c6e` |
 | `agent_onboarding/default/general/skills/github/setup.ps1` | PACKAGE | `7c19a462c053ecc8c0ac8a1d7dc7da860e7537d124847210ec200ceaa50f9c06` |
 | `agent_onboarding/default/general/skills/github/setup.sh` | PACKAGE | `c215cdf40e2265a0e84be71db604963350e3efd142e9741f7fafe205c5c54db8` |
 | `agent_onboarding/default/general/skills/github/workflow.md` | PACKAGE | `79288e6d7570e468cf1acaca5b8c5e4c2d4c3413b15bd30f57ffb05d1ca2067a` |
@@ -10334,10 +10334,12 @@ system documents, which has no trigger; the states are defined in
     you have no agent issue at check-in, or the owner asks to move off local
     boards.
 - `agent_onboarding/default/general/skills/github/migration.md`
-  - Covers: moving existing file tickets to GitHub Issues.
-  - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
-  - Keep local mode active until a reviewed dry run, complete remote verification,
-    and explicit owner approval of the destination and content.
+  - Covers: moving existing file tickets into either Issue mode, and plugin-mode
+    tickets to `github_issues`.
+  - Trigger: the user asks to migrate existing file tickets to GitHub Issues, or
+    to move from `github_codex_plugin` to `github_issues`.
+  - Keep the current backend active until a reviewed dry run, complete remote
+    verification, and explicit owner approval of the destination and content.
 - `agent_onboarding/default/general/skills/llm_full_usage.md`
   - Covers: reading or regenerating the `llm_full.md` whole-package review dump
     through its index.
@@ -12483,8 +12485,9 @@ public one is public.
 
 ## Existing installs and migrations
 
-Changing the setting does not move your tickets. Review [`migration.md`](migration.md)
-for a local-to-Issue move before switching an active project. Keep the old files
+Changing the setting does not move your tickets. Before switching an active
+project, review [`migration.md`](migration.md): it moves local tickets into
+either Issue mode, and plugin-mode tickets to `github_issues`. Keep the old files
 until the complete content and route mapping have been verified.
 
 Older `backend: files` settings resolve to `local`. The earlier `backend: github`
@@ -13104,6 +13107,13 @@ writer or is append-only.
 - **Volume.** GitHub limits content writes to about 80 a minute and 500 an hour
   per account, shared by every agent using it. Post events and card updates for
   state changes, not for every step.
+- **Size.** A comment holds up to 65,536 characters. GitHub refuses to create an
+  issue whose body is longer than that, but an edit can grow a body to 262,144.
+  Create a longer ticket with a short body that carries its ID, then save the
+  full body as its first edit. Before a body nears 262,144, its holder promotes
+  any pending comments, moves the oldest `## Notes` entries verbatim and in order
+  into comments, leaves a pointer line in their place, and moves the promotion
+  stamp past those comments.
 
 ## Claims
 
@@ -13273,20 +13283,25 @@ other after posting `duplicate`.
 ## Moving from local boards
 
 Only when the owner asks, and only after the tickets are Issues
-(`github/migration.md` covers moving ticket files):
+(`github/migration.md` covers local ticket files and plugin-mode Issues):
 
 1. Choose a quiet point. Every agent consumes its messages, finishes or hands
    off its claimed work, and checks out of the local boards.
-2. Create the labels and the header issue. Copy the board Notes regions into the
-   header's owner-notes region.
+2. Create the labels and the header issue. Every ticket Issue carries `cc-epic`,
+   `cc-story` or `cc-task`. Copy the board Notes regions that hold notes into the
+   header's owner-notes region; skip empty regions and bare headings.
 3. For each active row on `attention_board.md`, write the ticket's `## Route`
-   section and add `cc-active`.
+   section and add `cc-active`. Its `resume_hierarchy` lists Issue URLs, not
+   file paths.
 4. Copy each open artifact and context entry into its ticket's Artifact Links and
-   Context Management sections.
+   Context Management sections, unless the section already lists it.
 5. Show the owner the result. Set `work_tracking.backend: github_issues` only after
    the owner approves it, and then agents check in on GitHub and claim their
-   tickets afresh.
-6. Leave the local board files as they are. In this mode nothing reads them.
+   tickets afresh. Each agent carries its own setup notes from
+   `mailbox_board.md` into its agent issue.
+6. Leave the local board files in place, and add one line to each board's Notes:
+   the date, that it moved to GitHub Issues, and the header issue's link. In this
+   mode nothing reads them.
 
 --- END OF FILE: context_compass/agent_onboarding/default/general/skills/github/issues_setup.md ---
 
@@ -13338,6 +13353,42 @@ Moving back to local tickets also requires an explicit inventory and complete
 Issue-body/Notes export into the matching local template paths before selecting
 `local`. Preserve the verified Issue links and review every route at cutover;
 changing the backend value by itself is not a reverse migration.
+
+## Moving local tickets into github_issues
+
+The same rules hold: the owner requests the move and reviews the destination and
+the proposed Issues, `work_tracking.backend` changes last, and nothing is created
+twice. Use the GitHub tools you have; `github_issues` needs no plugin connection.
+Keep the repository private; a public one is the owner's explicit decision,
+recorded in the header issue's owner notes.
+
+1. Inventory the open tickets: every Epic, Story and Task outside `completed/`
+   and `archive/`. Completed tickets stay as files unless the owner asks for them.
+2. Preview each Issue: its title is the ticket's heading, its body is the ticket
+   file unchanged, and its label is `cc-epic`, `cc-story` or `cc-task`. List the
+   parent links, bodies over 65,536 characters, IDs that already appear in the
+   repository, and private content.
+3. After the owner approves, create parents before children. Search for each ID
+   first and reuse an Issue that carries it. A body over 65,536 characters is
+   created short, with its ID, and filled by one edit (`issues_backend.md`, Size).
+   Record each ID-to-URL pair as it is created, so an interrupted run resumes
+   without duplicates.
+4. Where one migrated ticket names another by ID or file path, add the other's
+   Issue number after the name, for example `STORY-2026-01-02-example (#12)`.
+   Leave evidence pointers such as `path:12-34` unchanged.
+5. Verify every Issue against its file: every line present in order, the label,
+   the title and the open state.
+6. Move the boards as `issues_setup.md` describes ("Moving from local boards").
+7. Once the owner approves the switch, set the backend, then move each migrated
+   file into its lane's `archive/` folder with a first line linking its Issue. The
+   file stays as read-only history; the Issue is the live record.
+
+## Moving from github_codex_plugin to github_issues
+
+The tickets are already Issues. Set `work_tracking.github_issues.repository` to
+the plugin's `issues_repository`, add `cc-epic`, `cc-story` or `cc-task` to each
+open ticket Issue and to the recently closed ones the attention board names, then
+move the boards as `issues_setup.md` describes. Ticket bodies stay as they are.
 
 ## Earlier GitHub CLI configuration
 

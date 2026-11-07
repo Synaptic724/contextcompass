@@ -68,6 +68,13 @@ writer or is append-only.
 - **Volume.** GitHub limits content writes to about 80 a minute and 500 an hour
   per account, shared by every agent using it. Post events and card updates for
   state changes, not for every step.
+- **Size.** A comment holds up to 65,536 characters. GitHub refuses to create an
+  issue whose body is longer than that, but an edit can grow a body to 262,144.
+  Create a longer ticket with a short body that carries its ID, then save the
+  full body as its first edit. Before a body nears 262,144, its holder promotes
+  any pending comments, moves the oldest `## Notes` entries verbatim and in order
+  into comments, leaves a pointer line in their place, and moves the promotion
+  stamp past those comments.
 
 ## Claims
 
