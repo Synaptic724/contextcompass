@@ -98,6 +98,22 @@ def test_general_keeps_the_loop_eager_and_procedures_lazy():
         assert path in eager, path
 
 
+def test_design_engineer_loads_document_and_patch_authoring_lazily():
+    design = "agent_onboarding/default/design_engineer/"
+    eager, lazy = eager_and_lazy("design_engineer", "local", "mailbox")
+    moved = {design + "skills/" + name for name in (
+        "src_architecture_instructions.md", "src_components_instructions.md",
+        "tests_architecture_instructions.md", "tests_components_instructions.md",
+        "patch_framework_design.md", "architecture_patch_contracts.md",
+        "component_patch_contracts.md", "code_description_patch_contracts.md")}
+    moved.add(design + "policies/system_document_quality_rubric.md")
+    assert moved <= lazy
+    assert not moved & eager
+    for name in ("skills/system_design_method.md", "skills/design_engineer_execution.md",
+                 "skills/architecture_tradeoffs.md", "policies/design_review_policy.md"):
+        assert design + name in eager, name
+
+
 def test_engineer_loads_system_doc_guides_and_procedures_lazily():
     engineer = "agent_onboarding/default/engineer/"
     eager, lazy = eager_and_lazy("engineer", "local", "mailbox")

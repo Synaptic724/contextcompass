@@ -54,7 +54,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_execution.md` | PACKAGE | `e3a8b282a88365a798c931f64cc08f07df8f0a7df9855ba4d48c488edd17e6be` |
 | `agent_onboarding/default/continuity_fact_checker/WORKFLOWS.MD` | PACKAGE | `9d5e6c74c08fe5a32f820ec74a5f06790d0eadffb37fbc17d2ea386bee7cc1a4` |
 | `agent_onboarding/default/continuity_fact_checker/workflows/README.md` | PACKAGE | `00cd0ec7d92738102ad5e3a9396a130e240c607652510085640001b5302a57b4` |
-| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `18bbd6d1ea1249650e0ceb53bb4ce563b46cce2178c7f32f52cc33d65239a05e` |
+| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `16cbd2ed3f421e38cc74b12356aa6747a345224d98045525cea530d2a43e6a73` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md` | PACKAGE | `6024396b89a1d285a8c508ef0a1f718b731d34b14a2c97412c9e06f42d3bae90` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md` | PACKAGE | `a23db689d0a7bba6cc2848d3f63ac052e9bd10a4596a7361a7cb84053de16e13` |
 | `agent_onboarding/default/design_engineer/examples/adr_example.md` | PACKAGE | `0af9273423b5300f917041439a03ab8407894d15e16bb7412b032b9952d70996` |
@@ -64,7 +64,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/design_engineer/policies/design_review_policy.md` | PACKAGE | `5f2909838104b47a4296dd611077cac7a2224c3eeb8f45dea865b676c2dd575a` |
 | `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md` | PACKAGE | `5ff496833cae8ce5b7a8273535ae855a8a24ff5fb313a96931dcc643962f0f4c` |
 | `agent_onboarding/default/design_engineer/README.md` | PACKAGE | `d4a2fc9540810084b70808d8a0175243596cf1d449f9367d0ca065cf5f3c331d` |
-| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `93d6661c77d96d6931065b0ddb748d07f5a6f45353816c9ecf82efa3aec58c27` |
+| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `534118a447ed5b48ccf49b03f2149f8e9e37c6049c6b031ebf1544454786be43` |
 | `agent_onboarding/default/design_engineer/skills/adr_and_decision_hygiene.md` | PACKAGE | `2ae7193b75fcc0f784324c9a4a8870bc7c5636dc561f36436c40813d9cb38fad` |
 | `agent_onboarding/default/design_engineer/skills/api_and_interface_design.md` | PACKAGE | `8ba14c3a10040852b87f9a1023b400ee19275e8c616b2fbf9b667111d54fbf0e` |
 | `agent_onboarding/default/design_engineer/skills/architecture_contexts.md` | PACKAGE | `a2efbe330609582c3fb81303e46ff706b563907919a158800dbd55ec325d3d23` |

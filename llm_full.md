@@ -911,7 +911,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/continuity_fact_checker/skills/continuity_fact_checker_execution.md` | PACKAGE | `e3a8b282a88365a798c931f64cc08f07df8f0a7df9855ba4d48c488edd17e6be` |
 | `agent_onboarding/default/continuity_fact_checker/WORKFLOWS.MD` | PACKAGE | `9d5e6c74c08fe5a32f820ec74a5f06790d0eadffb37fbc17d2ea386bee7cc1a4` |
 | `agent_onboarding/default/continuity_fact_checker/workflows/README.md` | PACKAGE | `00cd0ec7d92738102ad5e3a9396a130e240c607652510085640001b5302a57b4` |
-| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `18bbd6d1ea1249650e0ceb53bb4ce563b46cce2178c7f32f52cc33d65239a05e` |
+| `agent_onboarding/default/design_engineer/AGENTS.MD` | PACKAGE | `16cbd2ed3f421e38cc74b12356aa6747a345224d98045525cea530d2a43e6a73` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md` | PACKAGE | `6024396b89a1d285a8c508ef0a1f718b731d34b14a2c97412c9e06f42d3bae90` |
 | `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md` | PACKAGE | `a23db689d0a7bba6cc2848d3f63ac052e9bd10a4596a7361a7cb84053de16e13` |
 | `agent_onboarding/default/design_engineer/examples/adr_example.md` | PACKAGE | `0af9273423b5300f917041439a03ab8407894d15e16bb7412b032b9952d70996` |
@@ -921,7 +921,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/design_engineer/policies/design_review_policy.md` | PACKAGE | `5f2909838104b47a4296dd611077cac7a2224c3eeb8f45dea865b676c2dd575a` |
 | `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md` | PACKAGE | `5ff496833cae8ce5b7a8273535ae855a8a24ff5fb313a96931dcc643962f0f4c` |
 | `agent_onboarding/default/design_engineer/README.md` | PACKAGE | `d4a2fc9540810084b70808d8a0175243596cf1d449f9367d0ca065cf5f3c331d` |
-| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `93d6661c77d96d6931065b0ddb748d07f5a6f45353816c9ecf82efa3aec58c27` |
+| `agent_onboarding/default/design_engineer/SKILLS.MD` | PACKAGE | `534118a447ed5b48ccf49b03f2149f8e9e37c6049c6b031ebf1544454786be43` |
 | `agent_onboarding/default/design_engineer/skills/adr_and_decision_hygiene.md` | PACKAGE | `2ae7193b75fcc0f784324c9a4a8870bc7c5636dc561f36436c40813d9cb38fad` |
 | `agent_onboarding/default/design_engineer/skills/api_and_interface_design.md` | PACKAGE | `8ba14c3a10040852b87f9a1023b400ee19275e8c616b2fbf9b667111d54fbf0e` |
 | `agent_onboarding/default/design_engineer/skills/architecture_contexts.md` | PACKAGE | `a2efbe330609582c3fb81303e46ff706b563907919a158800dbd55ec325d3d23` |
@@ -2760,16 +2760,8 @@ Rules
 ## PRIME DIRECTIVE
 Certification is denied unless the resolved SKILLS chain is satisfied exactly.
 
-- You MUST read every path in every section a resolved `SKILLS.MD` marks as
-  **baseline** (parent-first). Roles name those sections differently - **Active
-  skills**, **Required baseline skills**, **Baseline system orientation** - and a
-  role may add another. Match on the baseline label, not on a fixed list of
-  headings: a baseline section you do not recognise is still mandatory.
-- Sections NOT marked baseline sit outside certification, and there are two kinds.
-  **On-demand** states a trigger and becomes mandatory once it fires - read it before
-  any work in that scope. **Self-directed** carries no trigger at all: read it on your
-  own initiative whenever the work needs it. Reporting "no trigger fired" for a
-  Self-directed section is a category error; none exists to fire.
+- Read every baseline section in the resolved chain, parent-first. Lazy (On-demand)
+  entries load in full when their trigger fires; Self-directed reading has no trigger.
 - You MUST NOT claim a skill was read unless it was actually read.
 
 ## 1) Purpose
@@ -2912,7 +2904,7 @@ Unknowns Gate
 # SKILLS.MD - design_engineer
 
 Purpose
-- Define required baseline design-engineer skills for the `design_engineer` role.
+- Define the eager and lazy readsets for the `design_engineer` role.
 - This role is optimized for designing software engineering projects with high-quality handoff.
 
 Inheritance
@@ -2920,8 +2912,9 @@ Inheritance
 
 Skill classes (non-negotiable)
 - This role ADDS two classes of its own:
-  A) **Required baseline skills** (always required for onboarding/certification)
-  B) **On-demand design-context skills** (required only when the active task triggers them)
+  A) **Required baseline skills** (eager: always required for onboarding/certification)
+  B) **On-demand skills (lazy readset index)** - document and patch authoring
+     material, each read in full when its trigger fires.
 - It also INHERITS the parent chain's classes, which include `engineer`'s
   **Baseline system orientation** - `system_docs/system_docs_read_first.md`,
   `src_architecture.md`, `src_architecture_index.md`, `src_components_index.md`.
@@ -2942,14 +2935,6 @@ Required baseline skills
 - `agent_onboarding/default/design_engineer/AGENTS.MD`
 - `agent_onboarding/default/design_engineer/WORKFLOWS.MD`
 - `agent_onboarding/default/design_engineer/skills/architecture_contexts.md`
-- `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
-- `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md`
-- `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/src_components_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/tests_architecture_instructions.md`
-- `agent_onboarding/default/design_engineer/skills/tests_components_instructions.md`
 - `agent_onboarding/default/design_engineer/skills/design_engineer_execution.md`
 - `agent_onboarding/default/design_engineer/skills/requirements_to_architecture.md`
 - `agent_onboarding/default/design_engineer/skills/system_design_method.md`
@@ -2963,24 +2948,48 @@ Required baseline skills
 - `agent_onboarding/default/design_engineer/policies/design_quality_policy.md`
 - `agent_onboarding/default/design_engineer/policies/decision_record_policy.md`
 - `agent_onboarding/default/design_engineer/policies/design_review_policy.md`
-- `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md`
 - `agent_onboarding/default/design_engineer/behavioral_guidelines/design_engineer_workflow.md`
 - `agent_onboarding/default/design_engineer/behavioral_guidelines/design_validation_and_handoff.md`
 - `agent_onboarding/default/design_engineer/examples/design_task_flow.md`
 - `agent_onboarding/default/design_engineer/examples/adr_example.md`
 
-On-demand design-context skills
-Trigger conditions (any one makes these mandatory):
-- The user asks for a full system/software design, architecture plan, or component boundary redesign.
-- The task requires a design that changes an existing public contract, API, schema, or lifecycle boundary.
-- The task requires creating/updating `system_docs/*` or making P0/P1 claims about architecture/components/tests.
+On-demand skills (lazy readset index)
+These files are not in the eager readset; read the whole file once its trigger fires.
+The `engineer` lazy index applies too: a full system design, an architecture plan, a
+component boundary redesign, a change to a public contract, API, schema or lifecycle
+boundary, or P0/P1 claims about architecture, components or tests load its
+`context_protocol.md`, `system_document_build.md` and patch entries before work in
+that scope, in addition to the entries below.
 
-If triggered:
-- Apply the `engineer` on-demand system-context readset. The inheritance
-  header at the top of this file already puts it in the resolved chain, so
-  the paths are declared in the parent file and are not repeated here. The
-  triggers above are additional to the parent's, not a replacement.
-- Do not proceed with architecture claims or edits until that on-demand readset is satisfied.
+- `agent_onboarding/default/design_engineer/skills/src_architecture_instructions.md`
+  - Covers: the exact build protocol for `system_docs/src_architecture.md`.
+  - Trigger: you create, update or review `src_architecture.md`.
+- `agent_onboarding/default/design_engineer/skills/src_components_instructions.md`
+  - Covers: the exact build protocol for `system_docs/src_components.md`.
+  - Trigger: you create, update or review `src_components.md`.
+- `agent_onboarding/default/design_engineer/skills/tests_architecture_instructions.md`
+  - Covers: the exact build protocol for `system_docs/tests_architecture.md`.
+  - Trigger: you create, update or review `tests_architecture.md`.
+- `agent_onboarding/default/design_engineer/skills/tests_components_instructions.md`
+  - Covers: the exact build protocol for `system_docs/tests_components.md`.
+  - Trigger: you create, update or review `tests_components.md`.
+- `agent_onboarding/default/design_engineer/policies/system_document_quality_rubric.md`
+  - Covers: scoring the four system documents on whether they say anything useful.
+  - Trigger: you create, update, review or grade any of those four documents.
+- `agent_onboarding/default/design_engineer/skills/patch_framework_design.md`
+  - Covers: building and maintaining patch-framework contracts for system-impacting
+    design changes.
+  - Trigger: a design change is system-impacting, or you author or review a patch
+    under `system_docs/patches/`.
+- `agent_onboarding/default/design_engineer/skills/architecture_patch_contracts.md`
+  - Covers: the authoring contract for architecture patches.
+  - Trigger: you author or review an architecture patch.
+- `agent_onboarding/default/design_engineer/skills/component_patch_contracts.md`
+  - Covers: the authoring contract for component patches.
+  - Trigger: you author or review a component patch.
+- `agent_onboarding/default/design_engineer/skills/code_description_patch_contracts.md`
+  - Covers: the conditional authoring contract for code-description patches.
+  - Trigger: you author or review a code-description patch.
 
 --- END OF FILE: context_compass/agent_onboarding/default/design_engineer/SKILLS.MD ---
 
