@@ -20,6 +20,7 @@ GENERAL = "agent_onboarding/default/general/"
 BACKEND_SKILL = GENERAL + "skills/github/issues_backend.md"
 SETUP_SKILL = GENERAL + "skills/github/issues_setup.md"
 HEADER = "templates/github_issues_header.md"
+MIGRATION = GENERAL + "skills/github/migration.md"
 LOCAL_BOARD_READS = {
     "attention_board.md", "mailbox_board.md", "issue_board.md",
     GENERAL + "skills/mailbox_protocol.md",
@@ -145,6 +146,43 @@ def test_root_policy_routes_github_issues_through_the_backend_skill():
     assert "In `github_issues` mode, tickets and every board live in GitHub Issues" in policy
     assert BACKEND_SKILL in policy
     assert "resolve `local`, `github_codex_plugin` or `github_issues` before reading ticket state" in policy
+
+
+def test_backend_skill_states_body_and_comment_size_limits():
+    """Creating an issue over 65,536 characters fails while an edit reaches 262,144."""
+    flat = " ".join(read(BACKEND_SKILL).split())
+    rule = flat.split("**Size.**", 1)[1].split("## Claims", 1)[0]
+    for phrase in ("comment holds up to 65,536", "refuses to create an issue", "262,144",
+                   "short body that carries its ID", "first edit", "promotes any pending comments",
+                   "verbatim and in order", "moves the promotion stamp past those comments"):
+        assert phrase in rule, phrase
+
+
+def test_moving_boards_labels_ticket_issues_and_marks_retired_boards():
+    flat = " ".join(read(SETUP_SKILL).split())
+    section = flat.split("## Moving from local boards", 1)[1]
+    for phrase in ("Every ticket Issue carries `cc-epic`", "skip empty regions and bare headings",
+                   "lists Issue URLs, not file paths", "unless the section already lists it",
+                   "own setup notes", "moved to GitHub Issues", "header issue's link"):
+        assert phrase in section, phrase
+    assert section.index("Show the owner the result") < section.index("Leave the local board files in place")
+
+
+def test_migration_moves_local_and_plugin_tickets_into_github_issues():
+    text = read(MIGRATION)
+    local = " ".join(text.split("## Moving local tickets into github_issues", 1)[1].split("\n## ", 1)[0].split())
+    for phrase in ("owner requests the move", "changes last", "outside `completed/` and `archive/`",
+                   "parents before children", "Search for each ID first", "65,536",
+                   "(`issues_backend.md`, Size)", "ID-to-URL", "(#12)", "`path:12-34` unchanged",
+                   "every line present in order", "`issues_setup.md`", "first line linking its Issue"):
+        assert phrase in local, phrase
+    assert local.index("set the backend") < local.index("first line linking its Issue")
+    plugin = " ".join(text.split("## Moving from github_codex_plugin to github_issues", 1)[1]
+                      .split("\n## ", 1)[0].split())
+    for phrase in ("`issues_repository`", "`cc-task`", "Ticket bodies stay as they are"):
+        assert phrase in plugin, phrase
+    entry = read(GENERAL + "SKILLS.MD").split(f"- `{MIGRATION}`", 1)[1].split("\n- `", 1)[0]
+    assert "`github_issues`" in entry and "Covers:" in entry and "Trigger:" in entry
 
 
 def test_ticket_design_bundle_uses_the_issues_backend_guidance():

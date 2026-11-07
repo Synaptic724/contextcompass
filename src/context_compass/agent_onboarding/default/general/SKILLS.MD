@@ -176,10 +176,12 @@ system documents, which has no trigger; the states are defined in
     you have no agent issue at check-in, or the owner asks to move off local
     boards.
 - `agent_onboarding/default/general/skills/github/migration.md`
-  - Covers: moving existing file tickets to GitHub Issues.
-  - Trigger: the user asks to migrate existing file tickets to GitHub Issues.
-  - Keep local mode active until a reviewed dry run, complete remote verification,
-    and explicit owner approval of the destination and content.
+  - Covers: moving existing file tickets into either Issue mode, and plugin-mode
+    tickets to `github_issues`.
+  - Trigger: the user asks to migrate existing file tickets to GitHub Issues, or
+    to move from `github_codex_plugin` to `github_issues`.
+  - Keep the current backend active until a reviewed dry run, complete remote
+    verification, and explicit owner approval of the destination and content.
 - `agent_onboarding/default/general/skills/llm_full_usage.md`
   - Covers: reading or regenerating the `llm_full.md` whole-package review dump
     through its index.

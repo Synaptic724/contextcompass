@@ -612,6 +612,22 @@ Anything with no matching region is parked under `## Notes` rather than dropped.
 Migrating three real boards carrying 277 lines of live agent state moved every line
 and lost **zero**, verified line-by-line against a pre-migration snapshot.
 
+### Case-only renames on Windows and macOS
+
+Git cannot see a rename that only changes letter case on a case-insensitive file
+system, and `core.ignorecase` is true by default on Windows and macOS. Older
+installs were created with `context_compass/SKILLS.md`; the package now ships
+`SKILLS.MD`. The upgrade writes the new name, but git keeps tracking the old one:
+`git status` shows a modified file, everything works on that machine, and a Linux
+checkout still gets `SKILLS.md`. After upgrading, check once and fix it:
+
+```bash
+git ls-files context_compass/SKILLS.MD    # prints nothing when git tracks another case
+git mv --force context_compass/SKILLS.md context_compass/SKILLS.MD
+```
+
+Commit the rename with the upgrade.
+
 ### The tools
 
 All under `context_compass/tools/`, all stdlib-only, all `--check` before `--apply`.
