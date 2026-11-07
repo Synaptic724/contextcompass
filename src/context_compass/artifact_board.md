@@ -47,6 +47,8 @@ Purpose
 - Canonical index of active artifact associations.
 - Track artifact lifecycle decisions that support ticket execution.
 - Keep `attention_board.md` ticket-only and free of artifact pointers.
+- Unused in `github_issues` mode: each ticket's Artifact Links section holds its
+  artifacts.
 
 Scope rules
 - `attention_board.md` routes tickets only; do not add artifact paths there.

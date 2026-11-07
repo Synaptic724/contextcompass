@@ -44,7 +44,7 @@ For large projects, prefer `--out-dir` so the full inventory does not flood a ch
 ## Compare Your Choices
 
 The report includes every registered role from `SKILLS.MD`, its inherited parents,
-both ticket backends, both message transports, and onboarding versus recovery.
+every ticket backend, both message transports, and onboarding versus recovery.
 The selected detail view uses your current YAML settings unless you explicitly
 choose alternatives for the report:
 

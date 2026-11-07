@@ -10,7 +10,7 @@ from reading_routes import configured_reading_mode, manifest, registry, requirem
 pytestmark = pytest.mark.unit
 
 GENERAL = "agent_onboarding/default/general/"
-TICKETS = ("local", "github_codex_plugin")
+TICKETS = ("local", "github_codex_plugin", "github_issues")
 COMMUNICATIONS = ("mailbox", "codex_mcp")
 
 
@@ -48,6 +48,16 @@ def test_shipped_config_defaults_to_lean_and_full_adds_every_lazy_entry():
     lazy = {item["path"] for item in lean["optional"] if item["state"] == "on_demand"}
     assert lazy and lazy <= {item["path"] for item in full["required"]}
     assert not any(item["state"] == "on_demand" for item in full["optional"])
+
+
+@pytest.mark.parametrize("ticket", TICKETS)
+def test_no_role_requires_the_whole_component_map_or_source_graph(ticket):
+    """Required system reading is src_architecture.md and the indexes; the large
+    component map and source graph are reached by slicing through those indexes."""
+    whole = {"system_docs/src_components.md", "system_docs/src_graph.md"}
+    for role in registry(PKG_ROOT):
+        eager, _ = eager_and_lazy(role, ticket, "mailbox")
+        assert not eager & whole, (role, sorted(eager & whole))
 
 
 def test_every_lazy_entry_says_what_it_covers_and_what_loads_it():

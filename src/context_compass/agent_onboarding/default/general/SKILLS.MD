@@ -10,11 +10,13 @@ Inheritance
 
 Activation rule
 - Read every shared baseline path, exactly one ticket backend baseline below,
-  and exactly one communication baseline below.
+  the Local boards baseline unless the backend is `github_issues`, and the
+  selected communication baseline below.
 - Resolve `work_tracking.backend` from `config/context_compass_config.yaml`
   before these reads. Missing means `local`; `github_codex_plugin` requires an
-  Issue repository and connected GitHub plugin. Resolve legacy values using
-  `work_tracking_backend.md`; an invalid selection blocks work.
+  Issue repository and connected GitHub plugin; `github_issues` requires an
+  Issue repository and keeps every board in GitHub Issues. Resolve legacy values
+  using `work_tracking_backend.md`; an invalid selection blocks work.
 - Resolve `agent_communication.backend` from the same config before messaging
   reads. Missing means `mailbox`. Resolve using
   `agent_communication_backend.md`; an invalid selection blocks communication
@@ -60,7 +62,6 @@ Shared baseline skills
 - `agent_onboarding/default/general/skills/role_local_workflows.md`
 - `agent_onboarding/default/general/WORKFLOWS.MD`
 - `agent_onboarding/default/general/skills/context_compaction.md`
-- `attention_board.md`
 
 - `agent_onboarding/default/general/behavioral_guidelines/agent_lifecycle_and_heartbeat.md`
 - `agent_onboarding/default/general/behavioral_guidelines/onboarding_summary.md`
@@ -77,9 +78,21 @@ Read these paths only when `work_tracking.backend` is `github_codex_plugin`.
 - `agent_onboarding/default/general/skills/github/workflow.md`
 - `issue_board.md`
 
+GitHub Issues backend baseline
+Read this path only when `work_tracking.backend` is `github_issues`. Tickets and
+every board live in GitHub Issues; it replaces the local board reads.
+- `agent_onboarding/default/general/skills/github/issues_backend.md`
+
+Local boards baseline
+Read this path when the ticket backend keeps its boards in local files: `local`
+or `github_codex_plugin`.
+- `attention_board.md`
+
 Mailbox communication baseline
 Read this path only when `agent_communication.backend` resolves to `mailbox`
-(the default when absent).
+(the default when absent) and the boards are local files. In `github_issues`
+mode, mailbox messages are events on agent issues, described in
+`github/issues_backend.md`.
 - `agent_onboarding/default/general/skills/mailbox_protocol.md`
 
 Codex MCP communication baseline
@@ -89,14 +102,15 @@ Read this path only when `agent_communication.backend` resolves to
 
 Every shared-state instruction stays baseline in both transports.
 
-Note on the board paths. `attention_board.md` and, in plugin mode,
-`issue_board.md` are eager reads, but they are **live mutable state, not
+Note on the board paths. With local boards, `attention_board.md` and, in plugin
+mode, `issue_board.md` are eager reads, but they are **live mutable state, not
 policy**. You open them to learn what is happening right now, not to learn a
 rule. They get no attestation proof line - the one-line `RESUMING` field covers
 them. See `agent_onboarding/default/general/skills/compaction_requirements.md`.
 Do not invent a rule to quote from a routing table. `artifact_board.md` and
 `context_management/context_board.md` are in the lazy index below; open them
-when an artifact or a context pack is in play.
+when an artifact or a context pack is in play. In `github_issues` mode every
+board is a GitHub record instead, as `github/issues_backend.md` maps them.
 
 On-demand skills (lazy readset index)
 These files are not in the eager readset. Claiming one was read without its
@@ -124,15 +138,15 @@ system documents, which has no trigger; the states are defined in
   - Trigger: the user explicitly asks to rebuild or repair `attention_board.md`.
 - `artifact_board.md`
   - Covers: the registry of artifacts linked to tickets and their dispositions.
-  - Trigger: the active ticket lists artifacts, or you create, link, retain or
-    clean up an artifact.
+  - Trigger: with local boards, the active ticket lists artifacts, or you create,
+    link, retain or clean up an artifact.
 - `agent_onboarding/default/general/skills/context_management.md`
   - Covers: reusable context packs and how tickets reference them.
   - Trigger: a ticket sets `CONTEXT_MANAGEMENT_REQUIRED: true`, or the user asks
     for a reusable context pack.
 - `context_management/context_board.md`
   - Covers: the index of context packs and their `Context ID` values.
-  - Trigger: the same as `context_management.md`.
+  - Trigger: the same as `context_management.md`, with local boards.
 - `agent_onboarding/default/general/skills/harness_custom_instructions_setup.md`
   - Covers: the custom-instruction setup form, instruction clauses, and the
     apply-and-verify steps.
@@ -149,6 +163,13 @@ system documents, which has no trigger; the states are defined in
     writing a ticket that contains `AGILE_METADATA` or `TICKET_ATTRIBUTION`.
   - Read the selected full template and canonical `templates/ticket_contract.json`.
     Do not apply this design to historical records or change an agent's role.
+- `agent_onboarding/default/general/skills/github/issues_setup.md`
+  - Covers: labels, the header issue, creating an agent issue, and moving a
+    project from local boards to `github_issues`.
+  - Trigger: in `github_issues` mode, the repository has no `cc-header` issue, a
+    `cc-` label is missing, the header's version is older than this install's,
+    you have no agent issue at check-in, or the owner asks to move off local
+    boards.
 - `agent_onboarding/default/general/skills/github/migration.md`
   - Covers: moving existing file tickets to GitHub Issues.
   - Trigger: the user asks to migrate existing file tickets to GitHub Issues.

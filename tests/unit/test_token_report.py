@@ -6,8 +6,8 @@ from pathlib import Path
 import pytest
 
 from conftest import PKG_ROOT, write
-from reading_routes import (ENTRY, GENERAL, RouteError, chain, configured_backends, configured_reading_mode,
-                            heading, manifest, registry)
+from reading_routes import (ENTRY, GENERAL, TICKETS, RouteError, chain, configured_backends,
+                            configured_reading_mode, heading, manifest, registry)
 from token_report import Inventory, build_report, markdown, write_report
 
 pytestmark = pytest.mark.unit
@@ -91,7 +91,7 @@ def selected(report):
 
 def test_all_route_choices_and_inheritance_deduplication(report_root):
     report = build_report(report_root, fake_count, role="custom_role")
-    assert len(report["routes"]) == 3 * 2 * 2 * 2
+    assert len(report["routes"]) == 3 * len(TICKETS) * 2 * 2
     route = selected(report)
     assert route["role_chain"] == ["general", "engineer", "custom_role"]
     paths = [p["path"] for p in route["paths"]]
@@ -240,7 +240,7 @@ def test_unsafe_skill_path_cannot_escape_root(report_root):
 
 def test_every_shipped_role_and_conditional_section_is_parsed():
     report = build_report(PKG_ROOT, fake_count, role="engineer")
-    assert len(report["routes"]) == len(registry(PKG_ROOT)) * 8
+    assert len(report["routes"]) == len(registry(PKG_ROOT)) * len(TICKETS) * 2 * 2
     assert all(r["status"] == "resolved_declarations" for r in report["routes"])
     route = selected(report)
     assert GENERAL + "skills/llm_full_usage.md" not in {p["path"] for p in route["paths"]}
@@ -258,7 +258,7 @@ def test_per_path_route_membership_is_explained(report_root):
     report = build_report(report_root, fake_count, role="engineer")
     shared = next(r for r in report["files"] if r["path"] == "shared.md")
     optional = next(r for r in report["files"] if r["path"] == "optional.md")
-    assert shared["baseline_route_count"] == 24
+    assert shared["baseline_route_count"] == 3 * len(TICKETS) * 2 * 2
     assert optional["baseline_route_count"] == 0
     assert optional["read_states"] == ["on_demand"]
 

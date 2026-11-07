@@ -95,9 +95,10 @@ Workflow rules
 10) After acceptance under delegated authority or explicit reserved-owner disposition:
    - Add a completion summary + UTC datetime.
    - In local mode, move the ticket to its matching completed folder.
-   - In plugin mode, record accepted metadata and its derived Status for an Agile
-     design, or `Status: done` for a non-Agile design. Record the transition reason,
-     verify the body, close the Issue, and verify state through the plugin.
+   - In either Issue mode, record accepted metadata and its derived Status for an
+     Agile design, or `Status: done` for a non-Agile design. Record the transition
+     reason, verify the body, close the Issue, and verify state (through the plugin
+     in plugin mode).
 11) Immediately run deterministic closure sync for `attention_board.md`:
    - Remove/replace active row(s) that point to the closed ticket.
    - Prune stale attention details tied only to the closed ticket.
@@ -170,8 +171,9 @@ Notes format requirement
   replace required in-body state, decisions, evidence or unresolved limits.
 - Unchanged checks/ACKs do not require a substantive finding Note; required state/routing/evidence
   updates still apply. This does not relax configured timing or note-quality gates.
-- In plugin mode, `## Notes` remains in the Issue body. A full-body update must
-  preserve every previous note and unrelated section; follow `github/codex_plugin.md`.
+- In either Issue mode, `## Notes` remains in the Issue body. A full-body update must
+  preserve every previous note and unrelated section; follow `github/codex_plugin.md`
+  in plugin mode or `github/issues_backend.md` in `github_issues` mode.
 - Current body state, scope, decisions and handoff must be reconciled at material transitions
   and closure, with concise attributed links rather than copied reports. Optional metadata's
   state-event references still resolve to concise body Notes; those Notes may link detailed

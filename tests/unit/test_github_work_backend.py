@@ -41,6 +41,7 @@ def skill_paths(text):
 def baseline_section(text, heading):
     headings = (
         "Shared baseline skills", "Local backend baseline", "GitHub Codex plugin baseline",
+        "GitHub Issues backend baseline", "Local boards baseline",
         "Mailbox communication baseline", "Codex MCP communication baseline", "Note on the board paths",
     )
     tail = text.split(heading, 1)[1]

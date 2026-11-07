@@ -88,12 +88,14 @@ Provide one explicit cleanup workflow for Context Compass work state:
 
 ## Backend Routing
 Resolve YAML before collecting candidates. Preserve the same `my assets` versus
-`everything` choice and explicit ticket selection in both modes. `everything`
+`everything` choice and explicit ticket selection in every backend. `everything`
 means all current active board candidates; `all` means that reviewed set, not
 every Issue in the remote repository. In plugin mode, fetch candidate bodies,
 verify `issue_board.md` claims, and preserve Notes while closing selected Issues
-through the plugin. GitHub assignees do not replace the `agent_name` scope filter.
-Local mode uses the inherited local closure skill. Both modes retain acceptance,
+through the plugin. In `github_issues`, read claims from each ticket's events and
+close selected Issues with your GitHub tools, removing `cc-active`. GitHub
+assignees do not replace the `agent_name` scope filter.
+Local mode uses the inherited local closure skill. Every backend retains acceptance,
 artifact disposition, and attention detail/anchor synchronization gates.
 
 ## Preconditions / Gates

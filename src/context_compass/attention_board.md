@@ -49,6 +49,8 @@ Purpose
 - Active-work routing board.
 - Attention-only summary for fast re-entry.
 - Canonical detail lives in linked tickets.
+- Unused in `github_issues` mode: each ticket issue carries its own `## Route`
+  (`agent_onboarding/default/general/skills/github/issues_backend.md`).
 
 Attention details rule
 - Keep this board compact and operational.

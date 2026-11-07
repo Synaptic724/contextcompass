@@ -114,7 +114,11 @@ reference lives in `examples/` instead and this directory stays yours.
 ## Optional GitHub Work Tracking
 
 Local Epic/Story/Task files remain the default. An opt-in setting in
-`config/context_compass_config.yaml` chooses `local` or `github_codex_plugin`.
+`config/context_compass_config.yaml` chooses `local`, `github_codex_plugin` or
+`github_issues`. `github_issues` keeps tickets and every board (focus, claims,
+roster, messages, artifacts and context packs) in GitHub Issues in one
+repository, with one writer per record; it needs only a `repository` setting
+and an agent with access to it.
 Plugin mode requires a Codex `connection_nickname` and target `issues_repository`.
 The agent resolves that exact nickname before calling the plugin, rather than
 choosing a GitHub account implicitly. Plugin mode uses Issues for tickets, with Status

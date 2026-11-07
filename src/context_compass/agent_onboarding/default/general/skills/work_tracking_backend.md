@@ -7,8 +7,9 @@ after compaction or handoff. Resolve exactly one backend before ticket work.
 
 | YAML value | canonical ticket record | required general readset |
 | --- | --- | --- |
-| `local` | Markdown files in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/` | shared + Local backend baseline |
-| `github_codex_plugin` | Issue bodies in the configured GitHub repository | shared + GitHub Codex plugin baseline |
+| `local` | Markdown files in `tickets/epics/`, `tickets/stories/`, `tickets/tasks/` | shared + Local backend baseline + Local boards baseline |
+| `github_codex_plugin` | Issue bodies in the configured GitHub repository | shared + GitHub Codex plugin baseline + Local boards baseline |
+| `github_issues` | Issue bodies in the configured GitHub repository; every board is in GitHub Issues too | shared + GitHub Issues backend baseline |
 
 An absent `work_tracking` block or absent `backend` key means `local`. A blank
 value, unknown value, or contradictory configuration blocks ticket work. Do not
@@ -52,20 +53,32 @@ report the failed operation. Do not switch to local tickets, `gh`, or direct
 HTTP as an implicit fallback. CLI helpers under `github/` are optional standalone
 tools and are not part of this backend's onboarding or authentication.
 
+## GitHub Issues
+
+Require `work_tracking.github_issues.repository` in `owner/repo` form. Tickets
+and every board live in that repository's Issues, as
+`github/issues_backend.md` describes: ticket issues with a `## Route` section,
+one agent issue per agent, a header issue, cards and append-only event comments.
+Use whatever GitHub tools your harness provides; access to that repository is a
+precondition. If it is missing or denied, stop and raise it to your owner. Do
+not fall back to local tickets or local boards.
+
 ## Independent communication selector
 
 Resolve `agent_communication.backend` separately using
-`agent_communication_backend.md`. Ticket and communication selectors combine
-independently; all four combinations are supported. Default mailbox transport
-remains compatible with both ticket backends.
+`agent_communication_backend.md`. Every ticket backend combines with either
+transport. In `github_issues` mode, `mailbox` messages are events on the
+recipient's agent issue instead of rows in `mailbox_board.md`.
 
 ## Shared state and changing backends
 
-`system_of_record.enforce` is independent of backend selection. Both backends
-use local attention, artifact, context-management, and mailbox boards. System
-docs, special instructions, artifacts, context packs, and agent identities stay
-local. Plugin mode additionally uses `issue_board.md` for local agent claims.
-Boards hold references and responsibility; they do not duplicate ticket Notes.
+`system_of_record.enforce` is independent of backend selection. `local` and
+`github_codex_plugin` use local attention, artifact, context-management, and
+mailbox boards; plugin mode additionally uses `issue_board.md` for local agent
+claims. `github_issues` keeps all of these in GitHub Issues and reads none of the
+local board files. In every mode, system docs, special instructions, artifact
+files and context packs stay in the repository. Boards hold references and
+responsibility; they do not duplicate ticket Notes.
 
 Changing YAML does not migrate tickets. An agent must stop if the existing active
 route uses the other backend; follow `github/migration.md` when the owner requests
@@ -76,8 +89,9 @@ mapping and full content verification. Keep one editable record for each ticket.
 
 `files` is a legacy alias for `local`, so older local installs keep working.
 The earlier `github` value selected a CLI/Project workflow and is not an alias
-for `github_codex_plugin`. Stop and ask the owner to select the new explicit
-value before acting; do not change an existing transport automatically.
+for `github_codex_plugin` or `github_issues`. Stop and ask the owner to select
+the new explicit value before acting; do not change an existing transport
+automatically.
 
 Upgrade tools preserve existing `work_tracking` blocks. To opt into the plugin
 from an older config, explicitly set `backend: github_codex_plugin` and create

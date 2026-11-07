@@ -43,8 +43,10 @@ Start a new Context Compass lane in a structured way:
 Resolve YAML before ticket work. In `local`, create the existing template files
 and use relative paths. In `github_codex_plugin`, create template bodies through
 the plugin in the configured repository, link parents/children by Issue URL,
-and add the primary claims to `issue_board.md`. The shared patch/artifact gates
-and lane-shape decisions apply in both modes. Use the selected backend's already
+and add the primary claims to `issue_board.md`. In `github_issues`, create the
+Issues with your GitHub tools, write each ticket's `## Route` and post your
+`claim` on it. The shared patch/artifact gates and lane-shape decisions apply
+in every backend. Use the selected backend's already
 read general workflow; do not create a parallel local ticket for an Issue.
 
 ## Phase Sequence

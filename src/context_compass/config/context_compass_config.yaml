@@ -48,16 +48,20 @@ system_of_record:
   enforce: true
 
 # This chooses where Epic/Story/Task tickets live. It does not change the
-# system-of-record mandate or move system docs, mailbox, or agent coordination.
+# system-of-record mandate or move system docs. Only github_issues also moves the
+# boards (attention, claims, mailbox, artifacts, context packs) into GitHub Issues.
 work_tracking:
-  backend: local # local | github_codex_plugin; absent means local
+  backend: local # local | github_codex_plugin | github_issues; absent means local
   github_codex_plugin:
     connection_nickname: "" # Codex connection nickname; required only for plugin operations
     issues_repository: "" # owner/repo; required only for github_codex_plugin
     project_url: "" # optional context link; Issue body Status remains authoritative
+  github_issues:
+    repository: "" # owner/repo holding tickets and every board; keep it private; required only for github_issues
 
 # This selects agent-to-agent message transport, not ticket storage or state.
-# Roster and setup outcomes remain on the existing local board.
+# Roster and setup outcomes stay on the local mailbox board, or on agent issues
+# in github_issues mode.
 agent_communication:
   backend: mailbox # mailbox | codex_mcp; absent means mailbox
 

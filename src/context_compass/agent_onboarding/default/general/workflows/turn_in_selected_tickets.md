@@ -41,7 +41,8 @@ Resolve YAML and fetch/read the candidate tickets before asking for selection.
 `all` means the displayed candidate set, never every Issue in the repository.
 Local closure uses the inherited local closure skill. Plugin closure preserves
 the Issue body and Notes, records completion, verifies the body, closes through
-the plugin, and releases the local claim. Use the selected backend's workflow
+the plugin, and releases the local claim. `github_issues` closure does the same
+through your GitHub tools, then removes `cc-active`. Use the selected backend's workflow
 and keep its acceptance gate and board/artifact sync rules.
 
 ## Phase Sequence

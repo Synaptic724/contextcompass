@@ -183,9 +183,10 @@ copy is in version control.
 ## Turning the backlog into work - ON DEMAND
 
 Resolve the ticket backend first. The `--create` command below writes local
-ticket files and applies only to `local`. With `github_codex_plugin`, use the
-dry-run findings to compose the existing Epic/Story/Task bodies through the
-plugin instead; keep local ticket folders inactive for that work.
+ticket files and applies only to `local`. With `github_codex_plugin` or
+`github_issues`, use the dry-run findings to compose the existing
+Epic/Story/Task bodies as Issues instead; keep local ticket folders inactive
+for that work.
 
 The helper reads `config/context_compass_config.yaml` beside the selected ticket
 lane. It refuses `--create` in plugin mode and previews only the graph census,

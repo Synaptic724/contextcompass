@@ -198,7 +198,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("token-report", help="report source tokens for every role and reading route")
     p.add_argument("--install", type=pathlib.Path, default=None)
     p.add_argument("--role", help="registered role for a detailed path explanation")
-    p.add_argument("--ticket-backend", choices=("local", "github_codex_plugin"))
+    p.add_argument("--ticket-backend", choices=("local", "github_codex_plugin", "github_issues"))
     p.add_argument("--communication-backend", choices=("mailbox", "codex_mcp"))
     p.add_argument("--event", choices=("onboard", "reonboard"), default="onboard")
     p.add_argument("--reading-mode", choices=("lean", "full"),

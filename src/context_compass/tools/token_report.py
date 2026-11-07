@@ -258,7 +258,7 @@ def markdown(report):
     for name, role in report["roles"].items():
         out.append(f"| {name} | {role['parent'] or '-'} | {'yes' if role['selectable_after_onboarding'] else 'entry-only'} | {'yes' if role['user_defined'] else 'no'} | {'yes' if role['reads_readme'] else 'no'} |")
     out += ["", "## All Route Choices", "",
-            "Each role is expanded across both ticket backends, both communication modes and onboarding/recovery.",
+            "Each role is expanded across every ticket backend, both communication modes and onboarding/recovery.",
             "Known tokens deduplicate shared paths. Session-specific text is additional and unknown.",
             "Lazy tokens are the full files this route can load by trigger; `full` mode adds them up front.", "",
             "| Role | Ticket backend | Messages | Entry | Known tokens | Lazy tokens | Unmeasured paths | Session-specific paths |",

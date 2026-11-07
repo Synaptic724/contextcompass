@@ -4,6 +4,8 @@ Purpose
 - Canonical index of active context-management associations.
 - Track reusable reread packs linked to tickets.
 - Keep `attention_board.md` ticket-only and free of context-artifact paths.
+- Unused in `github_issues` mode: each ticket's Context Management section holds
+  its context packs.
 
 Scope rules
 - `attention_board.md` routes tickets only; do not add context artifact paths
