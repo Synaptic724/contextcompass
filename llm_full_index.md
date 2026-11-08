@@ -13,10 +13,10 @@ Line numbers are 1-based and inclusive on both ends, matching
 | --- | --- |
 | document | `llm_full.md` |
 | index_version | 1.0.0 |
-| generated_at | 2026-11-07T19:50:20Z |
-| line_count | 35950 |
+| generated_at | 2026-11-08T01:01:40Z |
+| line_count | 35966 |
 | line_ending | lf |
-| content_sha256 | `2bfb26555bea44d8ca4cf3321dcb6f42368fb0ed3c4df4ef918d45199550cf9c` |
+| content_sha256 | `5473638c4c45c32b0778d4143476042908f5cb45f1775a88dc016929f65018a3` |
 | files | 475 |
 
 Recompute `line_count` and `content_sha256` before slicing. On any
@@ -502,12 +502,12 @@ python tools/build_llm_full.py --root . --out llm_full.md --slice AGENTS.MD
 | 31274-31581 | `context_compass/tools/reading_routes.py` | 308 | 15609 |
 | 31583-32113 | `context_compass/tools/system_documents/index_document.py` | 531 | 24503 |
 | 32115-32515 | `context_compass/tools/system_documents/python/assemble_graph.py` | 401 | 17544 |
-| 32517-33253 | `context_compass/tools/system_documents/python/extract_graph.py` | 737 | 34667 |
-| 33255-33766 | `context_compass/tools/system_documents/python/graph_semantics_tickets.py` | 512 | 21224 |
-| 33768-34166 | `context_compass/tools/system_documents/python/graph_walker.py` | 399 | 17757 |
-| 34168-34350 | `context_compass/tools/system_documents/python/migrate_authored_graph.py` | 183 | 7107 |
-| 34352-34479 | `context_compass/tools/ticket_backend.py` | 128 | 4771 |
-| 34481-35003 | `context_compass/tools/ticket_design.py` | 523 | 27540 |
-| 35005-35371 | `context_compass/tools/token_report.py` | 367 | 22105 |
-| 35373-35895 | `context_compass/tools/update_context_compass.py` | 523 | 25014 |
-| 35897-35949 | `context_compass/user_defined/README.md` | 53 | 2065 |
+| 32517-33258 | `context_compass/tools/system_documents/python/extract_graph.py` | 742 | 35045 |
+| 33260-33771 | `context_compass/tools/system_documents/python/graph_semantics_tickets.py` | 512 | 21224 |
+| 33773-34181 | `context_compass/tools/system_documents/python/graph_walker.py` | 409 | 18103 |
+| 34183-34366 | `context_compass/tools/system_documents/python/migrate_authored_graph.py` | 184 | 7211 |
+| 34368-34495 | `context_compass/tools/ticket_backend.py` | 128 | 4771 |
+| 34497-35019 | `context_compass/tools/ticket_design.py` | 523 | 27540 |
+| 35021-35387 | `context_compass/tools/token_report.py` | 367 | 22105 |
+| 35389-35911 | `context_compass/tools/update_context_compass.py` | 523 | 25014 |
+| 35913-35965 | `context_compass/user_defined/README.md` | 53 | 2065 |

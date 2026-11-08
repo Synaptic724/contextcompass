@@ -164,7 +164,8 @@ def main() -> int:
             d["nodes"][nid].update(authored)
         if edges:
             d["edges_authored"] = edges
-        path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+        # Exactly as extract_graph.py writes it, so the next extraction rewrites nothing.
+        path.write_text(json.dumps(d, indent=1) + "\n", encoding="utf-8", newline="\n")
         written += 1
 
     print()

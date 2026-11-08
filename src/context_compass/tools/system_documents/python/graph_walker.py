@@ -63,6 +63,16 @@ def load(root: pathlib.Path) -> dict[pathlib.Path, dict]:
     return out
 
 
+def write_descriptor(path: pathlib.Path, d: dict) -> None:
+    """Write a descriptor exactly as extract_graph.py does: `indent=1`, LF.
+
+    The extractor owns these files and rewrites every one on each run. Written
+    any other way, a one-line stamp becomes a whole-file diff, and the next
+    extraction reverses it line by line.
+    """
+    path.write_text(json.dumps(d, indent=1) + "\n", encoding="utf-8", newline="\n")
+
+
 def stranded_descriptors(descriptors: dict[pathlib.Path, dict],
                          src_root: pathlib.Path) -> list[tuple[pathlib.Path, str, int]]:
     """Descriptors whose source file no longer exists.
@@ -265,7 +275,7 @@ def accept(descriptors: dict[pathlib.Path, dict], ids: list[str], apply: bool) -
                 node[STAMP] = node.get("span_sha256", "")
                 touched = True
         if touched:
-            path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+            write_descriptor(path, d)
             written += 1
     print(f"\n  ACCEPTED into {written} descriptor(s). Reassemble to refresh the document.")
     return 0 if not missing else 1
@@ -344,7 +354,7 @@ def reconcile(descriptors: dict[pathlib.Path, dict], assume_yes: bool) -> int:
     written = 0
     for path, d in descriptors.items():
         if d.pop("nodes_retired", None):
-            path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+            write_descriptor(path, d)
             written += 1
     print(f"\n  RECONCILED: cleared retired nodes from {written} descriptor(s).")
     print("  Reassemble to refresh the document.")

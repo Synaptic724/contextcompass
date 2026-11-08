@@ -8,6 +8,7 @@ import pytest
 
 import assemble_graph as ag
 import extract_graph as eg
+import graph_walker as gw
 
 pytestmark = pytest.mark.unit
 
@@ -143,6 +144,40 @@ class TestMergeRestoration:
         assert merged["nodes"]["demo.Resource"] == mechanical
         assert merged["nodes_retired"] == old["nodes_retired"]
         assert not any(note.startswith("RESTORED") for note in notes)
+
+
+NO_STAMP = object()
+
+
+class TestOneStampRule:
+    """The extractor and the walker read the same stamp, so they must reach the
+    same verdict on it. The extractor tested the stamp for truthiness while the
+    walker tests for its key, so a module node accepted with an empty stamp was
+    AUTHORED to the walker and UNVERIFIED to the extractor, however often it was
+    accepted."""
+
+    @pytest.mark.parametrize("span,stamp,state", [
+        pytest.param(None, NO_STAMP, "SEMANTICS_STALE", id="module-never-accepted"),
+        pytest.param(None, "", "AUTHORED", id="module-accepted"),
+        pytest.param("span", NO_STAMP, "SEMANTICS_STALE", id="class-never-accepted"),
+        pytest.param("span", "span", "AUTHORED", id="class-accepted"),
+        pytest.param("span", "old", "SEMANTICS_STALE", id="class-moved-since"),
+        pytest.param("span", "", "SEMANTICS_STALE", id="class-empty-stamp"),
+    ])
+    def test_the_extractor_flags_exactly_what_the_walker_calls_stale(self, span, stamp, state):
+        nid = "app.mod"
+        mechanical = {"id": nid, "label": "mod", "file": "src/app/mod.py"}
+        if span is not None:
+            mechanical["span_sha256"] = span
+        authored = {"id": nid, "role": "authored"}
+        if stamp is not NO_STAMP:
+            authored["semantics_authored_against"] = stamp
+
+        merged, notes = eg.merge({"nodes": {nid: dict(mechanical)}}, {"nodes": {nid: authored}})
+
+        assert gw.state_of(merged["nodes"][nid]) == state
+        flagged = [n for n in notes if n.startswith(("UNVERIFIED", "SEMANTICS_STALE"))]
+        assert bool(flagged) == (state == "SEMANTICS_STALE"), notes
 
 
 class TestFmtCell:

@@ -873,7 +873,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.23.1 |
+| package_version | 2.23.2 |
 | files | 474 |
 
 ## Lane policy
@@ -1370,10 +1370,10 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/reading_routes.py` | PACKAGE | `c6a222cef4ca1903c131180c30c4e0999a6f9a5ca98c44ea5d9253fa42ea62e1` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
-| `tools/system_documents/python/extract_graph.py` | PACKAGE | `c7202b5919315fdf1b99cefd87675b172e5ced7640278a252f1f682e7a8dbd0f` |
+| `tools/system_documents/python/extract_graph.py` | PACKAGE | `96e8705e22b8e983f5324ecf91dc029a0fb6b1f54b096e7945f4d7cbc9f506fe` |
 | `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `486fc5659d1c24a7c38237eddd4f1dc454b1d86e0596667f44205da500fa7afa` |
-| `tools/system_documents/python/graph_walker.py` | PACKAGE | `be0aa367a5f9bd66bb5adddba7dde4294abb44a9926dd981d20ab6500e6d7a02` |
-| `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `478b9e7e77520ab65c1cc5aaa8445a8083e48390088e1168c0557b70b03b3687` |
+| `tools/system_documents/python/graph_walker.py` | PACKAGE | `86d06a8f34e1d5c143d3daea1f5244ce64986b3f50e745cd726219f518eb994c` |
+| `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `73a14dd39e0462a099dbaee986e6ee64fc4cc4fe3cde4a9efc0e0c0d790b7cde` |
 | `tools/ticket_backend.py` | PACKAGE | `db7ee553cdd57fe2e99c4f9dc4d4cae2074edf87056c80106a006761412c207f` |
 | `tools/ticket_design.py` | PACKAGE | `314a1fffeec0a8bd826f2a6fa662dfa7e54e35f8b3401e3666f59e165cd203dd` |
 | `tools/TOKEN_REPORT.md` | PACKAGE | `3b2dd0311c1a73227aff0248bcd117476d285fc44372c64cd8ff44d74cc8accb` |
@@ -33015,7 +33015,7 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         # no longer works that way, and nothing says which.
         stamp = node.get("semantics_authored_against")
         current = node.get("span_sha256", "")
-        if not stamp:
+        if "semantics_authored_against" not in node:
             # NOT STAMPED, AND THE EXTRACTOR DOES NOT STAMP IT.
             #
             # This used to auto-stamp the node against current source so it would
@@ -33030,6 +33030,11 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
             # is what it is: unverified. The first run after upgrading will show a
             # large stale count, and that count is the truth being reported for the
             # first time rather than a regression.
+            #
+            # Test for the KEY, as graph_walker.py's `state_of` does. A module node
+            # has no `span_sha256`, so `--accept` stamps it with "", and that is a
+            # real acceptance. Testing truthiness here kept such a node UNVERIFIED
+            # however often it was accepted, while the walker counted it AUTHORED.
             notes.append(f"UNVERIFIED node {nid} - authored prose with no stamp; "
                          f"reports SEMANTICS_STALE until read and --accept'ed")
         elif current and stamp != current:
@@ -33832,6 +33837,16 @@ def load(root: pathlib.Path) -> dict[pathlib.Path, dict]:
     return out
 
 
+def write_descriptor(path: pathlib.Path, d: dict) -> None:
+    """Write a descriptor exactly as extract_graph.py does: `indent=1`, LF.
+
+    The extractor owns these files and rewrites every one on each run. Written
+    any other way, a one-line stamp becomes a whole-file diff, and the next
+    extraction reverses it line by line.
+    """
+    path.write_text(json.dumps(d, indent=1) + "\n", encoding="utf-8", newline="\n")
+
+
 def stranded_descriptors(descriptors: dict[pathlib.Path, dict],
                          src_root: pathlib.Path) -> list[tuple[pathlib.Path, str, int]]:
     """Descriptors whose source file no longer exists.
@@ -34034,7 +34049,7 @@ def accept(descriptors: dict[pathlib.Path, dict], ids: list[str], apply: bool) -
                 node[STAMP] = node.get("span_sha256", "")
                 touched = True
         if touched:
-            path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+            write_descriptor(path, d)
             written += 1
     print(f"\n  ACCEPTED into {written} descriptor(s). Reassemble to refresh the document.")
     return 0 if not missing else 1
@@ -34113,7 +34128,7 @@ def reconcile(descriptors: dict[pathlib.Path, dict], assume_yes: bool) -> int:
     written = 0
     for path, d in descriptors.items():
         if d.pop("nodes_retired", None):
-            path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+            write_descriptor(path, d)
             written += 1
     print(f"\n  RECONCILED: cleared retired nodes from {written} descriptor(s).")
     print("  Reassemble to refresh the document.")
@@ -34333,7 +34348,8 @@ def main() -> int:
             d["nodes"][nid].update(authored)
         if edges:
             d["edges_authored"] = edges
-        path.write_text(json.dumps(d, indent=2) + "\n", encoding="utf-8")
+        # Exactly as extract_graph.py writes it, so the next extraction rewrites nothing.
+        path.write_text(json.dumps(d, indent=1) + "\n", encoding="utf-8", newline="\n")
         written += 1
 
     print()

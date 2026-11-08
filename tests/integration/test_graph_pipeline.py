@@ -282,6 +282,19 @@ class TestMigrate:
         assert d["edges_authored"][0]["relation"] == "owns_lifecycle_of"
         assert d["edges_authored"][0]["why"] == "Engine constructs its stages."
 
+    def test_the_next_extraction_leaves_a_migrated_descriptor_unchanged(
+            self, descriptors, legacy, mock_source_tree):
+        """The migration writes descriptors exactly as the extractor does
+        (`indent=1`, LF), so the first extraction after it rewrites nothing."""
+        res = run_tool(MIGRATE, "--legacy", legacy, "--descriptors", descriptors, "--apply")
+        assert res.returncode == 0, res.stdout
+        p = descriptors / "app" / "engine.json"
+        migrated = p.read_bytes()
+        assert b"\r" not in migrated
+
+        assert run_tool(EXTRACT, "--src", mock_source_tree, "--out", descriptors).returncode == 0
+        assert p.read_bytes() == migrated
+
     def test_refuses_without_apply(self, descriptors, legacy):
         res = run_tool(MIGRATE, "--legacy", legacy, "--descriptors", descriptors)
         assert res.returncode == 2

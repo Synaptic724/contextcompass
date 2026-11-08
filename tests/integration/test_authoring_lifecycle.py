@@ -212,6 +212,27 @@ class TestSemanticsStale:
         run_tool(EXTRACT, "--src", src, "--out", desc)
         assert nodes(p)["app.thing.Alpha"]["semantics_authored_against"] == before
 
+    def test_an_accepted_module_node_is_authored_to_both_tools(self, graph):
+        """A module node covers a whole file and has no `span_sha256`, so its
+        accept stamps it with "". The walker counted that AUTHORED while the
+        extractor kept listing the node UNVERIFIED, so the module could never
+        leave the extractor's list."""
+        src, desc, p = graph
+        d = json.loads(p.read_text())
+        assert "span_sha256" not in d["nodes"]["app.thing"]
+        d["nodes"]["app.thing"]["role"] = "authored for the module"
+        p.write_text(json.dumps(d, indent=2))
+        res = run_tool(WALKER, "--descriptors", desc, "--accept", "app.thing", "--apply")
+        assert res.returncode == 0, res.stdout
+        assert nodes(p)["app.thing"]["semantics_authored_against"] == ""
+
+        res = run_tool(EXTRACT, "--src", src, "--out", desc)
+        assert res.returncode == 0, res.stderr
+        assert "UNVERIFIED" not in res.stdout
+        assert "SEMANTICS_STALE" not in res.stdout
+        report = run_tool(WALKER, "--descriptors", desc, "--report").stdout
+        assert f"{'AUTHORED':<18} {3:>6}" in report
+
 
 class TestWalkerReport:
     def test_reports_the_four_state_census(self, graph):
@@ -320,3 +341,42 @@ class TestWalkerAccept:
         res = run_tool(WALKER, "--descriptors", desc, "--accept", "no.such.Node", "--apply")
         assert "NOT FOUND" in res.stdout
         assert res.returncode == 1
+
+
+class TestWalkerWritesLikeTheExtractor:
+    """The walker rewrites descriptors the extractor owns, so it must write them
+    the same way: `indent=1` and LF. It wrote `indent=2`, and CRLF on Windows, so
+    every accept rewrote every line of its file and the next extraction rewrote
+    them all back - a whole-file diff each way for a one-line stamp."""
+
+    def test_an_accept_changes_only_the_stamp(self, graph):
+        src, desc, p = graph
+        write(src / "app" / "thing.py", TWO_CLASSES.replace("return 1", "return 999"))
+        assert run_tool(EXTRACT, "--src", src, "--out", desc).returncode == 0
+        extracted = p.read_bytes()
+        alpha = nodes(p)["app.thing.Alpha"]
+        old, new = alpha["semantics_authored_against"].encode(), alpha["span_sha256"].encode()
+        assert old != new and extracted.count(old) == 1
+
+        res = run_tool(WALKER, "--descriptors", desc, "--accept", "app.thing.Alpha", "--apply")
+        assert res.returncode == 0, res.stdout
+        accepted = p.read_bytes()
+        assert accepted == extracted.replace(old, new)
+
+        assert run_tool(EXTRACT, "--src", src, "--out", desc).returncode == 0
+        assert p.read_bytes() == accepted, "the next extraction must change nothing"
+
+    def test_a_reconcile_leaves_nothing_for_the_next_extraction(self, graph):
+        src, desc, p = graph
+        write(src / "app" / "thing.py", "class Alpha:\n    def run(self):\n        return 1\n")
+        assert run_tool(EXTRACT, "--src", src, "--out", desc).returncode == 0
+        assert "app.thing.Gamma" in json.loads(p.read_text())["nodes_retired"]
+
+        res = run_tool(WALKER, "--descriptors", desc, "--reconcile", "--yes")
+        assert res.returncode == 0, res.stdout
+        reconciled = p.read_bytes()
+        assert b"nodes_retired" not in reconciled
+        assert b"\r" not in reconciled
+
+        assert run_tool(EXTRACT, "--src", src, "--out", desc).returncode == 0
+        assert p.read_bytes() == reconciled, "the next extraction must change nothing"
