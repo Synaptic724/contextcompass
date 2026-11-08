@@ -497,7 +497,7 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
         # no longer works that way, and nothing says which.
         stamp = node.get("semantics_authored_against")
         current = node.get("span_sha256", "")
-        if not stamp:
+        if "semantics_authored_against" not in node:
             # NOT STAMPED, AND THE EXTRACTOR DOES NOT STAMP IT.
             #
             # This used to auto-stamp the node against current source so it would
@@ -512,6 +512,11 @@ def merge(new: dict[str, Any], old: dict[str, Any] | None) -> tuple[dict[str, An
             # is what it is: unverified. The first run after upgrading will show a
             # large stale count, and that count is the truth being reported for the
             # first time rather than a regression.
+            #
+            # Test for the KEY, as graph_walker.py's `state_of` does. A module node
+            # has no `span_sha256`, so `--accept` stamps it with "", and that is a
+            # real acceptance. Testing truthiness here kept such a node UNVERIFIED
+            # however often it was accepted, while the walker counted it AUTHORED.
             notes.append(f"UNVERIFIED node {nid} - authored prose with no stamp; "
                          f"reports SEMANTICS_STALE until read and --accept'ed")
         elif current and stamp != current:

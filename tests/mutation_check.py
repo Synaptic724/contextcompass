@@ -243,14 +243,26 @@ MUTATIONS: list[tuple[str, str, str, str]] = [
     (
         "graph: every authored node is flagged stale on first run",
         "tools/system_documents/python/extract_graph.py",
-        "        if not stamp:",
+        '        if "semantics_authored_against" not in node:',
         "        if False:",
+    ),
+    (
+        "graph: an accepted module node stays UNVERIFIED",
+        "tools/system_documents/python/extract_graph.py",
+        '        if "semantics_authored_against" not in node:',
+        "        if not stamp:",
     ),
     (
         "walker: a stale node reports as AUTHORED",
         "tools/system_documents/python/graph_walker.py",
-        "    if stamp and current and stamp != current:\n        return \"SEMANTICS_STALE\"",
+        "    if current and stamp != current:\n        return \"SEMANTICS_STALE\"",
         "    if False:\n        return \"SEMANTICS_STALE\"",
+    ),
+    (
+        "walker: accept and reconcile write another format than the extractor",
+        "tools/system_documents/python/graph_walker.py",
+        '    path.write_text(json.dumps(d, indent=1) + "\\n", encoding="utf-8", newline="\\n")',
+        '    path.write_text(json.dumps(d, indent=2) + "\\n", encoding="utf-8")',
     ),
     (
         "walker: accept writes without --apply",
