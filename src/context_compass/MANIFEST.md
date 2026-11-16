@@ -6,7 +6,7 @@ from the files themselves, which is the only reason it can be trusted.
 | field | value |
 | --- | --- |
 | manifest_version | 1.0.0 |
-| package_version | 2.23.2 |
+| package_version | 2.23.3 |
 | files | 474 |
 
 ## Lane policy
@@ -129,7 +129,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `agent_onboarding/default/engineer/skills/patch_artifact_consumption.md` | PACKAGE | `ef21a63c7d632ab30ed07777c664a8221ca8ef02566212e85f68bdf683fd349d` |
 | `agent_onboarding/default/engineer/skills/patch_framework_gating.md` | PACKAGE | `087ba842ecd75fe29bb66d75366882f688f2cb3f2e3596a5f24a397d9414fc5a` |
 | `agent_onboarding/default/engineer/skills/src_graph_generation.md` | PACKAGE | `d1cea78b0ad7ffa50141661dca4deb695ae27c12b491d9c5797fc9c0ba980d9b` |
-| `agent_onboarding/default/engineer/skills/src_graph_usage.md` | PACKAGE | `52a7015595450ba1022f2cc3baae4c6e2dffdf161da60528de0b39f1064440c6` |
+| `agent_onboarding/default/engineer/skills/src_graph_usage.md` | PACKAGE | `735fa2beb0f93e594f1e69aa80a25d83cb25654561d4a6bc0269c638ef660f57` |
 | `agent_onboarding/default/engineer/skills/staleness_protocol.md` | PACKAGE | `f9a4ffd6221f01d03e2d659238f76aafcf7e4b8813d3b9ac5ba0577f932e3f86` |
 | `agent_onboarding/default/engineer/skills/system_document_build.md` | PACKAGE | `b53ca5318f8d695929014ce745e7ff3ffd343a0fda2c23a7354fa87a14220c1e` |
 | `agent_onboarding/default/engineer/skills/system_orientation.md` | PACKAGE | `6791c2395ed9764a735bb51b403d2f0d15d13bfd195fa4f5c648d56b3c3c935a` |
@@ -503,7 +503,7 @@ Everything outside them is STRICT: an upgrade sweeps what is not listed here.
 | `tools/reading_routes.py` | PACKAGE | `c6a222cef4ca1903c131180c30c4e0999a6f9a5ca98c44ea5d9253fa42ea62e1` |
 | `tools/system_documents/index_document.py` | PACKAGE | `b17bcea2f4cb527fe5daf23b1e022099210ebdc9ca5c665bd09f21f94bb75753` |
 | `tools/system_documents/python/assemble_graph.py` | PACKAGE | `3edd275ed237f458cf6802e2e5e93227b146fad9607b0db52eb8680575fb5ea4` |
-| `tools/system_documents/python/extract_graph.py` | PACKAGE | `96e8705e22b8e983f5324ecf91dc029a0fb6b1f54b096e7945f4d7cbc9f506fe` |
+| `tools/system_documents/python/extract_graph.py` | PACKAGE | `79b00b4156461276bcc5fe1ac0fb4f918cc3ebeb186fa423b2349798c2f76c1c` |
 | `tools/system_documents/python/graph_semantics_tickets.py` | PACKAGE | `486fc5659d1c24a7c38237eddd4f1dc454b1d86e0596667f44205da500fa7afa` |
 | `tools/system_documents/python/graph_walker.py` | PACKAGE | `86d06a8f34e1d5c143d3daea1f5244ce64986b3f50e745cd726219f518eb994c` |
 | `tools/system_documents/python/migrate_authored_graph.py` | PACKAGE | `73a14dd39e0462a099dbaee986e6ee64fc4cc4fe3cde4a9efc0e0c0d790b7cde` |

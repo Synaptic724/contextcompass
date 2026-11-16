@@ -235,6 +235,12 @@ MUTATIONS: list[tuple[str, str, str, str]] = [
         '                      "span_sha256": hashlib.sha256(raw).hexdigest()}',
     ),
     (
+        "extract: the source hash depends on the checkout's line endings",
+        "tools/system_documents/python/extract_graph.py",
+        '    return hashlib.sha256(raw.replace(b"\\r\\n", b"\\n")).hexdigest()',
+        "    return hashlib.sha256(raw).hexdigest()",
+    ),
+    (
         "graph: a changed span no longer flags SEMANTICS_STALE",
         "tools/system_documents/python/extract_graph.py",
         "        elif current and stamp != current:",
