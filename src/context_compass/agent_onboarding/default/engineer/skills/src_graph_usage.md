@@ -85,7 +85,16 @@ renders. Edge candidates are not counted - they are guesses, not edges.
 ## What each section contains
 
 - `source_sha256` of the source file at generation time. If you are reasoning
-  about current code, check it against the file on disk.
+  about current code, check it against the file on disk, hashed the way the
+  extractor hashes it: with CRLF turned into LF, so the answer is the same on
+  every checkout.
+
+  ```python
+  import hashlib, pathlib
+
+  raw = pathlib.Path("src/app/engine.py").read_bytes()
+  current = hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
+  ```
 - **Nodes**: id, kind (`module`, `class`, `interface`, `abstract`, `enum`,
   `record`), definition line, bases, markers, public methods, and the authored
   fields (`role`, `responsibilities`, `owns_state`, `phases`) when present.

@@ -9,6 +9,7 @@ import pytest
 import assemble_graph as ag
 import extract_graph as eg
 import graph_walker as gw
+from conftest import PKG_ROOT
 
 pytestmark = pytest.mark.unit
 
@@ -178,6 +179,14 @@ class TestOneStampRule:
         assert gw.state_of(merged["nodes"][nid]) == state
         flagged = [n for n in notes if n.startswith(("UNVERIFIED", "SEMANTICS_STALE"))]
         assert bool(flagged) == (state == "SEMANTICS_STALE"), notes
+
+
+def test_the_usage_guide_checks_source_the_way_the_extractor_hashes_it():
+    """The guide tells agents to compare `source_sha256` with the file on disk.
+    A plain hash of the file disagrees on any checkout with other line endings,
+    so the guide has to normalize exactly as the extractor does."""
+    guide = PKG_ROOT / "agent_onboarding" / "default" / "engineer" / "skills" / "src_graph_usage.md"
+    assert 'hashlib.sha256(raw.replace(b"\\r\\n", b"\\n")).hexdigest()' in guide.read_text(encoding="utf-8")
 
 
 class TestFmtCell:

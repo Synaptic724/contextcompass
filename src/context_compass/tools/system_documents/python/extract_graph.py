@@ -280,6 +280,20 @@ def span_sha(raw: bytes, node: ast.AST) -> str:
     return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()
 
 
+def source_sha(raw: bytes) -> str:
+    """Hash of a whole source file, the same on every checkout of one commit.
+
+    Git with `core.autocrlf=true` checks a file out with CRLF line endings on
+    Windows and LF elsewhere, so a hash of the raw bytes changed with the
+    checkout rather than the code, and every extraction rewrote descriptors
+    whose source had not moved. Turning CRLF into LF first undoes exactly that
+    conversion and nothing else: a file that is already LF keeps the hash it
+    always had, so settling an install rewrites only the descriptors a CRLF
+    checkout wrote. `span_sha` reaches the same independence by joining lines.
+    """
+    return hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
+
+
 def extract(path: pathlib.Path, src_root: pathlib.Path,
             skips: list[tuple[str, str]] | None = None) -> dict[str, Any] | None:
     """Parse one source file into a mechanical descriptor.
@@ -391,7 +405,7 @@ def extract(path: pathlib.Path, src_root: pathlib.Path,
     return {
         "schema_version": SCHEMA_VERSION,
         "source": f"{src_root.name}/{rel}",
-        "source_sha256": hashlib.sha256(raw).hexdigest(),
+        "source_sha256": source_sha(raw),
         "generator": "tools/system_documents/python/extract_graph.py",
         "nodes": nodes,
         "edges_out": edges,

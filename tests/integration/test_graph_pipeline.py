@@ -9,6 +9,7 @@ empty authored layer is also what a brand new project looks like.
 
 from __future__ import annotations
 
+import hashlib
 import json
 
 import pytest
@@ -123,6 +124,39 @@ class TestExtract:
         before = {p: p.read_bytes() for p in out.rglob("*.json")}
         run_tool(EXTRACT, "--src", mock_source_tree, "--out", out, "--check")
         assert {p: p.read_bytes() for p in out.rglob("*.json")} == before
+
+
+class TestSourceHashIgnoresLineEndings:
+    """One source file has one `source_sha256`, whatever line endings its
+    checkout gave it. The hash was taken over raw bytes, so a CRLF checkout and
+    an LF checkout of one commit disagreed, and every extraction rewrote
+    descriptors whose source had not changed."""
+
+    SOURCE = "class Alpha:\n    def run(self):\n        return 1\n"
+
+    @staticmethod
+    def extract(root, text):
+        write(root / "src" / "app" / "thing.py", text)
+        res = run_tool(EXTRACT, "--src", root / "src", "--out", root / "desc")
+        assert res.returncode == 0, res.stderr
+        return root / "desc" / "app" / "thing.json"
+
+    def test_crlf_and_lf_copies_of_one_file_hash_the_same(self, tmp_path):
+        lf = json.loads(self.extract(tmp_path / "lf", self.SOURCE).read_text())
+        crlf = json.loads(self.extract(tmp_path / "crlf", self.SOURCE.replace("\n", "\r\n")).read_text())
+        assert crlf["source_sha256"] == lf["source_sha256"]
+
+    def test_an_lf_file_keeps_its_raw_byte_hash(self, tmp_path):
+        """Normalizing must not move the hash of a file that is already LF, or
+        settling would rewrite every descriptor in every install for nothing."""
+        d = json.loads(self.extract(tmp_path, self.SOURCE).read_text())
+        assert d["source_sha256"] == hashlib.sha256(self.SOURCE.encode("utf-8")).hexdigest()
+
+    def test_a_checkout_with_other_line_endings_rewrites_nothing(self, tmp_path):
+        p = self.extract(tmp_path, self.SOURCE)
+        before = p.read_bytes()
+        self.extract(tmp_path, self.SOURCE.replace("\n", "\r\n"))
+        assert p.read_bytes() == before
 
 
 class TestAuthoredTierSurvivesReExtraction:
